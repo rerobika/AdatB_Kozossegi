@@ -1,5 +1,5 @@
 # AdatB_Kozossegi
-Adatbázis alapú rendszerek projektmunka
+AdatbĂˇzis alapĂş rendszerek projektmunka
 
 asdasdasdasd
 efsdf
