@@ -1,127 +1,6 @@
 --------------------------------------------------------
---  File created - szombat-m√°rcius-25-2017   
+--  File created - szerda-m·rcius-29-2017   
 --------------------------------------------------------
---------------------------------------------------------
---  DDL for Table ALBUM
---------------------------------------------------------
-
-  CREATE TABLE "H668895"."ALBUM" 
-   (	"FELHASZNALOID" NUMBER, 
-	"NEV" VARCHAR2(20 BYTE), 
-	"IDO" TIMESTAMP (6)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Table ERTESITES
---------------------------------------------------------
-
-  CREATE TABLE "H668895"."ERTESITES" 
-   (	"KINEK" NUMBER, 
-	"IDO" TIMESTAMP (6), 
-	"SZOVEG" VARCHAR2(255 BYTE)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Table FELHASZNALO
---------------------------------------------------------
-
-  CREATE TABLE "H668895"."FELHASZNALO" 
-   (	"ID" NUMBER(*,0), 
-	"NEV" VARCHAR2(50 BYTE)
-   ) SEGMENT CREATION IMMEDIATE 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Table HOBBI
---------------------------------------------------------
-
-  CREATE TABLE "H668895"."HOBBI" 
-   (	"HOBBIID" NUMBER, 
-	"NEV" VARCHAR2(20 BYTE)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Table ISKOLA
---------------------------------------------------------
-
-  CREATE TABLE "H668895"."ISKOLA" 
-   (	"ISKOLAID" NUMBER, 
-	"NEV" VARCHAR2(20 BYTE)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Table ISMER
---------------------------------------------------------
-
-  CREATE TABLE "H668895"."ISMER" 
-   (	"KIID" NUMBER, 
-	"KIVELID" NUMBER, 
-	"STATUSZ" NUMBER, 
-	"IDO" TIMESTAMP (6)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Table KEPEK
---------------------------------------------------------
-
-  CREATE TABLE "H668895"."KEPEK" 
-   (	"ALBUMNEV" VARCHAR2(20 BYTE), 
-	"ALBUMIDO" TIMESTAMP (6), 
-	"ELERESIUT" VARCHAR2(255 BYTE), 
-	"ID" NUMBER
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Table KLUB
---------------------------------------------------------
-
-  CREATE TABLE "H668895"."KLUB" 
-   (	"ID" NUMBER(*,0), 
-	"TULAJDONOS" NUMBER(*,0), 
-	"KEZDET" DATE, 
-	"LEIRAS" VARCHAR2(255 BYTE)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Table LAKHELY
---------------------------------------------------------
-
-  CREATE TABLE "H668895"."LAKHELY" 
-   (	"LAKHELYID" NUMBER, 
-	"NEV" VARCHAR2(20 BYTE)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Table MUNKAHELY
---------------------------------------------------------
-
-  CREATE TABLE "H668895"."MUNKAHELY" 
-   (	"MUNKAHELYID" NUMBER, 
-	"NEV" VARCHAR2(20 BYTE)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Table NEM
---------------------------------------------------------
-
-  CREATE TABLE "H668895"."NEM" 
-   (	"NEMID" NUMBER, 
-	"NEV" VARCHAR2(20 BYTE), 
-	"LEIRAS" VARCHAR2(150 BYTE)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Table POSZT
 --------------------------------------------------------
@@ -143,13 +22,78 @@
   CREATE TABLE "H668895"."PROFIL" 
    (	"SZEMELYID" NUMBER, 
 	"SZUL_DATUM" DATE, 
-	"NEMID" NUMBER, 
+	"NEM" CHAR(1 BYTE), 
 	"LAKHELYID" NUMBER, 
 	"ISKOLAID" NUMBER, 
 	"HOBBIID" NUMBER, 
 	"MUNKAHELYID" NUMBER, 
 	"MEGHIVO" NUMBER, 
 	"PROFILKEP" NUMBER
+   ) SEGMENT CREATION DEFERRED 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Table LAKHELY
+--------------------------------------------------------
+
+  CREATE TABLE "H668895"."LAKHELY" 
+   (	"LAKHELYID" NUMBER, 
+	"NEV" VARCHAR2(20 BYTE)
+   ) SEGMENT CREATION DEFERRED 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Table HOBBI
+--------------------------------------------------------
+
+  CREATE TABLE "H668895"."HOBBI" 
+   (	"HOBBIID" NUMBER, 
+	"NEV" VARCHAR2(20 BYTE)
+   ) SEGMENT CREATION DEFERRED 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Table ALBUM
+--------------------------------------------------------
+
+  CREATE TABLE "H668895"."ALBUM" 
+   (	"FELHASZNALOID" NUMBER, 
+	"NEV" VARCHAR2(20 BYTE), 
+	"IDO" TIMESTAMP (6)
+   ) SEGMENT CREATION DEFERRED 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Table FELHASZNALO
+--------------------------------------------------------
+
+  CREATE TABLE "H668895"."FELHASZNALO" 
+   (	"ID" NUMBER(*,0), 
+	"NEV" VARCHAR2(50 BYTE)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Table UZENET
+--------------------------------------------------------
+
+  CREATE TABLE "H668895"."UZENET" 
+   (	"FELADO" NUMBER, 
+	"CIMZETT" NUMBER, 
+	"IDO" TIMESTAMP (6), 
+	"UZENET" VARCHAR2(255 BYTE)
+   ) SEGMENT CREATION DEFERRED 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Table TAGJA
+--------------------------------------------------------
+
+  CREATE TABLE "H668895"."TAGJA" 
+   (	"SZEMELYID" NUMBER, 
+	"KLUBID" NUMBER
    ) SEGMENT CREATION DEFERRED 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
   TABLESPACE "USERS" ;
@@ -167,74 +111,144 @@
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS" ;
 --------------------------------------------------------
---  DDL for Table TAGJA
+--  DDL for Table ISKOLA
 --------------------------------------------------------
 
-  CREATE TABLE "H668895"."TAGJA" 
-   (	"SZEMELYID" NUMBER, 
-	"KLUBID" NUMBER
+  CREATE TABLE "H668895"."ISKOLA" 
+   (	"ISKOLAID" NUMBER, 
+	"NEV" VARCHAR2(20 BYTE)
    ) SEGMENT CREATION DEFERRED 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
   TABLESPACE "USERS" ;
 --------------------------------------------------------
---  DDL for Table UZENET
+--  DDL for Table MUNKAHELY
 --------------------------------------------------------
 
-  CREATE TABLE "H668895"."UZENET" 
-   (	"FELADO" NUMBER, 
-	"CIMZETT" NUMBER, 
+  CREATE TABLE "H668895"."MUNKAHELY" 
+   (	"MUNKAHELYID" NUMBER, 
+	"NEV" VARCHAR2(20 BYTE)
+   ) SEGMENT CREATION DEFERRED 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Table ISMER
+--------------------------------------------------------
+
+  CREATE TABLE "H668895"."ISMER" 
+   (	"KIID" NUMBER, 
+	"KIVELID" NUMBER, 
+	"STATUSZ" NUMBER, 
+	"IDO" TIMESTAMP (6)
+   ) SEGMENT CREATION DEFERRED 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Table KLUB
+--------------------------------------------------------
+
+  CREATE TABLE "H668895"."KLUB" 
+   (	"ID" NUMBER(*,0), 
+	"TULAJDONOS" NUMBER(*,0), 
+	"KEZDET" DATE, 
+	"LEIRAS" VARCHAR2(255 BYTE)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Table KEPEK
+--------------------------------------------------------
+
+  CREATE TABLE "H668895"."KEPEK" 
+   (	"ALBUMNEV" VARCHAR2(20 BYTE), 
+	"ALBUMIDO" TIMESTAMP (6), 
+	"ELERESIUT" VARCHAR2(255 BYTE), 
+	"ID" NUMBER
+   ) SEGMENT CREATION DEFERRED 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Table ERTESITES
+--------------------------------------------------------
+
+  CREATE TABLE "H668895"."ERTESITES" 
+   (	"KINEK" NUMBER, 
 	"IDO" TIMESTAMP (6), 
-	"UZENET" VARCHAR2(255 BYTE)
+	"SZOVEG" VARCHAR2(255 BYTE)
    ) SEGMENT CREATION DEFERRED 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
   TABLESPACE "USERS" ;
-REM INSERTING into H668895.ALBUM
-SET DEFINE OFF;
-REM INSERTING into H668895.ERTESITES
-SET DEFINE OFF;
-REM INSERTING into H668895.FELHASZNALO
-SET DEFINE OFF;
-Insert into H668895.FELHASZNALO (ID,NEV) values ('1','asd');
-REM INSERTING into H668895.HOBBI
-SET DEFINE OFF;
-REM INSERTING into H668895.ISKOLA
-SET DEFINE OFF;
-REM INSERTING into H668895.ISMER
-SET DEFINE OFF;
-REM INSERTING into H668895.KEPEK
-SET DEFINE OFF;
-REM INSERTING into H668895.KLUB
-SET DEFINE OFF;
-REM INSERTING into H668895.LAKHELY
-SET DEFINE OFF;
-REM INSERTING into H668895.MUNKAHELY
-SET DEFINE OFF;
-REM INSERTING into H668895.NEM
-SET DEFINE OFF;
 REM INSERTING into H668895.POSZT
 SET DEFINE OFF;
 REM INSERTING into H668895.PROFIL
 SET DEFINE OFF;
-REM INSERTING into H668895.SZEMELY
+REM INSERTING into H668895.LAKHELY
 SET DEFINE OFF;
-Insert into H668895.SZEMELY (ID,JELSZO,EMAIL) values ('1','jozsi','asd@asd.hu');
-REM INSERTING into H668895.TAGJA
+REM INSERTING into H668895.HOBBI
 SET DEFINE OFF;
+REM INSERTING into H668895.ALBUM
+SET DEFINE OFF;
+REM INSERTING into H668895.FELHASZNALO
+SET DEFINE OFF;
+Insert into H668895.FELHASZNALO (ID,NEV) values ('33','a klub2');
+Insert into H668895.FELHASZNALO (ID,NEV) values ('30','Jozsef');
+Insert into H668895.FELHASZNALO (ID,NEV) values ('31','a klub');
 REM INSERTING into H668895.UZENET
 SET DEFINE OFF;
+REM INSERTING into H668895.TAGJA
+SET DEFINE OFF;
+REM INSERTING into H668895.SZEMELY
+SET DEFINE OFF;
+Insert into H668895.SZEMELY (ID,JELSZO,EMAIL) values ('30','asdasd','asd@asd.hu');
+REM INSERTING into H668895.ISKOLA
+SET DEFINE OFF;
+REM INSERTING into H668895.MUNKAHELY
+SET DEFINE OFF;
+REM INSERTING into H668895.ISMER
+SET DEFINE OFF;
+REM INSERTING into H668895.KLUB
+SET DEFINE OFF;
+Insert into H668895.KLUB (ID,TULAJDONOS,KEZDET,LEIRAS) values ('31','30',to_date('17-M¡RC. -29','RR-MON-DD'),'jo lesz');
+Insert into H668895.KLUB (ID,TULAJDONOS,KEZDET,LEIRAS) values ('33','30',to_date('17-M¡RC. -29','RR-MON-DD'),'jo lesz');
+REM INSERTING into H668895.KEPEK
+SET DEFINE OFF;
+REM INSERTING into H668895.ERTESITES
+SET DEFINE OFF;
+--------------------------------------------------------
+--  DDL for Index POSZT_PK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "H668895"."POSZT_PK" ON "H668895"."POSZT" ("ID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS NOCOMPRESS LOGGING
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Index PROFIL_PK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "H668895"."PROFIL_PK" ON "H668895"."PROFIL" ("SZEMELYID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS NOCOMPRESS LOGGING
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Index LAKHELY_PK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "H668895"."LAKHELY_PK" ON "H668895"."LAKHELY" ("LAKHELYID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS NOCOMPRESS LOGGING
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Index HOBBI_PK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "H668895"."HOBBI_PK" ON "H668895"."HOBBI" ("HOBBIID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS NOCOMPRESS LOGGING
+  TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Index ALBUM_PK
 --------------------------------------------------------
 
   CREATE UNIQUE INDEX "H668895"."ALBUM_PK" ON "H668895"."ALBUM" ("IDO", "NEV") 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index ERTESITES_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "H668895"."ERTESITES_PK" ON "H668895"."ERTESITES" ("IDO", "KINEK") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 NOCOMPRESS LOGGING
   TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Index KEY
@@ -246,66 +260,17 @@ SET DEFINE OFF;
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS" ;
 --------------------------------------------------------
---  DDL for Index HOBBI_PK
+--  DDL for Index UZENET_PK
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "H668895"."HOBBI_PK" ON "H668895"."HOBBI" ("HOBBIID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index ISKOLA_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "H668895"."ISKOLA_PK" ON "H668895"."ISKOLA" ("ISKOLAID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index KEPEK_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "H668895"."KEPEK_PK" ON "H668895"."KEPEK" ("ID") 
+  CREATE UNIQUE INDEX "H668895"."UZENET_PK" ON "H668895"."UZENET" ("FELADO", "CIMZETT", "IDO") 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS NOCOMPRESS LOGGING
   TABLESPACE "USERS" ;
 --------------------------------------------------------
---  DDL for Index KLUB_PK
+--  DDL for Index TAGJA_PK
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "H668895"."KLUB_PK" ON "H668895"."KLUB" ("ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index LAKHELY_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "H668895"."LAKHELY_PK" ON "H668895"."LAKHELY" ("LAKHELYID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index MUNKAHELY_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "H668895"."MUNKAHELY_PK" ON "H668895"."MUNKAHELY" ("MUNKAHELYID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index NEM_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "H668895"."NEM_PK" ON "H668895"."NEM" ("NEMID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index POSZT_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "H668895"."POSZT_PK" ON "H668895"."POSZT" ("ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index PROFIL_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "H668895"."PROFIL_PK" ON "H668895"."PROFIL" ("SZEMELYID") 
+  CREATE UNIQUE INDEX "H668895"."TAGJA_PK" ON "H668895"."TAGJA" ("SZEMELYID", "KLUBID") 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS NOCOMPRESS LOGGING
   TABLESPACE "USERS" ;
 --------------------------------------------------------
@@ -318,19 +283,93 @@ SET DEFINE OFF;
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS" ;
 --------------------------------------------------------
---  DDL for Index TAGJA_PK
+--  DDL for Index ISKOLA_PK
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "H668895"."TAGJA_PK" ON "H668895"."TAGJA" ("SZEMELYID", "KLUBID") 
+  CREATE UNIQUE INDEX "H668895"."ISKOLA_PK" ON "H668895"."ISKOLA" ("ISKOLAID") 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS NOCOMPRESS LOGGING
   TABLESPACE "USERS" ;
 --------------------------------------------------------
---  DDL for Index UZENET_PK
+--  DDL for Index MUNKAHELY_PK
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "H668895"."UZENET_PK" ON "H668895"."UZENET" ("FELADO", "CIMZETT", "IDO") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 NOCOMPRESS LOGGING
+  CREATE UNIQUE INDEX "H668895"."MUNKAHELY_PK" ON "H668895"."MUNKAHELY" ("MUNKAHELYID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS NOCOMPRESS LOGGING
   TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Index KLUB_PK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "H668895"."KLUB_PK" ON "H668895"."KLUB" ("ID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Index KEPEK_PK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "H668895"."KEPEK_PK" ON "H668895"."KEPEK" ("ID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS NOCOMPRESS LOGGING
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Index ERTESITES_PK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "H668895"."ERTESITES_PK" ON "H668895"."ERTESITES" ("IDO", "KINEK") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS NOCOMPRESS LOGGING
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Trigger POSZT_TRG
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "H668895"."POSZT_TRG" 
+BEFORE INSERT ON POSZT 
+FOR EACH ROW 
+BEGIN
+  <<COLUMN_SEQUENCES>>
+  BEGIN
+    IF INSERTING AND :NEW.ID IS NULL THEN
+      SELECT POSZT_SEQ.NEXTVAL INTO :NEW.ID FROM SYS.DUAL;
+    END IF;
+  END COLUMN_SEQUENCES;
+END;
+/
+ALTER TRIGGER "H668895"."POSZT_TRG" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger LAKHELY_TRG
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "H668895"."LAKHELY_TRG" 
+BEFORE INSERT ON LAKHELY 
+FOR EACH ROW 
+BEGIN
+  <<COLUMN_SEQUENCES>>
+  BEGIN
+    IF INSERTING AND :NEW.LAKHELYID IS NULL THEN
+      SELECT LAKHELY_SEQ.NEXTVAL INTO :NEW.LAKHELYID FROM SYS.DUAL;
+    END IF;
+  END COLUMN_SEQUENCES;
+END;
+/
+ALTER TRIGGER "H668895"."LAKHELY_TRG" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger HOBBI_TRG
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "H668895"."HOBBI_TRG" 
+BEFORE INSERT ON HOBBI 
+FOR EACH ROW 
+BEGIN
+  <<COLUMN_SEQUENCES>>
+  BEGIN
+    IF INSERTING AND :NEW.HOBBIID IS NULL THEN
+      SELECT HOBBI_SEQ.NEXTVAL INTO :NEW.HOBBIID FROM SYS.DUAL;
+    END IF;
+  END COLUMN_SEQUENCES;
+END;
+/
+ALTER TRIGGER "H668895"."HOBBI_TRG" ENABLE;
 --------------------------------------------------------
 --  DDL for Trigger ALBUM_TRG
 --------------------------------------------------------
@@ -359,29 +398,12 @@ BEGIN
   <<COLUMN_SEQUENCES>>
   BEGIN
     IF INSERTING AND :NEW.ID IS NULL THEN
-      SELECT FELHASZNALO_SEQ.NEXTVAL INTO :NEW.ID FROM SYS.DUAL;
+      SELECT FELHASZNALO_SEQ1.NEXTVAL INTO :NEW.ID FROM SYS.DUAL;
     END IF;
   END COLUMN_SEQUENCES;
 END;
 /
 ALTER TRIGGER "H668895"."FELHASZNALO_TRG" ENABLE;
---------------------------------------------------------
---  DDL for Trigger HOBBI_TRG
---------------------------------------------------------
-
-  CREATE OR REPLACE TRIGGER "H668895"."HOBBI_TRG" 
-BEFORE INSERT ON HOBBI 
-FOR EACH ROW 
-BEGIN
-  <<COLUMN_SEQUENCES>>
-  BEGIN
-    IF INSERTING AND :NEW.HOBBIID IS NULL THEN
-      SELECT HOBBI_SEQ.NEXTVAL INTO :NEW.HOBBIID FROM SYS.DUAL;
-    END IF;
-  END COLUMN_SEQUENCES;
-END;
-/
-ALTER TRIGGER "H668895"."HOBBI_TRG" ENABLE;
 --------------------------------------------------------
 --  DDL for Trigger ISKOLA_TRG
 --------------------------------------------------------
@@ -400,22 +422,22 @@ END;
 /
 ALTER TRIGGER "H668895"."ISKOLA_TRG" ENABLE;
 --------------------------------------------------------
---  DDL for Trigger KEPEK_TRG
+--  DDL for Trigger MUNKAHELY_TRG
 --------------------------------------------------------
 
-  CREATE OR REPLACE TRIGGER "H668895"."KEPEK_TRG" 
-BEFORE INSERT ON KEPEK 
+  CREATE OR REPLACE TRIGGER "H668895"."MUNKAHELY_TRG" 
+BEFORE INSERT ON MUNKAHELY 
 FOR EACH ROW 
 BEGIN
   <<COLUMN_SEQUENCES>>
   BEGIN
-    IF INSERTING AND :NEW.ID IS NULL THEN
-      SELECT KEPEK_SEQ.NEXTVAL INTO :NEW.ID FROM SYS.DUAL;
+    IF INSERTING AND :NEW.MUNKAHELYID IS NULL THEN
+      SELECT MUNKAHELY_SEQ.NEXTVAL INTO :NEW.MUNKAHELYID FROM SYS.DUAL;
     END IF;
   END COLUMN_SEQUENCES;
 END;
 /
-ALTER TRIGGER "H668895"."KEPEK_TRG" ENABLE;
+ALTER TRIGGER "H668895"."MUNKAHELY_TRG" ENABLE;
 --------------------------------------------------------
 --  DDL for Trigger KLUB_TRG
 --------------------------------------------------------
@@ -447,73 +469,58 @@ END;
 /
 ALTER TRIGGER "H668895"."KLUB_TRG1" ENABLE;
 --------------------------------------------------------
---  DDL for Trigger LAKHELY_TRG
+--  DDL for Trigger KEPEK_TRG
 --------------------------------------------------------
 
-  CREATE OR REPLACE TRIGGER "H668895"."LAKHELY_TRG" 
-BEFORE INSERT ON LAKHELY 
-FOR EACH ROW 
-BEGIN
-  <<COLUMN_SEQUENCES>>
-  BEGIN
-    IF INSERTING AND :NEW.LAKHELYID IS NULL THEN
-      SELECT LAKHELY_SEQ.NEXTVAL INTO :NEW.LAKHELYID FROM SYS.DUAL;
-    END IF;
-  END COLUMN_SEQUENCES;
-END;
-/
-ALTER TRIGGER "H668895"."LAKHELY_TRG" ENABLE;
---------------------------------------------------------
---  DDL for Trigger MUNKAHELY_TRG
---------------------------------------------------------
-
-  CREATE OR REPLACE TRIGGER "H668895"."MUNKAHELY_TRG" 
-BEFORE INSERT ON MUNKAHELY 
-FOR EACH ROW 
-BEGIN
-  <<COLUMN_SEQUENCES>>
-  BEGIN
-    IF INSERTING AND :NEW.MUNKAHELYID IS NULL THEN
-      SELECT MUNKAHELY_SEQ.NEXTVAL INTO :NEW.MUNKAHELYID FROM SYS.DUAL;
-    END IF;
-  END COLUMN_SEQUENCES;
-END;
-/
-ALTER TRIGGER "H668895"."MUNKAHELY_TRG" ENABLE;
---------------------------------------------------------
---  DDL for Trigger NEM_TRG
---------------------------------------------------------
-
-  CREATE OR REPLACE TRIGGER "H668895"."NEM_TRG" 
-BEFORE INSERT ON NEM 
-FOR EACH ROW 
-BEGIN
-  <<COLUMN_SEQUENCES>>
-  BEGIN
-    IF INSERTING AND :NEW.NEMID IS NULL THEN
-      SELECT NEM_SEQ.NEXTVAL INTO :NEW.NEMID FROM SYS.DUAL;
-    END IF;
-  END COLUMN_SEQUENCES;
-END;
-/
-ALTER TRIGGER "H668895"."NEM_TRG" ENABLE;
---------------------------------------------------------
---  DDL for Trigger POSZT_TRG
---------------------------------------------------------
-
-  CREATE OR REPLACE TRIGGER "H668895"."POSZT_TRG" 
-BEFORE INSERT ON POSZT 
+  CREATE OR REPLACE TRIGGER "H668895"."KEPEK_TRG" 
+BEFORE INSERT ON KEPEK 
 FOR EACH ROW 
 BEGIN
   <<COLUMN_SEQUENCES>>
   BEGIN
     IF INSERTING AND :NEW.ID IS NULL THEN
-      SELECT POSZT_SEQ.NEXTVAL INTO :NEW.ID FROM SYS.DUAL;
+      SELECT KEPEK_SEQ.NEXTVAL INTO :NEW.ID FROM SYS.DUAL;
     END IF;
   END COLUMN_SEQUENCES;
 END;
 /
-ALTER TRIGGER "H668895"."POSZT_TRG" ENABLE;
+ALTER TRIGGER "H668895"."KEPEK_TRG" ENABLE;
+--------------------------------------------------------
+--  Constraints for Table POSZT
+--------------------------------------------------------
+
+  ALTER TABLE "H668895"."POSZT" ADD CONSTRAINT "POSZT_PK" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS NOCOMPRESS LOGGING
+  TABLESPACE "USERS"  ENABLE;
+ 
+  ALTER TABLE "H668895"."POSZT" MODIFY ("ID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table PROFIL
+--------------------------------------------------------
+
+  ALTER TABLE "H668895"."PROFIL" ADD CONSTRAINT "PROFIL_PK" PRIMARY KEY ("SZEMELYID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS NOCOMPRESS LOGGING
+  TABLESPACE "USERS"  ENABLE;
+ 
+  ALTER TABLE "H668895"."PROFIL" MODIFY ("SZEMELYID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table LAKHELY
+--------------------------------------------------------
+
+  ALTER TABLE "H668895"."LAKHELY" ADD CONSTRAINT "LAKHELY_PK" PRIMARY KEY ("LAKHELYID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS NOCOMPRESS LOGGING
+  TABLESPACE "USERS"  ENABLE;
+ 
+  ALTER TABLE "H668895"."LAKHELY" MODIFY ("LAKHELYID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table HOBBI
+--------------------------------------------------------
+
+  ALTER TABLE "H668895"."HOBBI" ADD CONSTRAINT "HOBBI_PK" PRIMARY KEY ("HOBBIID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS NOCOMPRESS LOGGING
+  TABLESPACE "USERS"  ENABLE;
+ 
+  ALTER TABLE "H668895"."HOBBI" MODIFY ("HOBBIID" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table ALBUM
 --------------------------------------------------------
@@ -528,17 +535,6 @@ ALTER TRIGGER "H668895"."POSZT_TRG" ENABLE;
  
   ALTER TABLE "H668895"."ALBUM" MODIFY ("IDO" NOT NULL ENABLE);
 --------------------------------------------------------
---  Constraints for Table ERTESITES
---------------------------------------------------------
-
-  ALTER TABLE "H668895"."ERTESITES" ADD CONSTRAINT "ERTESITES_PK" PRIMARY KEY ("IDO", "KINEK")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 NOCOMPRESS LOGGING
-  TABLESPACE "USERS"  ENABLE;
- 
-  ALTER TABLE "H668895"."ERTESITES" MODIFY ("KINEK" NOT NULL ENABLE);
- 
-  ALTER TABLE "H668895"."ERTESITES" MODIFY ("IDO" NOT NULL ENABLE);
---------------------------------------------------------
 --  Constraints for Table FELHASZNALO
 --------------------------------------------------------
 
@@ -550,88 +546,29 @@ ALTER TRIGGER "H668895"."POSZT_TRG" ENABLE;
  
   ALTER TABLE "H668895"."FELHASZNALO" MODIFY ("NEV" NOT NULL ENABLE);
 --------------------------------------------------------
---  Constraints for Table HOBBI
+--  Constraints for Table UZENET
 --------------------------------------------------------
 
-  ALTER TABLE "H668895"."HOBBI" ADD CONSTRAINT "HOBBI_PK" PRIMARY KEY ("HOBBIID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 NOCOMPRESS LOGGING
-  TABLESPACE "USERS"  ENABLE;
+  ALTER TABLE "H668895"."UZENET" MODIFY ("FELADO" NOT NULL ENABLE);
  
-  ALTER TABLE "H668895"."HOBBI" MODIFY ("HOBBIID" NOT NULL ENABLE);
---------------------------------------------------------
---  Constraints for Table ISKOLA
---------------------------------------------------------
-
-  ALTER TABLE "H668895"."ISKOLA" ADD CONSTRAINT "ISKOLA_PK" PRIMARY KEY ("ISKOLAID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 NOCOMPRESS LOGGING
-  TABLESPACE "USERS"  ENABLE;
+  ALTER TABLE "H668895"."UZENET" MODIFY ("CIMZETT" NOT NULL ENABLE);
  
-  ALTER TABLE "H668895"."ISKOLA" MODIFY ("ISKOLAID" NOT NULL ENABLE);
---------------------------------------------------------
---  Constraints for Table KEPEK
---------------------------------------------------------
-
-  ALTER TABLE "H668895"."KEPEK" ADD CONSTRAINT "KEPEK_PK" PRIMARY KEY ("ID")
+  ALTER TABLE "H668895"."UZENET" MODIFY ("IDO" NOT NULL ENABLE);
+ 
+  ALTER TABLE "H668895"."UZENET" ADD CONSTRAINT "UZENET_PK" PRIMARY KEY ("FELADO", "CIMZETT", "IDO")
   USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS NOCOMPRESS LOGGING
   TABLESPACE "USERS"  ENABLE;
- 
-  ALTER TABLE "H668895"."KEPEK" MODIFY ("ID" NOT NULL ENABLE);
 --------------------------------------------------------
---  Constraints for Table KLUB
+--  Constraints for Table TAGJA
 --------------------------------------------------------
 
-  ALTER TABLE "H668895"."KLUB" ADD CONSTRAINT "KLUB_PK" PRIMARY KEY ("ID")
+  ALTER TABLE "H668895"."TAGJA" MODIFY ("SZEMELYID" NOT NULL ENABLE);
+ 
+  ALTER TABLE "H668895"."TAGJA" MODIFY ("KLUBID" NOT NULL ENABLE);
+ 
+  ALTER TABLE "H668895"."TAGJA" ADD CONSTRAINT "TAGJA_PK" PRIMARY KEY ("SZEMELYID", "KLUBID")
   USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS NOCOMPRESS LOGGING
   TABLESPACE "USERS"  ENABLE;
- 
-  ALTER TABLE "H668895"."KLUB" MODIFY ("TULAJDONOS" NOT NULL ENABLE);
- 
-  ALTER TABLE "H668895"."KLUB" MODIFY ("ID" NOT NULL ENABLE);
---------------------------------------------------------
---  Constraints for Table LAKHELY
---------------------------------------------------------
-
-  ALTER TABLE "H668895"."LAKHELY" ADD CONSTRAINT "LAKHELY_PK" PRIMARY KEY ("LAKHELYID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 NOCOMPRESS LOGGING
-  TABLESPACE "USERS"  ENABLE;
- 
-  ALTER TABLE "H668895"."LAKHELY" MODIFY ("LAKHELYID" NOT NULL ENABLE);
---------------------------------------------------------
---  Constraints for Table MUNKAHELY
---------------------------------------------------------
-
-  ALTER TABLE "H668895"."MUNKAHELY" ADD CONSTRAINT "MUNKAHELY_PK" PRIMARY KEY ("MUNKAHELYID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 NOCOMPRESS LOGGING
-  TABLESPACE "USERS"  ENABLE;
- 
-  ALTER TABLE "H668895"."MUNKAHELY" MODIFY ("MUNKAHELYID" NOT NULL ENABLE);
---------------------------------------------------------
---  Constraints for Table NEM
---------------------------------------------------------
-
-  ALTER TABLE "H668895"."NEM" ADD CONSTRAINT "NEM_PK" PRIMARY KEY ("NEMID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 NOCOMPRESS LOGGING
-  TABLESPACE "USERS"  ENABLE;
- 
-  ALTER TABLE "H668895"."NEM" MODIFY ("NEMID" NOT NULL ENABLE);
---------------------------------------------------------
---  Constraints for Table POSZT
---------------------------------------------------------
-
-  ALTER TABLE "H668895"."POSZT" ADD CONSTRAINT "POSZT_PK" PRIMARY KEY ("ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 NOCOMPRESS LOGGING
-  TABLESPACE "USERS"  ENABLE;
- 
-  ALTER TABLE "H668895"."POSZT" MODIFY ("ID" NOT NULL ENABLE);
---------------------------------------------------------
---  Constraints for Table PROFIL
---------------------------------------------------------
-
-  ALTER TABLE "H668895"."PROFIL" ADD CONSTRAINT "PROFIL_PK" PRIMARY KEY ("SZEMELYID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS NOCOMPRESS LOGGING
-  TABLESPACE "USERS"  ENABLE;
- 
-  ALTER TABLE "H668895"."PROFIL" MODIFY ("SZEMELYID" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table SZEMELY
 --------------------------------------------------------
@@ -648,26 +585,53 @@ ALTER TRIGGER "H668895"."POSZT_TRG" ENABLE;
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS"  ENABLE;
 --------------------------------------------------------
---  Constraints for Table TAGJA
+--  Constraints for Table ISKOLA
 --------------------------------------------------------
 
-  ALTER TABLE "H668895"."TAGJA" MODIFY ("SZEMELYID" NOT NULL ENABLE);
- 
-  ALTER TABLE "H668895"."TAGJA" MODIFY ("KLUBID" NOT NULL ENABLE);
- 
-  ALTER TABLE "H668895"."TAGJA" ADD CONSTRAINT "TAGJA_PK" PRIMARY KEY ("SZEMELYID", "KLUBID")
+  ALTER TABLE "H668895"."ISKOLA" ADD CONSTRAINT "ISKOLA_PK" PRIMARY KEY ("ISKOLAID")
   USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS NOCOMPRESS LOGGING
   TABLESPACE "USERS"  ENABLE;
+ 
+  ALTER TABLE "H668895"."ISKOLA" MODIFY ("ISKOLAID" NOT NULL ENABLE);
 --------------------------------------------------------
---  Constraints for Table UZENET
+--  Constraints for Table MUNKAHELY
 --------------------------------------------------------
 
-  ALTER TABLE "H668895"."UZENET" MODIFY ("FELADO" NOT NULL ENABLE);
- 
-  ALTER TABLE "H668895"."UZENET" MODIFY ("CIMZETT" NOT NULL ENABLE);
- 
-  ALTER TABLE "H668895"."UZENET" MODIFY ("IDO" NOT NULL ENABLE);
- 
-  ALTER TABLE "H668895"."UZENET" ADD CONSTRAINT "UZENET_PK" PRIMARY KEY ("FELADO", "CIMZETT", "IDO")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 NOCOMPRESS LOGGING
+  ALTER TABLE "H668895"."MUNKAHELY" ADD CONSTRAINT "MUNKAHELY_PK" PRIMARY KEY ("MUNKAHELYID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS NOCOMPRESS LOGGING
   TABLESPACE "USERS"  ENABLE;
+ 
+  ALTER TABLE "H668895"."MUNKAHELY" MODIFY ("MUNKAHELYID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table KLUB
+--------------------------------------------------------
+
+  ALTER TABLE "H668895"."KLUB" ADD CONSTRAINT "KLUB_PK" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS"  ENABLE;
+ 
+  ALTER TABLE "H668895"."KLUB" MODIFY ("TULAJDONOS" NOT NULL ENABLE);
+ 
+  ALTER TABLE "H668895"."KLUB" MODIFY ("ID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table KEPEK
+--------------------------------------------------------
+
+  ALTER TABLE "H668895"."KEPEK" ADD CONSTRAINT "KEPEK_PK" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS NOCOMPRESS LOGGING
+  TABLESPACE "USERS"  ENABLE;
+ 
+  ALTER TABLE "H668895"."KEPEK" MODIFY ("ID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table ERTESITES
+--------------------------------------------------------
+
+  ALTER TABLE "H668895"."ERTESITES" ADD CONSTRAINT "ERTESITES_PK" PRIMARY KEY ("IDO", "KINEK")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS NOCOMPRESS LOGGING
+  TABLESPACE "USERS"  ENABLE;
+ 
+  ALTER TABLE "H668895"."ERTESITES" MODIFY ("KINEK" NOT NULL ENABLE);
+ 
+  ALTER TABLE "H668895"."ERTESITES" MODIFY ("IDO" NOT NULL ENABLE);
