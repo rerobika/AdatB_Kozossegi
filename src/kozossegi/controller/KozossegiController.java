@@ -1,4 +1,4 @@
-package kozossegi.controller;
+	package kozossegi.controller;
 
 import java.util.List;
 
@@ -31,5 +31,7 @@ public class KozossegiController{
 		return dao.getNotifications(startinterval, endinterval);
 	}
 	
+	
+	/*asdasdasd*/
 	
 }
