@@ -7,6 +7,7 @@ import kozossegi.bean.KozossegiPostData;
 import kozossegi.bean.KozossegiProfileMiniature;
 import kozossegi.dao.KozossegiDAO;
 import kozossegi.dao.KozossegiDAOImpl;
+import kozossegi.view.KozossegiMainFrame;
 
 public class KozossegiController{
 	private KozossegiDAO dao = new KozossegiDAOImpl();
@@ -30,8 +31,10 @@ public class KozossegiController{
 	public List<KozossegiNotification> getNotifications(int startinterval, int endinterval) {
 		return dao.getNotifications(startinterval, endinterval);
 	}
-	
-	
-	/*asdasdasd*/
+
+	public void startDesktop() {
+		KozossegiMainFrame mainFrame = new KozossegiMainFrame(this);
+		
+	}
 	
 }

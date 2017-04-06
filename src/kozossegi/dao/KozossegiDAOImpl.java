@@ -29,7 +29,7 @@ public class KozossegiDAOImpl implements KozossegiDAO{
 	@Override
 	public List<KozossegiProfileMiniature> getFriends(int id) {
 		List<KozossegiProfileMiniature> friends = new ArrayList<KozossegiProfileMiniature>();
-		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:"+Labels.DATABASE_PATH,Labels.DATABASE_USER,Labels.DATABASE_PASS);
+		/*try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:"+Labels.DATABASE_PATH,Labels.DATABASE_USER,Labels.DATABASE_PASS);
 			 PreparedStatement ps = conn.prepareStatement(Labels.GET_FRIENDS);)
 		{
 			ResultSet rs = ps.executeQuery();
@@ -40,7 +40,7 @@ public class KozossegiDAOImpl implements KozossegiDAO{
 		}catch (SQLException e) {
 			System.out.println("Error while listing user's friends!");
 			e.printStackTrace();
-		}
+		}*/
 		return friends;
 	}
 
