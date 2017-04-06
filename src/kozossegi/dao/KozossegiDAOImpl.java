@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import kozossegi.Labels;
@@ -27,13 +28,20 @@ public class KozossegiDAOImpl implements KozossegiDAO{
 	}
 	@Override
 	public List<KozossegiProfileMiniature> getFriends(int id) {
-		try {
-			Connection c = DriverManager.getConnection("jdbc:oracle:thin:"+Labels.DATABASE_PATH,Labels.DATABASE_USER,Labels.DATABASE_PASS);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		List<KozossegiProfileMiniature> friends = new ArrayList<KozossegiProfileMiniature>();
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:"+Labels.DATABASE_PATH,Labels.DATABASE_USER,Labels.DATABASE_PASS);
+			 PreparedStatement ps = conn.prepareStatement(Labels.GET_FRIENDS);)
+		{
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				friends.add(new KozossegiProfileMiniature(rs.getInt("ID"), rs.getString("NEV"), getImageByID(rs.getInt("PROFILKEP"))));				
+			}
+			
+		}catch (SQLException e) {
+			System.out.println("Error while listing user's friends!");
 			e.printStackTrace();
 		}
-		return null;
+		return friends;
 	}
 
 	@Override
