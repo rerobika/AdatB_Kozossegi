@@ -1,5 +1,9 @@
 package kozossegi;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 
 public class Labels {
 	// DATABASE_CONNENTION
@@ -27,4 +31,6 @@ public class Labels {
 	public static final String REGISTER_CONFIRM_PASSWORD="Jelszó újra:";
 	public static final String REGISTER_BUTTON = "Regisztrálj!";
 	public static final String REGISTER_BACK_BUTTON = "Vissza";
+	public static final String REGISTER_BIRTH_DATE = "Születési dátum:";
+	public static final List<String> REGISTER_MONTH_NAMES = new ArrayList<String>(Arrays.asList("Január","Február","Március", "Április", "Május", "Június","Július","Augusztus", "Szeptember","Október","November", "December"));
 }

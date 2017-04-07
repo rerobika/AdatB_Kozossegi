@@ -50,8 +50,6 @@ public class KozossegiMainFrame extends JFrame {
 		activePanel.removeAll();
 		activePanel.add(panelToVisible,panelToVisible.getName());
 		cardLayout.show(activePanel, panelToVisible.getName());
-		activePanel.revalidate();
-		activePanel.repaint();
 		pack();
 		
 	}
