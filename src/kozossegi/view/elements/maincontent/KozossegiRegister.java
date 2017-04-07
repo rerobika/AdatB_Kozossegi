@@ -40,18 +40,19 @@ public class KozossegiRegister extends JPanel implements ActionListener {
 		backButton = new JButton(Labels.REGISTER_BACK_BUTTON);
 		
 		userDataPanel.setLayout(new GridLayout(4, 20, 2, 20));
-		userDataPanel.add(new JLabel(Labels.REGISTER_EMAIL));
-		userDataPanel.add(emailField);
 		userDataPanel.add(new JLabel(Labels.REGISTER_NAME));
 		userDataPanel.add(nameField);
+		userDataPanel.add(new JLabel(Labels.REGISTER_EMAIL));
+		userDataPanel.add(emailField);		
 		userDataPanel.add(new JLabel(Labels.REGISTER_PASSWORD));
 		userDataPanel.add(passwordField);
 		userDataPanel.add(new JLabel(Labels.REGISTER_CONFIRM_PASSWORD));
 		userDataPanel.add(passwordConfirmField);
-		
+			
 		buttonsPanel.setLayout(new FlowLayout());
-		buttonsPanel.add(registerButton);
 		buttonsPanel.add(backButton);
+		buttonsPanel.add(registerButton);
+		
 		
 		registerButton.addActionListener(this);
 		backButton.addActionListener(this);
@@ -63,10 +64,9 @@ public class KozossegiRegister extends JPanel implements ActionListener {
 		add(buttonsPanel, BorderLayout.SOUTH);
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==backButton){
-			mainFrame.selectActivePanel(mainFrame.getLoginPanel());
+			mainFrame.selectActivePanel(new KozossegiLogin(mainFrame));
 			
 		}	
 		

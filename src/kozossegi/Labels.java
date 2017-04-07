@@ -1,6 +1,5 @@
 package kozossegi;
 
-import javax.swing.Icon;
 
 public class Labels {
 	// DATABASE_CONNENTION
@@ -13,19 +12,19 @@ public class Labels {
 	
 	
 	//MAIN_FRAME
-	public static final String MAIN_FRAME_TITLE="Közösségi oldal";
+	public static final String MAIN_FRAME_TITLE="KÃ¶zÃ¶ssÃ©gi oldal";
 	
 	//LOGIN
-	public static final String LOGIN_EMAIL="E-mail cím:";
-	public static final String LOGIN_PASSWORD="Jelszó:";
-	public static final String LOGIN_BUTTON="Bejelentkezés";
-	public static final String LOGIN_REGISTER_BUTTON="Regisztáció";
+	public static final String LOGIN_EMAIL="E-mail cÃ­m:";
+	public static final String LOGIN_PASSWORD="JelszÃ³:";
+	public static final String LOGIN_BUTTON="BejelentkezÃ©s";
+	public static final String LOGIN_REGISTER_BUTTON="RegisztÃ¡ciÃ³";
 	
 	//REGISTER
-	public static final String REGISTER_EMAIL="E-mail cím:";
-	public static final String REGISTER_NAME="Név:";
-	public static final String REGISTER_PASSWORD="Jelszó:";
-	public static final String REGISTER_CONFIRM_PASSWORD="Jelszó újra:";
-	public static final String REGISTER_BUTTON = "Regisztrálj!";
+	public static final String REGISTER_EMAIL="E-mail cÃ­m:";
+	public static final String REGISTER_NAME="NÃ©v:";
+	public static final String REGISTER_PASSWORD="JelszÃ³:";
+	public static final String REGISTER_CONFIRM_PASSWORD="JelszÃ³ Ãºjra:";
+	public static final String REGISTER_BUTTON = "RegisztrÃ¡lj!";
 	public static final String REGISTER_BACK_BUTTON = "Vissza";
 }

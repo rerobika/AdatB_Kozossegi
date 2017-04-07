@@ -50,17 +50,17 @@ public class KozossegiLogin extends JPanel implements ActionListener {
 		userDataPanel.add(passwordField);
 		
 		buttonsPanel.setLayout(new FlowLayout());
-		buttonsPanel.add(loginButton);
 		buttonsPanel.add(registerButton);
+		buttonsPanel.add(loginButton);		
 		
 		loginButton.addActionListener(this);
 		registerButton.addActionListener(this);
 	}
 
-	@Override
+
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==registerButton){
-			mainFrame.selectActivePanel(mainFrame.getRegisterPanel());
+			mainFrame.selectActivePanel(new KozossegiRegister(mainFrame));
 			
 		}	
 	}

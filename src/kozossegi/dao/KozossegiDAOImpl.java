@@ -26,7 +26,7 @@ public class KozossegiDAOImpl implements KozossegiDAO{
 				e.printStackTrace();
 			}
 	}
-	@Override
+	
 	public List<KozossegiProfileMiniature> getFriends(int id) {
 		List<KozossegiProfileMiniature> friends = new ArrayList<KozossegiProfileMiniature>();
 		/*try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:"+Labels.DATABASE_PATH,Labels.DATABASE_USER,Labels.DATABASE_PASS);
@@ -44,37 +44,37 @@ public class KozossegiDAOImpl implements KozossegiDAO{
 		return friends;
 	}
 
-	@Override
+
 	public List<KozossegiProfileMiniature> getMembers(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+
 	public KozossegiProfileMiniature getMiniature(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+
 	public Image getImageByID(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+
 	public KozossegiAlbum getAlbumByID(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+
 	public List<KozossegiPostData> getPostData(int startinterval, int endinterval) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+
 	public List<KozossegiNotification> getNotifications(int startinterval, int endinterval) {
 		// TODO Auto-generated method stub
 		return null;

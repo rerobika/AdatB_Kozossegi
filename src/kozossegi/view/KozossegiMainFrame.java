@@ -14,28 +14,21 @@ import kozossegi.view.elements.maincontent.KozossegiRegister;
 public class KozossegiMainFrame extends JFrame {
 	private static final long serialVersionUID = -3443677995502851727L;
 	private KozossegiController controller;
-	private JPanel panelList;
+	private JPanel activePanel;
 	private KozossegiLogin loginPanel;
 	private KozossegiRegister registerPanel;
 	private CardLayout cardLayout;
 	
-	public KozossegiMainFrame(KozossegiController controller) {
-		panelList = new JPanel(new CardLayout());
-		cardLayout = (CardLayout) panelList.getLayout();
-		
-		loginPanel = new KozossegiLogin(this);
-		registerPanel = new KozossegiRegister(this);			
-		panelList.add(loginPanel, loginPanel.getName());
-		panelList.add(registerPanel, registerPanel.getName());
-		
-		
+	public KozossegiMainFrame(KozossegiController controller) {;
+		activePanel = new JPanel(new CardLayout());
+		cardLayout = (CardLayout) activePanel.getLayout();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle(Labels.MAIN_FRAME_TITLE);
 		setSize(new Dimension(640, 480));
-		add(panelList);		
-		selectActivePanel(loginPanel);
-		pack();
+		add(activePanel);		
+		selectActivePanel(startScreen());
+		setLocationRelativeTo(null);
 		setVisible(true);
 					
 	}
@@ -54,7 +47,17 @@ public class KozossegiMainFrame extends JFrame {
 	}
 
 	public void selectActivePanel(JPanel panelToVisible) {
-		 cardLayout.show(panelList, panelToVisible.getName());
+		activePanel.removeAll();
+		activePanel.add(panelToVisible,panelToVisible.getName());
+		cardLayout.show(activePanel, panelToVisible.getName());
+		activePanel.revalidate();
+		activePanel.repaint();
+		pack();
+		
+	}
+	
+	public JPanel startScreen(){
+		 return new KozossegiLogin(this);
 	}
 
 
