@@ -11,7 +11,14 @@ import kozossegi.view.KozossegiMainFrame;
 
 public class KozossegiController{
 	private KozossegiDAO dao = new KozossegiDAOImpl();
+	
+	
+	//GUI
+	public void startDesktop() {
+		new KozossegiMainFrame(this);		
+	}
 
+	//DAO connect
 	public List<KozossegiProfileMiniature> getFriends(int id) {
 		return dao.getFriends(id);
 	}
@@ -30,11 +37,11 @@ public class KozossegiController{
 
 	public List<KozossegiNotification> getNotifications(int startinterval, int endinterval) {
 		return dao.getNotifications(startinterval, endinterval);
-	}
+	}	
 
-	public void startDesktop() {
-		KozossegiMainFrame mainFrame = new KozossegiMainFrame(this);
-		
+	public boolean isUniqueEmail(String email) {
+		return dao.isUniqueEmail(email);
 	}
+	
 	
 }

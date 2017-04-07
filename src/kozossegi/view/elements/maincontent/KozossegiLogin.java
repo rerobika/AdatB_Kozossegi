@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -44,9 +45,9 @@ public class KozossegiLogin extends JPanel implements ActionListener {
 		add(buttonsPanel, BorderLayout.SOUTH);
 		
 		userDataPanel.setLayout(new GridLayout(2, 20, 2, 20));
-		userDataPanel.add(new JLabel(Labels.LOGIN_EMAIL));
+		userDataPanel.add(new JLabel(Labels.EMAIL_ADDRESS));
 		userDataPanel.add(emailField);
-		userDataPanel.add(new JLabel(Labels.LOGIN_PASSWORD));
+		userDataPanel.add(new JLabel(Labels.PASSWORD));
 		userDataPanel.add(passwordField);
 		
 		buttonsPanel.setLayout(new FlowLayout());
@@ -61,7 +62,20 @@ public class KozossegiLogin extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==registerButton){
 			mainFrame.selectActivePanel(new KozossegiRegister(mainFrame));
-			
-		}	
+		}
+		if(e.getSource()==loginButton){
+			if(!emailField.getText().isEmpty()){
+				if(passwordField.getPassword().length!=0){
+					System.out.println("Login data is not empty");
+					//Todo login with valid data
+				}
+				else{
+					JOptionPane.showMessageDialog(mainFrame, Labels.EMPTY_PASSWORD, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);
+				}
+			}
+			else{
+				JOptionPane.showMessageDialog(mainFrame, Labels.EMPTY_EMAIL, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);
+			}
+		}
 	}
 }

@@ -79,5 +79,10 @@ public class KozossegiDAOImpl implements KozossegiDAO{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public boolean isUniqueEmail(String email) {
+		// TODO Auto-generated method stub
+		return true;
+	}
 
 }

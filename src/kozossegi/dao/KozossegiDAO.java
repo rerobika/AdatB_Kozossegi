@@ -17,5 +17,6 @@ public interface KozossegiDAO {
 	public KozossegiAlbum getAlbumByID(int id);
 	public List<KozossegiPostData> getPostData(int startinterval,int endinterval);
 	public List<KozossegiNotification> getNotifications(int startinterval,int endinterval);
+	public boolean isUniqueEmail(String email);
 	
 }

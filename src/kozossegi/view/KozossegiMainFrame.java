@@ -19,7 +19,8 @@ public class KozossegiMainFrame extends JFrame {
 	private KozossegiRegister registerPanel;
 	private CardLayout cardLayout;
 	
-	public KozossegiMainFrame(KozossegiController controller) {;
+	public KozossegiMainFrame(KozossegiController controller) {
+		this.controller = controller;
 		activePanel = new JPanel(new CardLayout());
 		cardLayout = (CardLayout) activePanel.getLayout();
 		
