@@ -4,9 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URL;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -15,6 +19,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import kozossegi.Labels;
+import kozossegi.bean.KozossegiProfileMiniature;
 import kozossegi.view.KozossegiMainFrame;
 
 public class KozossegiLogin extends JPanel implements ActionListener {
@@ -61,13 +66,17 @@ public class KozossegiLogin extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==registerButton){
-			mainFrame.selectActivePanel(new KozossegiRegister(mainFrame));
+			mainFrame.setMainContent(new KozossegiRegister(mainFrame));
 		}
 		if(e.getSource()==loginButton){
 			if(!emailField.getText().isEmpty()){
 				if(passwordField.getPassword().length!=0){
-					System.out.println("Login data is not empty");
-					//Todo login with valid data
+					System.out.println("Input fields are not empty!");
+					//TODO make ProfileMiniature with real data from DB					
+					
+					mainFrame.initializeUserData();
+					mainFrame.initializeViewElements();
+					mainFrame.setMainContent(new KozossegiNewsFeed(mainFrame));
 				}
 				else{
 					JOptionPane.showMessageDialog(mainFrame, Labels.EMPTY_PASSWORD, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);

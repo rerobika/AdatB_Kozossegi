@@ -4,10 +4,10 @@ import javax.swing.JPanel;
 
 import kozossegi.view.KozossegiMainFrame;
 
-public class KozossegiMessages extends JPanel {
+public class KozossegiNameDay extends JPanel {
 	private KozossegiMainFrame mainFrame;
 	
-	public KozossegiMessages(KozossegiMainFrame mainFrame) {
+	public KozossegiNameDay(KozossegiMainFrame mainFrame) {
 		this.mainFrame = mainFrame;
 	}
 }

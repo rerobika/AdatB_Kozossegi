@@ -22,6 +22,9 @@ public class Labels {
 		public static final String OPTION_PANE_ERROR="Hiba!";
 		public static final String EMPTY_NAME="A nevét meg kell adnia!";
 		public static final String EMPTY_EMAIL="Az e-mail címet meg kell adni!";
+		public static final String PROFILE_PICTURE_URL="https://image.freepik.com/free-icon/profile-user_318-80283.jpg";
+		public static final String PROFILE_PICTURE_ICO_URL="https://rog.asus.com/forum/images/site_icons/profile.png";
+		public static final String LOGO_URL="http://www.utahvalleybraces.com/sesame_media/images/invisalign-pro-package/logo-twitter.png";
 		
 		
 		//LOGIN		
@@ -39,6 +42,7 @@ public class Labels {
 		public static final String REGISTER_GENDER = "Neme:";
 		public static final String REGISTER_BIRTH_DATE = "Születési dátum:";
 		public static final List<String> REGISTER_MONTH_NAMES = new ArrayList<String>(Arrays.asList("Január","Február","Március", "Április", "Május", "Június","Július","Augusztus", "Szeptember","Október","November", "December"));
+		
 		//REGISTER_ERRORS
 		public static final String EXISTING_EMAIL="Ez az e-mail cím már foglalt!";
 		public static final String EMPTY_PASSWORD="A jelszót meg kell adni!";
@@ -50,4 +54,23 @@ public class Labels {
 		public static final String NAME_LENGTH_ERROR="A neved legalább 5 és legfeljebb 50 karakter hosszú kell legyen!";
 		public static final String NO_GENDER_SELECTED="Nem választottad k ia neved!";
 		
+		//SEARCH
+		public static final String SEARCH_TEXT="Ismerősök keresése:";
+		public static final String SEARCH_BUTON="Keresés";
+		public static final String SEARCH_ERROR="A kereső mezőt üresen hagytad!";
+		
+		//MENU
+		public static final String MENU_NEWS_FEED="Hírek";
+		public static final String MENU_PROFIL="Profil";
+		public static final String MENU_MESSAGES="Üzenetek";
+		public static final String MENU_FRIENDS="Barátok";
+		public static final String MENU_BIRTHDAY="Születésnapok";
+		public static final String MENU_NAMEDAY="Névnapok";
+		public static final String MENU_LOGOUT="Kijelentkezés";
+		
+		//ClUB
+		public static final String CLUB_OWNER="Klubjaid";
+		public static final String CLUB_TAG="Tagságok";
+		public static final String CLUB_SUGGESTION="Ajánlott klubok";
+		public static final String FRINED_SUGGESTION="Ajánlott tagok";
 }

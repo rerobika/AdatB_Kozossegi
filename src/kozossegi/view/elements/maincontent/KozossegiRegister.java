@@ -155,7 +155,7 @@ public class KozossegiRegister extends JPanel implements ActionListener {
 	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==backButton){
-			mainFrame.selectActivePanel(new KozossegiLogin(mainFrame));
+			mainFrame.setMainContent(new KozossegiLogin(mainFrame));
 		}
 		if(e.getSource()==registerButton){
 			if(!nameField.getText().isEmpty()){
