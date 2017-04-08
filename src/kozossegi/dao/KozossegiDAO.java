@@ -18,5 +18,6 @@ public interface KozossegiDAO {
 	public List<KozossegiPostData> getPostData(int startinterval,int endinterval);
 	public List<KozossegiNotification> getNotifications(int startinterval,int endinterval);
 	public boolean isUniqueEmail(String email);
+	public String getNameById(int id);
 	
 }

@@ -9,6 +9,11 @@ public class KozossegiProfileMiniature {
 		this.name = name;
 		this.pic = pic;
 	}
+	public KozossegiProfileMiniature() {
+		this.id = 0;
+		this.name = "";
+		this.pic = null;
+	}
 	public int getId() {
 		return id;
 	}

@@ -43,5 +43,8 @@ public class KozossegiController{
 		return dao.isUniqueEmail(email);
 	}
 	
+	public String getNameById(int id){
+		return dao.getNameById(id);
+	}
 	
 }
