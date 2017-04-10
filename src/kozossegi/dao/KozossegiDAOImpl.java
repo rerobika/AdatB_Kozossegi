@@ -87,7 +87,7 @@ public class KozossegiDAOImpl implements KozossegiDAO{
 
 	public String getNameById(int id) {
 		// TODO Auto-generated method stub
-		return "Teszt Elek klub név";
+		return "Teszt nev";
 	}
 
 }

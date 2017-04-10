@@ -38,24 +38,12 @@ public class KozossegiClubMenu extends JPanel {
 		
 		ownClubPanel.setLayout(new GridLayout(this.mainFrame.getOwnClubList().size(), 1));
 		for(KozossegiClub c : this.mainFrame.getOwnClubList()){
-			JLabel actual = new JLabel(mainFrame.getController().getNameById(c.getId()));
-			actual.addMouseListener(new MouseAdapter() {
-				public void mouseClicked(MouseEvent e) {
-					mainFrame.setMainContent(new KozossegiProfile(mainFrame, c.getId()));
-				}
-			});
-			ownClubPanel.add(actual);
+			ownClubPanel.add(mainFrame.ListClubMiniatures(c));
 		}
 		
 		tagClubPanel.setLayout(new GridLayout(this.mainFrame.getTagClubList().size(), 1));
 		for(KozossegiClub c : this.mainFrame.getTagClubList()){
-			JLabel actual = new JLabel(mainFrame.getController().getNameById(c.getId()));
-			actual.addMouseListener(new MouseAdapter() {
-				public void mouseClicked(MouseEvent e) {
-					mainFrame.setMainContent(new KozossegiProfile(mainFrame, c.getId()));
-				}
-			});
-			tagClubPanel.add(actual);
+			tagClubPanel.add(mainFrame.ListClubMiniatures(c));
 		}
 		
 		setLayout(new GridLayout(4, 1));

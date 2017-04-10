@@ -64,8 +64,7 @@ public class Labels {
 		public static final String MENU_PROFIL="Profil";
 		public static final String MENU_MESSAGES="Üzenetek";
 		public static final String MENU_FRIENDS="Barátok";
-		public static final String MENU_BIRTHDAY="Születésnapok";
-		public static final String MENU_NAMEDAY="Névnapok";
+		public static final String MENU_BIRTH_AND_NAME_DAY="Születésnapok és névnapok";
 		public static final String MENU_LOGOUT="Kijelentkezés";
 		
 		//ClUB
@@ -73,4 +72,8 @@ public class Labels {
 		public static final String CLUB_TAG="Tagságok";
 		public static final String CLUB_SUGGESTION="Ajánlott klubok";
 		public static final String FRINED_SUGGESTION="Ajánlott tagok";
+		
+		//BIRTH_AND_NAME_DAY
+		public static final String BIRTHDAY = "Születésnaposok";
+		public static final String NAMEDAY = "Névnaposok";
 }

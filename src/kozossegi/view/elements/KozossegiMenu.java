@@ -11,10 +11,9 @@ import javax.swing.JPanel;
 
 import kozossegi.Labels;
 import kozossegi.view.KozossegiMainFrame;
-import kozossegi.view.elements.maincontent.KozossegiBirthDay;
+import kozossegi.view.elements.maincontent.KozossegiBirthAndNameday;
 import kozossegi.view.elements.maincontent.KozossegiFriendManagement;
 import kozossegi.view.elements.maincontent.KozossegiMessages;
-import kozossegi.view.elements.maincontent.KozossegiNameDay;
 import kozossegi.view.elements.maincontent.KozossegiNewsFeed;
 import kozossegi.view.elements.maincontent.KozossegiProfile;
 
@@ -26,8 +25,7 @@ public class KozossegiMenu extends JPanel implements ActionListener{
 	private JButton profilButton;
 	private JButton messagesButton;
 	private JButton friendsButton;
-	private JButton birtDayButton;
-	private JButton nameDayButton;
+	private JButton birtAndNameDayButton;
 	private JButton logOutButton;
 	
 	public KozossegiMenu(KozossegiMainFrame mainFrame) {
@@ -36,8 +34,7 @@ public class KozossegiMenu extends JPanel implements ActionListener{
 		profilButton = new JButton(Labels.MENU_PROFIL);
 		messagesButton = new JButton(Labels.MENU_MESSAGES);
 		friendsButton = new JButton(Labels.MENU_FRIENDS);
-		birtDayButton = new JButton(Labels.MENU_BIRTHDAY);
-		nameDayButton = new JButton(Labels.MENU_NAMEDAY);
+		birtAndNameDayButton = new JButton(Labels.MENU_BIRTH_AND_NAME_DAY);
 		logOutButton = new JButton(Labels.MENU_LOGOUT);
 		
 		setBorder(BorderFactory.createLineBorder(Color.black));
@@ -46,16 +43,14 @@ public class KozossegiMenu extends JPanel implements ActionListener{
 		add(profilButton);
 		add(messagesButton);
 		add(friendsButton);
-		add(birtDayButton);
-		add(nameDayButton);
+		add(birtAndNameDayButton);
 		add(logOutButton);
 		
 		newFeedButton.addActionListener(this);
 		profilButton.addActionListener(this);
 		messagesButton.addActionListener(this);
 		friendsButton.addActionListener(this);
-		birtDayButton.addActionListener(this);
-		nameDayButton.addActionListener(this);
+		birtAndNameDayButton.addActionListener(this);
 		logOutButton.addActionListener(this);
 	}
 
@@ -73,11 +68,8 @@ public class KozossegiMenu extends JPanel implements ActionListener{
 		if(e.getSource()==friendsButton){
 			mainFrame.setMainContent(new KozossegiFriendManagement(mainFrame));
 		}
-		if(e.getSource()==birtDayButton){
-			mainFrame.setMainContent(new KozossegiBirthDay(mainFrame));
-		}
-		if(e.getSource()==nameDayButton){
-			mainFrame.setMainContent(new KozossegiNameDay(mainFrame));
+		if(e.getSource()==birtAndNameDayButton){
+			mainFrame.setMainContent(new KozossegiBirthAndNameday(mainFrame));
 		}
 		if(e.getSource()==logOutButton){
 			System.exit(0);

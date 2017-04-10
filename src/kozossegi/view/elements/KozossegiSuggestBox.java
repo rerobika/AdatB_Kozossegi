@@ -41,35 +41,12 @@ public class KozossegiSuggestBox extends JPanel {
 		
 		suggestClubPanel.setLayout(new GridLayout(this.mainFrame.getSuggestedClubList().size(), 1));
 		for(KozossegiClub c : this.mainFrame.getSuggestedClubList()){
-			JLabel groupNameLabel = new JLabel(mainFrame.getController().getNameById(c.getId()));
-			groupNameLabel.addMouseListener(new MouseAdapter() {
-				public void mouseClicked(MouseEvent e) {
-					mainFrame.setMainContent(new KozossegiProfile(mainFrame, c.getId()));
-				}
-			});
-			suggestClubPanel.add(groupNameLabel);
+			suggestClubPanel.add(mainFrame.ListClubMiniatures(c));
 		}
 		
 		suggestFriendPanel.setLayout(new GridLayout(this.mainFrame.getSuggestedFriendList().size(), 1));
 		for(KozossegiProfileMiniature c : this.mainFrame.getSuggestedFriendList()){
-			JPanel suggestProfileMiniature = new JPanel(new FlowLayout());
-			JLabel profilePictureIconLabel = new JLabel(new ImageIcon(c.getPic()));			
-			JLabel friendNameLabel = new JLabel(mainFrame.getController().getNameById(c.getId()));
-			
-			profilePictureIconLabel.addMouseListener(new MouseAdapter() {
-				public void mouseClicked(MouseEvent e) {
-					mainFrame.setMainContent(new KozossegiProfile(mainFrame, c.getId()));
-				}
-			});
-			
-			friendNameLabel.addMouseListener(new MouseAdapter() {
-				public void mouseClicked(MouseEvent e) {
-					mainFrame.setMainContent(new KozossegiProfile(mainFrame, c.getId()));
-				}
-			});
-			suggestProfileMiniature.add(profilePictureIconLabel);
-			suggestProfileMiniature.add(friendNameLabel);
-			suggestFriendPanel.add(suggestProfileMiniature);
+			suggestFriendPanel.add(mainFrame.listProfileMiniatures(c));
 		}
 		
 		setLayout(new GridLayout(4, 1));
