@@ -69,22 +69,22 @@ public class KozossegiLogin extends JPanel implements ActionListener {
 			mainFrame.setMainContent(new KozossegiRegister(mainFrame));
 		}
 		if(e.getSource()==loginButton){
-			if(!emailField.getText().isEmpty()){
+		/*	if(!emailField.getText().isEmpty()){
 				if(passwordField.getPassword().length!=0){
-					System.out.println("Input fields are not empty!");
+					System.out.println("Input fields are not empty!");*/
 					//TODO make ProfileMiniature with real data from DB					
 					
 					mainFrame.initializeUserData();
 					mainFrame.initializeViewElements();
 					mainFrame.setMainContent(new KozossegiNewsFeed(mainFrame));
-				}
+				/*}
 				else{
 					JOptionPane.showMessageDialog(mainFrame, Labels.EMPTY_PASSWORD, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);
 				}
 			}
 			else{
 				JOptionPane.showMessageDialog(mainFrame, Labels.EMPTY_EMAIL, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);
-			}
+			}*/
 		}
 	}
 }

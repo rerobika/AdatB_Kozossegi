@@ -12,7 +12,7 @@ public class Labels {
 		public static final String DATABASE_PASS="admin";
 		
 		//QUERIES
-		public static final String GET_FRIENDS=""; // TODO
+		public static final String GET_FRIENDS="SELECT * FROM ISMER;"; // TODO
 		
 		
 		//MAIN_FRAME
@@ -52,7 +52,7 @@ public class Labels {
 		public static final String NOT_VALID_EMAIL="Nem valós e-mail címet adtál meg!";
 		public static final String PASSWORD_LENGTH_ERROR="A jelszónak legalább 5 és legfeljebb 30 karakter hosszúnak kell lennie!";
 		public static final String NAME_LENGTH_ERROR="A neved legalább 5 és legfeljebb 50 karakter hosszú kell legyen!";
-		public static final String NO_GENDER_SELECTED="Nem választottad k ia neved!";
+		public static final String NO_GENDER_SELECTED="Nem választottad ki a neved!";
 		
 		//SEARCH
 		public static final String SEARCH_TEXT="Ismerősök keresése:";
@@ -76,4 +76,7 @@ public class Labels {
 		//BIRTH_AND_NAME_DAY
 		public static final String BIRTHDAY = "Születésnaposok";
 		public static final String NAMEDAY = "Névnaposok";
+		
+		//MESSAGE
+		public static final String MESSAGE_SEND = "Küldés";
 }

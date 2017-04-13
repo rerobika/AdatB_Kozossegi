@@ -11,8 +11,11 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -23,6 +26,7 @@ import javax.swing.SwingConstants;
 
 import kozossegi.Labels;
 import kozossegi.bean.KozossegiClub;
+import kozossegi.bean.KozossegiMessage;
 import kozossegi.bean.KozossegiProfileMiniature;
 import kozossegi.controller.KozossegiController;
 import kozossegi.view.elements.KozossegiBirthAndNamedayMenu;
@@ -52,6 +56,8 @@ public class KozossegiMainFrame extends JFrame {
 	private List<KozossegiProfileMiniature> suggestedFriendList;
 	private List<KozossegiProfileMiniature> birthdayList;
 	private List<KozossegiProfileMiniature> namedayList;
+	private List<KozossegiProfileMiniature> friendList;
+	private Map<KozossegiProfileMiniature, ArrayList<KozossegiMessage>> messagesMap;
 	
 	public KozossegiMainFrame(KozossegiController controller) {
 		this.controller = controller;
@@ -70,6 +76,8 @@ public class KozossegiMainFrame extends JFrame {
 		suggestedFriendList = new ArrayList<KozossegiProfileMiniature>();
 		birthdayList = new ArrayList<KozossegiProfileMiniature>();
 		namedayList = new ArrayList<KozossegiProfileMiniature>();
+		friendList = new ArrayList<KozossegiProfileMiniature>();
+		messagesMap = new HashMap<KozossegiProfileMiniature, ArrayList<KozossegiMessage>>();
 		
 		setLayout(new BorderLayout(20,20));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -113,24 +121,40 @@ public class KozossegiMainFrame extends JFrame {
 	}
 	
 	public void initializeUserData(){
-		KozossegiClub test_club = new KozossegiClub(1, 1, new Date(), "asd", null);
-		profileMiniature = new KozossegiProfileMiniature(1111,"Teszt Elek", getImageFromURL(Labels.PROFILE_PICTURE_URL));
-		KozossegiProfileMiniature test_profileMiniature = new KozossegiProfileMiniature(1111,"Teszt Elek", getImageFromURL(Labels.PROFILE_PICTURE_ICO_URL));
+		KozossegiClub test_club = new KozossegiClub(900, 782, new Date(), "asd", null);
+		profileMiniature = new KozossegiProfileMiniature(625,"Teszt Elek", getImageFromURL(Labels.PROFILE_PICTURE_ICO_URL));
+		KozossegiProfileMiniature test_profileMiniature = new KozossegiProfileMiniature(625,"Teszt Elek1", getImageFromURL(Labels.PROFILE_PICTURE_ICO_URL));
+		KozossegiProfileMiniature test_profileMiniature2 = new KozossegiProfileMiniature(621,"Más vki2", getImageFromURL(Labels.PROFILE_PICTURE_ICO_URL));
+		KozossegiProfileMiniature test_profileMiniature3 = new KozossegiProfileMiniature(628,"Más vki3", getImageFromURL(Labels.PROFILE_PICTURE_ICO_URL));
 		//test data
+		
 		ownClubList.add(test_club);
 		ownClubList.add(test_club);
 		tagClubList.add(test_club);
 		tagClubList.add(test_club);
 		
+		suggestedFriendList = controller.getFriends(profileMiniature.getId());
 		suggestedClubList.add(test_club);
 		suggestedClubList.add(test_club);
 		suggestedFriendList.add(test_profileMiniature);
-		suggestedFriendList.add(test_profileMiniature);		
-		birthdayList.add(test_profileMiniature);		
-		birthdayList.add(test_profileMiniature);		
-		namedayList.add(test_profileMiniature);		
-		namedayList.add(test_profileMiniature);		
+		suggestedFriendList.add(test_profileMiniature);	
 		
+		birthdayList.add(test_profileMiniature);		
+		birthdayList.add(test_profileMiniature);		
+		namedayList.add(test_profileMiniature);		
+		namedayList.add(test_profileMiniature);
+		
+		ArrayList<KozossegiMessage> tmp621 = new ArrayList<>(Arrays.asList(new KozossegiMessage(621, 625, "1 ", new Date()),new KozossegiMessage(625, 621, "2", new Date()),new KozossegiMessage(625, 621, "3", new Date()),new KozossegiMessage(625, 621, "4", new Date())));
+		ArrayList<KozossegiMessage> tmp628 = new ArrayList<>(Arrays.asList(new KozossegiMessage(628, 625, "Szia 625 ", new Date()),new KozossegiMessage(625, 628, "Szia 628", new Date())));
+		
+		friendList.add(test_profileMiniature2);
+		friendList.add(test_profileMiniature3);
+		
+		messagesMap.put(test_profileMiniature2, tmp621);
+		messagesMap.put(test_profileMiniature3, tmp628);
+		/*for(KozossegiProfileMiniature k : friendList){
+			messagesMap.put(k, tmp);
+		}*/
 	}
 
 	public Image getImageFromURL(String url){
@@ -145,7 +169,7 @@ public class KozossegiMainFrame extends JFrame {
 	public JPanel listProfileMiniatures(KozossegiProfileMiniature c){
 		JPanel profileMiniature = new JPanel(new FlowLayout());
 		JLabel profilePictureIconLabel = new JLabel(new ImageIcon(c.getPic()));			
-		JLabel friendNameLabel = new JLabel(controller.getNameById(c.getId()));
+		JLabel nameLabel = new JLabel(controller.getNameById(c.getId()));
 		
 		profilePictureIconLabel.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -153,13 +177,13 @@ public class KozossegiMainFrame extends JFrame {
 			}
 		});
 		
-		friendNameLabel.addMouseListener(new MouseAdapter() {
+		nameLabel.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				setMainContent(new KozossegiProfile(getThis(), c.getId()));
 			}
 		});
 		profileMiniature.add(profilePictureIconLabel);
-		profileMiniature.add(friendNameLabel);
+		profileMiniature.add(nameLabel);
 		return profileMiniature;
 	}
 	
@@ -211,8 +235,20 @@ public class KozossegiMainFrame extends JFrame {
 	public List<KozossegiProfileMiniature> getNamedayList() {
 		return namedayList;
 	}
-	
 
+
+	public Map<KozossegiProfileMiniature, ArrayList<KozossegiMessage>> getMessagesMap() {
+		return messagesMap;
+	}
+
+
+	public List<KozossegiProfileMiniature> getFriendList() {
+		return friendList;
+	}
+
+	
+	
+	
 
 
 	
