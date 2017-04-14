@@ -1,11 +1,14 @@
 package kozossegi.view.elements;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 
 import kozossegi.Labels;
@@ -20,6 +23,8 @@ public class KozossegiSuggestBox extends JPanel {
 	private JPanel suggestFriendPanel;
 	private JLabel suggestClubLabel;
 	private JLabel suggestFriendLabel;
+	private JScrollPane suggestClubScroll;
+	private JScrollPane suggestFriendScroll;
 	
 	public KozossegiSuggestBox(KozossegiMainFrame mainFrame) {
 		this.mainFrame = mainFrame;
@@ -27,6 +32,8 @@ public class KozossegiSuggestBox extends JPanel {
 		suggestFriendPanel = new JPanel();
 		suggestClubLabel = new JLabel(Labels.CLUB_SUGGESTION);
 		suggestFriendLabel = new JLabel(Labels.FRINED_SUGGESTION);
+		suggestClubScroll = new JScrollPane(suggestClubPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		suggestFriendScroll = new JScrollPane(suggestFriendPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
 		suggestClubLabel.setBorder(BorderFactory.createLineBorder(Color.black));
 		suggestClubLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -47,10 +54,11 @@ public class KozossegiSuggestBox extends JPanel {
 		setLayout(new GridLayout(4, 1));
 		setBorder(BorderFactory.createLineBorder(Color.black));
 		
+		setPreferredSize(new Dimension(150, 200));
 		add(suggestClubLabel);
-		add(suggestClubPanel);
+		add(suggestClubScroll);
 		add(suggestFriendLabel);
-		add(suggestFriendPanel);
+		add(suggestFriendScroll);
 	}
 
 }

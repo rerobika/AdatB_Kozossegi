@@ -1,11 +1,14 @@
 package kozossegi.view.elements;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 
 import kozossegi.Labels;
@@ -19,6 +22,8 @@ public class KozossegiClubMenu extends JPanel {
 	private JPanel tagClubPanel;
 	private JLabel ownClubLabel;
 	private JLabel tagClubLabel;
+	private JScrollPane ownClubScroll;
+	private JScrollPane tagClubScroll;
 	
 	public KozossegiClubMenu(KozossegiMainFrame mainFrame) {
 		this.mainFrame = mainFrame;
@@ -26,6 +31,8 @@ public class KozossegiClubMenu extends JPanel {
 		tagClubPanel = new JPanel();
 		ownClubLabel = new JLabel(Labels.CLUB_OWNER);
 		tagClubLabel = new JLabel(Labels.CLUB_TAG);
+		ownClubScroll = new JScrollPane(ownClubPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		tagClubScroll = new JScrollPane(tagClubPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
 		ownClubLabel.setBorder(BorderFactory.createLineBorder(Color.black));
 		ownClubLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -42,14 +49,14 @@ public class KozossegiClubMenu extends JPanel {
 		for(KozossegiClub c : this.mainFrame.getTagClubList()){
 			tagClubPanel.add(mainFrame.ListClubMiniatures(c));
 		}
-		
+		setPreferredSize(new Dimension(150, 200));
 		setLayout(new GridLayout(4, 1));
 		setBorder(BorderFactory.createLineBorder(Color.black));
 		
 		add(ownClubLabel);
-		add(ownClubPanel);
+		add(ownClubScroll);
 		add(tagClubLabel);
-		add(tagClubPanel);
+		add(tagClubScroll);
 		
 	}
 

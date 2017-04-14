@@ -22,6 +22,8 @@ import kozossegi.Labels;
 import kozossegi.bean.KozossegiMessage;
 import kozossegi.bean.KozossegiProfileMiniature;
 import kozossegi.view.KozossegiMainFrame;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class KozossegiMessages extends JPanel implements ActionListener {
 	private static final long serialVersionUID = -725144772134434500L;
@@ -40,7 +42,20 @@ public class KozossegiMessages extends JPanel implements ActionListener {
 		friendListPanel = new JPanel();
 		conversationPanel = new JPanel();
 		sendMessagePanel = new JPanel();
-		messageText = new JTextArea("",3,60);
+		messageText = new JTextArea("",3,50);
+		
+		messageText.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER){
+					if(!messageText.getText().isEmpty()){
+						mainFrame.updateMessageList(conversationPartner, messageText.getText());
+						refreshConversationList(conversationPartner);
+						messageText.setText("");					
+					}
+				}
+				
+			}
+		});
 		messageSendButton = new JButton(Labels.MESSAGE_SEND);
 		friendListScroll = new JScrollPane(friendListPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		conversationScroll = new JScrollPane(conversationPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -150,7 +165,6 @@ public class KozossegiMessages extends JPanel implements ActionListener {
 				mainFrame.updateMessageList(conversationPartner, messageText.getText());
 				refreshConversationList(conversationPartner);
 				messageText.setText("");
-				
 			}
 		}
 		

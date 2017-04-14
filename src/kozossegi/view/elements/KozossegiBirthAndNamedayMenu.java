@@ -1,11 +1,14 @@
 package kozossegi.view.elements;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 
 import kozossegi.Labels;
@@ -19,6 +22,8 @@ public class KozossegiBirthAndNamedayMenu extends JPanel {
 	private JPanel namedayPanel;
 	private JLabel birthdayLabel;
 	private JLabel namedayLabel;
+	private JScrollPane birthdayScroll;
+	private JScrollPane namedayScroll;
 	
 	public KozossegiBirthAndNamedayMenu(KozossegiMainFrame mainFrame) {
 		this.mainFrame = mainFrame;
@@ -26,6 +31,8 @@ public class KozossegiBirthAndNamedayMenu extends JPanel {
 		namedayPanel = new JPanel();
 		birthdayLabel = new JLabel(Labels.BIRTHDAY);
 		namedayLabel = new JLabel(Labels.NAMEDAY);
+		birthdayScroll = new JScrollPane(birthdayPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		namedayScroll = new JScrollPane(namedayPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
 		birthdayLabel.setBorder(BorderFactory.createLineBorder(Color.black));
 		birthdayLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -45,11 +52,12 @@ public class KozossegiBirthAndNamedayMenu extends JPanel {
 		
 		setLayout(new GridLayout(4, 1));
 		setBorder(BorderFactory.createLineBorder(Color.black));
+		setPreferredSize(new Dimension(150, 200));
 		
 		add(birthdayLabel);
-		add(birthdayPanel);
+		add(birthdayScroll);
 		add(namedayLabel);
-		add(namedayPanel);
+		add(namedayScroll);
 	}
 
 }

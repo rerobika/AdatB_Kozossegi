@@ -132,19 +132,90 @@ public class KozossegiMainFrame extends JFrame{
 		
 		ownClubList.add(test_club);
 		ownClubList.add(test_club);
+		ownClubList.add(test_club);
+		ownClubList.add(test_club);
+		ownClubList.add(test_club);
+		ownClubList.add(test_club);
+		ownClubList.add(test_club);
+		ownClubList.add(test_club);
+		ownClubList.add(test_club);
+		ownClubList.add(test_club);
+		ownClubList.add(test_club);
+		ownClubList.add(test_club);
+		ownClubList.add(test_club);
+		ownClubList.add(test_club);
+		ownClubList.add(test_club);
+		ownClubList.add(test_club);
+		tagClubList.add(test_club);
+		tagClubList.add(test_club);
+		tagClubList.add(test_club);
+		tagClubList.add(test_club);
+		tagClubList.add(test_club);
+		tagClubList.add(test_club);
+		tagClubList.add(test_club);
+		tagClubList.add(test_club);
+		tagClubList.add(test_club);
+		tagClubList.add(test_club);
+		tagClubList.add(test_club);
 		tagClubList.add(test_club);
 		tagClubList.add(test_club);
 		
 		//suggestedFriendList = controller.getFriends(profileMiniature.getId());
 		suggestedClubList.add(test_club);
 		suggestedClubList.add(test_club);
+		suggestedClubList.add(test_club);
+		suggestedClubList.add(test_club);
+		suggestedClubList.add(test_club);
+		suggestedClubList.add(test_club);
+		suggestedClubList.add(test_club);
+		suggestedClubList.add(test_club);
+		suggestedClubList.add(test_club);
+		suggestedClubList.add(test_club);
+		suggestedClubList.add(test_club);
+		suggestedClubList.add(test_club);
+		suggestedClubList.add(test_club);
+		suggestedClubList.add(test_club);
+		suggestedClubList.add(test_club);
+		suggestedClubList.add(test_club);
+		suggestedClubList.add(test_club);
+		suggestedClubList.add(test_club);
+		suggestedClubList.add(test_club);
 		suggestedFriendList.add(test_profileMiniature);
 		suggestedFriendList.add(test_profileMiniature);	
+		suggestedFriendList.add(test_profileMiniature);	
+		suggestedFriendList.add(test_profileMiniature);	
+		suggestedFriendList.add(test_profileMiniature);	
+		suggestedFriendList.add(test_profileMiniature);	
+		suggestedFriendList.add(test_profileMiniature);	
+		suggestedFriendList.add(test_profileMiniature);	
+		suggestedFriendList.add(test_profileMiniature);	
+		suggestedFriendList.add(test_profileMiniature);	
+		suggestedFriendList.add(test_profileMiniature);	
+		suggestedFriendList.add(test_profileMiniature);	
+		suggestedFriendList.add(test_profileMiniature);	
+		suggestedFriendList.add(test_profileMiniature);	
+		suggestedFriendList.add(test_profileMiniature);	
+		suggestedFriendList.add(test_profileMiniature);	
+		suggestedFriendList.add(test_profileMiniature);	
+		suggestedFriendList.add(test_profileMiniature);	
+		suggestedFriendList.add(test_profileMiniature);	
 		
-		birthdayList.add(test_profileMiniature);		
-		birthdayList.add(test_profileMiniature);		
-		namedayList.add(test_profileMiniature);		
-		namedayList.add(test_profileMiniature);
+		birthdayList.add(test_profileMiniature2);				
+		birthdayList.add(test_profileMiniature2);				
+		birthdayList.add(test_profileMiniature2);				
+		birthdayList.add(test_profileMiniature2);				
+		birthdayList.add(test_profileMiniature2);				
+		namedayList.add(test_profileMiniature2);		
+		namedayList.add(test_profileMiniature2);		
+		namedayList.add(test_profileMiniature2);		
+		namedayList.add(test_profileMiniature2);		
+		namedayList.add(test_profileMiniature2);		
+		namedayList.add(test_profileMiniature2);		
+		namedayList.add(test_profileMiniature2);		
+		namedayList.add(test_profileMiniature2);		
+		namedayList.add(test_profileMiniature2);		
+		namedayList.add(test_profileMiniature2);		
+
 		
 		ArrayList<KozossegiMessage> tmp621 = new ArrayList<>(Arrays.asList(new KozossegiMessage(621, 625, "Hello ", new Date()),new KozossegiMessage(625, 621, "asd", new Date()),new KozossegiMessage(625, 621, "saaaaaaaaaaaaaaaaaaaaajtt", new Date()),new KozossegiMessage(625, 621, "sajt", new Date()),new KozossegiMessage(625, 621, "sajt", new Date()),new KozossegiMessage(625, 621, "sajt", new Date()),new KozossegiMessage(625, 621, "sajt", new Date()),new KozossegiMessage(625, 621, "sajt", new Date()),new KozossegiMessage(625, 621, "sajt", new Date()),new KozossegiMessage(625, 621, "sajt", new Date()),new KozossegiMessage(625, 621, "sajt", new Date()),new KozossegiMessage(625, 621, "sajt", new Date()),new KozossegiMessage(621, 625, "Már nincs", new Date()),new KozossegiMessage(621, 625, "Már nincs ", new Date())));
 		ArrayList<KozossegiMessage> tmp628 = new ArrayList<>(Arrays.asList(new KozossegiMessage(628, 625, "Szia 625 ", new Date()),new KozossegiMessage(625, 628, "Szia 628", new Date())));
@@ -195,7 +266,7 @@ public class KozossegiMainFrame extends JFrame{
 	public JPanel listProfileMiniatures(KozossegiProfileMiniature c){
 		JPanel profileMiniature = new JPanel(new FlowLayout());
 		JLabel profilePictureIconLabel = new JLabel(new ImageIcon(c.getPic()));			
-		JLabel nameLabel = new JLabel(controller.getNameById(c.getId()));
+		JLabel nameLabel = new JLabel(c.getName());
 		
 		profilePictureIconLabel.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
