@@ -2,8 +2,6 @@ package kozossegi.view.elements;
 
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -13,7 +11,6 @@ import javax.swing.SwingConstants;
 import kozossegi.Labels;
 import kozossegi.bean.KozossegiClub;
 import kozossegi.view.KozossegiMainFrame;
-import kozossegi.view.elements.maincontent.KozossegiProfile;
 
 public class KozossegiClubMenu extends JPanel {
 	private static final long serialVersionUID = 3769578717950897182L;

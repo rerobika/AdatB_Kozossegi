@@ -32,6 +32,13 @@ public class KozossegiProfileMiniature {
 	public void setPic(Image pic) {
 		this.pic = pic;
 	}
+	
+	public String toString() {
+		return "KozossegiProfileMiniature [id=" + id + ", name=" + name + ", pic=" + pic + "]";
+	}
+
+
+
 	int id;
 	String name;
 	Image pic;
