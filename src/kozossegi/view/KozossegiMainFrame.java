@@ -38,10 +38,10 @@ import kozossegi.view.elements.KozossegiSuggestBox;
 import kozossegi.view.elements.maincontent.KozossegiLogin;
 import kozossegi.view.elements.maincontent.KozossegiProfile;
 
-public class KozossegiMainFrame extends JFrame {
+public class KozossegiMainFrame extends JFrame{
 	private static final long serialVersionUID = -3443677995502851727L;
 	private KozossegiController controller;
-	private JPanel activePanel;
+	private JPanel mainContentPanel;
 	private JPanel logoPanel;
 	private JPanel leftSideContentPanel;
 	private JPanel topSideContentPanel;
@@ -61,12 +61,12 @@ public class KozossegiMainFrame extends JFrame {
 	
 	public KozossegiMainFrame(KozossegiController controller) {
 		this.controller = controller;
-		activePanel = new JPanel(new CardLayout());
+		mainContentPanel = new JPanel(new CardLayout());
 		logoPanel = new JPanel(new FlowLayout());
 		leftSideContentPanel = new JPanel(new GridLayout(2,10,1,10));
 		topSideContentPanel = new JPanel(new FlowLayout());
 		rightSideContentPanel = new JPanel(new GridLayout(2,10,1,10));
-		cardLayout = (CardLayout) activePanel.getLayout();
+		cardLayout = (CardLayout) mainContentPanel.getLayout();
 		logoImage = getImageFromURL(Labels.LOGO_URL);
 		//USERDATA
 		profileMiniature = new KozossegiProfileMiniature();
@@ -79,14 +79,14 @@ public class KozossegiMainFrame extends JFrame {
 		friendList = new ArrayList<KozossegiProfileMiniature>();
 		messagesMap = new HashMap<KozossegiProfileMiniature, ArrayList<KozossegiMessage>>();
 		
-		setLayout(new BorderLayout(20,20));
+		getContentPane().setLayout(new BorderLayout(20,20));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle(Labels.MAIN_FRAME_TITLE);
-		setSize(new Dimension(1240, 768));
-		add(activePanel, BorderLayout.CENTER);		
-		add(leftSideContentPanel, BorderLayout.WEST);		
-		add(topSideContentPanel, BorderLayout.NORTH);		
-		add(rightSideContentPanel, BorderLayout.EAST);		
+		setResizable(false);
+		setTitle(Labels.MAIN_FRAME_TITLE);		
+		getContentPane().add(mainContentPanel, BorderLayout.CENTER);		
+		getContentPane().add(leftSideContentPanel, BorderLayout.WEST);		
+		getContentPane().add(topSideContentPanel, BorderLayout.NORTH);		
+		getContentPane().add(rightSideContentPanel, BorderLayout.EAST);		
 		setMainContent(startScreen());
 		setVisible(true);
 					
@@ -98,14 +98,16 @@ public class KozossegiMainFrame extends JFrame {
 	}
 
 	public void setMainContent(JPanel panelToVisible) {
-		activePanel.removeAll();
-		activePanel.add(panelToVisible,panelToVisible.getName());
-		cardLayout.show(activePanel, panelToVisible.getName());
+		mainContentPanel.removeAll();
+		mainContentPanel.add(panelToVisible,panelToVisible.getName());
+		cardLayout.show(mainContentPanel, panelToVisible.getName());
 		pack();
+		System.out.println(getSize().toString());
 		
 	}
 	
 	public void initializeViewElements(){	
+		mainContentPanel.setPreferredSize(new Dimension(640, 480));
 		logoPanel.add(new JLabel(new ImageIcon(logoImage)));
 		
 		topSideContentPanel.add(logoPanel);	
@@ -133,7 +135,7 @@ public class KozossegiMainFrame extends JFrame {
 		tagClubList.add(test_club);
 		tagClubList.add(test_club);
 		
-		suggestedFriendList = controller.getFriends(profileMiniature.getId());
+		//suggestedFriendList = controller.getFriends(profileMiniature.getId());
 		suggestedClubList.add(test_club);
 		suggestedClubList.add(test_club);
 		suggestedFriendList.add(test_profileMiniature);
@@ -144,15 +146,39 @@ public class KozossegiMainFrame extends JFrame {
 		namedayList.add(test_profileMiniature);		
 		namedayList.add(test_profileMiniature);
 		
-		ArrayList<KozossegiMessage> tmp621 = new ArrayList<>(Arrays.asList(new KozossegiMessage(621, 625, "1 ", new Date()),new KozossegiMessage(625, 621, "2", new Date()),new KozossegiMessage(625, 621, "3", new Date()),new KozossegiMessage(625, 621, "4", new Date())));
+		ArrayList<KozossegiMessage> tmp621 = new ArrayList<>(Arrays.asList(new KozossegiMessage(621, 625, "Hello ", new Date()),new KozossegiMessage(625, 621, "asd", new Date()),new KozossegiMessage(625, 621, "saaaaaaaaaaaaaaaaaaaaajtt", new Date()),new KozossegiMessage(625, 621, "sajt", new Date()),new KozossegiMessage(625, 621, "sajt", new Date()),new KozossegiMessage(625, 621, "sajt", new Date()),new KozossegiMessage(625, 621, "sajt", new Date()),new KozossegiMessage(625, 621, "sajt", new Date()),new KozossegiMessage(625, 621, "sajt", new Date()),new KozossegiMessage(625, 621, "sajt", new Date()),new KozossegiMessage(625, 621, "sajt", new Date()),new KozossegiMessage(625, 621, "sajt", new Date()),new KozossegiMessage(621, 625, "Már nincs", new Date()),new KozossegiMessage(621, 625, "Már nincs ", new Date())));
 		ArrayList<KozossegiMessage> tmp628 = new ArrayList<>(Arrays.asList(new KozossegiMessage(628, 625, "Szia 625 ", new Date()),new KozossegiMessage(625, 628, "Szia 628", new Date())));
 		
 		friendList.add(test_profileMiniature2);
 		friendList.add(test_profileMiniature3);
-		
+		friendList.add(test_profileMiniature3);
+		friendList.add(test_profileMiniature3);
+		friendList.add(test_profileMiniature3);
+		friendList.add(test_profileMiniature3);
+		friendList.add(test_profileMiniature3);
+		friendList.add(test_profileMiniature3);
+		friendList.add(test_profileMiniature3);
+		friendList.add(test_profileMiniature3);
+		friendList.add(test_profileMiniature3);
+		friendList.add(test_profileMiniature3);
+		friendList.add(test_profileMiniature3);
+		friendList.add(test_profileMiniature3);
+		friendList.add(test_profileMiniature3);
+		friendList.add(test_profileMiniature3);
+		friendList.add(test_profileMiniature3);
+		friendList.add(test_profileMiniature3);
+		friendList.add(test_profileMiniature3);
+		friendList.add(test_profileMiniature3);
+		friendList.add(test_profileMiniature3);
+		friendList.add(test_profileMiniature3);
+		friendList.add(test_profileMiniature3);
+		friendList.add(test_profileMiniature3);
+
 		messagesMap.put(test_profileMiniature2, tmp621);
 		messagesMap.put(test_profileMiniature3, tmp628);
-		/*for(KozossegiProfileMiniature k : friendList){
+		
+		/*tmp = K friend-hez tartozó messageList
+		 * for(KozossegiProfileMiniature k : friendList){
 			messagesMap.put(k, tmp);
 		}*/
 	}
@@ -198,6 +224,12 @@ public class KozossegiMainFrame extends JFrame {
 		return groupNameLabel;
 	}
 	
+	public void updateMessageList(KozossegiProfileMiniature conversationPartner, String content){
+		//TODO c kulcsú új messageList lekérése az adatbázisból
+		//Ideiglenes
+		messagesMap.get(conversationPartner).add(new KozossegiMessage(profileMiniature.getId(), conversationPartner.getId(), content, new Date()));
+	}
+	
 	public KozossegiController getController(){
 		return controller;
 	}
@@ -241,15 +273,9 @@ public class KozossegiMainFrame extends JFrame {
 		return messagesMap;
 	}
 
-
 	public List<KozossegiProfileMiniature> getFriendList() {
 		return friendList;
 	}
-
-	
-	
-	
-
 
 	
 }

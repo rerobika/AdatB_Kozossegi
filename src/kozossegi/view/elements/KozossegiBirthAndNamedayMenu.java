@@ -1,22 +1,16 @@
 package kozossegi.view.elements;
 
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import kozossegi.Labels;
-import kozossegi.bean.KozossegiClub;
 import kozossegi.bean.KozossegiProfileMiniature;
 import kozossegi.view.KozossegiMainFrame;
-import kozossegi.view.elements.maincontent.KozossegiProfile;
 
 public class KozossegiBirthAndNamedayMenu extends JPanel {
 	private static final long serialVersionUID = -7611266213286581278L;

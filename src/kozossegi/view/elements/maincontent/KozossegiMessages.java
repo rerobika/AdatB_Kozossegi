@@ -3,13 +3,10 @@ package kozossegi.view.elements.maincontent;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -17,77 +14,84 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSplitPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
+import javax.swing.ScrollPaneConstants;
 
 import kozossegi.Labels;
 import kozossegi.bean.KozossegiMessage;
 import kozossegi.bean.KozossegiProfileMiniature;
 import kozossegi.view.KozossegiMainFrame;
 
-public class KozossegiMessages extends JPanel {
+public class KozossegiMessages extends JPanel implements ActionListener {
 	private static final long serialVersionUID = -725144772134434500L;
 	private KozossegiMainFrame mainFrame;
-	private JPanel friendList;
-	private JPanel conversation;
+	private JScrollPane friendListScroll;
+	private JScrollPane conversationScroll;
+	private JPanel friendListPanel;
+	private JPanel conversationPanel;
 	private JPanel sendMessagePanel;
 	private JTextArea messageText;
 	private JButton messageSendButton;
-
+	private KozossegiProfileMiniature conversationPartner;
 	
 	public KozossegiMessages(KozossegiMainFrame mainFrame) {
 		this.mainFrame = mainFrame;
-		friendList = new JPanel();
-		conversation = new JPanel();
+		friendListPanel = new JPanel();
+		conversationPanel = new JPanel();
 		sendMessagePanel = new JPanel();
-		messageText = new JTextArea("",3,100);
+		messageText = new JTextArea("",3,60);
 		messageSendButton = new JButton(Labels.MESSAGE_SEND);
+		friendListScroll = new JScrollPane(friendListPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		conversationScroll = new JScrollPane(conversationPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		conversationPartner = new KozossegiProfileMiniature();
 		
-		setLayout(new BorderLayout());
-		messageText.setEditable(true);
-		
+		setLayout(new BorderLayout());		
 	    setBorder(BorderFactory.createLineBorder(Color.black));
-	    friendList.setBorder(BorderFactory.createLineBorder(Color.black));
-	    conversation.setBorder(BorderFactory.createLineBorder(Color.black));
-		friendList.setLayout(new GridLayout(mainFrame.getFriendList().size(), 1));
-		conversation.setLayout(new BorderLayout());
+	    
+	    friendListPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+	    friendListPanel.setLayout(new BoxLayout(friendListPanel, BoxLayout.Y_AXIS));
+	    conversationPanel.setBorder(BorderFactory.createLineBorder(Color.black));		
+	    conversationPanel.setLayout(new BoxLayout(conversationPanel, BoxLayout.Y_AXIS));
+	    messageText.setEditable(false);	
+
+		add(friendListScroll, BorderLayout.WEST);
+		add(conversationScroll, BorderLayout.CENTER);
+		
+		
 		for(KozossegiProfileMiniature c : mainFrame.getFriendList()){
-			JPanel profileMiniature = new JPanel(new FlowLayout());
+			JPanel profileMiniature = new JPanel();
 			JLabel profilePictureIconLabel = new JLabel(new ImageIcon(c.getPic()));			
 			JLabel friendNameLabel = new JLabel(c.getName());
 			
 			profilePictureIconLabel.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
-					conversation.removeAll();
-					conversation.add(listConversation(c));
-					System.out.println(c.getName());
-					revalidate();
-					repaint();
+					refreshConversationList(c);
+					conversationPartner = c;
+					messageText.setEditable(true);
 				}
 			});
 			
 			friendNameLabel.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
-					conversation.removeAll();
-					conversation.add(listConversation(c));
-					System.out.println(c.getName());
-					revalidate();
-					repaint();
+					refreshConversationList(c);
+					conversationPartner = c;
+					messageText.setEditable(true);
 				}
 			});
 			profileMiniature.add(profilePictureIconLabel);
 			profileMiniature.add(friendNameLabel);
-			friendList.add(profileMiniature);
+			profileMiniature.setBorder(BorderFactory.createLineBorder(Color.black));
+			friendListPanel.add(profileMiniature);
 			
 		}
-		sendMessagePanel.setLayout(new FlowLayout());
+		messageSendButton.addActionListener(this);
+		FlowLayout fl_sendMessagePanel = new FlowLayout();
+		fl_sendMessagePanel.setAlignment(FlowLayout.RIGHT);
+		sendMessagePanel.setLayout(fl_sendMessagePanel);
 		sendMessagePanel.add(messageText);
 		sendMessagePanel.add(messageSendButton);
 		
-		
-		add(friendList, BorderLayout.WEST);
-		add(conversation, BorderLayout.CENTER);
 		add(sendMessagePanel, BorderLayout.SOUTH);
 	}
 	
@@ -111,14 +115,12 @@ public class KozossegiMessages extends JPanel {
 		JPanel profileMiniature = new JPanel(new FlowLayout());
 		JLabel profilePictureIconLabel = new JLabel(new ImageIcon(mainFrame.getProfileMiniature().getPic()));			
 		JLabel nameLabel = new JLabel(message.getContent());
-		JLabel dateLabel = new JLabel(message.getTime().toString());
-		dateLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		
+		profileMiniature.setToolTipText(message.getTime().toString());
 		profileMiniature.add(nameLabel);
 		profileMiniature.add(profilePictureIconLabel);
 		
 		result.add(profileMiniature,BorderLayout.EAST);
-		result.add(dateLabel, BorderLayout.SOUTH);
 		return result;
 	}
 	
@@ -127,8 +129,6 @@ public class KozossegiMessages extends JPanel {
 		JPanel profileMiniature = new JPanel(new FlowLayout());
 		JLabel profilePictureIconLabel = new JLabel(new ImageIcon(c.getPic()));			
 		JLabel nameLabel = new JLabel(message.getContent());
-		JLabel dateLabel = new JLabel(message.getTime().toString());
-		dateLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		
 		profilePictureIconLabel.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -136,10 +136,30 @@ public class KozossegiMessages extends JPanel {
 			}
 		});
 		
+		profileMiniature.setToolTipText(message.getTime().toString());
 		profileMiniature.add(profilePictureIconLabel);		
-		profileMiniature.add(nameLabel);		
+		profileMiniature.add(nameLabel);	
+		
 		result.add(profileMiniature,BorderLayout.WEST);
-		result.add(dateLabel, BorderLayout.SOUTH);
 		return result;
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==messageSendButton){
+			if(!messageText.getText().isEmpty()){
+				mainFrame.updateMessageList(conversationPartner, messageText.getText());
+				refreshConversationList(conversationPartner);
+				messageText.setText("");
+				
+			}
+		}
+		
+	}
+	
+	private void refreshConversationList(KozossegiProfileMiniature conversationPartner) {
+		conversationPanel.removeAll();
+		conversationPanel.add(listConversation(conversationPartner));
+		revalidate();
+		repaint();
 	}
 }
