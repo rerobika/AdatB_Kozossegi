@@ -124,7 +124,7 @@ public class KozossegiMainFrame extends JFrame{
 	
 	public void initializeUserData(){
 		KozossegiClub test_club = new KozossegiClub(900, 782, new Date(), "asd", null);
-		profileMiniature = new KozossegiProfileMiniature(625,"Teszt Elek", getImageFromURL(Labels.PROFILE_PICTURE_ICO_URL));
+		profileMiniature = new KozossegiProfileMiniature(625,"Teszt Elek", getImageFromURL(Labels.PROFILE_PICTURE_URL));
 		KozossegiProfileMiniature test_profileMiniature = new KozossegiProfileMiniature(625,"Teszt Elek1", getImageFromURL(Labels.PROFILE_PICTURE_ICO_URL));
 		KozossegiProfileMiniature test_profileMiniature2 = new KozossegiProfileMiniature(621,"Más vki2", getImageFromURL(Labels.PROFILE_PICTURE_ICO_URL));
 		KozossegiProfileMiniature test_profileMiniature3 = new KozossegiProfileMiniature(628,"Más vki3", getImageFromURL(Labels.PROFILE_PICTURE_ICO_URL));
@@ -263,7 +263,7 @@ public class KozossegiMainFrame extends JFrame{
 		return null;
 	}
 	
-	public JPanel listProfileMiniatures(KozossegiProfileMiniature c){
+	public JPanel listProfileMiniatures(final KozossegiProfileMiniature c){
 		JPanel profileMiniature = new JPanel(new FlowLayout());
 		JLabel profilePictureIconLabel = new JLabel(new ImageIcon(c.getPic()));			
 		JLabel nameLabel = new JLabel(c.getName());
@@ -284,7 +284,7 @@ public class KozossegiMainFrame extends JFrame{
 		return profileMiniature;
 	}
 	
-	public JLabel ListClubMiniatures(KozossegiClub c){
+	public JLabel ListClubMiniatures(final KozossegiClub c){
 		JLabel groupNameLabel = new JLabel(controller.getNameById(c.getId()));
 		groupNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		groupNameLabel.addMouseListener(new MouseAdapter() {

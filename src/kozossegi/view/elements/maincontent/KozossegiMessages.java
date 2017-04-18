@@ -37,7 +37,7 @@ public class KozossegiMessages extends JPanel implements ActionListener {
 	private JButton messageSendButton;
 	private KozossegiProfileMiniature conversationPartner;
 	
-	public KozossegiMessages(KozossegiMainFrame mainFrame) {
+	public KozossegiMessages(final KozossegiMainFrame mainFrame) {
 		this.mainFrame = mainFrame;
 		friendListPanel = new JPanel();
 		conversationPanel = new JPanel();
@@ -74,7 +74,7 @@ public class KozossegiMessages extends JPanel implements ActionListener {
 		add(conversationScroll, BorderLayout.CENTER);
 		
 		
-		for(KozossegiProfileMiniature c : mainFrame.getFriendList()){
+		for(final KozossegiProfileMiniature c : mainFrame.getFriendList()){
 			JPanel profileMiniature = new JPanel();
 			JLabel profilePictureIconLabel = new JLabel(new ImageIcon(c.getPic()));			
 			JLabel friendNameLabel = new JLabel(c.getName());

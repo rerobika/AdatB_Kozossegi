@@ -7,9 +7,11 @@ import kozossegi.view.KozossegiMainFrame;
 public class KozossegiFriendManagement extends JPanel {
 	
 private KozossegiMainFrame mainFrame;
+private int id;
 	
-	public KozossegiFriendManagement(KozossegiMainFrame mainFrame) {
+	public KozossegiFriendManagement(KozossegiMainFrame mainFrame, int id) {
 		this.mainFrame = mainFrame;
+		this.id = id;
 	}
 
 }

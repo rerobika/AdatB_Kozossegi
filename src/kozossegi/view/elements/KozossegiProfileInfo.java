@@ -20,7 +20,7 @@ public class KozossegiProfileInfo extends JPanel {
 	private JLabel nameLabel;
 	private JLabel profilePictureLabel;
 	
-	public KozossegiProfileInfo(KozossegiMainFrame mainFrame) {
+	public KozossegiProfileInfo(final KozossegiMainFrame mainFrame) {
 		this.mainFrame = mainFrame;
 		
 		setBorder(BorderFactory.createLineBorder(Color.black));

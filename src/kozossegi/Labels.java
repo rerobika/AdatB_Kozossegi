@@ -79,4 +79,10 @@ public class Labels {
 		
 		//MESSAGE
 		public static final String MESSAGE_SEND = "Küldés";
+		
+		//PROFILE
+		public static final String PROFIL_WALL = "Idővonal";
+		public static final String PROFIL_INFO = "Információ";
+		public static final String PROFIL_ALBUMS = "Albumok";
+		public static final String PROFIL_FRIENDS = "Ismerősök";
 }
