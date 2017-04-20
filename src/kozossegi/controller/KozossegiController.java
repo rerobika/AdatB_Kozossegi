@@ -2,9 +2,11 @@
 
 import java.util.List;
 
-import kozossegi.bean.KozossegiNotification;
+import kozossegi.bean.KozossegiMessageBean;
+import kozossegi.bean.KozossegiNotificationBean;
 import kozossegi.bean.KozossegiPostData;
-import kozossegi.bean.KozossegiProfileMiniature;
+import kozossegi.bean.KozossegiProfileBean;
+import kozossegi.bean.KozossegiProfileMiniatureBean;
 import kozossegi.dao.KozossegiDAO;
 import kozossegi.dao.KozossegiDAOImpl;
 import kozossegi.view.KozossegiMainFrame;
@@ -19,15 +21,15 @@ public class KozossegiController{
 	}
 
 	//DAO connect
-	public List<KozossegiProfileMiniature> getFriends(int id) {
+	public List<KozossegiProfileMiniatureBean> getFriends(int id) {
 		return dao.getFriends(id);
 	}
 
-	public List<KozossegiProfileMiniature> getMembers(int id) {
+	public List<KozossegiProfileMiniatureBean> getMembers(int id) {
 		return dao.getMembers(id);
 	}
 
-	public KozossegiProfileMiniature getMiniature(int id) {
+	public KozossegiProfileMiniatureBean getMiniature(int id) {
 		return dao.getMiniature(id);
 	}
 
@@ -35,7 +37,7 @@ public class KozossegiController{
 		return dao.getPostData(startinterval, endinterval);
 	}
 
-	public List<KozossegiNotification> getNotifications(int startinterval, int endinterval) {
+	public List<KozossegiNotificationBean> getNotifications(int startinterval, int endinterval) {
 		return dao.getNotifications(startinterval, endinterval);
 	}	
 
@@ -45,6 +47,18 @@ public class KozossegiController{
 	
 	public String getNameById(int id){
 		return dao.getNameById(id);
+	}
+	public KozossegiProfileBean getProfile(int id)
+	{
+		return dao.getProfile(id);
+	}
+
+	public List<KozossegiMessageBean> getMessages(int id1,int id2) {
+		return dao.getMessages(id1, id2);	
+	}
+	public void sendMessage(KozossegiMessageBean msg)
+	{
+		dao.sendMessage(msg);
 	}
 	
 }

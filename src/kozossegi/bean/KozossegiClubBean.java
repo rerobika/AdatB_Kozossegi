@@ -3,21 +3,14 @@ package kozossegi.bean;
 import java.util.Date;
 import java.util.List;
 
-public class KozossegiClub {
-	int id;
-	public KozossegiClub(int id, int ownerId, Date start, String desc, List<KozossegiProfileMiniature> members) {
-		super();
-		this.id = id;
+public class KozossegiClubBean extends KozossegiUserBean{
+	
+	public KozossegiClubBean(String name, int id, int ownerId, Date start, String desc,	List<KozossegiProfileMiniatureBean> members) {
+		super(name, id);
 		this.ownerId = ownerId;
 		this.start = start;
 		this.desc = desc;
 		this.members = members;
-	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
 	}
 	public int getOwnerId() {
 		return ownerId;
@@ -37,14 +30,14 @@ public class KozossegiClub {
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}
-	public List<KozossegiProfileMiniature> getMembers() {
+	public List<KozossegiProfileMiniatureBean> getMembers() {
 		return members;
 	}
-	public void setMembers(List<KozossegiProfileMiniature> members) {
+	public void setMembers(List<KozossegiProfileMiniatureBean> members) {
 		this.members = members;
 	}
 	int ownerId;
 	Date start;
 	String desc;
-	List<KozossegiProfileMiniature> members;
+	List<KozossegiProfileMiniatureBean> members;
 }

@@ -2,10 +2,10 @@ package kozossegi.bean;
 
 import java.util.Date;
 
-public class KozossegiMessage extends KozossegiNotification {
+public class KozossegiMessageBean extends KozossegiNotificationBean {
 	private Date time;
 
-	public KozossegiMessage(int from, int to, String content, Date time) {
+	public KozossegiMessageBean(int from, int to, String content, Date time) {
 		super(from, to, content);
 		this.time = time;
 	}

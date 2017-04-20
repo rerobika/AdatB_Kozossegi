@@ -12,7 +12,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 
 import kozossegi.Labels;
-import kozossegi.bean.KozossegiProfileMiniature;
+import kozossegi.bean.KozossegiProfileMiniatureBean;
 import kozossegi.view.KozossegiMainFrame;
 
 public class KozossegiBirthAndNamedayMenu extends JPanel {
@@ -41,12 +41,12 @@ public class KozossegiBirthAndNamedayMenu extends JPanel {
 		
 		
 		birthdayPanel.setLayout(new GridLayout(this.mainFrame.getBirthdayList().size(), 1));
-		for(KozossegiProfileMiniature c : this.mainFrame.getBirthdayList()){
+		for(KozossegiProfileMiniatureBean c : this.mainFrame.getBirthdayList()){
 			birthdayPanel.add(mainFrame.listProfileMiniatures(c));
 		}
 		
 		namedayPanel.setLayout(new GridLayout(this.mainFrame.getNamedayList().size(), 1));
-		for(KozossegiProfileMiniature c : this.mainFrame.getNamedayList()){
+		for(KozossegiProfileMiniatureBean c : this.mainFrame.getNamedayList()){
 			namedayPanel.add(mainFrame.listProfileMiniatures(c));
 		}
 		

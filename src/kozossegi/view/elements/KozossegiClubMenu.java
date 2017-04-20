@@ -12,7 +12,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 
 import kozossegi.Labels;
-import kozossegi.bean.KozossegiClub;
+import kozossegi.bean.KozossegiClubBean;
 import kozossegi.view.KozossegiMainFrame;
 
 public class KozossegiClubMenu extends JPanel {
@@ -41,12 +41,12 @@ public class KozossegiClubMenu extends JPanel {
 		
 		
 		ownClubPanel.setLayout(new GridLayout(this.mainFrame.getOwnClubList().size(), 1));
-		for(KozossegiClub c : this.mainFrame.getOwnClubList()){
+		for(KozossegiClubBean c : this.mainFrame.getOwnClubList()){
 			ownClubPanel.add(mainFrame.ListClubMiniatures(c));
 		}
 		
 		tagClubPanel.setLayout(new GridLayout(this.mainFrame.getTagClubList().size(), 1));
-		for(KozossegiClub c : this.mainFrame.getTagClubList()){
+		for(KozossegiClubBean c : this.mainFrame.getTagClubList()){
 			tagClubPanel.add(mainFrame.ListClubMiniatures(c));
 		}
 		setPreferredSize(new Dimension(150, 200));

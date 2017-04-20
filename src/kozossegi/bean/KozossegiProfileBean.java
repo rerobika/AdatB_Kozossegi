@@ -3,11 +3,17 @@ package kozossegi.bean;
 import java.awt.Image;
 import java.util.Date;
 
-public class KozossegiProfile {
-	public KozossegiProfile(int id, Date dob, boolean gender, String residence, String school, String hobby,
-			String workplace, String email, String name, String pass, int inviter, Image profilepic) {
-		super();
-		this.id = id;
+public class KozossegiProfileBean extends KozossegiUserBean{
+	
+	@Override
+	public String toString() {
+		return "KozossegiProfile [dob=" + dob + ", gender=" + gender + ", residence=" + residence + ", school=" + school
+				+ ", hobby=" + hobby + ", workplace=" + workplace + ", email=" + email + ", pass=" + pass + ", inviter="
+				+ inviter + ", profilepic=" + profilepic + "]";
+	}
+	public KozossegiProfileBean(String name, int id, Date dob, boolean gender, String residence, String school,
+			String hobby, String workplace, String email, String pass, int inviter, Image profilepic) {
+		super(name, id);
 		this.dob = dob;
 		this.gender = gender;
 		this.residence = residence;
@@ -15,16 +21,9 @@ public class KozossegiProfile {
 		this.hobby = hobby;
 		this.workplace = workplace;
 		this.email = email;
-		this.name = name;
 		this.pass = pass;
 		this.inviter = inviter;
 		this.profilepic = profilepic;
-	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
 	}
 	public Date getDob() {
 		return dob;
@@ -68,12 +67,6 @@ public class KozossegiProfile {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
 	public String getPass() {
 		return pass;
 	}
@@ -92,7 +85,6 @@ public class KozossegiProfile {
 	public void setProfilepic(Image profilepic) {
 		this.profilepic = profilepic;
 	}
-	int id;
 	Date dob;
 	boolean gender;
 	String residence;
@@ -100,7 +92,6 @@ public class KozossegiProfile {
 	String hobby;
 	String workplace;
 	String email;
-	String name;
 	String pass;
 	int inviter;
 	Image profilepic;

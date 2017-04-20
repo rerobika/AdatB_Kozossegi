@@ -2,14 +2,14 @@ package kozossegi.bean;
 
 import java.awt.Image;
 
-public class KozossegiProfileMiniature {
-	public KozossegiProfileMiniature(int id, String name, Image pic) {
+public class KozossegiProfileMiniatureBean {
+	public KozossegiProfileMiniatureBean(int id, String name, Image pic) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.pic = pic;
 	}
-	public KozossegiProfileMiniature() {
+	public KozossegiProfileMiniatureBean() {
 		this.id = 0;
 		this.name = "";
 		this.pic = null;
@@ -35,6 +35,12 @@ public class KozossegiProfileMiniature {
 	
 	public String toString() {
 		return "KozossegiProfileMiniature [id=" + id + ", name=" + name + ", pic=" + pic + "]";
+	}
+	public KozossegiProfileMiniatureBean(KozossegiProfileBean profile) {
+		super();
+		this.id = profile.getId();
+		this.name = profile.getName();
+		this.pic = profile.getProfilepic();
 	}
 
 

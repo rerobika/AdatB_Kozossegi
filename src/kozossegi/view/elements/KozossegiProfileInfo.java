@@ -27,17 +27,12 @@ public class KozossegiProfileInfo extends JPanel {
 		setLayout(new GridLayout(2, 10, 1, 10));
 		profilePictureLabel = new JLabel(new ImageIcon(this.mainFrame.getProfileMiniature().getPic()));
 		profilePictureLabel.setBorder(BorderFactory.createLineBorder(Color.black));		
-		profilePictureLabel.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				mainFrame.setMainContent(new KozossegiProfile(mainFrame, mainFrame.getProfileMiniature().getId()));
-			}
-		});
 			
 		nameLabel= new JLabel(this.mainFrame.getProfileMiniature().getName());
 		nameLabel.setHorizontalAlignment(SwingConstants.CENTER);				
-		nameLabel.addMouseListener(new MouseAdapter() {
+		addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				mainFrame.setMainContent(new KozossegiProfile(mainFrame, mainFrame.getProfileMiniature().getId()));
+				mainFrame.setMainContent(new KozossegiProfile(mainFrame, mainFrame.getProfile()));
 			}
 		});
 		

@@ -28,7 +28,7 @@ public class KozossegiProfile extends JPanel implements ActionListener{
 	private static final long serialVersionUID = 8887892468059042379L;
 	
 	private KozossegiMainFrame mainFrame;
-	private int id;
+	private kozossegi.bean.KozossegiProfileBean profile;
 	private JPanel leftPanel;
 	private JPanel postPanel;
 	private JPanel topPanel;
@@ -37,11 +37,12 @@ public class KozossegiProfile extends JPanel implements ActionListener{
 	private JPanel wallPanel;
 	private JPanel albumsPanel;
 	private JPanel editPanel;
+	private JPanel friendsPanel;
 	private JTextArea messageText;
 	private JButton messageSendButton;
 	
-	public KozossegiProfile(KozossegiMainFrame mainFrame, int id) {
-		this.id = id;
+	public KozossegiProfile(KozossegiMainFrame mainFrame,kozossegi.bean.KozossegiProfileBean profile) {
+		this.profile = profile;
 		this.mainFrame = mainFrame;
 		leftPanel = new JPanel();
 		postPanel = new JPanel();
@@ -51,6 +52,7 @@ public class KozossegiProfile extends JPanel implements ActionListener{
 		wallPanel = new JPanel();
 		albumsPanel = new JPanel();
 		editPanel = new JPanel();
+		friendsPanel = new JPanel();
 		messageText = new JTextArea("",3,50);
 		messageSendButton = new JButton(Labels.MESSAGE_SEND);
 		
@@ -61,7 +63,9 @@ public class KozossegiProfile extends JPanel implements ActionListener{
 		contentTabbedPane.addTab("wall", wallPanel);
 		contentTabbedPane.addTab("info", infoPanel);
 		contentTabbedPane.addTab("albums", albumsPanel);
-		if(id == mainFrame.getProfileMiniature().getId()){
+		contentTabbedPane.addTab("friends", friendsPanel);
+		
+		if(profile.getId() == mainFrame.getProfileMiniature().getId()){
 			contentTabbedPane.addTab("edit", editPanel);
 		}
 		
@@ -96,7 +100,7 @@ public class KozossegiProfile extends JPanel implements ActionListener{
 	}
 
 	private JLabel initTopPanel() {
-		return new JLabel(mainFrame.getController().getNameById(id));
+		return new JLabel(profile.getName());
 	}
 
 	private JPanel initLeftSidePanel() {
@@ -109,7 +113,7 @@ public class KozossegiProfile extends JPanel implements ActionListener{
 		
 		setBorder(BorderFactory.createLineBorder(Color.black));
 		resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.Y_AXIS));
-		profilePictureLabel = new JLabel(new ImageIcon(this.mainFrame.getProfileMiniature().getPic()));
+		profilePictureLabel = new JLabel(new ImageIcon(profile.getProfilepic()));
 		profilePictureLabel.setBorder(BorderFactory.createLineBorder(Color.black));		
 
 			
@@ -136,7 +140,11 @@ public class KozossegiProfile extends JPanel implements ActionListener{
 		friendsLabel= new JLabel(Labels.PROFIL_FRIENDS);		
 		friendsLabel.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				mainFrame.setMainContent(new KozossegiFriendManagement(mainFrame,id));
+				/*friendsPanel.removeAll();
+				friendsPanel.add(new KozossegiFriendManagement(mainFrame, profile));
+				contentTabbedPane.setSelectedComponent(friendsPanel);
+				revalidate();
+				repaint();*/
 			}
 		});
 		

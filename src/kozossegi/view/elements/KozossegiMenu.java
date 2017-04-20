@@ -60,13 +60,13 @@ public class KozossegiMenu extends JPanel implements ActionListener{
 			mainFrame.setMainContent(new KozossegiNewsFeed(mainFrame));
 		}
 		if(e.getSource()==profilButton){
-			mainFrame.setMainContent(new KozossegiProfile(mainFrame, mainFrame.getProfileMiniature().getId()));
+			mainFrame.setMainContent(new KozossegiProfile(mainFrame, mainFrame.getProfile()));
 		}
 		if(e.getSource()==messagesButton){
 			mainFrame.setMainContent(new KozossegiMessages(mainFrame));
 		}
 		if(e.getSource()==friendsButton){
-			mainFrame.setMainContent(new KozossegiFriendManagement(mainFrame, mainFrame.getProfileMiniature().getId()));
+			mainFrame.setMainContent(new KozossegiFriendManagement(mainFrame, mainFrame.getProfile()));
 		}
 		if(e.getSource()==birtAndNameDayButton){
 			mainFrame.setMainContent(new KozossegiBirthAndNameday(mainFrame));

@@ -1,8 +1,8 @@
 package kozossegi.bean;
 
-public class KozossegiNotification {
+public class KozossegiNotificationBean {
 	int from;
-	public KozossegiNotification(int from, int to, String content) {
+	public KozossegiNotificationBean(int from, int to, String content) {
 		super();
 		this.from = from;
 		this.to = to;

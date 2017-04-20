@@ -4,9 +4,9 @@ import java.awt.Image;
 import java.util.Date;
 import java.util.List;
 
-public class KozossegiAlbum {
+public class KozossegiAlbumBean {
 	int owner;
-	public KozossegiAlbum(int owner, String name, Date created, List<Image> images) {
+	public KozossegiAlbumBean(int owner, String name, Date created, List<Image> images) {
 		super();
 		this.owner = owner;
 		this.name = name;

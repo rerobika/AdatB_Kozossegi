@@ -19,7 +19,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import kozossegi.Labels;
-import kozossegi.bean.KozossegiProfileMiniature;
+import kozossegi.bean.KozossegiProfileMiniatureBean;
 import kozossegi.view.KozossegiMainFrame;
 
 public class KozossegiLogin extends JPanel implements ActionListener {
