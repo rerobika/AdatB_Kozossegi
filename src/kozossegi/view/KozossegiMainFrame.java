@@ -11,11 +11,8 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -26,7 +23,6 @@ import javax.swing.SwingConstants;
 
 import kozossegi.Labels;
 import kozossegi.bean.KozossegiClubBean;
-import kozossegi.bean.KozossegiMessageBean;
 import kozossegi.bean.KozossegiProfileMiniatureBean;
 import kozossegi.controller.KozossegiController;
 import kozossegi.view.elements.KozossegiBirthAndNamedayMenu;
@@ -35,8 +31,10 @@ import kozossegi.view.elements.KozossegiMenu;
 import kozossegi.view.elements.KozossegiProfileInfo;
 import kozossegi.view.elements.KozossegiSearchBox;
 import kozossegi.view.elements.KozossegiSuggestBox;
+import kozossegi.view.elements.maincontent.KozossegiClubProfile;
 import kozossegi.view.elements.maincontent.KozossegiLogin;
 import kozossegi.view.elements.maincontent.KozossegiProfile;
+import kozossegi.view.elements.maincontent.KozossegiUserProfile;
 
 public class KozossegiMainFrame extends JFrame{
 	private static final long serialVersionUID = -3443677995502851727L;
@@ -242,13 +240,13 @@ public class KozossegiMainFrame extends JFrame{
 		
 		profilePictureIconLabel.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				setMainContent(new KozossegiProfile(KozossegiMainFrame.this, controller.getProfile(c.getId())));
+				setMainContent(new KozossegiUserProfile(KozossegiMainFrame.this, controller.getProfile(c.getId())));
 			}
 		});
 		
 		nameLabel.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				setMainContent(new KozossegiProfile(KozossegiMainFrame.this, controller.getProfile(c.getId())));
+				setMainContent(new KozossegiUserProfile(KozossegiMainFrame.this, controller.getProfile(c.getId())));
 			}
 		});
 		profileMiniature.add(profilePictureIconLabel);
@@ -261,7 +259,7 @@ public class KozossegiMainFrame extends JFrame{
 		groupNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		groupNameLabel.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				setMainContent(new KozossegiProfile(KozossegiMainFrame.this, controller.getProfile(c.getId())));
+				setMainContent(new KozossegiClubProfile(KozossegiMainFrame.this, controller.getProfile(c.getId())));
 			}
 		});
 		return groupNameLabel;

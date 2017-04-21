@@ -100,4 +100,7 @@ public class Labels {
 	public static final String PROFIL_INFO = "Információ";
 	public static final String PROFIL_ALBUMS = "Albumok";
 	public static final String PROFIL_FRIENDS = "Ismerősök";
+	public static final String PROFIL_EDIT = "Profil szerkesztése";
+	public static final String PROFIL_CREATE_CLUB = "Klub létrehozás";
+	public static final String PROFIL_CLUB_TAGS = "Tagok";
 }
