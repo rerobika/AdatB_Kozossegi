@@ -41,13 +41,13 @@ public class KozossegiBirthAndNamedayMenu extends JPanel {
 		namedayLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		
-		birthdayPanel.setLayout(new BoxLayout(birthdayPanel, BoxLayout.PAGE_AXIS));
+		birthdayPanel.setLayout(new BoxLayout(birthdayPanel, BoxLayout.Y_AXIS));
 		for(KozossegiProfileMiniatureBean c : this.mainFrame.getBirthdayList()){
 			birthdayPanel.add(new KozossegiProfileMiniature(c));
 			System.out.println(c);
 		}
 		
-		namedayPanel.setLayout(new BoxLayout(namedayPanel, BoxLayout.PAGE_AXIS));
+		namedayPanel.setLayout(new BoxLayout(namedayPanel, BoxLayout.Y_AXIS));
 		for(KozossegiProfileMiniatureBean c : this.mainFrame.getNamedayList()){
 			namedayPanel.add(new KozossegiProfileMiniature(c));
 		}
