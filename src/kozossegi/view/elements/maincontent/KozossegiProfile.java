@@ -41,6 +41,7 @@ public class KozossegiProfile extends JPanel{
 		albumsPanel = new JPanel();
 		editPanel = new JPanel();
 		
+		
 		postText = new JTextArea("",3,50);
 		messageSendButton = new JButton(Labels.MESSAGE_SEND);
 		

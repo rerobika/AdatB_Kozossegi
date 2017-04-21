@@ -16,6 +16,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -33,7 +34,6 @@ import kozossegi.view.elements.KozossegiSearchBox;
 import kozossegi.view.elements.KozossegiSuggestBox;
 import kozossegi.view.elements.maincontent.KozossegiClubProfile;
 import kozossegi.view.elements.maincontent.KozossegiLogin;
-import kozossegi.view.elements.maincontent.KozossegiProfile;
 import kozossegi.view.elements.maincontent.KozossegiUserProfile;
 
 public class KozossegiMainFrame extends JFrame{
@@ -116,7 +116,7 @@ public class KozossegiMainFrame extends JFrame{
 	}
 	
 	public void initializeViewElements(){	
-		mainContentPanel.setPreferredSize(new Dimension(640, 480));
+		mainContentPanel.setPreferredSize(new Dimension(800, 600));
 		logoPanel.add(new JLabel(new ImageIcon(logoImage)));
 		
 		topSideContentPanel.add(logoPanel);	
@@ -135,8 +135,6 @@ public class KozossegiMainFrame extends JFrame{
 		KozossegiClubBean test_club = new KozossegiClubBean("asd",900,782,new Date(),"asd",null);
 		
 		KozossegiProfileMiniatureBean test_profileMiniature = new KozossegiProfileMiniatureBean(625,"Teszt Elek1", getImageFromURL(Labels.PROFILE_PICTURE_ICO_URL));
-		KozossegiProfileMiniatureBean test_profileMiniature2 = new KozossegiProfileMiniatureBean(621,"Más vki2", getImageFromURL(Labels.PROFILE_PICTURE_ICO_URL));
-
 		//test data
 		
 		suggestedClubList.add(test_club);
@@ -236,14 +234,11 @@ public class KozossegiMainFrame extends JFrame{
 		});
 		return groupNameLabel;
 	}
+	
 		
 	public KozossegiController getController(){
 		return controller;
 	}
-	
-	/*public KozossegiMainFrame getThis(){
-		return this;lol
-	}*/
 	
 	public KozossegiProfileMiniatureBean getProfileMiniature() {
 		return profileMiniature;
