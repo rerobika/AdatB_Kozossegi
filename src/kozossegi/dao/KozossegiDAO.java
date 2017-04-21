@@ -29,4 +29,10 @@ public interface KozossegiDAO {
 	public List<KozossegiProfileMiniatureBean> getSuggestedFriends(int id);
 	public List<KozossegiProfileMiniatureBean> getMemberClubs(int id);
 	public List<KozossegiProfileMiniatureBean> getOwnClubs(int id);
+	public void addProfile(KozossegiProfileBean profile);
+	public void addSchool(String school);
+	public void addWorkplace(String workplace);
+	public void addResidence(String residence);
+	public void addHobby(String hobby);
+	
 }

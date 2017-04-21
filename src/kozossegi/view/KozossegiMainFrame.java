@@ -138,7 +138,8 @@ public class KozossegiMainFrame extends JFrame{
 		
 		KozossegiProfileMiniatureBean test_profileMiniature = new KozossegiProfileMiniatureBean(625,"Teszt Elek1", getImageFromURL(Labels.PROFILE_PICTURE_ICO_URL));
 		
-		
+		controller.addProfile(new KozossegiProfileBean("Kovacs Jozsef", 0, new Date(), true, "Csólyospálos", "ISKOLA", "szántás", "", "jozsi@asd.hu", "neha",
+				670, null));
 		
 
 	}

@@ -81,4 +81,8 @@ public class KozossegiController{
 	{
 		return dao.getSuggestedClub(id);
 	}
+	public void addProfile(KozossegiProfileBean profile)
+	{
+		dao.addProfile(profile);
+	}
 }
