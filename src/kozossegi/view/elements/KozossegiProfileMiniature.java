@@ -38,8 +38,9 @@ public class KozossegiProfileMiniature extends JPanel{
 		this.data = data;
 		Dimension size = new Dimension(160, 40);
 		label = new JLabel("<html>"+data.getName()+"</html>");
-		setLayout(new FlowLayout(FlowLayout.LEFT));
+		setLayout(new FlowLayout(FlowLayout.LEFT));	
 		image = new JLabel(new ImageIcon(data.getPic()));
+		image.setPreferredSize(new Dimension(32, 32));
 		add(image);
 		add(label);
 		setSize(size);

@@ -1,5 +1,6 @@
 package kozossegi.view.elements.maincontent;
 
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -23,7 +24,7 @@ private KozossegiProfileBean profile;
 	public KozossegiFriendManagement(KozossegiMainFrame mainFrame,KozossegiProfileBean profile) {
 		this.mainFrame = mainFrame;
 		this.profile=profile;
-		setLayout(new GridLayout(0,4));
+		setLayout(new FlowLayout(FlowLayout.LEFT));
 		for(KozossegiProfileMiniatureBean p: mainFrame.getController().getFriends(profile.getId()))
 		{
 			KozossegiProfileMiniature  miniature = new KozossegiProfileMiniature(p); 

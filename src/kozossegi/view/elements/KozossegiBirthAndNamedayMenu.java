@@ -40,7 +40,6 @@ public class KozossegiBirthAndNamedayMenu extends JPanel {
 		namedayLabel.setBorder(BorderFactory.createLineBorder(Color.black));
 		namedayLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		
 		birthdayPanel.setLayout(new BoxLayout(birthdayPanel, BoxLayout.Y_AXIS));
 		for(KozossegiProfileMiniatureBean c : this.mainFrame.getBirthdayList()){
 			birthdayPanel.add(new KozossegiProfileMiniature(c));

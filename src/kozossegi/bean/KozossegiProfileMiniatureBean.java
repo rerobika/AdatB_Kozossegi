@@ -3,6 +3,9 @@ package kozossegi.bean;
 import java.awt.Image;
 
 public class KozossegiProfileMiniatureBean {
+	int id;
+	String name;
+	Image pic;
 	public KozossegiProfileMiniatureBean(int id, String name, Image pic) {
 		super();
 		this.id = id;
@@ -40,12 +43,6 @@ public class KozossegiProfileMiniatureBean {
 		super();
 		this.id = profile.getId();
 		this.name = profile.getName();
-		this.pic = profile.getProfilepic().getScaledInstance(32, 32, Image.SCALE_FAST);
-	}
-
-
-
-	int id;
-	String name;
-	Image pic;
+		this.pic = (profile.getProfilepic().getScaledInstance(32, 32, Image.SCALE_FAST));
+	}	
 }

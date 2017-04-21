@@ -207,42 +207,21 @@ public class KozossegiMainFrame extends JFrame{
 		suggestedFriendList.add(test_profileMiniature);	
 		suggestedFriendList.add(test_profileMiniature);	
 					
+		/*namedayList.add(test_profileMiniature2);		
 		namedayList.add(test_profileMiniature2);		
 		namedayList.add(test_profileMiniature2);		
 		namedayList.add(test_profileMiniature2);		
 		namedayList.add(test_profileMiniature2);		
-		namedayList.add(test_profileMiniature2);		
-		namedayList.add(test_profileMiniature2);		
-		namedayList.add(test_profileMiniature2);		
-		namedayList.add(test_profileMiniature2);		
-		namedayList.add(test_profileMiniature2);		
-		namedayList.add(test_profileMiniature2);		
+		namedayList.add(test_profileMiniature2);*/	
 
 		
-		/*friendList.add(test_profileMiniature2);
-		friendList.add(test_profileMiniature3);
-		friendList.add(test_profileMiniature3);
-		friendList.add(test_profileMiniature3);
-		friendList.add(test_profileMiniature3);
-		friendList.add(test_profileMiniature3);
-		friendList.add(test_profileMiniature3);
-		friendList.add(test_profileMiniature3);
-		friendList.add(test_profileMiniature3);
-		friendList.add(test_profileMiniature3);
-		friendList.add(test_profileMiniature3);
-		friendList.add(test_profileMiniature3);
-		friendList.add(test_profileMiniature3);
-		friendList.add(test_profileMiniature3);
-		friendList.add(test_profileMiniature3);
-		friendList.add(test_profileMiniature3);
-		friendList.add(test_profileMiniature3);
-		friendList.add(test_profileMiniature3);
-		friendList.add(test_profileMiniature3);
-		friendList.add(test_profileMiniature3);
-		friendList.add(test_profileMiniature3);
-		friendList.add(test_profileMiniature3);
-		friendList.add(test_profileMiniature3);
-		friendList.add(test_profileMiniature3);*/
+		friendList.add(test_profileMiniature2);
+		friendList.add(test_profileMiniature2);
+		friendList.add(test_profileMiniature2);
+		friendList.add(test_profileMiniature2);
+		friendList.add(test_profileMiniature2);
+		friendList.add(test_profileMiniature2);
+		friendList.add(test_profileMiniature2);
 
 	}
 
