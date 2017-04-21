@@ -48,8 +48,8 @@ public class KozossegiMainFrame extends JFrame{
 	private CardLayout cardLayout;
 	//USERDATA
 	private KozossegiProfileMiniatureBean profileMiniature;
-	private List<KozossegiClubBean> ownClubList;
-	private List<KozossegiClubBean> tagClubList;
+	private List<KozossegiProfileMiniatureBean> ownClubList;
+	private List<KozossegiProfileMiniatureBean> tagClubList;
 	private List<KozossegiClubBean> suggestedClubList;
 	private List<KozossegiProfileMiniatureBean> suggestedFriendList;
 	private List<KozossegiProfileMiniatureBean> birthdayList;
@@ -78,13 +78,14 @@ public class KozossegiMainFrame extends JFrame{
 		logoImage = getImageFromURL(Labels.LOGO_URL);
 		//USERDATA
 
-		ownClubList = new ArrayList<KozossegiClubBean>();
-		tagClubList = new ArrayList<KozossegiClubBean>();
+		
 		suggestedClubList = new ArrayList<KozossegiClubBean>();
 		suggestedFriendList = new ArrayList<KozossegiProfileMiniatureBean>();
 		namedayList = new ArrayList<KozossegiProfileMiniatureBean>();
 		profile = controller.getProfile(670);
 		profileMiniature = new KozossegiProfileMiniatureBean(profile);
+		ownClubList = controller.getOwnClubs(profile.getId());
+		tagClubList = controller.getMemberClubs(profile.getId());
 		friendList = controller.getFriends(profile.getId());
 		birthdayList = controller.getBirthday(profile.getId());
 		friendList=controller.getFriends(profile.getId());
@@ -137,35 +138,6 @@ public class KozossegiMainFrame extends JFrame{
 		KozossegiProfileMiniatureBean test_profileMiniature2 = new KozossegiProfileMiniatureBean(621,"Más vki2", getImageFromURL(Labels.PROFILE_PICTURE_ICO_URL));
 
 		//test data
-		ownClubList.add(test_club);
-		ownClubList.add(test_club);
-		ownClubList.add(test_club);
-		ownClubList.add(test_club);
-		ownClubList.add(test_club);
-		ownClubList.add(test_club);
-		ownClubList.add(test_club);
-		ownClubList.add(test_club);
-		ownClubList.add(test_club);
-		ownClubList.add(test_club);
-		ownClubList.add(test_club);
-		ownClubList.add(test_club);
-		ownClubList.add(test_club);
-		ownClubList.add(test_club);
-		ownClubList.add(test_club);
-		ownClubList.add(test_club);
-		tagClubList.add(test_club);
-		tagClubList.add(test_club);
-		tagClubList.add(test_club);
-		tagClubList.add(test_club);
-		tagClubList.add(test_club);
-		tagClubList.add(test_club);
-		tagClubList.add(test_club);
-		tagClubList.add(test_club);
-		tagClubList.add(test_club);
-		tagClubList.add(test_club);
-		tagClubList.add(test_club);
-		tagClubList.add(test_club);
-		tagClubList.add(test_club);
 		
 		suggestedClubList.add(test_club);
 		suggestedClubList.add(test_club);
@@ -278,11 +250,11 @@ public class KozossegiMainFrame extends JFrame{
 	}
 
 
-	public List<KozossegiClubBean> getOwnClubList() {
+	public List<KozossegiProfileMiniatureBean> getOwnClubList() {
 		return ownClubList;
 	}
 
-	public List<KozossegiClubBean> getTagClubList() {
+	public List<KozossegiProfileMiniatureBean> getTagClubList() {
 		return tagClubList;
 	}
 	

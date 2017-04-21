@@ -15,6 +15,7 @@ import javax.swing.SwingConstants;
 
 import kozossegi.Labels;
 import kozossegi.bean.KozossegiClubBean;
+import kozossegi.bean.KozossegiProfileMiniatureBean;
 import kozossegi.view.KozossegiMainFrame;
 
 public class KozossegiClubMenu extends JPanel {
@@ -37,13 +38,13 @@ public class KozossegiClubMenu extends JPanel {
 		tagClubScroll = new JScrollPane(tagClubPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);		
 		
 		ownClubPanel.setLayout(new GridLayout(this.mainFrame.getOwnClubList().size(), 1));
-		for(KozossegiClubBean c : this.mainFrame.getOwnClubList()){
-			ownClubPanel.add(mainFrame.ListClubMiniatures(c));
+		for(KozossegiProfileMiniatureBean c : this.mainFrame.getOwnClubList()){
+			ownClubPanel.add(new KozossegiProfileMiniature(c));
 		}
 		
 		tagClubPanel.setLayout(new GridLayout(this.mainFrame.getTagClubList().size(), 1));
-		for(KozossegiClubBean c : this.mainFrame.getTagClubList()){
-			tagClubPanel.add(mainFrame.ListClubMiniatures(c));
+		for(KozossegiProfileMiniatureBean c : this.mainFrame.getTagClubList()){
+			tagClubPanel.add(new KozossegiProfileMiniature(c));
 		}
 		setPreferredSize(new Dimension(150, 200));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

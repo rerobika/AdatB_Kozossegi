@@ -67,4 +67,10 @@ public class KozossegiController{
 			return dao.getNameday(id);
 	}
 	
+	public List<KozossegiProfileMiniatureBean> getMemberClubs(int id){
+		return dao.getMemberClubs(id);
+	}
+	public List<KozossegiProfileMiniatureBean> getOwnClubs(int id){
+		return dao.getOwnClubs(id);
+	}
 }
