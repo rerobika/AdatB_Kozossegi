@@ -27,4 +27,6 @@ public interface KozossegiDAO {
 	public List<KozossegiProfileMiniatureBean> getNameday(int id);
 	public List<KozossegiProfileMiniatureBean> getSuggestedClub(int id);
 	public List<KozossegiProfileMiniatureBean> getSuggestedFriends(int id);
+	public List<KozossegiProfileMiniatureBean> getMemberClubs(int id);
+	public List<KozossegiProfileMiniatureBean> getOwnClubs(int id);
 }

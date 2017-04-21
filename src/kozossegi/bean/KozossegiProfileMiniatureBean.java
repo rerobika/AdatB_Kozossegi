@@ -45,4 +45,11 @@ public class KozossegiProfileMiniatureBean {
 		this.name = profile.getName();
 		this.pic = (profile.getProfilepic().getScaledInstance(32, 32, Image.SCALE_FAST));
 	}	
+	public KozossegiProfileMiniatureBean(KozossegiClubBean club)
+	{
+		super();
+		this.id= club.getId();
+		this.name = club.getName();
+		this.pic = null;
+	}
 }

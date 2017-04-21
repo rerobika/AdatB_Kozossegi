@@ -16,6 +16,7 @@ import javax.imageio.ImageIO;
 
 import kozossegi.Labels;
 import kozossegi.bean.KozossegiAlbumBean;
+import kozossegi.bean.KozossegiClubBean;
 import kozossegi.bean.KozossegiMessageBean;
 import kozossegi.bean.KozossegiNotificationBean;
 import kozossegi.bean.KozossegiPostData;
@@ -240,5 +241,43 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 	public List<KozossegiProfileMiniatureBean> getSuggestedFriends(int id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<KozossegiProfileMiniatureBean> getMemberClubs(int id) {
+		List<KozossegiProfileMiniatureBean> mclub = new ArrayList<KozossegiProfileMiniatureBean>();
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.GET_MEMBERCLUBS);) {
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				mclub.add(new KozossegiProfileMiniatureBean(rs.getInt("id"),rs.getString("NEV"),null));
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Error while getting member clubs!");
+			e.printStackTrace();
+		}
+		return mclub;
+	}
+
+	@Override
+	public List<KozossegiProfileMiniatureBean> getOwnClubs(int id) {
+		List<KozossegiProfileMiniatureBean> oclub = new ArrayList<KozossegiProfileMiniatureBean>();
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.GET_OWNEDCLUBS);) {
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				oclub.add(new KozossegiProfileMiniatureBean(rs.getInt("id"),rs.getString("NEV"),null));
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Error while getting owned clubs!");
+			e.printStackTrace();
+		}
+		return oclub;
 	}
 }
