@@ -75,13 +75,13 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			try {
 				if (!rs.next())
 				{
-					return ImageIO.read(new URL(Labels.PROFILE_PICTURE_ICO_URL)).getScaledInstance(128, 128,
+					return ImageIO.read(new URL(Labels.PROFILE_PICTURE_ICO_URL)).getScaledInstance(256, 256,
 							Image.SCALE_FAST);
 				}
 				else
 				{
-					return ImageIO.read(new URL(Labels.FILESERVER_PATH + rs.getString("ELERESIUT"))).getScaledInstance(128,
-						128, Image.SCALE_FAST);
+					return ImageIO.read(new URL(Labels.FILESERVER_PATH + rs.getString("ELERESIUT"))).getScaledInstance(256,
+						256, Image.SCALE_FAST);
 				}
 				
 			} catch (IOException e1) {
@@ -194,7 +194,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		List<KozossegiProfileMiniatureBean> bday = new ArrayList<KozossegiProfileMiniatureBean>();
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
-				PreparedStatement ps = conn.prepareStatement(Labels.GET_FRIENDS);) {
+				PreparedStatement ps = conn.prepareStatement(Labels.GET_BIRTHDAY);) {
 			ps.setInt(1, id);
 			ps.setInt(2, id);
 			ResultSet rs = ps.executeQuery();

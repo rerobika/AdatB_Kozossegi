@@ -84,10 +84,10 @@ public class KozossegiMainFrame extends JFrame{
 		tagClubList = new ArrayList<KozossegiClubBean>();
 		suggestedClubList = new ArrayList<KozossegiClubBean>();
 		suggestedFriendList = new ArrayList<KozossegiProfileMiniatureBean>();
-		birthdayList = new ArrayList<KozossegiProfileMiniatureBean>();
 		namedayList = new ArrayList<KozossegiProfileMiniatureBean>();
-		profile = controller.getProfile(675);
+		profile = controller.getProfile(670);
 		friendList = controller.getFriends(profile.getId());
+		birthdayList = controller.getBirthday(profile.getId());
 		profileMiniature = new KozossegiProfileMiniatureBean(profile);
 		friendList=controller.getFriends(profile.getId());
 		getContentPane().setLayout(new BorderLayout(20,20));
@@ -206,12 +206,7 @@ public class KozossegiMainFrame extends JFrame{
 		suggestedFriendList.add(test_profileMiniature);	
 		suggestedFriendList.add(test_profileMiniature);	
 		suggestedFriendList.add(test_profileMiniature);	
-		
-		birthdayList.add(test_profileMiniature2);				
-		birthdayList.add(test_profileMiniature2);				
-		birthdayList.add(test_profileMiniature2);				
-		birthdayList.add(test_profileMiniature2);				
-		birthdayList.add(test_profileMiniature2);				
+					
 		namedayList.add(test_profileMiniature2);		
 		namedayList.add(test_profileMiniature2);		
 		namedayList.add(test_profileMiniature2);		

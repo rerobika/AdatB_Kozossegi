@@ -40,7 +40,7 @@ public class KozossegiProfileMiniatureBean {
 		super();
 		this.id = profile.getId();
 		this.name = profile.getName();
-		this.pic = profile.getProfilepic();
+		this.pic = profile.getProfilepic().getScaledInstance(32, 32, Image.SCALE_FAST);
 	}
 
 

@@ -1,5 +1,6 @@
 package kozossegi.view.elements;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
@@ -24,11 +25,11 @@ public class KozossegiProfileInfo extends JPanel {
 		this.mainFrame = mainFrame;
 		
 		setBorder(BorderFactory.createLineBorder(Color.black));
-		setLayout(new GridLayout(2, 10, 1, 10));
-		profilePictureLabel = new JLabel(new ImageIcon(this.mainFrame.getProfileMiniature().getPic()));
+		setLayout(new BorderLayout());
+		profilePictureLabel = new JLabel(new ImageIcon(mainFrame.getProfile().getProfilepic()));
 		profilePictureLabel.setBorder(BorderFactory.createLineBorder(Color.black));		
 			
-		nameLabel= new JLabel(this.mainFrame.getProfileMiniature().getName());
+		nameLabel= new JLabel(mainFrame.getProfile().getName());
 		nameLabel.setHorizontalAlignment(SwingConstants.CENTER);				
 		addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -36,8 +37,8 @@ public class KozossegiProfileInfo extends JPanel {
 			}
 		});
 		
-		add(profilePictureLabel);
-		add(nameLabel);
+		add(profilePictureLabel,BorderLayout.CENTER);
+		add(nameLabel,BorderLayout.SOUTH);
 		
 		
 	}
