@@ -16,7 +16,6 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,6 +23,7 @@ import javax.swing.SwingConstants;
 
 import kozossegi.Labels;
 import kozossegi.bean.KozossegiClubBean;
+import kozossegi.bean.KozossegiProfileBean;
 import kozossegi.bean.KozossegiProfileMiniatureBean;
 import kozossegi.controller.KozossegiController;
 import kozossegi.view.elements.KozossegiBirthAndNamedayMenu;
@@ -50,19 +50,19 @@ public class KozossegiMainFrame extends JFrame{
 	private KozossegiProfileMiniatureBean profileMiniature;
 	private List<KozossegiProfileMiniatureBean> ownClubList;
 	private List<KozossegiProfileMiniatureBean> tagClubList;
-	private List<KozossegiClubBean> suggestedClubList;
+	private List<KozossegiProfileMiniatureBean> suggestedClubList;
 	private List<KozossegiProfileMiniatureBean> suggestedFriendList;
 	private List<KozossegiProfileMiniatureBean> birthdayList;
 	private List<KozossegiProfileMiniatureBean> namedayList;
 	private List<KozossegiProfileMiniatureBean> friendList;
-	private kozossegi.bean.KozossegiProfileBean profile;
+	private KozossegiProfileBean profile;
 	
-	public kozossegi.bean.KozossegiProfileBean getProfile() {
+	public KozossegiProfileBean getProfile() {
 		return profile;
 	}
 
 
-	public void setProfile(kozossegi.bean.KozossegiProfileBean profile) {
+	public void setProfile(KozossegiProfileBean profile) {
 		this.profile = profile;
 	}
 
@@ -79,8 +79,8 @@ public class KozossegiMainFrame extends JFrame{
 		//USERDATA
 
 		
-		suggestedClubList = new ArrayList<KozossegiClubBean>();
-		suggestedFriendList = new ArrayList<KozossegiProfileMiniatureBean>();
+		
+		
 		namedayList = new ArrayList<KozossegiProfileMiniatureBean>();
 		profile = controller.getProfile(670);
 		profileMiniature = new KozossegiProfileMiniatureBean(profile);
@@ -90,6 +90,8 @@ public class KozossegiMainFrame extends JFrame{
 		birthdayList = controller.getBirthday(profile.getId());
 		friendList=controller.getFriends(profile.getId());
 		namedayList=controller.getNameday(profile.getId());
+		suggestedClubList = controller.getSuggestedClubs(profile.getId());
+		suggestedFriendList = controller.getSuggestedFriends(profile.getId());
 		getContentPane().setLayout(new BorderLayout(20,20));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
@@ -135,62 +137,9 @@ public class KozossegiMainFrame extends JFrame{
 		KozossegiClubBean test_club = new KozossegiClubBean("asd",900,782,new Date(),"asd",null);
 		
 		KozossegiProfileMiniatureBean test_profileMiniature = new KozossegiProfileMiniatureBean(625,"Teszt Elek1", getImageFromURL(Labels.PROFILE_PICTURE_ICO_URL));
-		//test data
 		
-		suggestedClubList.add(test_club);
-		suggestedClubList.add(test_club);
-		suggestedClubList.add(test_club);
-		suggestedClubList.add(test_club);
-		suggestedClubList.add(test_club);
-		suggestedClubList.add(test_club);
-		suggestedClubList.add(test_club);
-		suggestedClubList.add(test_club);
-		suggestedClubList.add(test_club);
-		suggestedClubList.add(test_club);
-		suggestedClubList.add(test_club);
-		suggestedClubList.add(test_club);
-		suggestedClubList.add(test_club);
-		suggestedClubList.add(test_club);
-		suggestedClubList.add(test_club);
-		suggestedClubList.add(test_club);
-		suggestedClubList.add(test_club);
-		suggestedClubList.add(test_club);
-		suggestedClubList.add(test_club);
-		suggestedFriendList.add(test_profileMiniature);
-		suggestedFriendList.add(test_profileMiniature);	
-		suggestedFriendList.add(test_profileMiniature);	
-		suggestedFriendList.add(test_profileMiniature);	
-		suggestedFriendList.add(test_profileMiniature);	
-		suggestedFriendList.add(test_profileMiniature);	
-		suggestedFriendList.add(test_profileMiniature);	
-		suggestedFriendList.add(test_profileMiniature);	
-		suggestedFriendList.add(test_profileMiniature);	
-		suggestedFriendList.add(test_profileMiniature);	
-		suggestedFriendList.add(test_profileMiniature);	
-		suggestedFriendList.add(test_profileMiniature);	
-		suggestedFriendList.add(test_profileMiniature);	
-		suggestedFriendList.add(test_profileMiniature);	
-		suggestedFriendList.add(test_profileMiniature);	
-		suggestedFriendList.add(test_profileMiniature);	
-		suggestedFriendList.add(test_profileMiniature);	
-		suggestedFriendList.add(test_profileMiniature);	
-		suggestedFriendList.add(test_profileMiniature);	
-					
-		/*namedayList.add(test_profileMiniature2);		
-		namedayList.add(test_profileMiniature2);		
-		namedayList.add(test_profileMiniature2);		
-		namedayList.add(test_profileMiniature2);		
-		namedayList.add(test_profileMiniature2);		
-		namedayList.add(test_profileMiniature2);*/	
-
 		
-		/*friendList.add(test_profileMiniature2);
-		friendList.add(test_profileMiniature2);
-		friendList.add(test_profileMiniature2);
-		friendList.add(test_profileMiniature2);
-		friendList.add(test_profileMiniature2);
-		friendList.add(test_profileMiniature2);
-		friendList.add(test_profileMiniature2);*/
+		
 
 	}
 
@@ -203,37 +152,6 @@ public class KozossegiMainFrame extends JFrame{
 		return null;
 	}
 	
-	public JPanel listProfileMiniatures(final KozossegiProfileMiniatureBean c){
-		JPanel profileMiniature = new JPanel(new FlowLayout());
-		JLabel profilePictureIconLabel = new JLabel(new ImageIcon(c.getPic()));			
-		JLabel nameLabel = new JLabel(c.getName());
-		
-		profilePictureIconLabel.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				setMainContent(new KozossegiUserProfile(KozossegiMainFrame.this, controller.getProfile(c.getId())));
-			}
-		});
-		
-		nameLabel.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				setMainContent(new KozossegiUserProfile(KozossegiMainFrame.this, controller.getProfile(c.getId())));
-			}
-		});
-		profileMiniature.add(profilePictureIconLabel);
-		profileMiniature.add(nameLabel);
-		return profileMiniature;
-	}
-	
-	public JLabel ListClubMiniatures(final KozossegiClubBean c){
-		JLabel groupNameLabel = new JLabel("asd");
-		groupNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		groupNameLabel.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				setMainContent(new KozossegiClubProfile(KozossegiMainFrame.this, controller.getProfile(c.getId())));
-			}
-		});
-		return groupNameLabel;
-	}
 	
 		
 	public KozossegiController getController(){
@@ -253,7 +171,7 @@ public class KozossegiMainFrame extends JFrame{
 		return tagClubList;
 	}
 	
-	public List<KozossegiClubBean> getSuggestedClubList() {
+	public List<KozossegiProfileMiniatureBean> getSuggestedClubList() {
 		return suggestedClubList;
 	}
 

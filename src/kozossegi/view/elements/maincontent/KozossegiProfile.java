@@ -30,9 +30,8 @@ public class KozossegiProfile extends JPanel{
 	private JTextArea postText;
 	private JButton messageSendButton;
 	
-	public KozossegiProfile(KozossegiMainFrame mainFrame,KozossegiProfileBean profile) {
+	public KozossegiProfile(KozossegiProfileBean profile) {
 		this.profile = profile;
-		this.mainFrame = mainFrame;
 		postPanel = new JPanel();
 		topPanel = new JPanel();
 		contentTabbedPane = new JTabbedPane();

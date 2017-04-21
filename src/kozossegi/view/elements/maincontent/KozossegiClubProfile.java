@@ -12,7 +12,7 @@ public class KozossegiClubProfile extends KozossegiProfile {
 	protected JPanel tagPanel;
 	
 	public KozossegiClubProfile(KozossegiMainFrame mainFrame,KozossegiProfileBean profile)  {
-		super(mainFrame, profile);
+		super(profile);
 		tagPanel = new JPanel();
 		contentTabbedPane.addTab(Labels.PROFIL_CLUB_TAGS, tagPanel);
 		if(profile.getId() == mainFrame.getProfileMiniature().getId()){

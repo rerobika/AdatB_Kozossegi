@@ -3,6 +3,8 @@ package kozossegi.view.elements;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -16,6 +18,7 @@ import kozossegi.Labels;
 import kozossegi.bean.KozossegiClubBean;
 import kozossegi.bean.KozossegiProfileMiniatureBean;
 import kozossegi.view.KozossegiMainFrame;
+import kozossegi.view.elements.maincontent.KozossegiProfile;
 
 public class KozossegiSuggestBox extends JPanel {
 	private static final long serialVersionUID = -7611266213286581278L;
@@ -37,14 +40,27 @@ public class KozossegiSuggestBox extends JPanel {
 		suggestFriendScroll = new JScrollPane(suggestFriendPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 				
 		
-		suggestClubPanel.setLayout(new GridLayout(this.mainFrame.getSuggestedClubList().size(), 1));
-		for(KozossegiClubBean c : this.mainFrame.getSuggestedClubList()){
-			suggestClubPanel.add(mainFrame.ListClubMiniatures(c));
+		suggestClubPanel.setLayout(new GridLayout(0, 1));
+		for(KozossegiProfileMiniatureBean c : this.mainFrame.getSuggestedClubList()){
+			KozossegiProfileMiniature miniature =new KozossegiProfileMiniature(c);
+			miniature.addMouseListener(new MouseAdapter(){
+				public void mouseClicked(MouseEvent e) {
+					//TODO: club profile
+				}
+			});
+			suggestClubPanel.add(miniature);
 		}
 		
-		suggestFriendPanel.setLayout(new GridLayout(this.mainFrame.getSuggestedFriendList().size(), 1));
+		suggestFriendPanel.setLayout(new GridLayout(0, 1));
 		for(KozossegiProfileMiniatureBean c : this.mainFrame.getSuggestedFriendList()){
-			suggestFriendPanel.add(mainFrame.listProfileMiniatures(c));
+			KozossegiProfileMiniature miniature =new KozossegiProfileMiniature(c);
+			miniature.addMouseListener(new MouseAdapter(){
+				public void mouseClicked(MouseEvent e) {
+					System.out.println(c.getId());
+					mainFrame.setMainContent(new KozossegiProfile(mainFrame.getController().getProfile(c.getId())));
+				}
+			});	
+			suggestFriendPanel.add(miniature);
 		}
 		
 		setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));

@@ -33,7 +33,7 @@ public class KozossegiProfileInfo extends JPanel {
 		nameLabel.setHorizontalAlignment(SwingConstants.CENTER);				
 		addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				mainFrame.setMainContent(new KozossegiProfile(mainFrame, mainFrame.getProfile()));
+				mainFrame.setMainContent(new KozossegiProfile(mainFrame.getProfile()));
 			}
 		});
 		

@@ -19,7 +19,7 @@ public class KozossegiUserProfile extends KozossegiProfile {
 	private KozossegiProfileBean profile;
 	
 	public KozossegiUserProfile(KozossegiMainFrame mainFrame,KozossegiProfileBean profile)  {
-		super(mainFrame, profile);
+		super(profile);
 		this.profile = profile;
 		friendsPanel = new JPanel();
 		createClubPanel = new JPanel();
