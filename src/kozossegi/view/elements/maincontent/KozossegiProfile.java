@@ -13,12 +13,10 @@ import javax.swing.JTextArea;
 
 import kozossegi.Labels;
 import kozossegi.bean.KozossegiProfileBean;
-import kozossegi.view.KozossegiMainFrame;
 
 public class KozossegiProfile extends JPanel{
 	private static final long serialVersionUID = 8887892468059042379L;
-	
-	protected KozossegiMainFrame mainFrame;
+
 	protected KozossegiProfileBean profile;
 	protected JPanel postPanel;
 	private JPanel topPanel;

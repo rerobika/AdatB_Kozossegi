@@ -14,12 +14,14 @@ import kozossegi.view.elements.KozossegiBirthDayPicker;
 public class KozossegiUserProfile extends KozossegiProfile {
 
 	private static final long serialVersionUID = 5773153401651396607L;
+	private KozossegiMainFrame mainFrame;
 	private JPanel createClubPanel;
 	protected JPanel friendsPanel;
 	private KozossegiProfileBean profile;
 	
 	public KozossegiUserProfile(KozossegiMainFrame mainFrame,KozossegiProfileBean profile)  {
 		super(profile);
+		this.mainFrame = mainFrame;
 		this.profile = profile;
 		friendsPanel = new JPanel();
 		createClubPanel = new JPanel();
