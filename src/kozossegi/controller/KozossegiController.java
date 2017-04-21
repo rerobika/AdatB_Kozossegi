@@ -82,11 +82,11 @@ public class KozossegiController{
 	{
 		return dao.getSuggestedClub(id);
 	}
-<<<<<<< HEAD
+
 	public void addProfile(KozossegiProfileBean profile)
 	{
 		dao.addProfile(profile);
-=======
+	}
 
 	public List<String> getResidences() {
 		List<String> res = new ArrayList<String>();
@@ -94,20 +94,19 @@ public class KozossegiController{
 		res.add("Szeged");		
 		return  res;
 	}
-
 	public List<String> getSchools() {
-		// TODO Auto-generated method stub
+	
 		return new ArrayList<String>();
 	}
 
 	public List<String>  getHobbies() {
-		// TODO Auto-generated method stub
+		
 		return new ArrayList<String> ();
 	}
 
 	public List<String>  getWorkPlaces() {
-		// TODO Auto-generated method stub
+		
 		return new ArrayList<String> ();
->>>>>>> f73e4b7ced1533660282f79f84c5f384bf239fc7
+
 	}
 }
