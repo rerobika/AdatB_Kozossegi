@@ -282,7 +282,7 @@ public class KozossegiMainFrame extends JFrame{
 	}
 	
 	public JLabel ListClubMiniatures(final KozossegiClubBean c){
-		JLabel groupNameLabel = new JLabel(controller.getNameById(c.getId()));
+		JLabel groupNameLabel = new JLabel("asd");
 		groupNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		groupNameLabel.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {

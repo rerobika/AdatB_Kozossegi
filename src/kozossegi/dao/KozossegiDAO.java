@@ -20,9 +20,12 @@ public interface KozossegiDAO {
 	public List<KozossegiPostData> getPostData(int startinterval,int endinterval);
 	public List<KozossegiNotificationBean> getNotifications(int startinterval,int endinterval);
 	public boolean isUniqueEmail(String email);
-	public String getNameById(int id);
 	public KozossegiProfileBean getProfile(int id);
 	public List<KozossegiMessageBean> getMessages(int id1,int id2);
 	public void sendMessage(KozossegiMessageBean msg);
+	public List<KozossegiProfileMiniatureBean> getBirthday(int id);
+	public List<KozossegiProfileMiniatureBean> getNameday(int id);
+	public List<KozossegiProfileMiniatureBean> getSuggestedClub(int id);
+	public List<KozossegiProfileMiniatureBean> getSuggestedFriends(int id);
 	
 }

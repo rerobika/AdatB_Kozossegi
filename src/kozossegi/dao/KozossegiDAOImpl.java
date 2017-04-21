@@ -115,12 +115,6 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		// TODO Auto-generated method stub
 		return true;
 	}
-
-	public String getNameById(int id) {
-		// TODO Auto-generated method stub
-		return "Teszt nev";
-	}
-
 	@Override
 	public KozossegiProfileBean getProfile(int id) {
 		
@@ -190,8 +184,47 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			if (success != 1)
 				System.err.println("Error while inserting message!");
 		} catch (SQLException e) {
-			System.err.println("Error while listing user's friends!");
+			if(!(e.getErrorCode()==1))
+				e.printStackTrace();
+		}
+	}
+
+	@Override
+	public List<KozossegiProfileMiniatureBean> getBirthday(int id) {
+		List<KozossegiProfileMiniatureBean> bday = new ArrayList<KozossegiProfileMiniatureBean>();
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.GET_FRIENDS);) {
+			ps.setInt(1, id);
+			ps.setInt(2, id);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				bday.add(new KozossegiProfileMiniatureBean(rs.getInt("ID"), rs.getString("NEV"),
+						getImageByID(rs.getInt("PROFILKEP"))));
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Error while listing user's friends!");
 			e.printStackTrace();
 		}
+		return bday;
+	}
+
+	@Override
+	public List<KozossegiProfileMiniatureBean> getNameday(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<KozossegiProfileMiniatureBean> getSuggestedClub(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<KozossegiProfileMiniatureBean> getSuggestedFriends(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

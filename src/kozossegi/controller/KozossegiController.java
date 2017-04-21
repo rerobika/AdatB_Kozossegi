@@ -44,10 +44,6 @@ public class KozossegiController{
 	public boolean isUniqueEmail(String email) {
 		return dao.isUniqueEmail(email);
 	}
-	
-	public String getNameById(int id){
-		return dao.getNameById(id);
-	}
 	public KozossegiProfileBean getProfile(int id)
 	{
 		return dao.getProfile(id);
