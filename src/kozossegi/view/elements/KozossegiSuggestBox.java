@@ -56,7 +56,6 @@ public class KozossegiSuggestBox extends JPanel {
 			KozossegiProfileMiniature miniature =new KozossegiProfileMiniature(c);
 			miniature.addMouseListener(new MouseAdapter(){
 				public void mouseClicked(MouseEvent e) {
-					System.out.println(c.getId());
 					mainFrame.setMainContent(new KozossegiProfile(mainFrame.getController().getProfile(c.getId())));
 				}
 			});	

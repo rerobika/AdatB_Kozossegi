@@ -1,5 +1,6 @@
 	package kozossegi.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import kozossegi.bean.KozossegiMessageBean;
@@ -81,8 +82,32 @@ public class KozossegiController{
 	{
 		return dao.getSuggestedClub(id);
 	}
+<<<<<<< HEAD
 	public void addProfile(KozossegiProfileBean profile)
 	{
 		dao.addProfile(profile);
+=======
+
+	public List<String> getResidences() {
+		List<String> res = new ArrayList<String>();
+		res.add("Üllés");
+		res.add("Szeged");		
+		return  res;
+	}
+
+	public List<String> getSchools() {
+		// TODO Auto-generated method stub
+		return new ArrayList<String>();
+	}
+
+	public List<String>  getHobbies() {
+		// TODO Auto-generated method stub
+		return new ArrayList<String> ();
+	}
+
+	public List<String>  getWorkPlaces() {
+		// TODO Auto-generated method stub
+		return new ArrayList<String> ();
+>>>>>>> f73e4b7ced1533660282f79f84c5f384bf239fc7
 	}
 }
