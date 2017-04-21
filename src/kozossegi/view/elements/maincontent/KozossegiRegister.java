@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import kozossegi.Labels;
 import kozossegi.view.KozossegiMainFrame;
 import kozossegi.view.elements.KozossegiBirthDayPicker;
+import kozossegi.view.elements.KozossegiGenderPicker;
 
 public class KozossegiRegister extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 2232014980699374689L;
@@ -27,14 +28,11 @@ public class KozossegiRegister extends JPanel implements ActionListener {
 	private JPanel userDataPanel;
 	private JPanel buttonsPanel;
 	private KozossegiBirthDayPicker birthPanel;
-	private JPanel genderPanel;
+	private KozossegiGenderPicker genderPanel;
 	private JTextField emailField;
 	private JTextField nameField;
 	private JPasswordField passwordField;
 	private JPasswordField passwordConfirmField;
-	private ButtonGroup genderGroup;
-	private JRadioButton maleButton;
-	private JRadioButton femaleButton;
 	private JButton registerButton;
 	private JButton backButton;
 	
@@ -42,7 +40,7 @@ public class KozossegiRegister extends JPanel implements ActionListener {
 		this.mainFrame = mainFrame;
 		userDataPanel = new JPanel();
 		birthPanel = new KozossegiBirthDayPicker();
-		genderPanel = new JPanel();
+		genderPanel = new KozossegiGenderPicker();
 		buttonsPanel = new JPanel();
 		
 		emailField = new JTextField();
@@ -51,9 +49,6 @@ public class KozossegiRegister extends JPanel implements ActionListener {
 		passwordConfirmField = new JPasswordField();
 		registerButton = new JButton(Labels.REGISTER_BUTTON);
 		backButton = new JButton(Labels.REGISTER_BACK_BUTTON);
-		maleButton = new JRadioButton(Labels.REGISTER_MALE_BUTTON);
-		femaleButton = new JRadioButton(Labels.REGISTER_FEMALE_BUTTON);
-		genderGroup = new ButtonGroup();
 		
 		
 		userDataPanel.setLayout(new GridLayout(6, 10, 2, 10));
@@ -74,19 +69,12 @@ public class KozossegiRegister extends JPanel implements ActionListener {
 		buttonsPanel.add(backButton);
 		buttonsPanel.add(registerButton);
 		
-		genderGroup.add(maleButton);
-		maleButton.setActionCommand(Labels.REGISTER_MALE_BUTTON);
-		genderGroup.add(femaleButton);
-		femaleButton.setActionCommand(Labels.REGISTER_FEMALE_BUTTON);
-		
-		genderPanel.setLayout(new FlowLayout());
-		genderPanel.add(maleButton);
-		genderPanel.add(femaleButton);
 		
 		registerButton.addActionListener(this);
 		backButton.addActionListener(this);
-		maleButton.addActionListener(this);
-		femaleButton.addActionListener(this);
+		
+		genderPanel.getMaleButton().addActionListener(this);
+		genderPanel.getFemaleButton().addActionListener(this);
 		
 		setName("registerPanel");
 		setBackground(Color.GRAY);
@@ -103,10 +91,7 @@ public class KozossegiRegister extends JPanel implements ActionListener {
         return m.matches();
 	}
 	
-	public boolean isMale(){
-		if(genderGroup.getSelection().getActionCommand().equals(maleButton.getActionCommand())) return true;
-		return false;
-	}
+	
 	
 	
 	public void actionPerformed(ActionEvent e) {
@@ -124,7 +109,7 @@ public class KozossegiRegister extends JPanel implements ActionListener {
 										if(passwordConfirmField.getPassword().length!=0){
 											if(Arrays.equals(passwordField.getPassword(), passwordConfirmField.getPassword())){
 												if(birthPanel.isValidDate(birthPanel.getBirthDate())){
-													if(genderGroup.getSelection()!=null){
+													if(genderPanel.getGenderGroup().getSelection()!=null){
 														System.out.println("Valid user data");
 														//TODO register user with valid data
 													}

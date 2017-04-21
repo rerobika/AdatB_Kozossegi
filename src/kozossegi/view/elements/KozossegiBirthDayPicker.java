@@ -17,7 +17,8 @@ public class KozossegiBirthDayPicker extends JPanel {
 	private JComboBox<Integer> birthYear;
 	private JComboBox<String> birthMonth;
 	private JComboBox<Integer> birthDay;
-	
+	private int currentYear;
+
 	public KozossegiBirthDayPicker() {
 		birthYear = new JComboBox<Integer>();
 		birthMonth = new JComboBox<String>();
@@ -33,7 +34,7 @@ public class KozossegiBirthDayPicker extends JPanel {
 	private void initBirthPanel(){
 		Date date = new Date();
 		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		int currentYear  = localDate.getYear();
+		currentYear  = localDate.getYear();
 		for(int i = currentYear; i>1900;i--){
 			birthYear.addItem(i);
 		}
@@ -55,6 +56,39 @@ public class KozossegiBirthDayPicker extends JPanel {
 	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	    sdf.setLenient(false);
 	    return sdf.parse(s, new ParsePosition(0)) != null;
-	}		
+	}
+
+	public JComboBox<Integer> getBirthYear() {
+		return birthYear;
+	}
+
+	public void setBirthYear(JComboBox<Integer> birthYear) {
+		this.birthYear = birthYear;
+	}
+
+	public JComboBox<String> getBirthMonth() {
+		return birthMonth;
+	}
+
+	public void setBirthMonth(JComboBox<String> birthMonth) {
+		this.birthMonth = birthMonth;
+	}
+
+	public JComboBox<Integer> getBirthDay() {
+		return birthDay;
+	}
+
+	public void setBirthDay(JComboBox<Integer> birthDay) {
+		this.birthDay = birthDay;
+	}
+	
+	public int getCurrentYear() {
+		return currentYear;
+	}
+
+	public void setCurrentYear(int currentYear) {
+		this.currentYear = currentYear;
+	}
+	
 
 }

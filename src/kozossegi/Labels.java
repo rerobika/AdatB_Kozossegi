@@ -130,6 +130,8 @@ public class Labels {
 	public static final String PROFIL_INVITE_CODE= "Meghívó:";	
 	public static final String PROFIL_MAN= "Férfi";
 	public static final String PROFIL_WOMAN= "Nő";
+	public static final String PROFIL_RESET_DEFAULT= "Visszaállítás";
+	public static final String PROFIL_SUBMIT_CHANGES= "Módosítások mentése";
 	
 	
 	
