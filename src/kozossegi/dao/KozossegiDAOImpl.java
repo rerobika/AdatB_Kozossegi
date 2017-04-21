@@ -211,8 +211,23 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 
 	@Override
 	public List<KozossegiProfileMiniatureBean> getNameday(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		List<KozossegiProfileMiniatureBean> nday = new ArrayList<KozossegiProfileMiniatureBean>();
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.GET_NAMEDAY);) {
+			ps.setInt(1, id);
+			ps.setInt(2, id);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				nday.add(new KozossegiProfileMiniatureBean(rs.getInt("ID"), rs.getString("NEV"),
+						getImageByID(rs.getInt("PROFILKEP")).getScaledInstance(32, 32, Image.SCALE_FAST)));
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Error while listing user's friends!");
+			e.printStackTrace();
+		}
+		return nday;
 	}
 
 	@Override

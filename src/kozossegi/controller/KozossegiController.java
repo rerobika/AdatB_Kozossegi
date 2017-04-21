@@ -61,5 +61,10 @@ public class KozossegiController{
 	{
 			return dao.getBirthday(id);
 	}
+
+	public List<KozossegiProfileMiniatureBean> getNameday(int id) 
+	{
+			return dao.getNameday(id);
+	}
 	
 }
