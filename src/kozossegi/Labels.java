@@ -120,4 +120,17 @@ public class Labels {
 	public static final String PROFIL_EDIT = "Profil szerkesztése";
 	public static final String PROFIL_CREATE_CLUB = "Klub létrehozás";
 	public static final String PROFIL_CLUB_TAGS = "Tagok";
+	public static final String PROFIL_DATE_OF_BIRTH = "Születési idő:";
+	public static final String PROFIL_GENDER = "Nem:";
+	public static final String PROFIL_RESIDENCE= "Lakhely:";
+	public static final String PROFIL_SCHOOL= "Iskola:";
+	public static final String PROFIL_HOBBY= "Hobbi:";
+	public static final String PROFIL_WORK_PLACE= "Munkahely:";
+	public static final String PROFIL_INVITER= "Meghívó:";
+	public static final String PROFIL_INVITE_CODE= "Meghívó:";	
+	public static final String PROFIL_MAN= "Férfi";
+	public static final String PROFIL_WOMAN= "Nő";
+	
+	
+	
 }

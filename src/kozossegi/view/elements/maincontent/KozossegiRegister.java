@@ -1,23 +1,15 @@
 package kozossegi.view.elements.maincontent;
 
 import java.awt.BorderLayout;
-import java.awt.Button;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Arrays;
-import java.util.Date;
 
 import javax.swing.ButtonGroup;
-import javax.swing.ButtonModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -27,21 +19,19 @@ import javax.swing.JTextField;
 
 import kozossegi.Labels;
 import kozossegi.view.KozossegiMainFrame;
+import kozossegi.view.elements.KozossegiBirthDayPicker;
 
 public class KozossegiRegister extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 2232014980699374689L;
 	private KozossegiMainFrame mainFrame;
 	private JPanel userDataPanel;
 	private JPanel buttonsPanel;
-	private JPanel birthPanel;
+	private KozossegiBirthDayPicker birthPanel;
 	private JPanel genderPanel;
 	private JTextField emailField;
 	private JTextField nameField;
 	private JPasswordField passwordField;
 	private JPasswordField passwordConfirmField;
-	private JComboBox<Integer> birthYear;
-	private JComboBox<String> birthMonth;
-	private JComboBox<Integer> birthDay;
 	private ButtonGroup genderGroup;
 	private JRadioButton maleButton;
 	private JRadioButton femaleButton;
@@ -51,7 +41,7 @@ public class KozossegiRegister extends JPanel implements ActionListener {
 	public KozossegiRegister(KozossegiMainFrame mainFrame) {
 		this.mainFrame = mainFrame;
 		userDataPanel = new JPanel();
-		birthPanel = new JPanel();
+		birthPanel = new KozossegiBirthDayPicker();
 		genderPanel = new JPanel();
 		buttonsPanel = new JPanel();
 		
@@ -59,9 +49,6 @@ public class KozossegiRegister extends JPanel implements ActionListener {
 		nameField = new JTextField();
 		passwordField = new JPasswordField();
 		passwordConfirmField = new JPasswordField();
-		birthYear = new JComboBox<Integer>();
-		birthMonth = new JComboBox<String>();
-		birthDay = new JComboBox<Integer>();
 		registerButton = new JButton(Labels.REGISTER_BUTTON);
 		backButton = new JButton(Labels.REGISTER_BACK_BUTTON);
 		maleButton = new JRadioButton(Labels.REGISTER_MALE_BUTTON);
@@ -82,12 +69,6 @@ public class KozossegiRegister extends JPanel implements ActionListener {
 		userDataPanel.add(birthPanel);
 		userDataPanel.add(new JLabel(Labels.REGISTER_GENDER));
 		userDataPanel.add(genderPanel);
-			
-		birthPanel.setLayout(new FlowLayout());
-		birthPanel.add(birthYear);
-		birthPanel.add(birthMonth);
-		birthPanel.add(birthDay);
-		initBirthPanel();
 		
 		buttonsPanel.setLayout(new FlowLayout());
 		buttonsPanel.add(backButton);
@@ -114,32 +95,7 @@ public class KozossegiRegister extends JPanel implements ActionListener {
 		add(buttonsPanel, BorderLayout.SOUTH);
 	}
 	
-	private void initBirthPanel(){
-		Date date = new Date();
-		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		int currentYear  = localDate.getYear();
-		for(int i = currentYear; i>1900;i--){
-			birthYear.addItem(i);
-		}
-		for(int i = 0; i<12;i++){
-			birthMonth.addItem(Labels.REGISTER_MONTH_NAMES.get(i));
-		}
-		for(int i = 1; i<=31;i++){
-			birthDay.addItem(i);
-		}
-		birthYear.setSelectedIndex(18);
-	}
 	
-	
-	private String getBirthDate(){
-		return Integer.toString((Integer)birthYear.getSelectedItem())+"-"+(birthMonth.getSelectedIndex()+1) +"-"+(birthDay.getSelectedIndex()+1);
-	}
-	
-	private boolean isValidDate(String s) {
-	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	    sdf.setLenient(false);
-	    return sdf.parse(s, new ParsePosition(0)) != null;
-	}
 	public boolean isValidEmailAddress(String email) {
         String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
         java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
@@ -167,7 +123,7 @@ public class KozossegiRegister extends JPanel implements ActionListener {
 									if(passwordField.getPassword().length>=5 && passwordField.getPassword().length<=30){
 										if(passwordConfirmField.getPassword().length!=0){
 											if(Arrays.equals(passwordField.getPassword(), passwordConfirmField.getPassword())){
-												if(isValidDate(getBirthDate())){
+												if(birthPanel.isValidDate(birthPanel.getBirthDate())){
 													if(genderGroup.getSelection()!=null){
 														System.out.println("Valid user data");
 														//TODO register user with valid data
