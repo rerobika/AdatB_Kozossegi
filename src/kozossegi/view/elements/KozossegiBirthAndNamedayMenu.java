@@ -35,10 +35,6 @@ public class KozossegiBirthAndNamedayMenu extends JPanel {
 		birthdayScroll = new JScrollPane(birthdayPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		namedayScroll = new JScrollPane(namedayPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
-		birthdayLabel.setBorder(BorderFactory.createLineBorder(Color.black));
-		birthdayLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		namedayLabel.setBorder(BorderFactory.createLineBorder(Color.black));
-		namedayLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		birthdayPanel.setLayout(new BoxLayout(birthdayPanel, BoxLayout.Y_AXIS));
 		for(KozossegiProfileMiniatureBean c : this.mainFrame.getBirthdayList()){

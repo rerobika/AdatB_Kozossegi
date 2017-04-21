@@ -15,7 +15,7 @@ import kozossegi.view.elements.maincontent.KozossegiBirthAndNameday;
 import kozossegi.view.elements.maincontent.KozossegiFriendManagement;
 import kozossegi.view.elements.maincontent.KozossegiMessages;
 import kozossegi.view.elements.maincontent.KozossegiNewsFeed;
-import kozossegi.view.elements.maincontent.KozossegiProfile;
+import kozossegi.view.elements.maincontent.KozossegiUserProfile;
 
 public class KozossegiMenu extends JPanel implements ActionListener{
 
@@ -60,7 +60,7 @@ public class KozossegiMenu extends JPanel implements ActionListener{
 			mainFrame.setMainContent(new KozossegiNewsFeed(mainFrame));
 		}
 		if(e.getSource()==profilButton){
-			mainFrame.setMainContent(new KozossegiProfile(mainFrame, mainFrame.getProfile()));
+			mainFrame.setMainContent(new KozossegiUserProfile(mainFrame, mainFrame.getProfile()));
 		}
 		if(e.getSource()==messagesButton){
 			mainFrame.setMainContent(new KozossegiMessages(mainFrame));

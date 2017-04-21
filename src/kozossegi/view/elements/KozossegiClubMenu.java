@@ -1,10 +1,12 @@
 package kozossegi.view.elements;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -32,13 +34,7 @@ public class KozossegiClubMenu extends JPanel {
 		ownClubLabel = new JLabel(Labels.CLUB_OWNER);
 		tagClubLabel = new JLabel(Labels.CLUB_TAG);
 		ownClubScroll = new JScrollPane(ownClubPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		tagClubScroll = new JScrollPane(tagClubPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		
-		ownClubLabel.setBorder(BorderFactory.createLineBorder(Color.black));
-		ownClubLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		tagClubLabel.setBorder(BorderFactory.createLineBorder(Color.black));
-		tagClubLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		
+		tagClubScroll = new JScrollPane(tagClubPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);		
 		
 		ownClubPanel.setLayout(new GridLayout(this.mainFrame.getOwnClubList().size(), 1));
 		for(KozossegiClubBean c : this.mainFrame.getOwnClubList()){
@@ -50,14 +46,13 @@ public class KozossegiClubMenu extends JPanel {
 			tagClubPanel.add(mainFrame.ListClubMiniatures(c));
 		}
 		setPreferredSize(new Dimension(150, 200));
-		setLayout(new GridLayout(4, 1));
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		setBorder(BorderFactory.createLineBorder(Color.black));
 		
 		add(ownClubLabel);
 		add(ownClubScroll);
 		add(tagClubLabel);
 		add(tagClubScroll);
-		
 	}
 
 }
