@@ -233,14 +233,46 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 
 	@Override
 	public List<KozossegiProfileMiniatureBean> getSuggestedClub(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		List<KozossegiProfileMiniatureBean> sclub = new ArrayList<KozossegiProfileMiniatureBean>();
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.GET_SUGGESTEDCLUBS);) {
+			ps.setInt(1, id);
+			ps.setInt(2, id);
+			ps.setInt(3, id);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				sclub.add(new KozossegiProfileMiniatureBean(rs.getInt("id"),rs.getString("NEV"),null));
+			}
+		} catch (SQLException e) {
+			System.out.println("Error while getting member clubs!");
+			e.printStackTrace();
+		}
+		return sclub;
 	}
 
 	@Override
 	public List<KozossegiProfileMiniatureBean> getSuggestedFriends(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		List<KozossegiProfileMiniatureBean> bday = new ArrayList<KozossegiProfileMiniatureBean>();
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.GET_SUGGESTEDFRIENDS);) {
+			ps.setInt(1, id);
+			ps.setInt(2, id);
+			ps.setInt(3, id);
+			ps.setInt(4, id);
+			ps.setInt(5, id);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				bday.add(new KozossegiProfileMiniatureBean(rs.getInt("ID"), rs.getString("NEV"),
+						getImageByID(rs.getInt("PROFILKEP")).getScaledInstance(32, 32, Image.SCALE_FAST)));
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Error while listing user's friends!");
+			e.printStackTrace();
+		}
+		return bday;
 	}
 
 	@Override

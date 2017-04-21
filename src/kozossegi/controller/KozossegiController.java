@@ -73,4 +73,12 @@ public class KozossegiController{
 	public List<KozossegiProfileMiniatureBean> getOwnClubs(int id){
 		return dao.getOwnClubs(id);
 	}
+	public List<KozossegiProfileMiniatureBean> getSuggestedFriends(int id)
+	{
+		return dao.getSuggestedFriends(id);
+	}
+	public List<KozossegiProfileMiniatureBean> getSuggestedClubs(int id)	
+	{
+		return dao.getSuggestedClub(id);
+	}
 }
