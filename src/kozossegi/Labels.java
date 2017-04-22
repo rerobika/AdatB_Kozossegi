@@ -55,7 +55,7 @@ public class Labels {
 	public static final String GET_RESIDENCES = "SELECT NEV FROM LAKHELY";
 	public static final String GET_HOBBYS = "SELECT NEV FROM HOBBI";
 	public static final String MARK_FRIEND = "INSERT INTO ISMER(KIID,KIVELID,STATUSZ,IDO) VALUES(?,?,0,?)";
-	public static final String CONFIRM_FRIEND = "UPDATE TABLE ISMER SET STATUSZ=1,IDO=? WHERE KIID=? AND KIVELID=?";
+	public static final String CONFIRM_FRIEND = "UPDATE ISMER SET STATUSZ=1,IDO=? WHERE KIID=? AND KIVELID=?";
 	
 	
 	// MAIN_FRAME
