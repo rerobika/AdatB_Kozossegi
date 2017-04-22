@@ -6,12 +6,9 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -19,10 +16,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 import kozossegi.Labels;
-import kozossegi.bean.KozossegiClubBean;
 import kozossegi.bean.KozossegiProfileBean;
 import kozossegi.bean.KozossegiProfileMiniatureBean;
 import kozossegi.controller.KozossegiController;
@@ -32,9 +27,7 @@ import kozossegi.view.elements.KozossegiMenu;
 import kozossegi.view.elements.KozossegiProfileInfo;
 import kozossegi.view.elements.KozossegiSearchBox;
 import kozossegi.view.elements.KozossegiSuggestBox;
-import kozossegi.view.elements.maincontent.KozossegiClubProfile;
 import kozossegi.view.elements.maincontent.KozossegiLogin;
-import kozossegi.view.elements.maincontent.KozossegiUserProfile;
 
 public class KozossegiMainFrame extends JFrame{
 	private static final long serialVersionUID = -3443677995502851727L;
@@ -82,7 +75,7 @@ public class KozossegiMainFrame extends JFrame{
 		
 		
 		namedayList = new ArrayList<KozossegiProfileMiniatureBean>();
-		profile = controller.getProfile(670);
+		profile = controller.getProfile(1020);
 		profileMiniature = new KozossegiProfileMiniatureBean(profile);
 		ownClubList = controller.getOwnClubs(profile.getId());
 		tagClubList = controller.getMemberClubs(profile.getId());
@@ -101,8 +94,9 @@ public class KozossegiMainFrame extends JFrame{
 		getContentPane().add(topSideContentPanel, BorderLayout.NORTH);		
 		getContentPane().add(rightSideContentPanel, BorderLayout.EAST);		
 		setMainContent(startScreen());
-		setVisible(true);
-					
+		setVisible(true);		
+		
+		
 	}
 	
 	
@@ -133,15 +127,15 @@ public class KozossegiMainFrame extends JFrame{
 		
 	}
 	
-	public void initializeUserData(){
-		KozossegiClubBean test_club = new KozossegiClubBean("asd",900,782,new Date(),"asd",null);
-		
-		KozossegiProfileMiniatureBean test_profileMiniature = new KozossegiProfileMiniatureBean(625,"Teszt Elek1", getImageFromURL(Labels.PROFILE_PICTURE_ICO_URL));
-		
-		controller.addProfile(new KozossegiProfileBean("Kovacs Jozsef", 0, new Date(), true, "Csólyospálos", "ISKOLA", "szántás", "", "jozsi@asd.hu", "neha",
-				670, null));
-		
-
+	public void initializeUserData(){		
+		/*controller.addProfile(new KozossegiProfileBean("Kovacs Jozsef",0, new Date(), true, "Szeged", "ISKOLA", "Szántás","", "jozsi@asd.hu", "neha",
+				670, new KozossegiImageUploader().upload(new File("D:\\Downloads\\c_777055.jpg"),"kep2.jpg")));*/
+		/*
+		 * Meg van barmolva a kepfeltoltes, kell hozza az src/upload.php, amit a htdocs/Kozossegibe kell tenni.
+		 * Ha jot akarsz magadnak akkor futtasd le az ujra feltoltott scriptet,garanciat nem vallolok ra, mert nem probaltam ki,
+		 * de az elozobol hianyoznak a foreign keyek, meg ebbe benne van a regisztralas fuggveny.
+		 */
+			
 	}
 
 	public Image getImageFromURL(String url){

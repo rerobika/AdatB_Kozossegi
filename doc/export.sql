@@ -1,19 +1,32 @@
 --------------------------------------------------------
---  File created - szombat-április-01-2017   
+--  File created - szombat-április-22-2017   
 --------------------------------------------------------
---------------------------------------------------------
---  Sequences
---------------------------------------------------------
-
-	CREATE SEQUENCE  "ALBUM_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
-	CREATE SEQUENCE  "FELHASZNALO_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
-	CREATE SEQUENCE  "HOBBI_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 61 CACHE 20 NOORDER  NOCYCLE ;
-	CREATE SEQUENCE  "ISKOLA_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 371 CACHE 20 NOORDER  NOCYCLE ;
-	CREATE SEQUENCE  "KEPEK_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
-	CREATE SEQUENCE  "LAKHELY_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
-	CREATE SEQUENCE  "MUNKAHELY_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
-	CREATE SEQUENCE  "POSZT_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
-	
+DROP TABLE "ALBUM" cascade constraints;
+DROP TABLE "ERTESITES" cascade constraints;
+DROP TABLE "FELHASZNALO" cascade constraints;
+DROP TABLE "HOBBI" cascade constraints;
+DROP TABLE "ISKOLA" cascade constraints;
+DROP TABLE "ISMER" cascade constraints;
+DROP TABLE "KEPEK" cascade constraints;
+DROP TABLE "KLUB" cascade constraints;
+DROP TABLE "LAKHELY" cascade constraints;
+DROP TABLE "MUNKAHELY" cascade constraints;
+DROP TABLE "NEVNAP" cascade constraints;
+DROP TABLE "POSZT" cascade constraints;
+DROP TABLE "PROFIL" cascade constraints;
+DROP TABLE "SZEMELY" cascade constraints;
+DROP TABLE "TAGJA" cascade constraints;
+DROP TABLE "UZENET" cascade constraints;
+DROP SEQUENCE "ALBUM_SEQ";
+DROP SEQUENCE "FELHASZNALO_SEQ";
+DROP SEQUENCE "HOBBI_SEQ";
+DROP SEQUENCE "ISKOLA_SEQ";
+DROP SEQUENCE "KEPEK_SEQ";
+DROP SEQUENCE "LAKHELY_SEQ";
+DROP SEQUENCE "MUNKAHELY_SEQ";
+DROP SEQUENCE "POSZT_SEQ";
+DROP PROCEDURE "REGISTER";
+DROP PROCEDURE "SZEMELYHOZZAAD";
 --------------------------------------------------------
 --  DDL for Table ALBUM
 --------------------------------------------------------
@@ -229,10 +242,52 @@
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Sequence ALBUM_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "ALBUM_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence FELHASZNALO_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "FELHASZNALO_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1023 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence HOBBI_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "HOBBI_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 81 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence ISKOLA_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "ISKOLA_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 391 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence KEPEK_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "KEPEK_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 41 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence LAKHELY_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LAKHELY_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 41 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MUNKAHELY_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "MUNKAHELY_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 41 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence POSZT_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "POSZT_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
 REM INSERTING into ALBUM
 SET DEFINE OFF;
 Insert into ALBUM (FELHASZNALOID,NEV,IDO) values ('730','Az ablum',to_timestamp('17-MÁRC. -31 16.01.13,194000000','RR-MON-DD HH24.MI.SSXFF'));
 Insert into ALBUM (FELHASZNALOID,NEV,IDO) values ('729','Album2',to_timestamp('17-MÁRC. -31 16.01.33,370000000','RR-MON-DD HH24.MI.SSXFF'));
+Insert into ALBUM (FELHASZNALOID,NEV,IDO) values ('1010','Profilképek',to_timestamp('22-ÁPR.  -17 00.00.00,000000000','RR-MON-DD HH24.MI.SSXFF'));
+Insert into ALBUM (FELHASZNALOID,NEV,IDO) values ('1020','Profilképek',to_timestamp('17-ÁPR.  -22 01.15.41,808000000','RR-MON-DD HH24.MI.SSXFF'));
 REM INSERTING into ERTESITES
 SET DEFINE OFF;
 Insert into ERTESITES (KINEK,IDO,SZOVEG) values ('725',to_timestamp('17-MÁRC. -31 16.01.58,826000000','RR-MON-DD HH24.MI.SSXFF'),'ASDFASDF');
@@ -591,7 +646,7 @@ Insert into FELHASZNALO (ID,NEV) values ('671','Schulteisz Rezsõ');
 Insert into FELHASZNALO (ID,NEV) values ('672','Papp Klaudia');
 Insert into FELHASZNALO (ID,NEV) values ('673','Fülöp Gyula');
 Insert into FELHASZNALO (ID,NEV) values ('674','Szõllõs Patony');
-Insert into FELHASZNALO (ID,NEV) values ('675','Totth Lorant');
+Insert into FELHASZNALO (ID,NEV) values ('675','Toth Zsombor');
 Insert into FELHASZNALO (ID,NEV) values ('676','Petö Bodi');
 Insert into FELHASZNALO (ID,NEV) values ('677','Gulyás Erssike');
 Insert into FELHASZNALO (ID,NEV) values ('678','Vargha Paliki');
@@ -684,6 +739,9 @@ Insert into FELHASZNALO (ID,NEV) values ('764','Fekete Jolan');
 Insert into FELHASZNALO (ID,NEV) values ('765','Szõlösi Patrícia');
 Insert into FELHASZNALO (ID,NEV) values ('461','Kardos Tünde');
 Insert into FELHASZNALO (ID,NEV) values ('1','asdf asdf');
+Insert into FELHASZNALO (ID,NEV) values ('2','VALAKI');
+Insert into FELHASZNALO (ID,NEV) values ('1010','Kovacs Imre');
+Insert into FELHASZNALO (ID,NEV) values ('1020','Kovacs Jozsef');
 REM INSERTING into HOBBI
 SET DEFINE OFF;
 Insert into HOBBI (HOBBIID,NEV) values ('1','Agyagozás');
@@ -728,6 +786,8 @@ Insert into HOBBI (HOBBIID,NEV) values ('39','Kézilabda');
 Insert into HOBBI (HOBBIID,NEV) values ('40','Kincskeresés');
 Insert into HOBBI (HOBBIID,NEV) values ('41','Komposztálás');
 Insert into HOBBI (HOBBIID,NEV) values ('42','Újrahasznosítás');
+Insert into HOBBI (HOBBIID,NEV) values ('43','Szántás');
+Insert into HOBBI (HOBBIID,NEV) values ('61','Nincs');
 REM INSERTING into ISKOLA
 SET DEFINE OFF;
 Insert into ISKOLA (ISKOLAID,NEV) values ('92','Schola Europa Akadémia Szakképzõ Iskola És Alapfokú Mûvészeti Iskola');
@@ -1000,14 +1060,26 @@ Insert into ISKOLA (ISKOLAID,NEV) values ('358','Vasvár Úti Általános Iskola');
 Insert into ISKOLA (ISKOLAID,NEV) values ('359','Vasvár Úti Általános Iskola Tehetséggondozó Központ');
 Insert into ISKOLA (ISKOLAID,NEV) values ('360','Bolyky Tamás Általános Iskola');
 Insert into ISKOLA (ISKOLAID,NEV) values ('361','Péczeli József Általános Iskola És Alapfokú Mûvészeti Iskola');
+Insert into ISKOLA (ISKOLAID,NEV) values ('371','ISKOLA');
+Insert into ISKOLA (ISKOLAID,NEV) values ('372','ISKOLA2');
+Insert into ISKOLA (ISKOLAID,NEV) values ('373','ISKOLA3');
+Insert into ISKOLA (ISKOLAID,NEV) values ('374','ISKOLA4');
+Insert into ISKOLA (ISKOLAID,NEV) values ('375','Nincs');
 REM INSERTING into ISMER
 SET DEFINE OFF;
 Insert into ISMER (KIID,KIVELID,STATUSZ,IDO) values ('730','714','1',to_timestamp('17-ÁPR.  -01 11.34.07,067000000','RR-MON-DD HH24.MI.SSXFF'));
 Insert into ISMER (KIID,KIVELID,STATUSZ,IDO) values ('650','740','1',to_timestamp('17-FEBR. -03 11.34.21,889000000','RR-MON-DD HH24.MI.SSXFF'));
 Insert into ISMER (KIID,KIVELID,STATUSZ,IDO) values ('674','675','1',to_timestamp('17-ÁPR.  -01 11.34.42,417000000','RR-MON-DD HH24.MI.SSXFF'));
+Insert into ISMER (KIID,KIVELID,STATUSZ,IDO) values ('670','675','1',to_timestamp('17-ÁPR.  -20 15.48.00,404000000','RR-MON-DD HH24.MI.SSXFF'));
+Insert into ISMER (KIID,KIVELID,STATUSZ,IDO) values ('678','670','1',to_timestamp('17-ÁPR.  -20 19.10.30,813000000','RR-MON-DD HH24.MI.SSXFF'));
+Insert into ISMER (KIID,KIVELID,STATUSZ,IDO) values ('670','679','1',to_timestamp('17-ÁPR.  -20 19.26.21,061000000','RR-MON-DD HH24.MI.SSXFF'));
+Insert into ISMER (KIID,KIVELID,STATUSZ,IDO) values ('675','679','1',to_timestamp('17-ÁPR.  -20 22.35.38,439000000','RR-MON-DD HH24.MI.SSXFF'));
+Insert into ISMER (KIID,KIVELID,STATUSZ,IDO) values ('675','740','1',to_timestamp('17-ÁPR.  -20 22.35.55,559000000','RR-MON-DD HH24.MI.SSXFF'));
 REM INSERTING into KEPEK
 SET DEFINE OFF;
-Insert into KEPEK (ALBUMNEV,ALBUMIDO,ELERESIUT,ID) values ('Album2',to_timestamp('17-MÁRC. -31 16.01.33,370000000','RR-MON-DD HH24.MI.SSXFF'),'/kep1.jpg','1');
+Insert into KEPEK (ALBUMNEV,ALBUMIDO,ELERESIUT,ID) values ('Album2',to_timestamp('17-MÁRC. -31 16.01.33,370000000','RR-MON-DD HH24.MI.SSXFF'),'upload/kep1.jpg','1');
+Insert into KEPEK (ALBUMNEV,ALBUMIDO,ELERESIUT,ID) values ('Profilképek',to_timestamp('22-ÁPR.  -17 00.00.00,000000000','RR-MON-DD HH24.MI.SSXFF'),'kep2.jpg','22');
+Insert into KEPEK (ALBUMNEV,ALBUMIDO,ELERESIUT,ID) values ('Profilképek',to_timestamp('17-ÁPR.  -22 01.15.41,808000000','RR-MON-DD HH24.MI.SSXFF'),'upload/1492816541kep2.jpg','28');
 REM INSERTING into KLUB
 SET DEFINE OFF;
 Insert into KLUB (ID,TULAJDONOS,KEZDET,LEIRAS) values ('897','752',to_date('17-MÁRC. -29','RR-MON-DD'),'Sportfogadással foglalkozó csoport. Ha hirdetni, reklámozni szeretnél írj egy Nyerõ Tippmix/Tippek adminnak');
@@ -1016,7 +1088,7 @@ Insert into KLUB (ID,TULAJDONOS,KEZDET,LEIRAS) values ('896','750',to_date('17-M
 Insert into KLUB (ID,TULAJDONOS,KEZDET,LEIRAS) values ('899','749',to_date('17-MÁRC. -29','RR-MON-DD'),'Fitness! Egészség tudatosság! Sport! Táplálkozástudomány és Biogenikus életvitel. - közösség, ahol jó helyen vagy!');
 Insert into KLUB (ID,TULAJDONOS,KEZDET,LEIRAS) values ('900','782',to_date('17-MÁRC. -29','RR-MON-DD'),'Minden sporttal kapcsolatos eszköz, súlyzó, futófelszerelés,táplálék kiegésztõ, cipõ, ruházat, használt és új egyaránt, adás-vétel és csere lehetõségekkel');
 Insert into KLUB (ID,TULAJDONOS,KEZDET,LEIRAS) values ('901','745',to_date('17-MÁRC. -29','RR-MON-DD'),'Ez egy kereszt?ny csoport melyben Németh Sándor pásztor tanításai összegyûjtve találhatóak.A Csoportot nem Németh Sándor kezeli.');
-Insert into KLUB (ID,TULAJDONOS,KEZDET,LEIRAS) values ('902','736',to_date('17-MÁRC. -29','RR-MON-DD'),'Beszélgethettek, elmondhatjátok a véleményeteket az alábbi témakörökben.');
+Insert into KLUB (ID,TULAJDONOS,KEZDET,LEIRAS) values ('902','670',to_date('17-MÁRC. -29','RR-MON-DD'),'Beszélgethettek, elmondhatjátok a véleményeteket az alábbi témakörökben.');
 Insert into KLUB (ID,TULAJDONOS,KEZDET,LEIRAS) values ('903','790',to_date('17-MÁRC. -29','RR-MON-DD'),'Az oldalon tobb kulfoldi iras is elofordul az utobbi hetekben, ez annak is koszonheto, hogy vannak koztunk kulfoldi tagok is, masreszt sajnos ido hianyaban nem tudom oket magyarra leforditani. megerteseteket koszonom.');
 Insert into KLUB (ID,TULAJDONOS,KEZDET,LEIRAS) values ('904','787',to_date('17-MÁRC. -29','RR-MON-DD'),'Üdvözöllek a Szeméttelep csoportban, egy oldalon, mely TAGJAI szórakoztatásának céljából jött létre!');
 Insert into KLUB (ID,TULAJDONOS,KEZDET,LEIRAS) values ('905','786',to_date('17-MÁRC. -29','RR-MON-DD'),'Ez egy humoros csoport, családias légkörrel, bárkit szívesen fogadunk. A kulturált viccelõdésig minden megengedett.');
@@ -1024,6 +1096,7 @@ REM INSERTING into LAKHELY
 SET DEFINE OFF;
 Insert into LAKHELY (LAKHELYID,NEV) values ('1','Szeged');
 Insert into LAKHELY (LAKHELYID,NEV) values ('2','Budapest');
+Insert into LAKHELY (LAKHELYID,NEV) values ('21','Nincs');
 REM INSERTING into MUNKAHELY
 SET DEFINE OFF;
 Insert into MUNKAHELY (MUNKAHELYID,NEV) values ('1','Wombat Industries');
@@ -1031,8 +1104,343 @@ Insert into MUNKAHELY (MUNKAHELYID,NEV) values ('2','Red Slip Factory');
 Insert into MUNKAHELY (MUNKAHELYID,NEV) values ('3','Red Oliver Inc');
 Insert into MUNKAHELY (MUNKAHELYID,NEV) values ('4','Ipanema Systems');
 Insert into MUNKAHELY (MUNKAHELYID,NEV) values ('5','Town Square Inc');
+Insert into MUNKAHELY (MUNKAHELYID,NEV) values ('21','Nincs');
 REM INSERTING into NEVNAP
 SET DEFINE OFF;
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Hugó','4','1');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Humbert','3','13');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Hümér','4','24');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Hunor','4','24');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Ibolya','3','20');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Ibrány','10','9');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Ida','3','13');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Iduna','5','5');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Ifigénia','6','6');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Ignác','2','1');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Ignácia','7','31');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Igor','9','11');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Ila','7','23');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Ilárion','1','14');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Ildefonz','1','22');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Ildikó','3','10');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Ilián','10','3');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Ilka','4','23');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Illés','1','16');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Ilma','4','18');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Ilmár','2','28');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Ilona','3','6');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Imbert','1','15');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Imelda','3','13');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Immakuláta','12','8');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Immánuel','3','26');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Imogén','2','1');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Imola','3','13');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Imre','11','5');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Ince','1','8');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Indira','4','3');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Inez','3','3');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Inge','7','30');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Ingrid','2','5');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Innocencia','2','1');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Ipoly','3','10');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Irén','3','25');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Iréneusz','6','28');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Irina','3','25');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Iringó','6','28');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Írisz','3','25');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Irma','3','3');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('István','8','2');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Itala','1','15');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Iván','6','24');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Ivána','5','12');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Ivett','1','13');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Ivetta','1','13');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Ivó','4','25');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Ivonn','5','19');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Ivor','9','7');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Ixion','3','28');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Iza','5','21');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Izabel','7','4');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Izabella','1','4');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Izaiás','7','6');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Iziás','1','23');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Izidor','1','16');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Izidóra','4','17');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Izmael','4','25');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Izméne','3','25');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Izolda','3','22');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Izor','4','30');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Izóra','5','1');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Izrael','2','5');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Izsák','3','25');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Izsó','8','26');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jácint','7','3');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jácinta','1','29');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jagelló','3','4');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jakab','5','1');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jákó','7','13');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jákob','2','5');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jakobina','2','8');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jakus','5','1');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Janina','1','16');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Janka','2','4');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('János','1','23');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Január','7','10');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Járfás','7','6');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jarmila','3','14');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jávorka','9','7');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jázmin','2','24');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jázon','3','21');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jella','3','24');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jenõ','3','25');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jeremiás','5','1');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jermák','7','27');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jerne','6','28');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jeromos','2','8');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jetta','3','16');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Joakim','3','20');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jób','5','10');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Joel','7','13');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Johanna','2','2');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jolán','6','15');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jolánta','6','15');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jónás','1','29');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jonatán','8','24');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jordán','1','13');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jozafát','9','16');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jozefa','2','14');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jozefina','3','17');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Józsa','3','19');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('József','3','17');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Józsiás','2','16');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Józsua','6','22');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Judit','1','13');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jukundusz','1','8');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Júlia','2','16');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Julianna','2','16');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Juliánusz','1','9');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Julietta','7','21');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Julitta','5','18');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Júnó','2','16');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jusztin','4','14');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jusztina','6','16');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jusztus','8','6');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jusztusz','7','14');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jutas','1','8');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Jutta','5','5');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Juvenál','5','3');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kabos','2','19');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kada','2','5');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kadosa','3','10');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kajetán','8','7');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kájusz','2','5');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kál','4','22');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Káldor','5','19');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kalliopé','6','8');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kalliszta','2','6');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kálmán','10','13');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kámea','3','3');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kamélia','8','3');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kamil','7','14');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kamill','7','14');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kamilla','2','3');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kamilló','7','18');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kán','3','10');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kandid','3','10');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kandida','3','10');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kanut','1','19');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kapisztrán','3','28');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kaplony','1','12');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kapolcs','3','24');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Karácson','5','13');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Karácsony','12','18');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Karád','1','16');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kardos','1','3');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Karina','3','24');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Karion','1','12');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kármán','8','17');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Karméla','7','16');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Karmelina','7','16');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kármen','6','2');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Karola','1','28');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Karolina','1','28');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Károly','1','28');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Karsa','7','8');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kartal','3','23');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kasszián','8','13');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kászon','4','24');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kasztor','1','13');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kata','2','2');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Katalin','2','13');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Katapán','3','28');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Katinka','3','9');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kató','9','15');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kazimir','3','4');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kázmér','3','4');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Keled','3','15');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kelemen','3','15');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kelen','4','22');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kemenes','8','21');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kende','9','1');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kenese','2','15');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kenéz','1','19');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kerecsen','12','5');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kerény','3','30');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Keresztély','2','13');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kerubina','6','4');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Keszõ','1','12');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Keve','1','8');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kilény','11','13');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kilián','7','5');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kiliána','7','8');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kincsõ','2','1');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kinga','7','24');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kira','8','3');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kirill','2','9');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kisanna','7','26');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kitti','2','13');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Klára','2','10');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Klarissza','1','15');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Klaudetta','6','6');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Klaudia','3','20');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Klemencia','3','15');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Klementina','10','21');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kleofás','8','25');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kleon','3','3');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kleopátra','8','1');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Klétus','4','26');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Klió','4','11');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Klotild','6','3');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kocsárd','4','19');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Koletta','3','6');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kolombina','10','21');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kolombusz','6','9');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kolos','1','15');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kolumbán','3','24');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kolumbusz','12','12');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Konkordia','1','1');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Konrád','2','14');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Konstancia','2','18');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Konstantin','3','11');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Konstantina','3','11');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kont','7','16');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Koppány','3','28');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kordélia','10','22');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Koridon','5','10');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Korinna','10','22');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Koriolán','3','6');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kornél','3','3');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kornélia','3','3');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Korvin','2','6');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kósa','9','7');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kötöny','3','20');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kozima','9','26');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kozma','9','26');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kreszcencia','4','5');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kristóf','3','15');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kriszta','6','22');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Krisztián','2','13');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Krisztina','6','22');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Krizanta','10','14');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Krizosztom','1','27');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kund','5','29');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kunigunda','3','3');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kunó','2','19');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kurszán','11','24');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Kürt','2','14');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Laborc','7','23');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Ladiszla','2','27');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Ladomér','7','14');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lajos','8','19');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lambert','4','16');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lamberta','4','16');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lantos','2','27');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Larina','5','24');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Larion','1','14');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('László','2','27');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Laura','4','11');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Laurencia','6','28');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lavínia','4','14');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lázár','2','23');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lea','3','22');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Leander','2','22');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Léda','2','5');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lehel','2','5');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Leila','2','13');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lél','3','2');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lelle','4','9');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Léna','7','21');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lénárd','10','6');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lenke','7','22');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Leó','2','18');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Leon','2','18');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Leona','1','4');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Leonárd','11','26');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Leonarda','11','6');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Leonidász','4','22');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Leonóra','2','21');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Leontina','3','1');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Leopold','3','29');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Leopoldina','11','15');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lestár','3','29');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Letícia','8','12');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Levendula','6','18');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Levente','2','13');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lia','3','22');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Liána','6','19');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Liander','3','13');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Liberátusz','8','17');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Libériusz','9','23');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Libor','7','23');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lídia','2','12');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lili','7','11');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lilian','8','11');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Liliána','7','27');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Liliom','7','27');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lilla','2','12');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lina','9','23');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Linda','2','13');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lionel','6','12');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lipót','4','2');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lívia','2','12');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Líviusz','9','23');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Liza','7','8');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lizander','11','20');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lizandra','1','18');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lola','9','15');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lolita','9','15');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Loránd','1','15');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lóránt','1','15');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Loréna','6','28');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Loretta','12','10');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lõrinc','7','5');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lotár','1','27');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lotti','11','4');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Luca','7','7');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lúcia','3','25');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lucián','1','7');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Luciusz','3','4');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Ludmilla','9','16');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Ludovika','1','31');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lujza','1','31');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lukács','2','17');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Lukrécia','3','15');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Mabella','6','11');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Madléna','5','25');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Magda','5','25');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Magdaléna','5','25');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Magdolna','5','25');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Magnusz','9','6');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Mahália','4','8');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Maja','3','28');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Majlát','5','11');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Makabeus','8','1');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Makár','1','2');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Malakiás','1','14');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Malvin','4','19');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Mályva','5','11');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Manassé','1','28');
+Insert into NEVNAP (NEV,HONAP,NAP) values ('Manda','5','29');
 Insert into NEVNAP (NEV,HONAP,NAP) values ('Manfréd','1','28');
 Insert into NEVNAP (NEV,HONAP,NAP) values ('Manfréda','1','28');
 Insert into NEVNAP (NEV,HONAP,NAP) values ('Manna','4','7');
@@ -2578,340 +2986,6 @@ Insert into NEVNAP (NEV,HONAP,NAP) values ('Hóvirág','3','21');
 Insert into NEVNAP (NEV,HONAP,NAP) values ('Huba','8','19');
 Insert into NEVNAP (NEV,HONAP,NAP) values ('Hubert','3','20');
 Insert into NEVNAP (NEV,HONAP,NAP) values ('Huberta','3','20');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Hugó','4','1');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Humbert','3','13');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Hümér','4','24');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Hunor','4','24');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Ibolya','3','20');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Ibrány','10','9');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Ida','3','13');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Iduna','5','5');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Ifigénia','6','6');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Ignác','2','1');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Ignácia','7','31');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Igor','9','11');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Ila','7','23');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Ilárion','1','14');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Ildefonz','1','22');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Ildikó','3','10');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Ilián','10','3');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Ilka','4','23');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Illés','1','16');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Ilma','4','18');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Ilmár','2','28');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Ilona','3','6');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Imbert','1','15');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Imelda','3','13');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Immakuláta','12','8');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Immánuel','3','26');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Imogén','2','1');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Imola','3','13');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Imre','11','5');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Ince','1','8');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Indira','4','3');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Inez','3','3');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Inge','7','30');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Ingrid','2','5');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Innocencia','2','1');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Ipoly','3','10');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Irén','3','25');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Iréneusz','6','28');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Irina','3','25');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Iringó','6','28');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Írisz','3','25');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Irma','3','3');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('István','8','2');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Itala','1','15');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Iván','6','24');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Ivána','5','12');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Ivett','1','13');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Ivetta','1','13');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Ivó','4','25');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Ivonn','5','19');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Ivor','9','7');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Ixion','3','28');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Iza','5','21');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Izabel','7','4');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Izabella','1','4');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Izaiás','7','6');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Iziás','1','23');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Izidor','1','16');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Izidóra','4','17');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Izmael','4','25');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Izméne','3','25');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Izolda','3','22');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Izor','4','30');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Izóra','5','1');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Izrael','2','5');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Izsák','3','25');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Izsó','8','26');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jácint','7','3');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jácinta','1','29');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jagelló','3','4');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jakab','5','1');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jákó','7','13');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jákob','2','5');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jakobina','2','8');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jakus','5','1');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Janina','1','16');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Janka','2','4');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('János','1','23');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Január','7','10');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Járfás','7','6');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jarmila','3','14');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jávorka','9','7');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jázmin','2','24');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jázon','3','21');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jella','3','24');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jenõ','3','25');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jeremiás','5','1');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jermák','7','27');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jerne','6','28');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jeromos','2','8');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jetta','3','16');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Joakim','3','20');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jób','5','10');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Joel','7','13');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Johanna','2','2');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jolán','6','15');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jolánta','6','15');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jónás','1','29');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jonatán','8','24');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jordán','1','13');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jozafát','9','16');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jozefa','2','14');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jozefina','3','17');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Józsa','3','19');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('József','3','17');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Józsiás','2','16');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Józsua','6','22');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Judit','1','13');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jukundusz','1','8');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Júlia','2','16');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Julianna','2','16');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Juliánusz','1','9');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Julietta','7','21');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Julitta','5','18');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Júnó','2','16');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jusztin','4','14');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jusztina','6','16');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jusztus','8','6');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jusztusz','7','14');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jutas','1','8');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Jutta','5','5');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Juvenál','5','3');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kabos','2','19');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kada','2','5');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kadosa','3','10');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kajetán','8','7');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kájusz','2','5');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kál','4','22');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Káldor','5','19');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kalliopé','6','8');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kalliszta','2','6');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kálmán','10','13');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kámea','3','3');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kamélia','8','3');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kamil','7','14');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kamill','7','14');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kamilla','2','3');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kamilló','7','18');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kán','3','10');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kandid','3','10');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kandida','3','10');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kanut','1','19');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kapisztrán','3','28');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kaplony','1','12');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kapolcs','3','24');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Karácson','5','13');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Karácsony','12','18');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Karád','1','16');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kardos','1','3');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Karina','3','24');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Karion','1','12');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kármán','8','17');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Karméla','7','16');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Karmelina','7','16');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kármen','6','2');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Karola','1','28');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Karolina','1','28');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Károly','1','28');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Karsa','7','8');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kartal','3','23');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kasszián','8','13');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kászon','4','24');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kasztor','1','13');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kata','2','2');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Katalin','2','13');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Katapán','3','28');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Katinka','3','9');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kató','9','15');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kazimir','3','4');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kázmér','3','4');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Keled','3','15');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kelemen','3','15');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kelen','4','22');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kemenes','8','21');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kende','9','1');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kenese','2','15');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kenéz','1','19');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kerecsen','12','5');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kerény','3','30');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Keresztély','2','13');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kerubina','6','4');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Keszõ','1','12');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Keve','1','8');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kilény','11','13');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kilián','7','5');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kiliána','7','8');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kincsõ','2','1');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kinga','7','24');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kira','8','3');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kirill','2','9');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kisanna','7','26');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kitti','2','13');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Klára','2','10');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Klarissza','1','15');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Klaudetta','6','6');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Klaudia','3','20');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Klemencia','3','15');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Klementina','10','21');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kleofás','8','25');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kleon','3','3');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kleopátra','8','1');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Klétus','4','26');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Klió','4','11');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Klotild','6','3');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kocsárd','4','19');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Koletta','3','6');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kolombina','10','21');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kolombusz','6','9');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kolos','1','15');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kolumbán','3','24');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kolumbusz','12','12');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Konkordia','1','1');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Konrád','2','14');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Konstancia','2','18');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Konstantin','3','11');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Konstantina','3','11');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kont','7','16');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Koppány','3','28');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kordélia','10','22');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Koridon','5','10');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Korinna','10','22');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Koriolán','3','6');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kornél','3','3');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kornélia','3','3');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Korvin','2','6');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kósa','9','7');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kötöny','3','20');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kozima','9','26');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kozma','9','26');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kreszcencia','4','5');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kristóf','3','15');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kriszta','6','22');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Krisztián','2','13');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Krisztina','6','22');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Krizanta','10','14');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Krizosztom','1','27');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kund','5','29');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kunigunda','3','3');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kunó','2','19');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kurszán','11','24');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Kürt','2','14');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Laborc','7','23');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Ladiszla','2','27');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Ladomér','7','14');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lajos','8','19');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lambert','4','16');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lamberta','4','16');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lantos','2','27');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Larina','5','24');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Larion','1','14');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('László','2','27');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Laura','4','11');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Laurencia','6','28');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lavínia','4','14');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lázár','2','23');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lea','3','22');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Leander','2','22');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Léda','2','5');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lehel','2','5');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Leila','2','13');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lél','3','2');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lelle','4','9');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Léna','7','21');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lénárd','10','6');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lenke','7','22');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Leó','2','18');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Leon','2','18');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Leona','1','4');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Leonárd','11','26');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Leonarda','11','6');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Leonidász','4','22');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Leonóra','2','21');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Leontina','3','1');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Leopold','3','29');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Leopoldina','11','15');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lestár','3','29');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Letícia','8','12');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Levendula','6','18');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Levente','2','13');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lia','3','22');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Liána','6','19');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Liander','3','13');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Liberátusz','8','17');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Libériusz','9','23');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Libor','7','23');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lídia','2','12');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lili','7','11');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lilian','8','11');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Liliána','7','27');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Liliom','7','27');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lilla','2','12');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lina','9','23');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Linda','2','13');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lionel','6','12');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lipót','4','2');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lívia','2','12');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Líviusz','9','23');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Liza','7','8');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lizander','11','20');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lizandra','1','18');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lola','9','15');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lolita','9','15');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Loránd','1','15');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lóránt','1','15');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Loréna','6','28');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Loretta','12','10');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lõrinc','7','5');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lotár','1','27');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lotti','11','4');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Luca','7','7');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lúcia','3','25');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lucián','1','7');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Luciusz','3','4');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Ludmilla','9','16');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Ludovika','1','31');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lujza','1','31');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lukács','2','17');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Lukrécia','3','15');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Mabella','6','11');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Madléna','5','25');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Magda','5','25');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Magdaléna','5','25');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Magdolna','5','25');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Magnusz','9','6');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Mahália','4','8');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Maja','3','28');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Majlát','5','11');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Makabeus','8','1');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Makár','1','2');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Malakiás','1','14');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Malvin','4','19');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Mályva','5','11');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Manassé','1','28');
-Insert into NEVNAP (NEV,HONAP,NAP) values ('Manda','5','29');
 REM INSERTING into POSZT
 SET DEFINE OFF;
 Insert into POSZT (FELADO,ID,CIMZETT,IDO,TARTALOM,SZULO) values ('670','1','671',to_timestamp('17-ÁPR.  -01 11.40.16,761000000','RR-MON-DD HH24.MI.SSXFF'),'Üdv.',null);
@@ -2919,7 +2993,13 @@ Insert into POSZT (FELADO,ID,CIMZETT,IDO,TARTALOM,SZULO) values ('671','2','670'
 REM INSERTING into PROFIL
 SET DEFINE OFF;
 Insert into PROFIL (SZEMELYID,SZUL_DATUM,NEM,LAKHELYID,ISKOLAID,HOBBIID,MUNKAHELYID,MEGHIVO,PROFILKEP) values ('670',to_date('97-ÁPR.  -11','RR-MON-DD'),'1','1','125','14','3',null,'1');
-Insert into PROFIL (SZEMELYID,SZUL_DATUM,NEM,LAKHELYID,ISKOLAID,HOBBIID,MUNKAHELYID,MEGHIVO,PROFILKEP) values ('671',to_date('18-ÁPR.  -14','RR-MON-DD'),'1','2','325','25','1',null,'1');
+Insert into PROFIL (SZEMELYID,SZUL_DATUM,NEM,LAKHELYID,ISKOLAID,HOBBIID,MUNKAHELYID,MEGHIVO,PROFILKEP) values ('671',to_date('18-ÁPR.  -14','RR-MON-DD'),'1','1','325','25','1',null,'1');
+Insert into PROFIL (SZEMELYID,SZUL_DATUM,NEM,LAKHELYID,ISKOLAID,HOBBIID,MUNKAHELYID,MEGHIVO,PROFILKEP) values ('675',to_date('17-ÁPR.  -20','RR-MON-DD'),'1','2','152','23','4',null,'2');
+Insert into PROFIL (SZEMELYID,SZUL_DATUM,NEM,LAKHELYID,ISKOLAID,HOBBIID,MUNKAHELYID,MEGHIVO,PROFILKEP) values ('678',to_date('17-ÁPR.  -26','RR-MON-DD'),'1','1','121','31','3',null,'3');
+Insert into PROFIL (SZEMELYID,SZUL_DATUM,NEM,LAKHELYID,ISKOLAID,HOBBIID,MUNKAHELYID,MEGHIVO,PROFILKEP) values ('679',to_date('17-ÁPR.  -20','RR-MON-DD'),'1','1','121','21','3',null,null);
+Insert into PROFIL (SZEMELYID,SZUL_DATUM,NEM,LAKHELYID,ISKOLAID,HOBBIID,MUNKAHELYID,MEGHIVO,PROFILKEP) values ('674',to_date('17-ÁPR.  -20','RR-MON-DD'),'1','1','125','25','2',null,'2');
+Insert into PROFIL (SZEMELYID,SZUL_DATUM,NEM,LAKHELYID,ISKOLAID,HOBBIID,MUNKAHELYID,MEGHIVO,PROFILKEP) values ('1010',to_date('11-DEC.  -21','RR-MON-DD'),'1','1','125','25','1','670','22');
+Insert into PROFIL (SZEMELYID,SZUL_DATUM,NEM,LAKHELYID,ISKOLAID,HOBBIID,MUNKAHELYID,MEGHIVO,PROFILKEP) values ('1020',to_date('17-ÁPR.  -22','RR-MON-DD'),'1','1','371','43','1','670','28');
 REM INSERTING into SZEMELY
 SET DEFINE OFF;
 Insert into SZEMELY (ID,JELSZO,EMAIL) values ('623','Shah9IChoh','SimkoVince@armyspy.com');
@@ -3356,6 +3436,8 @@ Insert into SZEMELY (ID,JELSZO,EMAIL) values ('619','OeJohBie5ei','LovaszEmese@j
 Insert into SZEMELY (ID,JELSZO,EMAIL) values ('620','Ayahd1rooR6','SebeokFruzsina@rhyta.com');
 Insert into SZEMELY (ID,JELSZO,EMAIL) values ('621','euHiaxoh8oo','SzollosyAntal@armyspy.com');
 Insert into SZEMELY (ID,JELSZO,EMAIL) values ('622','ooJu1iegh6X','SzakatsBarbara@teleworm.us');
+Insert into SZEMELY (ID,JELSZO,EMAIL) values ('1010','ASD','imre@asd.hu');
+Insert into SZEMELY (ID,JELSZO,EMAIL) values ('1020','neha','jozsi@asd.hu');
 REM INSERTING into TAGJA
 SET DEFINE OFF;
 Insert into TAGJA (SZEMELYID,KLUBID) values ('625','900');
@@ -3363,10 +3445,43 @@ Insert into TAGJA (SZEMELYID,KLUBID) values ('626','900');
 Insert into TAGJA (SZEMELYID,KLUBID) values ('627','900');
 Insert into TAGJA (SZEMELYID,KLUBID) values ('628','900');
 Insert into TAGJA (SZEMELYID,KLUBID) values ('629','900');
+Insert into TAGJA (SZEMELYID,KLUBID) values ('670','897');
+Insert into TAGJA (SZEMELYID,KLUBID) values ('670','899');
+Insert into TAGJA (SZEMELYID,KLUBID) values ('670','900');
+Insert into TAGJA (SZEMELYID,KLUBID) values ('670','901');
+Insert into TAGJA (SZEMELYID,KLUBID) values ('670','902');
+Insert into TAGJA (SZEMELYID,KLUBID) values ('670','904');
+Insert into TAGJA (SZEMELYID,KLUBID) values ('671','903');
+Insert into TAGJA (SZEMELYID,KLUBID) values ('675','903');
+Insert into TAGJA (SZEMELYID,KLUBID) values ('675','904');
+Insert into TAGJA (SZEMELYID,KLUBID) values ('675','905');
+Insert into TAGJA (SZEMELYID,KLUBID) values ('679','903');
 REM INSERTING into UZENET
 SET DEFINE OFF;
-Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('621','625',to_timestamp('17-ÁPR.  -01 11.49.48,287000000','RR-MON-DD HH24.MI.SSXFF'),'Heló!');
-Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('625','621',to_timestamp('17-ÁPR.  -01 11.50.02,288000000','RR-MON-DD HH24.MI.SSXFF'),'Szia!');
+Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('675','670',to_timestamp('17-ÁPR.  -21 00.09.39,000000000','RR-MON-DD HH24.MI.SSXFF'),'aaaaaaaaaaaaaaaaaaaaaaaasdf');
+Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('675','670',to_timestamp('17-ÁPR.  -21 00.09.41,000000000','RR-MON-DD HH24.MI.SSXFF'),'a');
+Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('675','670',to_timestamp('17-ÁPR.  -21 00.09.49,000000000','RR-MON-DD HH24.MI.SSXFF'),'asdfasdfasdfasdfasdfasdsdfasdfasdfasdfasdsdfasdfasdfasdfasdsdfasdfasdfasdfasdsdfasdfasdfasdfasdsdfasdfasdfasdfasdsdfasdfasdfasdfasdsdfasdfasdfasdfasdsdfasdfasdfasdfasd');
+Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('675','670',to_timestamp('17-ÁPR.  -21 00.09.57,000000000','RR-MON-DD HH24.MI.SSXFF'),'asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd');
+Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('675','670',to_timestamp('17-ÁPR.  -21 00.11.25,000000000','RR-MON-DD HH24.MI.SSXFF'),'asdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdfasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdfasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdfasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdfasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdf');
+Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('675','670',to_timestamp('17-ÁPR.  -21 00.09.31,000000000','RR-MON-DD HH24.MI.SSXFF'),'asdfas');
+Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('675','670',to_timestamp('17-ÁPR.  -21 00.09.35,000000000','RR-MON-DD HH24.MI.SSXFF'),'asdfasdfasdfasdfasdf');
+Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('675','674',to_timestamp('17-ÁPR.  -21 01.05.06,000000000','RR-MON-DD HH24.MI.SSXFF'),'asd');
+Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('670','675',to_timestamp('17-ÁPR.  -21 17.10.37,000000000','RR-MON-DD HH24.MI.SSXFF'),'asdfasd');
+Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('670','678',to_timestamp('17-ÁPR.  -21 17.10.41,000000000','RR-MON-DD HH24.MI.SSXFF'),'asdf');
+Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('675','670',to_timestamp('17-ÁPR.  -21 11.32.32,000000000','RR-MON-DD HH24.MI.SSXFF'),'asdfasdf');
+Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('675','670',to_timestamp('17-ÁPR.  -21 11.32.36,000000000','RR-MON-DD HH24.MI.SSXFF'),'asdfffdsad');
+Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('675','679',to_timestamp('17-ÁPR.  -21 11.36.31,000000000','RR-MON-DD HH24.MI.SSXFF'),'asdf');
+Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('675','679',to_timestamp('17-ÁPR.  -21 11.36.33,000000000','RR-MON-DD HH24.MI.SSXFF'),'asdf');
+Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('675','679',to_timestamp('17-ÁPR.  -21 11.36.34,000000000','RR-MON-DD HH24.MI.SSXFF'),'asdf');
+Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('675','679',to_timestamp('17-ÁPR.  -21 11.36.35,000000000','RR-MON-DD HH24.MI.SSXFF'),'asdf');
+Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('675','679',to_timestamp('17-ÁPR.  -21 11.36.36,000000000','RR-MON-DD HH24.MI.SSXFF'),'asdf');
+Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('675','679',to_timestamp('17-ÁPR.  -21 11.36.39,000000000','RR-MON-DD HH24.MI.SSXFF'),'asdfasdfasdfa');
+Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('675','679',to_timestamp('17-ÁPR.  -21 11.36.41,000000000','RR-MON-DD HH24.MI.SSXFF'),'asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf');
+Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('675','670',to_timestamp('17-ÁPR.  -21 11.38.23,000000000','RR-MON-DD HH24.MI.SSXFF'),'asdf');
+Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('675','670',to_timestamp('17-ÁPR.  -21 11.39.03,000000000','RR-MON-DD HH24.MI.SSXFF'),'asd');
+Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('675','670',to_timestamp('17-ÁPR.  -21 11.39.04,000000000','RR-MON-DD HH24.MI.SSXFF'),'as');
+Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('670','675',to_timestamp('17-ÁPR.  -21 13.45.35,000000000','RR-MON-DD HH24.MI.SSXFF'),'heló');
+Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('670','675',to_timestamp('17-ÁPR.  -21 13.45.45,000000000','RR-MON-DD HH24.MI.SSXFF'),'hogy vagy kedves barátom?');
 --------------------------------------------------------
 --  DDL for Index ALBUM_PK
 --------------------------------------------------------
@@ -3377,19 +3492,19 @@ Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('625','621',to_timestamp(
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS" ;
 --------------------------------------------------------
---  DDL for Index ERTESITES_PK
+--  DDL for Index ALBUM_UK1
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "ERTESITES_PK" ON "ERTESITES" ("IDO", "KINEK") 
+  CREATE UNIQUE INDEX "ALBUM_UK1" ON "ALBUM" ("IDO") 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS" ;
 --------------------------------------------------------
---  DDL for Index KEY
+--  DDL for Index ERTESITES_PK
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "KEY" ON "FELHASZNALO" ("ID") 
+  CREATE UNIQUE INDEX "ERTESITES_PK" ON "ERTESITES" ("IDO", "KINEK") 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
@@ -3431,6 +3546,15 @@ Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('625','621',to_timestamp(
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS" ;
 --------------------------------------------------------
+--  DDL for Index KEY
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "KEY" ON "FELHASZNALO" ("ID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
 --  DDL for Index KLUB_PK
 --------------------------------------------------------
 
@@ -3462,7 +3586,7 @@ Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('625','621',to_timestamp(
 --------------------------------------------------------
 
   CREATE UNIQUE INDEX "NEVNAP_PK" ON "NEVNAP" ("NEV") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS" ;
@@ -3648,173 +3772,299 @@ END;
 /
 ALTER TRIGGER "POSZT_TRG" ENABLE;
 --------------------------------------------------------
+--  DDL for Procedure REGISTER
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE PROCEDURE "REGISTER" (V_NEV IN STRING,V_JELSZO IN STRING,V_EMAIL IN STRING,V_DOB IN DATE,
+V_NEM IN INT, V_LAKHELYID IN INT,V_ISKOLAID IN INT,V_HOBBIID IN INT,V_MUNKAHELYID IN INT, V_MEGHIVO IN INT,V_PROFILKEP IN STRING) IS
+ PRAGMA AUTONOMOUS_TRANSACTION;
+ V_ID NUMBER;
+BEGIN 
+  INSERT INTO FELHASZNALO(NEV) VALUES (V_NEV);
+  V_ID:= FELHASZNALO_SEQ.CURRVAl;
+  INSERT INTO SZEMELY(ID,JELSZO,EMAIL) VALUES (V_ID,V_JELSZO,V_EMAIL);
+  INSERT INTO ALBUM(FELHASZNALOID,NEV,IDO) VALUES (V_ID,'Profilképek',SYSTIMESTAMP);
+  INSERT INTO KEPEK(ALBUMNEV,ALBUMIDO,ELERESIUT)VALUES((SELECT NEV FROM ALBUM WHERE FELHASZNALOID=V_ID),(SELECT IDO FROM ALBUM WHERE FELHASZNALOID=V_ID),V_PROFILKEP);
+  INSERT INTO PROFIL(SZEMELYID,SZUL_DATUM,NEM,LAKHELYID,ISKOLAID,HOBBIID,MUNKAHELYID,MEGHIVO,PROFILKEP)
+  VALUES(V_ID,V_DOB,V_NEM,V_LAKHELYID,V_ISKOLAID,V_HOBBIID,V_MUNKAHELYID,V_MEGHIVO,
+  (SELECT ID FROM KEPEK,ALBUM WHERE ALBUM.FELHASZNALOID=V_ID AND KEPEK.ALBUMIDO=ALBUM.IDO AND KEPEK.ALBUMNEV=ALBUM.NEV)); 
+  COMMIT;
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure SZEMELYHOZZAAD
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE PROCEDURE "SZEMELYHOZZAAD" (v_nev in string,v_jelszo in string,v_email in string) is
+ PRAGMA AUTONOMOUS_TRANSACTION;
+begin 
+  insert into felhasznalo(nev) values (v_nev);
+  commit;
+  insert into szemely(id,jelszo,email) values ((select max(id)from felhasznalo),v_jelszo,v_email);
+  commit;
+end;
+
+
+/*call h668895.szemelyhozzaad('Jozsef','asdasd','asd@asd.hu');
+call h668895.klubhozzaad('a klub2',30,'jo lesz');*/
+
+/
+--------------------------------------------------------
 --  Constraints for Table ALBUM
 --------------------------------------------------------
 
-  ALTER TABLE "ALBUM" MODIFY ("IDO" NOT NULL ENABLE);
-  ALTER TABLE "ALBUM" MODIFY ("NEV" NOT NULL ENABLE);
-  ALTER TABLE "ALBUM" MODIFY ("FELHASZNALOID" NOT NULL ENABLE);
+  ALTER TABLE "ALBUM" ADD CONSTRAINT "ALBUM_UK1" UNIQUE ("IDO")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS"  ENABLE;
   ALTER TABLE "ALBUM" ADD CONSTRAINT "ALBUM_PK" PRIMARY KEY ("IDO", "NEV")
   USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS"  ENABLE;
+  ALTER TABLE "ALBUM" MODIFY ("FELHASZNALOID" NOT NULL ENABLE);
+  ALTER TABLE "ALBUM" MODIFY ("NEV" NOT NULL ENABLE);
+  ALTER TABLE "ALBUM" MODIFY ("IDO" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table ERTESITES
 --------------------------------------------------------
 
-  ALTER TABLE "ERTESITES" MODIFY ("IDO" NOT NULL ENABLE);
-  ALTER TABLE "ERTESITES" MODIFY ("KINEK" NOT NULL ENABLE);
   ALTER TABLE "ERTESITES" ADD CONSTRAINT "ERTESITES_PK" PRIMARY KEY ("IDO", "KINEK")
   USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS"  ENABLE;
+  ALTER TABLE "ERTESITES" MODIFY ("KINEK" NOT NULL ENABLE);
+  ALTER TABLE "ERTESITES" MODIFY ("IDO" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table FELHASZNALO
 --------------------------------------------------------
 
-  ALTER TABLE "FELHASZNALO" MODIFY ("NEV" NOT NULL ENABLE);
   ALTER TABLE "FELHASZNALO" ADD CONSTRAINT "KEY" PRIMARY KEY ("ID")
   USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS"  ENABLE;
+  ALTER TABLE "FELHASZNALO" MODIFY ("NEV" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table HOBBI
 --------------------------------------------------------
 
-  ALTER TABLE "HOBBI" MODIFY ("HOBBIID" NOT NULL ENABLE);
   ALTER TABLE "HOBBI" ADD CONSTRAINT "HOBBI_PK" PRIMARY KEY ("HOBBIID")
   USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS"  ENABLE;
+  ALTER TABLE "HOBBI" MODIFY ("HOBBIID" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table ISKOLA
 --------------------------------------------------------
 
-  ALTER TABLE "ISKOLA" MODIFY ("ISKOLAID" NOT NULL ENABLE);
   ALTER TABLE "ISKOLA" ADD CONSTRAINT "ISKOLA_PK" PRIMARY KEY ("ISKOLAID")
   USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS"  ENABLE;
+  ALTER TABLE "ISKOLA" MODIFY ("ISKOLAID" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table ISMER
 --------------------------------------------------------
 
-  ALTER TABLE "ISMER" MODIFY ("IDO" NOT NULL ENABLE);
-  ALTER TABLE "ISMER" MODIFY ("KIVELID" NOT NULL ENABLE);
-  ALTER TABLE "ISMER" MODIFY ("KIID" NOT NULL ENABLE);
   ALTER TABLE "ISMER" ADD CONSTRAINT "ISMER_PK" PRIMARY KEY ("KIID", "KIVELID", "IDO")
   USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS"  ENABLE;
+  ALTER TABLE "ISMER" MODIFY ("KIID" NOT NULL ENABLE);
+  ALTER TABLE "ISMER" MODIFY ("KIVELID" NOT NULL ENABLE);
+  ALTER TABLE "ISMER" MODIFY ("IDO" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table KEPEK
 --------------------------------------------------------
 
-  ALTER TABLE "KEPEK" MODIFY ("ID" NOT NULL ENABLE);
   ALTER TABLE "KEPEK" ADD CONSTRAINT "KEPEK_PK" PRIMARY KEY ("ID")
   USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS"  ENABLE;
+  ALTER TABLE "KEPEK" MODIFY ("ID" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table KLUB
 --------------------------------------------------------
 
-  ALTER TABLE "KLUB" MODIFY ("ID" NOT NULL ENABLE);
-  ALTER TABLE "KLUB" MODIFY ("TULAJDONOS" NOT NULL ENABLE);
   ALTER TABLE "KLUB" ADD CONSTRAINT "KLUB_PK" PRIMARY KEY ("ID")
   USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS"  ENABLE;
+  ALTER TABLE "KLUB" MODIFY ("TULAJDONOS" NOT NULL ENABLE);
+  ALTER TABLE "KLUB" MODIFY ("ID" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table LAKHELY
 --------------------------------------------------------
 
-  ALTER TABLE "LAKHELY" MODIFY ("LAKHELYID" NOT NULL ENABLE);
   ALTER TABLE "LAKHELY" ADD CONSTRAINT "LAKHELY_PK" PRIMARY KEY ("LAKHELYID")
   USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS"  ENABLE;
+  ALTER TABLE "LAKHELY" MODIFY ("LAKHELYID" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table MUNKAHELY
 --------------------------------------------------------
 
-  ALTER TABLE "MUNKAHELY" MODIFY ("MUNKAHELYID" NOT NULL ENABLE);
   ALTER TABLE "MUNKAHELY" ADD CONSTRAINT "MUNKAHELY_PK" PRIMARY KEY ("MUNKAHELYID")
   USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS"  ENABLE;
+  ALTER TABLE "MUNKAHELY" MODIFY ("MUNKAHELYID" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table NEVNAP
 --------------------------------------------------------
 
+  ALTER TABLE "NEVNAP" MODIFY ("NEV" NOT NULL ENABLE);
   ALTER TABLE "NEVNAP" ADD CONSTRAINT "NEVNAP_PK" PRIMARY KEY ("NEV")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "NEVNAP" MODIFY ("NEV" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table POSZT
 --------------------------------------------------------
 
-  ALTER TABLE "POSZT" MODIFY ("ID" NOT NULL ENABLE);
   ALTER TABLE "POSZT" ADD CONSTRAINT "POSZT_PK" PRIMARY KEY ("ID")
   USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS"  ENABLE;
+  ALTER TABLE "POSZT" MODIFY ("ID" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table PROFIL
 --------------------------------------------------------
 
-  ALTER TABLE "PROFIL" MODIFY ("SZEMELYID" NOT NULL ENABLE);
   ALTER TABLE "PROFIL" ADD CONSTRAINT "PROFIL_PK" PRIMARY KEY ("SZEMELYID")
   USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS"  ENABLE;
+  ALTER TABLE "PROFIL" MODIFY ("SZEMELYID" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table SZEMELY
 --------------------------------------------------------
 
+  ALTER TABLE "SZEMELY" MODIFY ("ID" NOT NULL ENABLE);
+  ALTER TABLE "SZEMELY" MODIFY ("JELSZO" NOT NULL ENABLE);
+  ALTER TABLE "SZEMELY" MODIFY ("EMAIL" NOT NULL ENABLE);
   ALTER TABLE "SZEMELY" ADD CONSTRAINT "SZEMELY_PK" PRIMARY KEY ("ID")
   USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "SZEMELY" MODIFY ("EMAIL" NOT NULL ENABLE);
-  ALTER TABLE "SZEMELY" MODIFY ("JELSZO" NOT NULL ENABLE);
-  ALTER TABLE "SZEMELY" MODIFY ("ID" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table TAGJA
 --------------------------------------------------------
 
+  ALTER TABLE "TAGJA" MODIFY ("SZEMELYID" NOT NULL ENABLE);
+  ALTER TABLE "TAGJA" MODIFY ("KLUBID" NOT NULL ENABLE);
   ALTER TABLE "TAGJA" ADD CONSTRAINT "TAGJA_PK" PRIMARY KEY ("SZEMELYID", "KLUBID")
   USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "TAGJA" MODIFY ("KLUBID" NOT NULL ENABLE);
-  ALTER TABLE "TAGJA" MODIFY ("SZEMELYID" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table UZENET
 --------------------------------------------------------
 
+  ALTER TABLE "UZENET" MODIFY ("FELADO" NOT NULL ENABLE);
+  ALTER TABLE "UZENET" MODIFY ("CIMZETT" NOT NULL ENABLE);
+  ALTER TABLE "UZENET" MODIFY ("IDO" NOT NULL ENABLE);
   ALTER TABLE "UZENET" ADD CONSTRAINT "UZENET_PK" PRIMARY KEY ("FELADO", "CIMZETT", "IDO")
   USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "UZENET" MODIFY ("IDO" NOT NULL ENABLE);
-  ALTER TABLE "UZENET" MODIFY ("CIMZETT" NOT NULL ENABLE);
-  ALTER TABLE "UZENET" MODIFY ("FELADO" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Ref Constraints for Table ALBUM
+--------------------------------------------------------
+
+  ALTER TABLE "ALBUM" ADD CONSTRAINT "ALBUM_FK1" FOREIGN KEY ("FELHASZNALOID")
+	  REFERENCES "FELHASZNALO" ("ID") ON DELETE CASCADE ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table ERTESITES
+--------------------------------------------------------
+
+  ALTER TABLE "ERTESITES" ADD CONSTRAINT "ERTESITES_FK1" FOREIGN KEY ("KINEK")
+	  REFERENCES "FELHASZNALO" ("ID") ON DELETE CASCADE ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table ISMER
+--------------------------------------------------------
+
+  ALTER TABLE "ISMER" ADD CONSTRAINT "ISMER_FK1" FOREIGN KEY ("KIID")
+	  REFERENCES "SZEMELY" ("ID") ON DELETE CASCADE ENABLE;
+  ALTER TABLE "ISMER" ADD CONSTRAINT "ISMER_FK2" FOREIGN KEY ("KIVELID")
+	  REFERENCES "FELHASZNALO" ("ID") ON DELETE CASCADE ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table KEPEK
+--------------------------------------------------------
+
+  ALTER TABLE "KEPEK" ADD CONSTRAINT "KEPEK_FK1" FOREIGN KEY ("ALBUMIDO", "ALBUMNEV")
+	  REFERENCES "ALBUM" ("IDO", "NEV") ON DELETE CASCADE ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table KLUB
+--------------------------------------------------------
+
+  ALTER TABLE "KLUB" ADD CONSTRAINT "KLUB_FK1" FOREIGN KEY ("ID")
+	  REFERENCES "FELHASZNALO" ("ID") ON DELETE CASCADE ENABLE;
+  ALTER TABLE "KLUB" ADD CONSTRAINT "KLUB_FK2" FOREIGN KEY ("TULAJDONOS")
+	  REFERENCES "FELHASZNALO" ("ID") ON DELETE CASCADE ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table POSZT
+--------------------------------------------------------
+
+  ALTER TABLE "POSZT" ADD CONSTRAINT "POSZT_FK1" FOREIGN KEY ("FELADO")
+	  REFERENCES "FELHASZNALO" ("ID") ON DELETE CASCADE ENABLE;
+  ALTER TABLE "POSZT" ADD CONSTRAINT "POSZT_FK2" FOREIGN KEY ("CIMZETT")
+	  REFERENCES "FELHASZNALO" ("ID") ON DELETE CASCADE ENABLE;
+  ALTER TABLE "POSZT" ADD CONSTRAINT "POSZT_FK3" FOREIGN KEY ("SZULO")
+	  REFERENCES "FELHASZNALO" ("ID") ON DELETE CASCADE ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table PROFIL
+--------------------------------------------------------
+
+  ALTER TABLE "PROFIL" ADD CONSTRAINT "PROFIL_FK1" FOREIGN KEY ("ISKOLAID")
+	  REFERENCES "ISKOLA" ("ISKOLAID") ON DELETE CASCADE ENABLE;
+  ALTER TABLE "PROFIL" ADD CONSTRAINT "PROFIL_FK3" FOREIGN KEY ("MUNKAHELYID")
+	  REFERENCES "MUNKAHELY" ("MUNKAHELYID") ON DELETE CASCADE ENABLE;
+  ALTER TABLE "PROFIL" ADD CONSTRAINT "PROFIL_FK4" FOREIGN KEY ("LAKHELYID")
+	  REFERENCES "LAKHELY" ("LAKHELYID") ON DELETE CASCADE ENABLE;
+  ALTER TABLE "PROFIL" ADD CONSTRAINT "PROFIL_FK5" FOREIGN KEY ("HOBBIID")
+	  REFERENCES "HOBBI" ("HOBBIID") ON DELETE CASCADE ENABLE;
+  ALTER TABLE "PROFIL" ADD CONSTRAINT "PROFIL_FK6" FOREIGN KEY ("SZEMELYID")
+	  REFERENCES "FELHASZNALO" ("ID") ON DELETE CASCADE ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table SZEMELY
+--------------------------------------------------------
+
+  ALTER TABLE "SZEMELY" ADD CONSTRAINT "SZEMELY_FK1" FOREIGN KEY ("ID")
+	  REFERENCES "FELHASZNALO" ("ID") ON DELETE CASCADE ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table TAGJA
+--------------------------------------------------------
+
+  ALTER TABLE "TAGJA" ADD CONSTRAINT "TAGJA_FK1" FOREIGN KEY ("KLUBID")
+	  REFERENCES "KLUB" ("ID") ON DELETE CASCADE ENABLE;
+  ALTER TABLE "TAGJA" ADD CONSTRAINT "TAGJA_FK2" FOREIGN KEY ("SZEMELYID")
+	  REFERENCES "SZEMELY" ("ID") ON DELETE CASCADE ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table UZENET
+--------------------------------------------------------
+
+  ALTER TABLE "UZENET" ADD CONSTRAINT "UZENET_FK1" FOREIGN KEY ("FELADO")
+	  REFERENCES "FELHASZNALO" ("ID") ON DELETE CASCADE ENABLE;
+  ALTER TABLE "UZENET" ADD CONSTRAINT "UZENET_FK2" FOREIGN KEY ("CIMZETT")
+	  REFERENCES "FELHASZNALO" ("ID") ON DELETE CASCADE ENABLE;

@@ -25,6 +25,20 @@ public class KozossegiProfileBean extends KozossegiUserBean{
 		this.inviter = inviter;
 		this.profilepic = profilepic;
 	}
+	public KozossegiProfileBean(String name, int id, Date dob, boolean gender, String residence, String school,
+			String hobby, String workplace, String email, String pass, int inviter, String picloc) {
+		super(name, id);
+		this.dob = dob;
+		this.gender = gender;
+		this.residence = residence;
+		this.school = school;
+		this.hobby = hobby;
+		this.workplace = workplace;
+		this.email = email;
+		this.pass = pass;
+		this.inviter = inviter;
+		this.picloc = picloc;
+	}
 	public Date getDob() {
 		return dob;
 	}
@@ -85,6 +99,12 @@ public class KozossegiProfileBean extends KozossegiUserBean{
 	public void setProfilepic(Image profilepic) {
 		this.profilepic = profilepic;
 	}
+	public String getPicloc() {
+		return picloc;
+	}
+	public void setPicloc(String picloc) {
+		this.picloc = picloc;
+	}
 	Date dob;
 	boolean gender;
 	String residence;
@@ -95,5 +115,7 @@ public class KozossegiProfileBean extends KozossegiUserBean{
 	String pass;
 	int inviter;
 	Image profilepic;
+	String picloc;
+	
 
 }

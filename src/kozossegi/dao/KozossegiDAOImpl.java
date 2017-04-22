@@ -315,7 +315,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 
 	@Override
 	public void addProfile(KozossegiProfileBean profile) {
-		int residenceId=0,schoolId=0,workplaceId=0,hobbyId=0;
+		int residenceId=21,schoolId=325,workplaceId=21,hobbyId=61;
 		
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
@@ -324,11 +324,9 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 				ResultSet rs = ps.executeQuery();
 				if(rs.next())
 					hobbyId=rs.getInt("ID");
-				else
-					hobbyId=addHobby(profile.getHobby());
 				
 		} catch (SQLException e) {
-			System.out.println("Error while adding profile!");
+			System.out.println("Error while getting profile!");
 			e.printStackTrace();
 			return;
 		}
@@ -339,10 +337,8 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 				ResultSet rs = ps.executeQuery();
 				if(rs.next())
 					residenceId=rs.getInt("ID");
-				else
-					residenceId=addHobby(profile.getResidence());
 		} catch (SQLException e) {
-			System.out.println("Error while adding profile!");
+			System.out.println("Error while getting profile!");
 			e.printStackTrace();
 			return;
 		}
@@ -353,10 +349,8 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 				ResultSet rs = ps.executeQuery();
 				if(rs.next())
 					schoolId=rs.getInt("ID");
-				else
-					schoolId=addHobby(profile.getSchool());
 		} catch (SQLException e) {
-			System.out.println("Error while adding profile!");
+			System.out.println("Error while getting profile!");
 			e.printStackTrace();
 			return;
 		}
@@ -367,14 +361,11 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 				ResultSet rs = ps.executeQuery();
 				if(rs.next())
 					workplaceId=rs.getInt("ID");
-				else
-					workplaceId=addHobby(profile.getWorkplace());
 		} catch (SQLException e) {
-			System.out.println("Error while adding profile!");
+			System.out.println("Error while getting profile!");
 			e.printStackTrace();
 			return;
 		}
-		
 		
 		
 		
@@ -386,15 +377,14 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ps.setString(2, profile.getPass());
 			ps.setString(3, profile.getEmail());
 			ps.setDate(4, new java.sql.Date(profile.getDob().getTime()));
-			ps.setBoolean(5,profile.isGender());
+			ps.setInt(5,profile.isGender()?1:0);
 			ps.setInt(6,residenceId);
 			ps.setInt(7,schoolId);
 			ps.setInt(8,hobbyId);
 			ps.setInt(9,workplaceId);
 			ps.setInt(10,profile.getInviter());
-			ps.setString(11,"kep1.jpg");//TODO:cumo
+			ps.setString(11,profile.getPicloc());
 			ResultSet rs = ps.executeQuery();
-
 		} catch (SQLException e) {
 			System.out.println("Error while getting owned clubs!");
 			e.printStackTrace();
@@ -403,74 +393,118 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 	}
 
 	@Override
-	public void addSchool(String school) {
+	public List<String> getSchools() {
+		List<String> list = new ArrayList<String>();
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
-				PreparedStatement ps = conn.prepareStatement(Labels.ADD_SCHOOL);) {
-			
-			ps.setString(1, school);
-			
-			boolean success = ps.execute();
-			if(!success)
-				System.out.println("Error adding school!");
-
+				PreparedStatement ps = conn.prepareStatement(Labels.GET_SCHOOLS);) {
+				ResultSet rs = ps.executeQuery();
+				while(rs.next())
+				{
+					list.add(rs.getString("NEV"));
+				}
+				return list;
 		} catch (SQLException e) {
-			System.out.println("Error adding school!");
+			System.out.println("Error while getting schools!");
 			e.printStackTrace();
+			
 		}
+		return null;
 	}
 
 	@Override
-	public void addWorkplace(String workplace) {
+	public List<String> getWorkplaces() {
+		List<String> list = new ArrayList<String>();
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
-				PreparedStatement ps = conn.prepareStatement(Labels.ADD_WORKPLACE);) {
-			
-			ps.setString(1, workplace);
-			
-			boolean success = ps.execute();
-			if(!success)
-				System.out.println("Error adding workplace!");
-
+				PreparedStatement ps = conn.prepareStatement(Labels.GET_WORKPLACES);) {
+				ResultSet rs = ps.executeQuery();
+				while(rs.next())
+				{
+					list.add(rs.getString("NEV"));
+				}
+				return list;
 		} catch (SQLException e) {
-			System.out.println("Error adding workplace!");
+			System.out.println("Error while getting workplaces!");
 			e.printStackTrace();
+			
 		}
+		return null;
 	}
 
 	@Override
-	public void addResidence(String residence) {
+	public List<String> getResidences() {
+		List<String> list = new ArrayList<String>();
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
-				PreparedStatement ps = conn.prepareStatement(Labels.ADD_RESIDENCE);) {
-			
-			ps.setString(1, residence);
-			
-			boolean success = ps.execute();
-			if(!success)
-				System.out.println("Error adding residence!");
-
+				PreparedStatement ps = conn.prepareStatement(Labels.GET_RESIDENCES);) {
+				ResultSet rs = ps.executeQuery();
+				while(rs.next())
+				{
+					list.add(rs.getString("NEV"));
+				}
+				return list;
 		} catch (SQLException e) {
-			System.out.println("Error adding residence!");
+			System.out.println("Error while getting residences!");
 			e.printStackTrace();
+			
 		}
+		return null;
 	}
 
 	@Override
-	public void addHobby(String hobby) {
+	public List<String> getHobbys() {
+		List<String> list = new ArrayList<String>();
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
-				PreparedStatement ps = conn.prepareStatement(Labels.ADD_HOBBY);) {
-			
-			ps.setString(1, hobby);
-			
-		boolean success = ps.execute();
-		if(!success)
-			System.out.println("Error adding hobby!");
-
+				PreparedStatement ps = conn.prepareStatement(Labels.GET_HOBBYS);) {
+				ResultSet rs = ps.executeQuery();
+				while(rs.next())
+				{
+					list.add(rs.getString("NEV"));
+				}
+				return list;
 		} catch (SQLException e) {
-			System.out.println("Error adding hobby!");
+			System.out.println("Error while getting hobbys!");
 			e.printStackTrace();
+			
 		}
+		return null;
+	}
+
+	@Override
+	public void markAsFriend(int id1, int id2) {
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.MARK_FRIEND);) {
+				ps.setInt(1, id1);
+				ps.setInt(2, id2);
+				ps.setDate(3, new java.sql.Date(new Date().getTime()));
+				boolean succes = ps.execute();
+				if(!succes)
+					System.out.println("Error while marking friend!");
+		} catch (SQLException e) {
+			System.out.println("Error while marking friend!");
+			e.printStackTrace();		
+		}
+		
+	}
+
+	@Override
+	public void confirmFriend(int id1, int id2) {
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.CONFIRM_FRIEND);) {
+				ps.setDate(1, new java.sql.Date(new Date().getTime()));
+				ps.setInt(2, id2);
+				ps.setInt(3, id1);
+				boolean succes = ps.execute();
+				if(!succes)
+					System.out.println("Error while marking friend!");
+		} catch (SQLException e) {
+			System.out.println("Error while marking friend!");
+			e.printStackTrace();		
+		}
+		
 	}
 }

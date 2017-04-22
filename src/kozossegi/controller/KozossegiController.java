@@ -89,24 +89,28 @@ public class KozossegiController{
 	}
 
 	public List<String> getResidences() {
-		List<String> res = new ArrayList<String>();
-		res.add("Üllés");
-		res.add("Szeged");		
-		return  res;
+		return dao.getResidences();
 	}
 	public List<String> getSchools() {
 	
-		return new ArrayList<String>();
+		return dao.getSchools();
 	}
 
 	public List<String>  getHobbies() {
 		
-		return new ArrayList<String> ();
+		return dao.getHobbys();
 	}
 
 	public List<String>  getWorkPlaces() {
 		
-		return new ArrayList<String> ();
-
+		return dao.getWorkplaces();
+	}
+	public void markAsFriend(int id1,int id2)
+	{
+		dao.markAsFriend(id1, id2);
+	}
+	public void confirmFriend(int id1,int id2)
+	{
+		dao.confirmFriend(id1, id2);
 	}
 }
