@@ -16,7 +16,6 @@ import javax.imageio.ImageIO;
 
 import kozossegi.Labels;
 import kozossegi.bean.KozossegiAlbumBean;
-import kozossegi.bean.KozossegiClubBean;
 import kozossegi.bean.KozossegiMessageBean;
 import kozossegi.bean.KozossegiNotificationBean;
 import kozossegi.bean.KozossegiPostData;
@@ -111,10 +110,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		return null;
 	}
 
-	public boolean isUniqueEmail(String email) {
-		// TODO Auto-generated method stub
-		return true;
-	}
+	
 	@Override
 	public KozossegiProfileBean getProfile(int id) {
 		
@@ -384,7 +380,9 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ps.setInt(9,workplaceId);
 			ps.setInt(10,profile.getInviter());
 			ps.setString(11,profile.getPicloc());
-			ResultSet rs = ps.executeQuery();
+			boolean succes = ps.execute();
+			if(!succes)
+				System.out.println("Error while creating profile!");
 		} catch (SQLException e) {
 			System.out.println("Error while getting owned clubs!");
 			e.printStackTrace();
@@ -506,5 +504,40 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			e.printStackTrace();		
 		}
 		
+	}
+
+	@Override
+	public boolean isValidInviterCode(int id) {
+		boolean result = false;
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.IS_VALID_INVITER_CODE);) {
+				ps.setInt(1, id);
+				ResultSet rs = ps.executeQuery();
+				while(rs.next()){
+					result = rs.getInt("PCS")==1?true:false;
+				}
+		} catch (SQLException e) {
+			System.out.println("Error while executing invite code validator!");
+			e.printStackTrace();		
+		}
+		return result;
+	}
+	
+	public boolean isUniqueEmail(String email) {
+		boolean result = false;
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.IS_VALID_EMAIL);) {
+				ps.setString(1, email);
+				ResultSet rs = ps.executeQuery();
+				while(rs.next()){
+					result = rs.getInt("PCS")==1?false:true;
+				}
+		} catch (SQLException e) {
+			System.out.println("Error while executing email validator!");
+			e.printStackTrace();		
+		}
+		return result;
 	}
 }

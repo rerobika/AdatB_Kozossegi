@@ -56,6 +56,8 @@ public class Labels {
 	public static final String GET_HOBBYS = "SELECT NEV FROM HOBBI";
 	public static final String MARK_FRIEND = "INSERT INTO ISMER(KIID,KIVELID,STATUSZ,IDO) VALUES(?,?,0,?)";
 	public static final String CONFIRM_FRIEND = "UPDATE ISMER SET STATUSZ=1,IDO=? WHERE KIID=? AND KIVELID=?";
+	public static final String IS_VALID_INVITER_CODE = "SELECT COUNT(*) AS PCS FROM SZEMELY WHERE ID=?";
+	public static final String IS_VALID_EMAIL = "SELECT COUNT(*) AS PCS FROM SZEMELY WHERE EMAIL LIKE ?";
 	
 	
 	// MAIN_FRAME
@@ -63,6 +65,7 @@ public class Labels {
 	public static final String EMAIL_ADDRESS = "E-mail cím:";
 	public static final String PASSWORD = "Jelszó:";
 	public static final String OPTION_PANE_ERROR = "Hiba!";
+	public static final String OPTION_PANE_SUCCESS = "Sikerült!";
 	public static final String EMPTY_NAME = "A nevét meg kell adnia!";
 	public static final String EMPTY_EMAIL = "Az e-mail címet meg kell adni!";
 	public static final String PROFILE_PICTURE_URL = "https://image.freepik.com/free-icon/profile-user_318-80283.jpg";
@@ -85,6 +88,7 @@ public class Labels {
 	public static final List<String> REGISTER_MONTH_NAMES = new ArrayList<String>(
 			Arrays.asList("Január", "Február", "Március", "Április", "Május", "Június", "Július", "Augusztus",
 					"Szeptember", "Október", "November", "December"));
+	public static final String REGISTER_INVITER_CODE = "Meghívó kód:";
 
 	// REGISTER_ERRORS
 	public static final String EXISTING_EMAIL = "Ez az e-mail cím már foglalt!";
@@ -96,6 +100,8 @@ public class Labels {
 	public static final String PASSWORD_LENGTH_ERROR = "A jelszónak legalább 5 és legfeljebb 30 karakter hosszúnak kell lennie!";
 	public static final String NAME_LENGTH_ERROR = "A neved legalább 5 és legfeljebb 50 karakter hosszú kell legyen!";
 	public static final String NO_GENDER_SELECTED = "Nem választottad ki a neved!";
+	public static final String NOT_VALID_INVITER_CODE = "Érvénytelen meghívókód!";
+	public static final String SUCCESSFUL_REGISTRATION = "Sikeres regisztráció!";
 
 	// SEARCH
 	public static final String SEARCH_TEXT = "Ismerősök keresése:";

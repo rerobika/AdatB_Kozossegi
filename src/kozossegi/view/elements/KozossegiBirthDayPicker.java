@@ -5,6 +5,7 @@ import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.JComboBox;
@@ -47,10 +48,20 @@ public class KozossegiBirthDayPicker extends JPanel {
 		birthYear.setSelectedIndex(18);
 	}
 	
+	public Date getBirthDate(){
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, (Integer)birthYear.getSelectedItem());
+		cal.set(Calendar.MONTH, birthMonth.getSelectedIndex()+1);
+		cal.set(Calendar.DAY_OF_MONTH, birthDay.getSelectedIndex()+1);
+		System.out.println(cal.toString());
+		return cal.getTime();
+	}
 	
-	public String getBirthDate(){
+	
+	public String toString(){
 		return Integer.toString((Integer)birthYear.getSelectedItem())+"-"+(birthMonth.getSelectedIndex()+1) +"-"+(birthDay.getSelectedIndex()+1);
 	}
+	
 	
 	public boolean isValidDate(String s) {
 	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

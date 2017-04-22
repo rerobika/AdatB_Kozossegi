@@ -8,16 +8,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import kozossegi.Labels;
+import kozossegi.bean.KozossegiProfileBean;
 import kozossegi.view.KozossegiMainFrame;
 import kozossegi.view.elements.KozossegiBirthDayPicker;
 import kozossegi.view.elements.KozossegiGenderPicker;
@@ -33,6 +32,7 @@ public class KozossegiRegister extends JPanel implements ActionListener {
 	private JTextField nameField;
 	private JPasswordField passwordField;
 	private JPasswordField passwordConfirmField;
+	private JTextField inviterField;
 	private JButton registerButton;
 	private JButton backButton;
 	
@@ -47,11 +47,12 @@ public class KozossegiRegister extends JPanel implements ActionListener {
 		nameField = new JTextField();
 		passwordField = new JPasswordField();
 		passwordConfirmField = new JPasswordField();
+		inviterField = new JTextField();
 		registerButton = new JButton(Labels.REGISTER_BUTTON);
 		backButton = new JButton(Labels.REGISTER_BACK_BUTTON);
 		
 		
-		userDataPanel.setLayout(new GridLayout(6, 10, 2, 10));
+		userDataPanel.setLayout(new GridLayout(7, 10, 2, 10));
 		userDataPanel.add(new JLabel(Labels.NAME));
 		userDataPanel.add(nameField);
 		userDataPanel.add(new JLabel(Labels.EMAIL_ADDRESS));
@@ -64,6 +65,8 @@ public class KozossegiRegister extends JPanel implements ActionListener {
 		userDataPanel.add(birthPanel);
 		userDataPanel.add(new JLabel(Labels.REGISTER_GENDER));
 		userDataPanel.add(genderPanel);
+		userDataPanel.add(new JLabel(Labels.REGISTER_INVITER_CODE));
+		userDataPanel.add(inviterField);
 		
 		buttonsPanel.setLayout(new FlowLayout());
 		buttonsPanel.add(backButton);
@@ -97,6 +100,7 @@ public class KozossegiRegister extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==backButton){
 			mainFrame.setMainContent(new KozossegiLogin(mainFrame));
+			System.out.println(mainFrame.getController().isValidInviterCode(Integer.parseInt(inviterField.getText())));
 		}
 		if(e.getSource()==registerButton){
 			if(!nameField.getText().isEmpty()){
@@ -108,10 +112,16 @@ public class KozossegiRegister extends JPanel implements ActionListener {
 									if(passwordField.getPassword().length>=5 && passwordField.getPassword().length<=30){
 										if(passwordConfirmField.getPassword().length!=0){
 											if(Arrays.equals(passwordField.getPassword(), passwordConfirmField.getPassword())){
-												if(birthPanel.isValidDate(birthPanel.getBirthDate())){
+												if(birthPanel.isValidDate(birthPanel.toString())){
 													if(genderPanel.getGenderGroup().getSelection()!=null){
-														System.out.println("Valid user data");
-														//TODO register user with valid data
+														if(inviterField.getText().isEmpty() || mainFrame.getController().isValidInviterCode(Integer.parseInt(inviterField.getText()))){
+															mainFrame.getController().addProfile(new KozossegiProfileBean(nameField.getText(),0,birthPanel.getBirthDate(),genderPanel.getMaleButton().isSelected()?true:false,"","","","",emailField.getText(),passwordField.getPassword().toString(),inviterField.getText().isEmpty()?0:Integer.parseInt(inviterField.getText()),"kep2.jpg"));
+															JOptionPane.showMessageDialog(mainFrame, Labels.SUCCESSFUL_REGISTRATION, Labels.OPTION_PANE_SUCCESS, JOptionPane.INFORMATION_MESSAGE);
+															mainFrame.setMainContent(new KozossegiLogin(mainFrame));
+														}
+														else{
+															JOptionPane.showMessageDialog(mainFrame, Labels.NOT_VALID_INVITER_CODE, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);
+														}
 													}
 													else{
 														JOptionPane.showMessageDialog(mainFrame, Labels.NO_GENDER_SELECTED, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);

@@ -1,6 +1,5 @@
 	package kozossegi.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import kozossegi.bean.KozossegiMessageBean;
@@ -112,5 +111,9 @@ public class KozossegiController{
 	public void confirmFriend(int id1,int id2)
 	{
 		dao.confirmFriend(id1, id2);
+	}
+	
+	public boolean isValidInviterCode(int id){
+		return dao.isValidInviterCode(id);
 	}
 }

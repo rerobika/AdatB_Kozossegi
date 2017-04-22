@@ -36,5 +36,6 @@ public interface KozossegiDAO {
 	public List<String> getHobbys();
 	public void markAsFriend(int id1,int id2);
 	public void confirmFriend(int id1,int id2);
+	public boolean isValidInviterCode(int id);
 	
 }
