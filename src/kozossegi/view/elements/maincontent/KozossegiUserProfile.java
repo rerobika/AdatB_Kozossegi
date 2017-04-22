@@ -8,13 +8,17 @@ import java.util.Calendar;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import kozossegi.Labels;
 import kozossegi.bean.KozossegiProfileBean;
+import kozossegi.dao.KozossegiImageUploader;
 import kozossegi.view.KozossegiMainFrame;
 import kozossegi.view.elements.KozossegiBirthDayPicker;
 import kozossegi.view.elements.KozossegiGenderPicker;
+import kozossegi.view.elements.KozossegiProfilePictureSelecter;
+import kozossegi.view.elements.KozossegiProfilePictureSelecter.fileScan;;
 
 public class KozossegiUserProfile extends KozossegiProfile implements ActionListener {
 
@@ -25,8 +29,9 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 	private KozossegiProfileBean profile;
 	private JButton resetDefaultButton;
 	private JButton submitChangesButton;
-	private KozossegiBirthDayPicker birthday;
-	private KozossegiGenderPicker gender;		
+	private KozossegiBirthDayPicker birthdayPicker;
+	private KozossegiGenderPicker genderPicker;
+	private JButton profilePictureButton;
 	private JComboBox<String> residence;
 	private JComboBox<String> school;
 	private JComboBox<String> hobby;
@@ -80,10 +85,13 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 	private void initEditPanel(){
 		resetDefaultButton = new JButton(Labels.PROFIL_RESET_DEFAULT);
 		submitChangesButton = new JButton(Labels.PROFIL_SUBMIT_CHANGES);
+		profilePictureButton = new JButton(Labels.PROFIL_UPLOAD_PICTURE);
 		resetDefaultButton.addActionListener(this);
 		submitChangesButton.addActionListener(this);
-		birthday = new KozossegiBirthDayPicker();
-		gender = new KozossegiGenderPicker();		
+		profilePictureButton.addActionListener(this);
+		birthdayPicker = new KozossegiBirthDayPicker();
+		genderPicker = new KozossegiGenderPicker();		
+		
 		residence = new JComboBox<String>();
 		school = new JComboBox<String>();
 		hobby = new JComboBox<String>();
@@ -91,11 +99,13 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 			
 		initEditPanelComponents();
 		
-		editPanel.setLayout(new GridLayout(7, 5, 2, 5));
+		editPanel.setLayout(new GridLayout(8, 5, 2, 5));
+		editPanel.add(new JLabel(Labels.PROFIL_PICTURE));
+		editPanel.add(profilePictureButton);
 		editPanel.add(new JLabel(Labels.PROFIL_DATE_OF_BIRTH));
-		editPanel.add(birthday);
+		editPanel.add(birthdayPicker);
 		editPanel.add(new JLabel(Labels.PROFIL_GENDER));
-		editPanel.add(gender);
+		editPanel.add(genderPicker);
 		editPanel.add(new JLabel(Labels.PROFIL_RESIDENCE));
 		editPanel.add(residence);
 		editPanel.add(new JLabel(Labels.PROFIL_SCHOOL));
@@ -114,15 +124,15 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 		Calendar cal = Calendar.getInstance();
 	    cal.setTime(profile.getDob());    
 		
-	    birthday.getBirthYear().setSelectedIndex(birthday.getCurrentYear()-cal.get(Calendar.YEAR));
-	    birthday.getBirthMonth().setSelectedIndex(cal.get(Calendar.MONTH));
-		birthday.getBirthDay().setSelectedIndex(cal.get(Calendar.DAY_OF_MONTH)-1);
+	    birthdayPicker.getBirthYear().setSelectedIndex(birthdayPicker.getCurrentYear()-cal.get(Calendar.YEAR));
+	    birthdayPicker.getBirthMonth().setSelectedIndex(cal.get(Calendar.MONTH));
+		birthdayPicker.getBirthDay().setSelectedIndex(cal.get(Calendar.DAY_OF_MONTH)-1);
 		
 		if(profile.isGender()){
-			gender.getMaleButton().setSelected(true);
+			genderPicker.getMaleButton().setSelected(true);
 		}
 		else{
-			gender.getFemaleButton().setSelected(true);
+			genderPicker.getFemaleButton().setSelected(true);
 		}
 		
 		
@@ -181,6 +191,19 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==profilePictureButton){
+			KozossegiProfilePictureSelecter pictureSelecter = new KozossegiProfilePictureSelecter();
+			if(pictureSelecter.isValidImage().equals(fileScan.SUCCES)){
+				KozossegiImageUploader.upload(pictureSelecter.getSelectedFile(), pictureSelecter.getName());
+				mainFrame.getController().updateProfilePicture(KozossegiImageUploader.genName, Labels.PROFIL_PICTURE_ALBUM, profile.getId());
+			}
+			else if(pictureSelecter.isValidImage().equals(fileScan.WRONG_FILE_SIZE)){
+				JOptionPane.showMessageDialog(mainFrame, Labels.PROFIL_EDIT_WRONG_SIZE, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);
+			}
+			else{
+				JOptionPane.showMessageDialog(mainFrame, Labels.PROFIL_NOT_COMPATIBLE_EXTENSION, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);
+			}
+		}
 		if(e.getSource()==resetDefaultButton){
 			initEditPanelComponents();
 			repaint();

@@ -37,5 +37,7 @@ public interface KozossegiDAO {
 	public void markAsFriend(int id1,int id2);
 	public void confirmFriend(int id1,int id2);
 	public boolean isValidInviterCode(int id);
+	public int uploadPicture(String pictureName, String albumName, int id);
+	public void updateProfilePicture(String pictureName, String albumName, int id, int picId);
 	
 }

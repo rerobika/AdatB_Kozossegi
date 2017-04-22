@@ -8,30 +8,30 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Date;
 
 import kozossegi.Labels;
 
 public class KozossegiImageUploader 
 {
-	HttpURLConnection conn;
-	OutputStream os;
-	BufferedInputStream is;
-	public KozossegiImageUploader() 
-	{
-		
-	}
-	public String upload(File file,String name)
+	private static HttpURLConnection conn;
+	private static OutputStream os;
+	private static BufferedInputStream is;
+	public static String genName;
+	public static String upload(File file,String name)
 	{
 		try 
 		{	
-			conn = (HttpURLConnection)new URL(Labels.FILESERVER_PATH+"upload.php?name="+name).openConnection();
+			genName= Long.toString(new Date().getTime())+name;
+			System.out.println(genName);
+			conn = (HttpURLConnection)new URL(Labels.FILESERVER_PATH+"upload.php?name="+genName).openConnection();
 			conn.setReadTimeout(10000);
 	        conn.setConnectTimeout(15000);
 	        conn.setRequestMethod("POST");
 	        conn.setUseCaches(false);
 	        conn.setDoInput(true);
 	        conn.setDoOutput(true);	
-	        OutputStream os = conn.getOutputStream();
+	        os = conn.getOutputStream();
 	        Thread.sleep(250);
 	        is = new BufferedInputStream(new FileInputStream(file));
 	        int totalByte=is.available();

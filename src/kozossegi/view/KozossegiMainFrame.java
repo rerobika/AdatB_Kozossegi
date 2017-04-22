@@ -75,7 +75,7 @@ public class KozossegiMainFrame extends JFrame{
 		
 		
 		namedayList = new ArrayList<KozossegiProfileMiniatureBean>();
-		profile = controller.getProfile(1020);
+		profile = controller.getProfile(670);
 		profileMiniature = new KozossegiProfileMiniatureBean(profile);
 		ownClubList = controller.getOwnClubs(profile.getId());
 		tagClubList = controller.getMemberClubs(profile.getId());
@@ -111,8 +111,8 @@ public class KozossegiMainFrame extends JFrame{
 		pack();		
 	}
 	
-	public void initializeViewElements(){	
-		mainContentPanel.setPreferredSize(new Dimension(800, 600));
+	public void initializeViewElements(){
+		mainContentPanel.setPreferredSize(new Dimension(1024, 768));
 		logoPanel.add(new JLabel(new ImageIcon(logoImage)));
 		
 		topSideContentPanel.add(logoPanel);	

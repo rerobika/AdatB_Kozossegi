@@ -58,6 +58,11 @@ public class Labels {
 	public static final String CONFIRM_FRIEND = "UPDATE ISMER SET STATUSZ=1,IDO=? WHERE KIID=? AND KIVELID=?";
 	public static final String IS_VALID_INVITER_CODE = "SELECT COUNT(*) AS PCS FROM SZEMELY WHERE ID=?";
 	public static final String IS_VALID_EMAIL = "SELECT COUNT(*) AS PCS FROM SZEMELY WHERE EMAIL LIKE ?";
+	public static final String UPDATE_PROFIL_PICTURE = "UPDATE PROFIL SET PROFILKEP=? WHERE SZEMELYID = ?";
+	public static final String CREATE_ALBUM = "INSERT INTO ALBUM(FELHASZNALOID,NEV,IDO) VALUES(?,?,?)";
+	public static final String ADD_PROFILE_PICTURE_TO_ALBUM = "INSERT INTO KEPEK(ALBUMNEV, ALBUMIDO, ELERESIUT) VALUES(?,?,?)";
+	public static final String GET_PICTURE_ID = "SELECT KEPEK.ID FROM KEPEK INNER JOIN ALBUM ON ALBUM.NEV = KEPEK.ALBUMNEV AND ALBUM.IDO = KEPEK.ALBUMIDO WHERE  KEPEK.ALBUMNEV = ? AND KEPEK.ALBUMIDO = ?";
+	
 	
 	
 	// MAIN_FRAME
@@ -149,6 +154,11 @@ public class Labels {
 	public static final String PROFIL_WOMAN= "Nő";
 	public static final String PROFIL_RESET_DEFAULT= "Visszaállítás";
 	public static final String PROFIL_SUBMIT_CHANGES= "Módosítások mentése";
+	public static final String PROFIL_UPLOAD_PICTURE= "Kép feltöltés";
+	public static final String PROFIL_PICTURE= "Profilkép";
+	public static final String PROFIL_EDIT_WRONG_SIZE= "Maximum 2 megabájt lehet a hép méret!";
+	public static final String PROFIL_NOT_COMPATIBLE_EXTENSION= "Nem képet adtál meg!";
+	public static final String PROFIL_PICTURE_ALBUM= "Profilképek";
 	
 	
 	

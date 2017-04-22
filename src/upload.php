@@ -1,6 +1,6 @@
 <?php
   $filename=$_GET["name"];
-  $filepath='upload/'.time().$filename;
+  $filepath='upload/'.$filename;
   $fileData=file_get_contents('php://input');
   
   $fhandle=fopen($filepath, 'wb');

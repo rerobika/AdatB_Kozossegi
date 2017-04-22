@@ -540,4 +540,74 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		}
 		return result;
 	}
+
+	@Override
+	public int uploadPicture(String pictureName, String albumName, int id) {
+		java.sql.Date creationTime = new java.sql.Date(new Date().getTime());
+		int pictureId=0;
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.CREATE_ALBUM);) {
+				
+				ps.setInt(1, id);
+				ps.setString(2, albumName);				
+				ps.setDate(3, creationTime);
+				
+				boolean succes = ps.execute();
+				if(!succes)
+					System.out.println("Error while creating "+albumName+" album!");
+		} catch (SQLException e) {
+			System.out.println("Error while updateProfilePicture!");
+			e.printStackTrace();		
+		}
+		
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.ADD_PROFILE_PICTURE_TO_ALBUM);) {
+				ps.setString(1, albumName);
+				ps.setDate(2, creationTime);
+				ps.setString(3, "upload/"+pictureName);
+				
+				boolean succes = ps.execute();
+				if(!succes)
+					System.out.println("Error while adding photo to "+albumName+" album!");
+		} catch (SQLException e) {
+			System.out.println("Error while updateProfilePicture!");
+			e.printStackTrace();		
+		}
+		
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.GET_PICTURE_ID);) {
+				ps.setString(1, albumName);
+				ps.setDate(2, creationTime);
+				
+				ResultSet rs = ps.executeQuery();
+				while(rs.next()){
+					pictureId = rs.getInt("ID");
+				}
+		} catch (SQLException e) {
+			System.out.println("Error while getting KEPEK.ID from "+albumName+" album!");
+			e.printStackTrace();		
+		}
+		return pictureId;
+		
+	}
+
+	@Override
+	public void updateProfilePicture(String pictureName, String albumName, int id, int picId) {
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.UPDATE_PROFIL_PICTURE);) {
+				ps.setInt(1, picId);
+				ps.setInt(2, id);				
+				boolean succes = ps.execute();
+				if(!succes)
+					System.out.println("Error while updating profile picture!");
+		} catch (SQLException e) {
+			System.out.println("Error while updateProfilePicture!");
+			e.printStackTrace();		
+		}
+		
+	}
 }

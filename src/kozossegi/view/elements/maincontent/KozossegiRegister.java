@@ -100,7 +100,6 @@ public class KozossegiRegister extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==backButton){
 			mainFrame.setMainContent(new KozossegiLogin(mainFrame));
-			System.out.println(mainFrame.getController().isValidInviterCode(Integer.parseInt(inviterField.getText())));
 		}
 		if(e.getSource()==registerButton){
 			if(!nameField.getText().isEmpty()){
@@ -114,14 +113,19 @@ public class KozossegiRegister extends JPanel implements ActionListener {
 											if(Arrays.equals(passwordField.getPassword(), passwordConfirmField.getPassword())){
 												if(birthPanel.isValidDate(birthPanel.toString())){
 													if(genderPanel.getGenderGroup().getSelection()!=null){
-														if(inviterField.getText().isEmpty() || mainFrame.getController().isValidInviterCode(Integer.parseInt(inviterField.getText()))){
-															mainFrame.getController().addProfile(new KozossegiProfileBean(nameField.getText(),0,birthPanel.getBirthDate(),genderPanel.getMaleButton().isSelected()?true:false,"","","","",emailField.getText(),passwordField.getPassword().toString(),inviterField.getText().isEmpty()?0:Integer.parseInt(inviterField.getText()),"kep2.jpg"));
-															JOptionPane.showMessageDialog(mainFrame, Labels.SUCCESSFUL_REGISTRATION, Labels.OPTION_PANE_SUCCESS, JOptionPane.INFORMATION_MESSAGE);
-															mainFrame.setMainContent(new KozossegiLogin(mainFrame));
+														try{
+															if(inviterField.getText().isEmpty() || mainFrame.getController().isValidInviterCode(Integer.parseInt(inviterField.getText()))){
+																mainFrame.getController().addProfile(new KozossegiProfileBean(nameField.getText(),0,birthPanel.getBirthDate(),genderPanel.getMaleButton().isSelected()?true:false,"","","","",emailField.getText(),passwordField.getPassword().toString(),inviterField.getText().isEmpty()?0:Integer.parseInt(inviterField.getText()),"kep2.jpg"));
+																JOptionPane.showMessageDialog(mainFrame, Labels.SUCCESSFUL_REGISTRATION, Labels.OPTION_PANE_SUCCESS, JOptionPane.INFORMATION_MESSAGE);
+																mainFrame.setMainContent(new KozossegiLogin(mainFrame));
+															}
+															else{
+																JOptionPane.showMessageDialog(mainFrame, Labels.NOT_VALID_INVITER_CODE, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);
+															}
+														}catch (NumberFormatException nfe) {
+															nfe.printStackTrace();
 														}
-														else{
-															JOptionPane.showMessageDialog(mainFrame, Labels.NOT_VALID_INVITER_CODE, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);
-														}
+														
 													}
 													else{
 														JOptionPane.showMessageDialog(mainFrame, Labels.NO_GENDER_SELECTED, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);

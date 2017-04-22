@@ -1,7 +1,6 @@
 package kozossegi.view.elements.maincontent;
 
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
