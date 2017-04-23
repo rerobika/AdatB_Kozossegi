@@ -68,7 +68,6 @@ public class KozossegiLogin extends JPanel implements ActionListener {
 					System.out.println("Input fields are not empty!");*/
 					//TODO make ProfileMiniature with real data from DB					
 					
-					mainFrame.initializeUserData();
 					mainFrame.initializeViewElements();
 					mainFrame.setMainContent(new KozossegiNewsFeed(mainFrame));
 				/*}

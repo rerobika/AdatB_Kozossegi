@@ -53,7 +53,8 @@ public class KozossegiProfilePictureSelecter extends JDialog {
 		}
 		
 		if(extension.toLowerCase().equals("jpg")||extension.toLowerCase().equals("jpeg")||extension.toLowerCase().equals("png")){
-			if(selectedFile.length()!=0 && selectedFile.length()<=2048*8){
+			System.out.println(selectedFile.length());
+			if(selectedFile.length()!=0 && selectedFile.length()<=2048*1024*8){
 				return fileScan.SUCCES;
 			}
 			return fileScan.WRONG_FILE_SIZE;

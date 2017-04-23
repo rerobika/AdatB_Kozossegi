@@ -196,6 +196,7 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 			if(pictureSelecter.isValidImage().equals(fileScan.SUCCES)){
 				KozossegiImageUploader.upload(pictureSelecter.getSelectedFile(), pictureSelecter.getName());
 				mainFrame.getController().updateProfilePicture(KozossegiImageUploader.genName, Labels.PROFIL_PICTURE_ALBUM, profile.getId());
+				JOptionPane.showMessageDialog(mainFrame, Labels.SUCCESSFUL_PROFILE_PICTURE_UPDATE, Labels.OPTION_PANE_SUCCESS, JOptionPane.INFORMATION_MESSAGE);
 			}
 			else if(pictureSelecter.isValidImage().equals(fileScan.WRONG_FILE_SIZE)){
 				JOptionPane.showMessageDialog(mainFrame, Labels.PROFIL_EDIT_WRONG_SIZE, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);

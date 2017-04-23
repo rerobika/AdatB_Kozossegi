@@ -8,7 +8,6 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -69,22 +68,10 @@ public class KozossegiMainFrame extends JFrame{
 		rightSideContentPanel = new JPanel(new GridLayout(2,10,1,10));
 		cardLayout = (CardLayout) mainContentPanel.getLayout();
 		logoImage = getImageFromURL(Labels.LOGO_URL);
-		//USERDATA
-
-		
-		
-		
-		namedayList = new ArrayList<KozossegiProfileMiniatureBean>();
-		profile = controller.getProfile(670);
-		profileMiniature = new KozossegiProfileMiniatureBean(profile);
-		ownClubList = controller.getOwnClubs(profile.getId());
-		tagClubList = controller.getMemberClubs(profile.getId());
-		friendList = controller.getFriends(profile.getId());
-		birthdayList = controller.getBirthday(profile.getId());
-		friendList=controller.getFriends(profile.getId());
-		namedayList=controller.getNameday(profile.getId());
 		suggestedClubList = controller.getSuggestedClubs(profile.getId());
 		suggestedFriendList = controller.getSuggestedFriends(profile.getId());
+		//USERDATA
+
 		getContentPane().setLayout(new BorderLayout(20,20));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
@@ -108,7 +95,8 @@ public class KozossegiMainFrame extends JFrame{
 		mainContentPanel.removeAll();
 		mainContentPanel.add(panelToVisible,panelToVisible.getName());
 		cardLayout.show(mainContentPanel, panelToVisible.getName());
-		pack();		
+		pack();
+		initializeUserData();
 	}
 	
 	public void initializeViewElements(){
@@ -127,7 +115,16 @@ public class KozossegiMainFrame extends JFrame{
 		
 	}
 	
-	public void initializeUserData(){		
+	public void initializeUserData(){
+		profile = controller.getProfile(670);
+		profileMiniature = new KozossegiProfileMiniatureBean(profile);
+		ownClubList = controller.getOwnClubs(profile.getId());
+		tagClubList = controller.getMemberClubs(profile.getId());
+		friendList = controller.getFriends(profile.getId());
+		birthdayList = controller.getBirthday(profile.getId());
+		friendList=controller.getFriends(profile.getId());
+		namedayList=controller.getNameday(profile.getId());
+		
 		/*controller.addProfile(new KozossegiProfileBean("Kovacs Jozsef",0, new Date(), true, "Szeged", "ISKOLA", "Szántás","", "jozsi@asd.hu", "neha",
 				670, new KozossegiImageUploader().upload(new File("D:\\Downloads\\c_777055.jpg"),"kep2.jpg")));*/
 		/*
