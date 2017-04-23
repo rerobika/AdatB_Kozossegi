@@ -5,15 +5,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import kozossegi.Labels;
 import kozossegi.bean.KozossegiProfileBean;
-import kozossegi.dao.KozossegiImageUploader;
 import kozossegi.view.KozossegiMainFrame;
 import kozossegi.view.elements.KozossegiBirthDayPicker;
 import kozossegi.view.elements.KozossegiGenderPicker;
@@ -36,6 +38,10 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 	private JComboBox<String> school;
 	private JComboBox<String> hobby;
 	private JComboBox<String> workPlace;
+	private JTextField clubNameField;
+	private JTextArea clubDescriptionTextArea;
+	private JButton clubResetButton;
+	private JButton clubCreateButton;
 	
 	public KozossegiUserProfile(KozossegiMainFrame mainFrame,KozossegiProfileBean profile)  {
 		super(profile);
@@ -51,8 +57,35 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 		
 		initInfoPanel();
 		initEditPanel();
+		initCreateClubPanel();
 	}
 	
+
+	private void initCreateClubPanel() {
+		clubNameField = new JTextField();
+		clubDescriptionTextArea = new JTextArea(2, 20);
+		clubResetButton = new JButton(Labels.PROFILE_CREATE_CLUB_RESET_BUTTON);
+		clubCreateButton = new JButton(Labels.PROFILE_CREATE_CLUB_BUTTON);
+		JPanel first = new JPanel();
+		first.setLayout(new BoxLayout(first, BoxLayout.Y_AXIS));
+		
+		JPanel second = new JPanel(new GridLayout(3, 2));
+		
+		second.setLayout(new GridLayout(3, 2));
+		second.add(new JLabel(Labels.PROFILE_CREATE_CLUB_NAME));
+		second.add(clubNameField);
+		second.add(new JLabel(Labels.PROFILE_CREATE_CLUB_DESCRIPTION));
+		second.add(clubDescriptionTextArea);
+		second.add(clubResetButton);
+		second.add(clubCreateButton);
+		
+		first.add(second);
+		createClubPanel.add(first);
+		
+		clubResetButton.addActionListener(this);
+		clubCreateButton.addActionListener(this);
+	}
+
 
 	private void initInfoPanel(){
 		infoPanel.setLayout(new GridLayout(8, 5, 2, 5));
@@ -195,7 +228,9 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 			KozossegiPictureSelector pictureSelector = new KozossegiPictureSelector();
 			if(pictureSelector.isValidImage().equals(fileScan.SUCCES)){
 				mainFrame.getController().updateProfilePicture(mainFrame.getProfile().getId(),mainFrame.getController().uploadPicture(pictureSelector.getSelectedFile(), "Profilképek", mainFrame.getProfile().getId()));
-
+				mainFrame.initializeUserData();
+				mainFrame.revalidate();
+				mainFrame.repaint();
 			}
 			else if(pictureSelector.isValidImage().equals(fileScan.WRONG_FILE_SIZE)){
 				JOptionPane.showMessageDialog(mainFrame, Labels.PROFIL_EDIT_WRONG_SIZE, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);

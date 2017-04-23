@@ -156,11 +156,14 @@ public class Labels {
 	public static final String PROFIL_SUBMIT_CHANGES= "Módosítások mentése";
 	public static final String PROFIL_UPLOAD_PICTURE= "Kép feltöltés";
 	public static final String PROFIL_PICTURE= "Profilkép";
-	public static final String PROFIL_EDIT_WRONG_SIZE= "Maximum 2 megabájt lehet a hép méret!";
+	public static final String PROFIL_EDIT_WRONG_SIZE= "Maximum 2 megabájt lehet a kép méret!";
 	public static final String PROFIL_NOT_COMPATIBLE_EXTENSION= "Nem képet adtál meg!";
 	public static final String PROFIL_PICTURE_ALBUM= "Profilképek";
 	public static final String SUCCESSFUL_PROFILE_PICTURE_UPDATE= "A profilképed sikeresen megváltozott!";
-	
+	public static final String PROFILE_CREATE_CLUB_NAME = "Új klub neve:";
+	public static final String PROFILE_CREATE_CLUB_DESCRIPTION = "Leírás:";
+	public static final String PROFILE_CREATE_CLUB_RESET_BUTTON = "Visszaállítás";
+	public static final String PROFILE_CREATE_CLUB_BUTTON = "Klub létrehozás";
 	
 	
 }

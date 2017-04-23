@@ -2,11 +2,11 @@ package kozossegi.view;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -20,9 +20,7 @@ import javax.swing.JPanel;
 import kozossegi.Labels;
 import kozossegi.bean.KozossegiProfileBean;
 import kozossegi.bean.KozossegiProfileMiniatureBean;
-import kozossegi.bean.KozossegiUserBean;
 import kozossegi.controller.KozossegiController;
-import kozossegi.dao.KozossegiImageUploader;
 import kozossegi.view.elements.KozossegiBirthAndNamedayMenu;
 import kozossegi.view.elements.KozossegiClubMenu;
 import kozossegi.view.elements.KozossegiMenu;
@@ -71,11 +69,9 @@ public class KozossegiMainFrame extends JFrame{
 		rightSideContentPanel = new JPanel(new GridLayout(2,10,1,10));
 		cardLayout = (CardLayout) mainContentPanel.getLayout();
 		logoImage = getImageFromURL(Labels.LOGO_URL);
-		profile = controller.getProfile(670);
-		suggestedClubList = controller.getSuggestedClubs(profile.getId());
-		suggestedFriendList = controller.getSuggestedFriends(profile.getId());
+		
 		//USERDATA
-
+		initializeUserData();
 		getContentPane().setLayout(new BorderLayout(20,20));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
@@ -99,7 +95,6 @@ public class KozossegiMainFrame extends JFrame{
 		mainContentPanel.add(panelToVisible,panelToVisible.getName());
 		cardLayout.show(mainContentPanel, panelToVisible.getName());
 		pack();
-		initializeUserData();
 	}
 	
 	public void initializeViewElements(){
@@ -127,6 +122,8 @@ public class KozossegiMainFrame extends JFrame{
 		birthdayList = controller.getBirthday(profile.getId());
 		friendList=controller.getFriends(profile.getId());
 		namedayList=controller.getNameday(profile.getId());
+		suggestedClubList = controller.getSuggestedClubs(profile.getId());
+		suggestedFriendList = controller.getSuggestedFriends(profile.getId());
 }
 
 	public Image getImageFromURL(String url){
@@ -137,7 +134,6 @@ public class KozossegiMainFrame extends JFrame{
 		}
 		return null;
 	}
-	
 	
 		
 	public KozossegiController getController(){
