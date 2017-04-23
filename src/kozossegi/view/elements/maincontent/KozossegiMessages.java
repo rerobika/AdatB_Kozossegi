@@ -78,7 +78,7 @@ public class KozossegiMessages extends JPanel implements ActionListener {
 		add(friendListScroll, BorderLayout.WEST);
 		add(conversationScroll, BorderLayout.CENTER);
 
-		for (KozossegiProfileMiniatureBean p : mainFrame.getFriendList()) {
+		for (KozossegiProfileMiniatureBean p : mainFrame.getController().getFriends(mainFrame.getProfile().getId())) {
 			KozossegiProfileMiniature miniature = new KozossegiProfileMiniature(p);
 			miniature.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {

@@ -16,13 +16,14 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 import kozossegi.Labels;
-import kozossegi.Labels.friendState;
+import kozossegi.Labels.KozossegiFriendState;
 import kozossegi.bean.KozossegiAlbumBean;
 import kozossegi.bean.KozossegiMessageBean;
 import kozossegi.bean.KozossegiNotificationBean;
 import kozossegi.bean.KozossegiPostData;
 import kozossegi.bean.KozossegiProfileBean;
 import kozossegi.bean.KozossegiProfileMiniatureBean;
+import kozossegi.bean.KozossegiRelation;
 
 public class KozossegiDAOImpl implements KozossegiDAO {
 
@@ -44,6 +45,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 				PreparedStatement ps = conn.prepareStatement(Labels.GET_FRIENDS);) {
 			ps.setInt(1, id);
 			ps.setInt(2, id);
+			
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				friends.add(new KozossegiProfileMiniatureBean(rs.getInt("ID"), rs.getString("NEV"),
@@ -58,12 +60,12 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 	}
 
 	public List<KozossegiProfileMiniatureBean> getMembers(int id) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	public KozossegiProfileMiniatureBean getMiniature(int id) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
@@ -587,7 +589,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 	}
 
 	@Override
-	public friendState getFriendState(int id1, int id2) {
+	public KozossegiRelation getFriendState(int id1, int id2) {
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
 				PreparedStatement ps = conn.prepareStatement(Labels.GET_FRIEND_STATE);) {
@@ -599,22 +601,15 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 				ResultSet rs = ps.executeQuery();
 				if(rs.next())
 				{
-					if(rs.getInt("STATUSZ")==0)
-					{
-						return friendState.PENDING;
-					}
-					else
-					{
-						return friendState.FRIENDS;
-					}
+					return new KozossegiRelation(rs.getInt("KIID"),rs.getInt("KIVELID"),rs.getInt("STATUSZ")==0?KozossegiFriendState.PENDING:KozossegiFriendState.FRIENDS);
 				}	
 				else
-					return friendState.NON_FRIENDS;		
+					return new KozossegiRelation(id1, id2, KozossegiFriendState.NON_FRIENDS);	
 		} catch (SQLException e) {
 			System.out.println("Error while getting friend state!");
 			e.printStackTrace();		
 		}
-		return friendState.NON_FRIENDS;
+		return new KozossegiRelation(id1, id2, KozossegiFriendState.NON_FRIENDS);
 	}
 
 	@Override

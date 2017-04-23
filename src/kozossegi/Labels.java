@@ -64,7 +64,7 @@ public class Labels {
 	public static final String GET_PICTURE_ID = "SELECT KEPEK.ID FROM KEPEK INNER JOIN ALBUM ON ALBUM.NEV = KEPEK.ALBUMNEV AND ALBUM.IDO = KEPEK.ALBUMIDO WHERE  KEPEK.ALBUMNEV = ? AND KEPEK.ALBUMIDO = ?";
 	public static final String UPLOAD_IMAGE = "SELECT ADDIMAGE(?,?,?) AS ID FROM DUAL";
 	public static final String LOGIN = "SELECT FELHASZNALO.ID,NEV FROM SZEMELY,FELHASZNALO WHERE JELSZO=? AND EMAIL=? AND FELHASZNALO.ID=SZEMELY.ID";
-	public static final String GET_FRIEND_STATE = "SELECT STATUSZ FROM ISMER WHERE (KIID=? AND KIVELID=?) OR (KIVELID=? AND KIID=?)";
+	public static final String GET_FRIEND_STATE = "SELECT * FROM ISMER WHERE (KIID=? AND KIVELID=?) OR (KIVELID=? AND KIID=?)";
 	public static final String REMOVE_MARK = "DELETE FROM ISMER WHERE KIID=? AND KIVELID=?) OR (KIVELID=? AND KIID=?)";
 	
 	
@@ -172,7 +172,7 @@ public class Labels {
 	public static final String PROFILE_PENDING_FRIEND_REQUEST = "Bejelölés visszavonása";
 	public static final String PROFILE_ALREADY_FRIENDS = "Már ismerősök vagytok!";
 	
-	public enum friendState{
+	public enum KozossegiFriendState{
 		NON_FRIENDS, PENDING, FRIENDS
 	}
 	

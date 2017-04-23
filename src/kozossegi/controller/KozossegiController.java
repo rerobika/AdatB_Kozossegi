@@ -3,12 +3,13 @@
 import java.io.File;
 import java.util.List;
 
-import kozossegi.Labels.friendState;
+import kozossegi.Labels.KozossegiFriendState;
 import kozossegi.bean.KozossegiMessageBean;
 import kozossegi.bean.KozossegiNotificationBean;
 import kozossegi.bean.KozossegiPostData;
 import kozossegi.bean.KozossegiProfileBean;
 import kozossegi.bean.KozossegiProfileMiniatureBean;
+import kozossegi.bean.KozossegiRelation;
 import kozossegi.dao.KozossegiDAO;
 import kozossegi.dao.KozossegiDAOImpl;
 import kozossegi.view.KozossegiMainFrame;
@@ -128,7 +129,7 @@ public class KozossegiController{
 	{
 		return dao.login(email, password);
 	}
-	public friendState getFriendState(int id1,int id2)
+	public KozossegiRelation getFriendState(int id1,int id2)
 	{
 		return dao.getFriendState(id1, id2);
 	}

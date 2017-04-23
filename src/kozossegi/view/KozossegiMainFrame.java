@@ -116,9 +116,7 @@ public class KozossegiMainFrame extends JFrame{
 		profileMiniature = new KozossegiProfileMiniatureBean(profile);
 		ownClubList = controller.getOwnClubs(profile.getId());
 		tagClubList = controller.getMemberClubs(profile.getId());
-		friendList = controller.getFriends(profile.getId());
 		birthdayList = controller.getBirthday(profile.getId());
-		friendList=controller.getFriends(profile.getId());
 		namedayList=controller.getNameday(profile.getId());
 		suggestedClubList = controller.getSuggestedClubs(profile.getId());
 		suggestedFriendList = controller.getSuggestedFriends(profile.getId());

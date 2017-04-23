@@ -17,7 +17,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import kozossegi.Labels;
-import kozossegi.Labels.friendState;
+import kozossegi.Labels.KozossegiFriendState;
 import kozossegi.bean.KozossegiProfileBean;
 import kozossegi.view.KozossegiMainFrame;
 import kozossegi.view.elements.KozossegiBirthDayPicker;
