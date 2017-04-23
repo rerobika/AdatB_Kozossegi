@@ -71,11 +71,6 @@ public class KozossegiMainFrame extends JFrame{
 		rightSideContentPanel = new JPanel(new GridLayout(2,10,1,10));
 		cardLayout = (CardLayout) mainContentPanel.getLayout();
 		logoImage = getImageFromURL(Labels.LOGO_URL);
-<<<<<<< HEAD
-		//USERDATA					
-		namedayList = new ArrayList<KozossegiProfileMiniatureBean>();
-=======
->>>>>>> ff1b2dca7a5f7093b33c0685440a6452cf8d6ddb
 		profile = controller.getProfile(670);
 		suggestedClubList = controller.getSuggestedClubs(profile.getId());
 		suggestedFriendList = controller.getSuggestedFriends(profile.getId());
@@ -123,10 +118,6 @@ public class KozossegiMainFrame extends JFrame{
 		
 	}
 	
-<<<<<<< HEAD
-	public void initializeUserData(){		
-					
-=======
 	public void initializeUserData(){
 		profile = controller.getProfile(670);
 		profileMiniature = new KozossegiProfileMiniatureBean(profile);
@@ -136,17 +127,7 @@ public class KozossegiMainFrame extends JFrame{
 		birthdayList = controller.getBirthday(profile.getId());
 		friendList=controller.getFriends(profile.getId());
 		namedayList=controller.getNameday(profile.getId());
-		
-		/*controller.addProfile(new KozossegiProfileBean("Kovacs Jozsef",0, new Date(), true, "Szeged", "ISKOLA", "Szántás","", "jozsi@asd.hu", "neha",
-				670, new KozossegiImageUploader().upload(new File("D:\\Downloads\\c_777055.jpg"),"kep2.jpg")));*/
-		/*
-		 * Meg van barmolva a kepfeltoltes, kell hozza az src/upload.php, amit a htdocs/Kozossegibe kell tenni.
-		 * Ha jot akarsz magadnak akkor futtasd le az ujra feltoltott scriptet,garanciat nem vallolok ra, mert nem probaltam ki,
-		 * de az elozobol hianyoznak a foreign keyek, meg ebbe benne van a regisztralas fuggveny.
-		 */
-			
->>>>>>> ff1b2dca7a5f7093b33c0685440a6452cf8d6ddb
-	}
+}
 
 	public Image getImageFromURL(String url){
 		try {
