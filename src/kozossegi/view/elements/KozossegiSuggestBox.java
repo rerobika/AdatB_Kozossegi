@@ -15,7 +15,7 @@ import javax.swing.ScrollPaneConstants;
 import kozossegi.Labels;
 import kozossegi.bean.KozossegiProfileMiniatureBean;
 import kozossegi.view.KozossegiMainFrame;
-import kozossegi.view.elements.maincontent.KozossegiProfile;
+import kozossegi.view.elements.maincontent.KozossegiUserProfile;
 
 public class KozossegiSuggestBox extends JPanel {
 	private static final long serialVersionUID = -7611266213286581278L;
@@ -53,7 +53,7 @@ public class KozossegiSuggestBox extends JPanel {
 			KozossegiProfileMiniature miniature =new KozossegiProfileMiniature(c);
 			miniature.addMouseListener(new MouseAdapter(){
 				public void mouseClicked(MouseEvent e) {
-					mainFrame.setMainContent(new KozossegiProfile(mainFrame.getController().getProfile(c.getId())));
+					mainFrame.setMainContent(new KozossegiUserProfile(mainFrame, mainFrame.getController().getProfile(c.getId())));
 				}
 			});	
 			suggestFriendPanel.add(miniature);

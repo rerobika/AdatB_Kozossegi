@@ -15,7 +15,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import kozossegi.Labels;
-import kozossegi.bean.KozossegiProfileBean;
 import kozossegi.bean.KozossegiProfileMiniatureBean;
 import kozossegi.view.KozossegiMainFrame;
 
@@ -35,8 +34,8 @@ public class KozossegiLogin extends JPanel implements ActionListener {
 		this.mainFrame = mainFrame;
 		userDataPanel = new JPanel();
 		buttonsPanel = new JPanel();
-		emailField = new JTextField("jozsef@neha.hu");
-		passwordField = new JPasswordField("asdasd");
+		emailField = new JTextField("VinczeKrisztina@teleworm.us");
+		passwordField = new JPasswordField("riev5Aiwoovo");
 		loginButton = new JButton(Labels.LOGIN_BUTTON);
 		registerButton = new JButton(Labels.LOGIN_REGISTER_BUTTON);
 		

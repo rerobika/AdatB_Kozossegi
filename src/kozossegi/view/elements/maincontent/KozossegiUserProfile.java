@@ -17,7 +17,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import kozossegi.Labels;
-import kozossegi.Labels.friendState;
 import kozossegi.bean.KozossegiProfileBean;
 import kozossegi.view.KozossegiMainFrame;
 import kozossegi.view.elements.KozossegiBirthDayPicker;
@@ -70,15 +69,23 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 		topPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 		JLabel name = new JLabel(profile.getName());
 		name.setFont(new Font("Serif", Font.BOLD, 18));
+		topPanel.add(name);
 		if(mainFrame.getProfile().getId()!= profile.getId()){
 			if(true  /*mainFrame.getController().getStatus(mainFrame.getProfile().getId(),profile.getId())==friendState.NON_FRIENDS*/){
 				friendRequestButton = new JButton(Labels.PROFILE_SEND_FRIEND_REQUEST);
+				topPanel.add(friendRequestButton);
+				friendRequestButton.addActionListener(this);
 			}
-			if(true  /*mainFrame.getController().getStatus(mainFrame.getProfile().getId(),profile.getId())==friendState.PENDING*/){
-				friendRequestButton = new JButton(Labels.PROFILE_SEND_FRIEND_REQUEST);
+			/*if(true  mainFrame.getController().getStatus(mainFrame.getProfile().getId(),profile.getId())==friendState.PENDING){
+				friendRequestButton = new JButton(Labels.PROFILE_PENDING_FRIEND_REQUEST);
+				topPanel.add(friendRequestButton);
+				friendRequestButton.addActionListener(this);
 			}
-			topPanel.add(friendRequestButton);
-			friendRequestButton.addActionListener(this);
+			if(true  mainFrame.getController().getStatus(mainFrame.getProfile().getId(),profile.getId())==friendState.FRIENDS){
+				topPanel.add(new JLabel(Labels.PROFILE_ALREADY_FRIENDS));
+			}*/
+			
+			
 		}
 	}
 	
@@ -267,7 +274,19 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 			revalidate();
 		}
 		if(e.getSource()==friendRequestButton){
-			
+			if(friendRequestButton.getText().equals(Labels.PROFILE_SEND_FRIEND_REQUEST)){
+				mainFrame.getController().markAsFriend(mainFrame.getProfile().getId(), profile.getId());
+				friendRequestButton.setText(Labels.PROFILE_PENDING_FRIEND_REQUEST);				
+				System.out.println("friend request sent");
+				return;
+			}
+			if(friendRequestButton.getText().equals(Labels.PROFILE_PENDING_FRIEND_REQUEST)){
+				//mainFrame.getController().undoFriend(mainFrame.getProfile().getId(), profile.getId());
+				friendRequestButton.setText(Labels.PROFILE_SEND_FRIEND_REQUEST);
+				System.out.println("friend request undo");
+			}
+			topPanel.repaint();
+			topPanel.revalidate();
 		}
 	}
 	
