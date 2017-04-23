@@ -53,7 +53,12 @@ public class KozossegiPictureSelector extends JDialog {
 		}
 		
 		if(extension.toLowerCase().equals("jpg")||extension.toLowerCase().equals("jpeg")||extension.toLowerCase().equals("png")){
+<<<<<<< HEAD:src/kozossegi/view/elements/KozossegiPictureSelector.java
 			if(selectedFile.length()!=0 && selectedFile.length()<=2048000){
+=======
+			System.out.println(selectedFile.length());
+			if(selectedFile.length()!=0 && selectedFile.length()<=2048*1024*8){
+>>>>>>> ff1b2dca7a5f7093b33c0685440a6452cf8d6ddb:src/kozossegi/view/elements/KozossegiProfilePictureSelecter.java
 				return fileScan.SUCCES;
 			}
 			return fileScan.WRONG_FILE_SIZE;
