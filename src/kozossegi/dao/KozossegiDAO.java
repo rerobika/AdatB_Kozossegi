@@ -1,6 +1,7 @@
 package kozossegi.dao;
 
 import java.awt.Image;
+import java.io.File;
 import java.util.List;
 
 import kozossegi.bean.KozossegiAlbumBean;
@@ -37,7 +38,7 @@ public interface KozossegiDAO {
 	public void markAsFriend(int id1,int id2);
 	public void confirmFriend(int id1,int id2);
 	public boolean isValidInviterCode(int id);
-	public int uploadPicture(String pictureName, String albumName, int id);
-	public void updateProfilePicture(String pictureName, String albumName, int id, int picId);
+	public int uploadPicture(File filename, String albumName, int id);
+	public void updateProfilePicture(int id, int picId);
 	
 }

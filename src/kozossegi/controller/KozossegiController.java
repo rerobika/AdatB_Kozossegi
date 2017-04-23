@@ -1,5 +1,6 @@
 	package kozossegi.controller;
 
+import java.io.File;
 import java.util.List;
 
 import kozossegi.bean.KozossegiMessageBean;
@@ -116,11 +117,10 @@ public class KozossegiController{
 	public boolean isValidInviterCode(int id){
 		return dao.isValidInviterCode(id);
 	}
-	public int uploadPicture(String pictureName, String albumName, int id){
-		return dao.uploadPicture(pictureName,albumName, id);
+	public int uploadPicture(File filename, String albumName, int id){
+		return dao.uploadPicture(filename,albumName, id);
 	}
-	
-	public void updateProfilePicture(String pictureName, String albumName, int id){	
-		dao.updateProfilePicture(pictureName, albumName, id, dao.uploadPicture(pictureName, albumName, id));
+	public void updateProfilePicture(int id, int picId){	
+		dao.updateProfilePicture(id,picId);
 	}
 }

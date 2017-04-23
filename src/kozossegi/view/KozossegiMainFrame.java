@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -20,7 +21,9 @@ import javax.swing.JPanel;
 import kozossegi.Labels;
 import kozossegi.bean.KozossegiProfileBean;
 import kozossegi.bean.KozossegiProfileMiniatureBean;
+import kozossegi.bean.KozossegiUserBean;
 import kozossegi.controller.KozossegiController;
+import kozossegi.dao.KozossegiImageUploader;
 import kozossegi.view.elements.KozossegiBirthAndNamedayMenu;
 import kozossegi.view.elements.KozossegiClubMenu;
 import kozossegi.view.elements.KozossegiMenu;
@@ -69,11 +72,7 @@ public class KozossegiMainFrame extends JFrame{
 		rightSideContentPanel = new JPanel(new GridLayout(2,10,1,10));
 		cardLayout = (CardLayout) mainContentPanel.getLayout();
 		logoImage = getImageFromURL(Labels.LOGO_URL);
-		//USERDATA
-
-		
-		
-		
+		//USERDATA					
 		namedayList = new ArrayList<KozossegiProfileMiniatureBean>();
 		profile = controller.getProfile(670);
 		profileMiniature = new KozossegiProfileMiniatureBean(profile);
@@ -94,9 +93,8 @@ public class KozossegiMainFrame extends JFrame{
 		getContentPane().add(topSideContentPanel, BorderLayout.NORTH);		
 		getContentPane().add(rightSideContentPanel, BorderLayout.EAST);		
 		setMainContent(startScreen());
-		setVisible(true);		
-		
-		
+		setVisible(true);	
+		//controller.uploadPicture(new File("D:\\Downloads\\c_777055.jpg"), "Profilképek", 670);
 	}
 	
 	
@@ -112,7 +110,7 @@ public class KozossegiMainFrame extends JFrame{
 	}
 	
 	public void initializeViewElements(){
-		mainContentPanel.setPreferredSize(new Dimension(1024, 768));
+		mainContentPanel.setPreferredSize(new Dimension(800, 600));
 		logoPanel.add(new JLabel(new ImageIcon(logoImage)));
 		
 		topSideContentPanel.add(logoPanel);	
@@ -128,14 +126,7 @@ public class KozossegiMainFrame extends JFrame{
 	}
 	
 	public void initializeUserData(){		
-		/*controller.addProfile(new KozossegiProfileBean("Kovacs Jozsef",0, new Date(), true, "Szeged", "ISKOLA", "Szántás","", "jozsi@asd.hu", "neha",
-				670, new KozossegiImageUploader().upload(new File("D:\\Downloads\\c_777055.jpg"),"kep2.jpg")));*/
-		/*
-		 * Meg van barmolva a kepfeltoltes, kell hozza az src/upload.php, amit a htdocs/Kozossegibe kell tenni.
-		 * Ha jot akarsz magadnak akkor futtasd le az ujra feltoltott scriptet,garanciat nem vallolok ra, mert nem probaltam ki,
-		 * de az elozobol hianyoznak a foreign keyek, meg ebbe benne van a regisztralas fuggveny.
-		 */
-			
+					
 	}
 
 	public Image getImageFromURL(String url){

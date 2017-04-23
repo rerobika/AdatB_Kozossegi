@@ -17,8 +17,8 @@ import kozossegi.dao.KozossegiImageUploader;
 import kozossegi.view.KozossegiMainFrame;
 import kozossegi.view.elements.KozossegiBirthDayPicker;
 import kozossegi.view.elements.KozossegiGenderPicker;
-import kozossegi.view.elements.KozossegiProfilePictureSelecter;
-import kozossegi.view.elements.KozossegiProfilePictureSelecter.fileScan;;
+import kozossegi.view.elements.KozossegiPictureSelector;
+import kozossegi.view.elements.KozossegiPictureSelector.fileScan;;
 
 public class KozossegiUserProfile extends KozossegiProfile implements ActionListener {
 
@@ -192,12 +192,11 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==profilePictureButton){
-			KozossegiProfilePictureSelecter pictureSelecter = new KozossegiProfilePictureSelecter();
-			if(pictureSelecter.isValidImage().equals(fileScan.SUCCES)){
-				KozossegiImageUploader.upload(pictureSelecter.getSelectedFile(), pictureSelecter.getName());
-				mainFrame.getController().updateProfilePicture(KozossegiImageUploader.genName, Labels.PROFIL_PICTURE_ALBUM, profile.getId());
+			KozossegiPictureSelector pictureSelector = new KozossegiPictureSelector();
+			if(pictureSelector.isValidImage().equals(fileScan.SUCCES)){
+				mainFrame.getController().updateProfilePicture(mainFrame.getProfile().getId(),mainFrame.getController().uploadPicture(pictureSelector.getSelectedFile(), "Profilképek", mainFrame.getProfile().getId()));
 			}
-			else if(pictureSelecter.isValidImage().equals(fileScan.WRONG_FILE_SIZE)){
+			else if(pictureSelector.isValidImage().equals(fileScan.WRONG_FILE_SIZE)){
 				JOptionPane.showMessageDialog(mainFrame, Labels.PROFIL_EDIT_WRONG_SIZE, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);
 			}
 			else{

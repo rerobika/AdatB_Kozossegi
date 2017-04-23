@@ -6,7 +6,7 @@ import java.io.File;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 
-public class KozossegiProfilePictureSelecter extends JDialog {
+public class KozossegiPictureSelector extends JDialog {
 
 	private static final long serialVersionUID = 2279640417624379431L;
 	private JFileChooser fileChooser;
@@ -14,7 +14,7 @@ public class KozossegiProfilePictureSelecter extends JDialog {
 	private File selectedFile;
 	
 
-	public KozossegiProfilePictureSelecter() {
+	public KozossegiPictureSelector() {
 		fileChooser = new JFileChooser();
 		setLayout(new FlowLayout());
 		add(fileChooser);
@@ -53,7 +53,7 @@ public class KozossegiProfilePictureSelecter extends JDialog {
 		}
 		
 		if(extension.toLowerCase().equals("jpg")||extension.toLowerCase().equals("jpeg")||extension.toLowerCase().equals("png")){
-			if(selectedFile.length()!=0 && selectedFile.length()<=2048*8){
+			if(selectedFile.length()!=0 && selectedFile.length()<=2048000){
 				return fileScan.SUCCES;
 			}
 			return fileScan.WRONG_FILE_SIZE;
