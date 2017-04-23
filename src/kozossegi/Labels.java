@@ -166,6 +166,12 @@ public class Labels {
 	public static final String PROFILE_CREATE_CLUB_DESCRIPTION = "Leírás:";
 	public static final String PROFILE_CREATE_CLUB_RESET_BUTTON = "Visszaállítás";
 	public static final String PROFILE_CREATE_CLUB_BUTTON = "Klub létrehozás";
+	public static final String PROFILE_SEND_FRIEND_REQUEST = "Barátnak jelölés";
+	public static final String PROFILE_PENDING_FRIEND_REQUEST = "Bejelölés visszavonása";
+	public static final String PROFILE_ALREADY_FRIENDS = "Már ismerősök vagytok!";
 	
+	public enum friendState{
+		NON_FRIENDS, PENDING, FRIENDS
+	}
 	
 }
