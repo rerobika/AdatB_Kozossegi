@@ -68,6 +68,7 @@ public class KozossegiMainFrame extends JFrame{
 		rightSideContentPanel = new JPanel(new GridLayout(2,10,1,10));
 		cardLayout = (CardLayout) mainContentPanel.getLayout();
 		logoImage = getImageFromURL(Labels.LOGO_URL);
+		profile = controller.getProfile(670);
 		suggestedClubList = controller.getSuggestedClubs(profile.getId());
 		suggestedFriendList = controller.getSuggestedFriends(profile.getId());
 		//USERDATA
