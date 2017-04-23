@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.io.File;
 import java.util.List;
 
+import kozossegi.Labels.friendState;
 import kozossegi.bean.KozossegiAlbumBean;
 import kozossegi.bean.KozossegiMessageBean;
 import kozossegi.bean.KozossegiNotificationBean;
@@ -37,6 +38,8 @@ public interface KozossegiDAO {
 	public List<String> getHobbys();
 	public void markAsFriend(int id1,int id2);
 	public void confirmFriend(int id1,int id2);
+	public friendState getFriendState(int id1,int id2);
+	public void removeMark(int id1,int id2);
 	public boolean isValidInviterCode(int id);
 	public int uploadPicture(File filename, String albumName, int id);
 	public void updateProfilePicture(int id, int picId);

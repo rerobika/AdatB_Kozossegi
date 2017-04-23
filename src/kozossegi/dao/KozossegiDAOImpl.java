@@ -16,6 +16,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 import kozossegi.Labels;
+import kozossegi.Labels.friendState;
 import kozossegi.bean.KozossegiAlbumBean;
 import kozossegi.bean.KozossegiMessageBean;
 import kozossegi.bean.KozossegiNotificationBean;
@@ -583,5 +584,55 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			e.printStackTrace();		
 		}
 		return null;
+	}
+
+	@Override
+	public friendState getFriendState(int id1, int id2) {
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.GET_FRIEND_STATE);) {
+				ps.setInt(1, id1);
+				ps.setInt(2, id2);
+				ps.setInt(3, id1);
+				ps.setInt(4, id2);
+						
+				ResultSet rs = ps.executeQuery();
+				if(rs.next())
+				{
+					if(rs.getInt("STATUSZ")==0)
+					{
+						return friendState.PENDING;
+					}
+					else
+					{
+						return friendState.FRIENDS;
+					}
+				}	
+				else
+					return friendState.NON_FRIENDS;		
+		} catch (SQLException e) {
+			System.out.println("Error while getting friend state!");
+			e.printStackTrace();		
+		}
+		return friendState.NON_FRIENDS;
+	}
+
+	@Override
+	public void removeMark(int id1, int id2) {
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.REMOVE_MARK);) {
+				ps.setInt(1, id1);
+				ps.setInt(2, id2);
+				ps.setInt(3, id1);
+				ps.setInt(4, id2);
+						
+				boolean succes = ps.execute();
+				if(!succes)
+					System.out.println("Error while deleting friend state!");
+		} catch (SQLException e) {
+			System.out.println("Error while deleting friend state!");
+			e.printStackTrace();		
+		}		
 	}
 }
