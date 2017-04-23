@@ -3,7 +3,6 @@
 import java.io.File;
 import java.util.List;
 
-import kozossegi.Labels.KozossegiFriendState;
 import kozossegi.bean.KozossegiMessageBean;
 import kozossegi.bean.KozossegiNotificationBean;
 import kozossegi.bean.KozossegiPostData;

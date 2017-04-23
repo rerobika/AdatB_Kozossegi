@@ -4,7 +4,6 @@ import java.awt.Image;
 import java.io.File;
 import java.util.List;
 
-import kozossegi.Labels.KozossegiFriendState;
 import kozossegi.bean.KozossegiAlbumBean;
 import kozossegi.bean.KozossegiMessageBean;
 import kozossegi.bean.KozossegiNotificationBean;

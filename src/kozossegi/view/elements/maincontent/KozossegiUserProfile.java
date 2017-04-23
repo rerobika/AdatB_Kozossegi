@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import kozossegi.Labels;
 import kozossegi.Labels.KozossegiFriendState;
 import kozossegi.bean.KozossegiProfileBean;
+import kozossegi.bean.KozossegiRelation;
 import kozossegi.view.KozossegiMainFrame;
 import kozossegi.view.elements.KozossegiBirthDayPicker;
 import kozossegi.view.elements.KozossegiGenderPicker;
@@ -72,21 +73,51 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 		name.setFont(new Font("Serif", Font.BOLD, 18));
 		topPanel.add(name);
 		if(mainFrame.getProfile().getId()!= profile.getId()){
-			if(true  /*mainFrame.getController().getStatus(mainFrame.getProfile().getId(),profile.getId())==friendState.NON_FRIENDS*/){
-				friendRequestButton = new JButton(Labels.PROFILE_SEND_FRIEND_REQUEST);
-				topPanel.add(friendRequestButton);
-				friendRequestButton.addActionListener(this);
+			KozossegiRelation r= mainFrame.getController().getFriendState(mainFrame.getProfile().getId(), profile.getId());
+			JButton friendButton;
+			if(r.getState()==KozossegiFriendState.NON_FRIENDS)
+			{
+				friendButton=new JButton(Labels.PROFILE_SEND_FRIEND_REQUEST);
+				topPanel.add(friendButton);
+				friendButton.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						mainFrame.getController().markAsFriend(mainFrame.getProfile().getId(), profile.getId());
+						mainFrame.setMainContent(new KozossegiUserProfile(mainFrame, profile));
+					}
+				});
 			}
-			/*if(true  mainFrame.getController().getStatus(mainFrame.getProfile().getId(),profile.getId())==friendState.PENDING){
-				friendRequestButton = new JButton(Labels.PROFILE_PENDING_FRIEND_REQUEST);
-				topPanel.add(friendRequestButton);
-				friendRequestButton.addActionListener(this);
+			if(r.getState()==KozossegiFriendState.PENDING)
+			{
+				if(r.getFrom()==mainFrame.getProfile().getId())
+				{
+					friendButton=new JButton(Labels.PROFILE_PENDING_FRIEND_REQUEST);
+					topPanel.add(friendButton);
+					friendButton.addActionListener(new ActionListener() {
+						
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							mainFrame.getController().removeMark(mainFrame.getProfile().getId(), profile.getId());
+							mainFrame.setMainContent(new KozossegiUserProfile(mainFrame, profile));
+						}
+					});
+				}
+				else
+				{
+					friendButton=new JButton(Labels.PROFILE_CONFIRM_FRIEND);
+					topPanel.add(friendButton);
+					friendButton.addActionListener(new ActionListener() {
+						
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							mainFrame.getController().confirmFriend(mainFrame.getProfile().getId(), profile.getId());
+							mainFrame.setMainContent(new KozossegiUserProfile(mainFrame, profile));
+						}
+					});
+				}
+				
 			}
-			if(true  mainFrame.getController().getStatus(mainFrame.getProfile().getId(),profile.getId())==friendState.FRIENDS){
-				topPanel.add(new JLabel(Labels.PROFILE_ALREADY_FRIENDS));
-			}*/
-			
-			
 		}
 	}
 	
