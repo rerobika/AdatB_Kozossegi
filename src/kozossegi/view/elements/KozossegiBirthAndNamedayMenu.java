@@ -1,7 +1,6 @@
 package kozossegi.view.elements;
 
 import java.awt.Color;
-import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -47,7 +46,6 @@ public class KozossegiBirthAndNamedayMenu extends JPanel {
 		
 		setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
 		setBorder(BorderFactory.createLineBorder(Color.black));
-		setPreferredSize(new Dimension(160, 160));
 		
 		add(birthdayLabel);
 		add(birthdayScroll);

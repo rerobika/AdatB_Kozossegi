@@ -1,7 +1,6 @@
 package kozossegi.view.elements;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -63,7 +62,6 @@ public class KozossegiSuggestBox extends JPanel {
 		setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
 		setBorder(BorderFactory.createLineBorder(Color.black));
 		
-		setPreferredSize(new Dimension(150, 200));
 		add(suggestClubLabel);
 		add(suggestClubScroll);
 		add(suggestFriendLabel);

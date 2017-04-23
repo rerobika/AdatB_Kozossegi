@@ -1,7 +1,6 @@
 package kozossegi.view.elements;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
@@ -43,7 +42,7 @@ public class KozossegiClubMenu extends JPanel {
 		for(KozossegiProfileMiniatureBean c : this.mainFrame.getTagClubList()){
 			tagClubPanel.add(new KozossegiProfileMiniature(c));
 		}
-		setPreferredSize(new Dimension(150, 200));
+		
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		setBorder(BorderFactory.createLineBorder(Color.black));
 		

@@ -1,5 +1,7 @@
 package kozossegi.view.elements.maincontent;
 
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +17,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import kozossegi.Labels;
+import kozossegi.Labels.friendState;
 import kozossegi.bean.KozossegiProfileBean;
 import kozossegi.view.KozossegiMainFrame;
 import kozossegi.view.elements.KozossegiBirthDayPicker;
@@ -27,7 +30,7 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 	private static final long serialVersionUID = 5773153401651396607L;
 	private KozossegiMainFrame mainFrame;
 	private JPanel createClubPanel;
-	protected JPanel friendsPanel;
+	private JPanel friendsPanel;
 	private KozossegiProfileBean profile;
 	private JButton resetDefaultButton;
 	private JButton submitChangesButton;
@@ -42,6 +45,7 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 	private JTextArea clubDescriptionTextArea;
 	private JButton clubResetButton;
 	private JButton clubCreateButton;
+	private JButton friendRequestButton;
 	
 	public KozossegiUserProfile(KozossegiMainFrame mainFrame,KozossegiProfileBean profile)  {
 		super(profile);
@@ -55,9 +59,27 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 			contentTabbedPane.addTab(Labels.PROFIL_CREATE_CLUB, createClubPanel);
 		}
 		
+		initTopPanel();
 		initInfoPanel();
 		initEditPanel();
 		initCreateClubPanel();
+	}
+	
+	private void initTopPanel() {
+		friendRequestButton = new JButton(Labels.PROFILE_SEND_FRIEND_REQUEST);
+		topPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+		JLabel name = new JLabel(profile.getName());
+		name.setFont(new Font("Serif", Font.BOLD, 18));
+		if(mainFrame.getProfile().getId()!= profile.getId()){
+			if(true  /*mainFrame.getController().getStatus(mainFrame.getProfile().getId(),profile.getId())==friendState.NON_FRIENDS*/){
+				friendRequestButton = new JButton(Labels.PROFILE_SEND_FRIEND_REQUEST);
+			}
+			if(true  /*mainFrame.getController().getStatus(mainFrame.getProfile().getId(),profile.getId())==friendState.PENDING*/){
+				friendRequestButton = new JButton(Labels.PROFILE_SEND_FRIEND_REQUEST);
+			}
+			topPanel.add(friendRequestButton);
+			friendRequestButton.addActionListener(this);
+		}
 	}
 	
 
@@ -243,7 +265,10 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 			initEditPanelComponents();
 			repaint();
 			revalidate();
-		}		
+		}
+		if(e.getSource()==friendRequestButton){
+			
+		}
 	}
 	
 	

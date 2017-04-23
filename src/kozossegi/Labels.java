@@ -149,7 +149,7 @@ public class Labels {
 	public static final String PROFIL_HOBBY= "Hobbi:";
 	public static final String PROFIL_WORK_PLACE= "Munkahely:";
 	public static final String PROFIL_INVITER= "Meghívó:";
-	public static final String PROFIL_INVITE_CODE= "Meghívó:";	
+	public static final String PROFIL_INVITE_CODE= "Meghívó kód:";	
 	public static final String PROFIL_MAN= "Férfi";
 	public static final String PROFIL_WOMAN= "Nő";
 	public static final String PROFIL_RESET_DEFAULT= "Visszaállítás";
@@ -164,6 +164,12 @@ public class Labels {
 	public static final String PROFILE_CREATE_CLUB_DESCRIPTION = "Leírás:";
 	public static final String PROFILE_CREATE_CLUB_RESET_BUTTON = "Visszaállítás";
 	public static final String PROFILE_CREATE_CLUB_BUTTON = "Klub létrehozás";
+	public static final String PROFILE_SEND_FRIEND_REQUEST = "Barátnak jelölés";
+	public static final String PROFILE_PENDING_FRIEND_REQUEST = "Bejelölés visszavonása";
+	public static final String PROFILE_ALREADY_FRIENDS = "Már ismerősök vagytok!";
 	
+	public enum friendState{
+		NON_FRIENDS, PENDING, FRIENDS
+	}
 	
 }

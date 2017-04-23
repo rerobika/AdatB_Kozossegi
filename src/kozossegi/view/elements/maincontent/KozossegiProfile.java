@@ -6,7 +6,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
@@ -19,7 +18,7 @@ public class KozossegiProfile extends JPanel{
 
 	protected KozossegiProfileBean profile;
 	protected JPanel postPanel;
-	private JPanel topPanel;
+	protected JPanel topPanel;
 	protected JTabbedPane contentTabbedPane;
 	protected JPanel infoPanel;
 	protected JPanel wallPanel;
@@ -42,7 +41,6 @@ public class KozossegiProfile extends JPanel{
 		postText = new JTextArea("",3,50);
 		messageSendButton = new JButton(Labels.MESSAGE_SEND);
 		
-		topPanel.add(initTopPanel());
 		postPanel.add(initPostPanel());
 		
 		contentTabbedPane.addTab(Labels.PROFIL_WALL, wallPanel);
@@ -80,9 +78,7 @@ public class KozossegiProfile extends JPanel{
 		
 	}
 
-	private JLabel initTopPanel() {
-		return new JLabel(profile.getName());
-	}
+	
 
 	
 	
