@@ -28,6 +28,7 @@ import kozossegi.view.elements.KozossegiProfileInfo;
 import kozossegi.view.elements.KozossegiSearchBox;
 import kozossegi.view.elements.KozossegiSuggestBox;
 import kozossegi.view.elements.maincontent.KozossegiLogin;
+import kozossegi.view.elements.maincontent.KozossegiNewsFeed;
 
 public class KozossegiMainFrame extends JFrame{
 	private static final long serialVersionUID = -3443677995502851727L;
@@ -71,7 +72,7 @@ public class KozossegiMainFrame extends JFrame{
 		logoImage = getImageFromURL(Labels.LOGO_URL);
 		
 		//USERDATA
-		initializeUserData();
+		
 		getContentPane().setLayout(new BorderLayout(20,20));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
@@ -82,7 +83,6 @@ public class KozossegiMainFrame extends JFrame{
 		getContentPane().add(rightSideContentPanel, BorderLayout.EAST);		
 		setMainContent(startScreen());
 		setVisible(true);	
-		//controller.uploadPicture(new File("D:\\Downloads\\c_777055.jpg"), "Profilképek", 670);
 	}
 	
 	
@@ -114,7 +114,6 @@ public class KozossegiMainFrame extends JFrame{
 	}
 	
 	public void initializeUserData(){
-		profile = controller.getProfile(670);
 		profileMiniature = new KozossegiProfileMiniatureBean(profile);
 		ownClubList = controller.getOwnClubs(profile.getId());
 		tagClubList = controller.getMemberClubs(profile.getId());
@@ -160,8 +159,6 @@ public class KozossegiMainFrame extends JFrame{
 	public List<KozossegiProfileMiniatureBean> getSuggestedFriendList() {
 		return suggestedFriendList;
 	}
-
-
 	public List<KozossegiProfileMiniatureBean> getBirthdayList() {
 		return birthdayList;
 	}
@@ -172,6 +169,13 @@ public class KozossegiMainFrame extends JFrame{
 
 	public List<KozossegiProfileMiniatureBean> getFriendList() {
 		return friendList;
+	}
+	public void login(int id)
+	{
+		profile = controller.getProfile(id);
+		initializeUserData();
+		initializeViewElements();
+		setMainContent(new KozossegiNewsFeed(this));
 	}
 
 	

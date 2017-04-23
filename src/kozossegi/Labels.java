@@ -63,6 +63,7 @@ public class Labels {
 	public static final String ADD_PROFILE_PICTURE_TO_ALBUM = "INSERT INTO KEPEK(ALBUMNEV, ALBUMIDO, ELERESIUT) VALUES(?,?,?)";
 	public static final String GET_PICTURE_ID = "SELECT KEPEK.ID FROM KEPEK INNER JOIN ALBUM ON ALBUM.NEV = KEPEK.ALBUMNEV AND ALBUM.IDO = KEPEK.ALBUMIDO WHERE  KEPEK.ALBUMNEV = ? AND KEPEK.ALBUMIDO = ?";
 	public static final String UPLOAD_IMAGE = "SELECT ADDIMAGE(?,?,?) AS ID FROM DUAL";
+	public static final String LOGIN = "SELECT FELHASZNALO.ID,NEV FROM SZEMELY,FELHASZNALO WHERE JELSZO=? AND EMAIL=? AND FELHASZNALO.ID=SZEMELY.ID";
 	
 	
 	// MAIN_FRAME
@@ -107,6 +108,7 @@ public class Labels {
 	public static final String NO_GENDER_SELECTED = "Nem választottad ki a neved!";
 	public static final String NOT_VALID_INVITER_CODE = "Érvénytelen meghívókód!";
 	public static final String SUCCESSFUL_REGISTRATION = "Sikeres regisztráció!";
+	public static final String INVALID_LOGIN_INFORMATION = "Hibás bejelentkezési adatok!";
 
 	// SEARCH
 	public static final String SEARCH_TEXT = "Ismerősök keresése:";
@@ -149,7 +151,7 @@ public class Labels {
 	public static final String PROFIL_HOBBY= "Hobbi:";
 	public static final String PROFIL_WORK_PLACE= "Munkahely:";
 	public static final String PROFIL_INVITER= "Meghívó:";
-	public static final String PROFIL_INVITE_CODE= "Meghívó:";	
+	public static final String PROFIL_INVITE_CODE= "Meghívó kód:";	
 	public static final String PROFIL_MAN= "Férfi";
 	public static final String PROFIL_WOMAN= "Nő";
 	public static final String PROFIL_RESET_DEFAULT= "Visszaállítás";

@@ -123,4 +123,8 @@ public class KozossegiController{
 	public void updateProfilePicture(int id, int picId){	
 		dao.updateProfilePicture(id,picId);
 	}
+	public KozossegiProfileMiniatureBean login(String email,String password)
+	{
+		return dao.login(email, password);
+	}
 }

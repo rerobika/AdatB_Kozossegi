@@ -9,11 +9,14 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import kozossegi.Labels;
+import kozossegi.bean.KozossegiProfileBean;
+import kozossegi.bean.KozossegiProfileMiniatureBean;
 import kozossegi.view.KozossegiMainFrame;
 
 public class KozossegiLogin extends JPanel implements ActionListener {
@@ -32,8 +35,8 @@ public class KozossegiLogin extends JPanel implements ActionListener {
 		this.mainFrame = mainFrame;
 		userDataPanel = new JPanel();
 		buttonsPanel = new JPanel();
-		emailField = new JTextField();
-		passwordField = new JPasswordField();
+		emailField = new JTextField("jozsef@neha.hu");
+		passwordField = new JPasswordField("asdasd");
 		loginButton = new JButton(Labels.LOGIN_BUTTON);
 		registerButton = new JButton(Labels.LOGIN_REGISTER_BUTTON);
 		
@@ -63,21 +66,25 @@ public class KozossegiLogin extends JPanel implements ActionListener {
 			mainFrame.setMainContent(new KozossegiRegister(mainFrame));
 		}
 		if(e.getSource()==loginButton){
-		/*	if(!emailField.getText().isEmpty()){
-				if(passwordField.getPassword().length!=0){
-					System.out.println("Input fields are not empty!");*/
-					//TODO make ProfileMiniature with real data from DB					
-					
-					mainFrame.initializeViewElements();
-					mainFrame.setMainContent(new KozossegiNewsFeed(mainFrame));
-				/*}
+			if(!emailField.getText().isEmpty()){
+				if(passwordField.getPassword().length!=0){	
+					KozossegiProfileMiniatureBean login=mainFrame.getController().login(emailField.getText(), new String(passwordField.getPassword()));
+					if(login!=null)
+					{
+						mainFrame.login(login.getId());
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(mainFrame, Labels.INVALID_LOGIN_INFORMATION, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);
+					}
+				}
 				else{
 					JOptionPane.showMessageDialog(mainFrame, Labels.EMPTY_PASSWORD, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);
 				}
 			}
 			else{
 				JOptionPane.showMessageDialog(mainFrame, Labels.EMPTY_EMAIL, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);
-			}*/
+			}
 		}
 	}
 }

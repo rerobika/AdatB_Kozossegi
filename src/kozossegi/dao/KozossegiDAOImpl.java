@@ -312,7 +312,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 
 	@Override
 	public void addProfile(KozossegiProfileBean profile) {
-		int residenceId=21,schoolId=325,workplaceId=21,hobbyId=61;
+		int residenceId=21,schoolId=375,workplaceId=21,hobbyId=61;
 		
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
@@ -363,13 +363,9 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			e.printStackTrace();
 			return;
 		}
-		
-		
-		
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
-				PreparedStatement ps = conn.prepareStatement(Labels.CREATE_PROFILE);) {
-			
+				PreparedStatement ps = conn.prepareStatement(Labels.CREATE_PROFILE);) {		
 			ps.setString(1, profile.getName());
 			ps.setString(2, profile.getPass());
 			ps.setString(3, profile.getEmail());
@@ -381,11 +377,9 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ps.setInt(9,workplaceId);
 			ps.setInt(10,profile.getInviter());
 			ps.setString(11,profile.getPicloc());
-			boolean succes = ps.execute();
-			if(!succes)
-				System.out.println("Error while creating profile!");
+			ps.execute();	
 		} catch (SQLException e) {
-			System.out.println("Error while getting owned clubs!");
+			System.out.println("Error while creating profile!");
 			e.printStackTrace();
 		}
 			
@@ -569,5 +563,25 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			e.printStackTrace();		
 		}
 		
+	}
+
+	@Override
+	public KozossegiProfileMiniatureBean login(String email, String password) {
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.LOGIN);) {
+				ps.setString(1, password);
+				ps.setString(2, email);				
+				ResultSet rs = ps.executeQuery();
+				if(rs.next())
+					return new KozossegiProfileMiniatureBean(rs.getInt("ID"),rs.getString("NEV"),null);
+				else
+					System.out.println("Invalid login data!");
+					return null;		
+		} catch (SQLException e) {
+			System.out.println("Invalid login data!");
+			e.printStackTrace();		
+		}
+		return null;
 	}
 }

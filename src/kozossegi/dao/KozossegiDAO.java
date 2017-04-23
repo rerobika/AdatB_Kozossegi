@@ -40,5 +40,6 @@ public interface KozossegiDAO {
 	public boolean isValidInviterCode(int id);
 	public int uploadPicture(File filename, String albumName, int id);
 	public void updateProfilePicture(int id, int picId);
+	public KozossegiProfileMiniatureBean login(String email,String password);
 	
 }
