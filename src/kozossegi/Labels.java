@@ -138,6 +138,9 @@ public class Labels {
 	// MESSAGE
 	public static final String MESSAGE_SEND = "Küldés";
 
+	//FRIEND MANAGENT
+	public static final String PENDING_REQUEST = "Függő kapcsolatok";
+	public static final String ALREADY_FRIENDS = "Barátaid";
 	// PROFILE
 	public static final String PROFIL_WALL = "Idővonal";
 	public static final String PROFIL_INFO = "Információ";
@@ -170,7 +173,6 @@ public class Labels {
 	public static final String PROFILE_CREATE_CLUB_BUTTON = "Klub létrehozás";
 	public static final String PROFILE_SEND_FRIEND_REQUEST = "Barátnak jelölés";
 	public static final String PROFILE_PENDING_FRIEND_REQUEST = "Bejelölés visszavonása";
-	public static final String PROFILE_ALREADY_FRIENDS = "Már ismerősök vagytok!";
 	public static final String PROFILE_CONFIRM_FRIEND = "Visszaigazolás";
 	
 	public enum KozossegiFriendState{
