@@ -185,11 +185,7 @@ public class Labels {
 	public enum KozossegiFriendState{
 		NON_FRIENDS, PENDING, FRIENDS
 	}
-	
-	public static final Dimension POST_PARENT_SIZE_MIN = new Dimension(400,100);
-	public static final Dimension POST_PARENT_SIZE_MAX = new Dimension(400,500);
-	public static final Dimension POST_CHILD_SIZE_MIN = new Dimension(350,100);
-	public static final Dimension POST_CHILD_SIZE_MAX = new Dimension(350,300);
+
 	public static final String COMMENT = "Komment írása";
 	
 	

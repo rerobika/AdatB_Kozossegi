@@ -30,7 +30,6 @@ public class KozossegiPost extends JPanel{
 		super();
 		this.data=data;
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-		
 		JPanel head = new JPanel();
 		head.setLayout(new FlowLayout(FlowLayout.LEFT));
 		head.add(new KozossegiProfileName(data.getSender()));
@@ -54,7 +53,7 @@ public class KozossegiPost extends JPanel{
 					{
 						add(new JLabel(new ImageIcon(KozossegiImageManager.download(new URL("http://"+t2[0]).toURI().toURL()).getScaledInstance(400, 200, Image.SCALE_FAST))));
 						
-					} catch (MalformedURLException | URISyntaxException e) {
+					} catch (MalformedURLException | URISyntaxException  | NullPointerException e) {
 						
 					}
 		}	
@@ -64,8 +63,6 @@ public class KozossegiPost extends JPanel{
 		add(text);
 		if(data.getParent()==0)
 		{
-			/*setMinimumSize(Labels.POST_PARENT_SIZE_MIN);
-			setPreferredSize(Labels.POST_CHILD_SIZE_MIN);*/
 			JButton comment = new JButton(Labels.COMMENT);
 			add(comment);
 			comment.addActionListener(new ActionListener() {
@@ -81,8 +78,7 @@ public class KozossegiPost extends JPanel{
 		}
 		else
 		{
-			/*setMinimumSize(Labels.POST_CHILD_SIZE_MIN);
-			setPreferredSize(Labels.POST_CHILD_SIZE_MIN);*/
+
 		}
 		setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		

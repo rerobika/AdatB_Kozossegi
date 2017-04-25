@@ -16,7 +16,7 @@ public class KozossegiComment extends JPanel{
 	public KozossegiComment(KozossegiPost post) {
 		super();
 		this.post=post;
-		text= new JTextArea(20,10);
+		text= new JTextArea(10,20);
 		send = new JButton(Labels.MESSAGE_SEND);
 		send.addActionListener(new ActionListener() {
 			
