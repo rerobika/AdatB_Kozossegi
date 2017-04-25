@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.Calendar;
 
 import javax.swing.BoxLayout;
@@ -24,7 +26,8 @@ import kozossegi.view.KozossegiMainFrame;
 import kozossegi.view.elements.KozossegiBirthDayPicker;
 import kozossegi.view.elements.KozossegiGenderPicker;
 import kozossegi.view.elements.KozossegiPictureSelector;
-import kozossegi.view.elements.KozossegiPictureSelector.fileScan;;
+import kozossegi.view.elements.KozossegiPictureSelector.fileScan;
+import kozossegi.view.elements.KozossegiProfileAttirbuteExtender;;
 
 public class KozossegiUserProfile extends KozossegiProfile implements ActionListener {
 
@@ -230,7 +233,7 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 		}
 		
 		
-		
+		//RESIDENCE
 		
 		int i = 0;
 		boolean match= false;
@@ -242,8 +245,20 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 			}
 			i++;
 		}
+		residence.addItem(Labels.PROFIL_ADD_NEW);
+		residence.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getItem().equals(Labels.PROFIL_ADD_NEW)){
+					new KozossegiProfileAttirbuteExtender(mainFrame, Labels.PROFIL_RESIDENCE);
+				}
+				
+			}
+		});
 		if(!match) 	residence.setSelectedIndex(-1);
 		
+		//SCHOOL
 		i = 0;
 		match= false;
 		for(String s : mainFrame.getController().getSchools()){
@@ -254,8 +269,20 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 			}
 			i++;
 		}
+		school.addItem(Labels.PROFIL_ADD_NEW);
+		school.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getItem().equals(Labels.PROFIL_ADD_NEW)){
+					new KozossegiProfileAttirbuteExtender(mainFrame, Labels.PROFIL_SCHOOL);
+				}
+				
+			}
+		});
 		if(!match) 	school.setSelectedIndex(-1);
 		
+		//HOBBY
 		i = 0;
 		match= false;
 		for(String s : mainFrame.getController().getHobbies()){
@@ -266,8 +293,21 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 			}
 			i++;
 		}
+		hobby.addItem(Labels.PROFIL_ADD_NEW);
+		hobby.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getItem().equals(Labels.PROFIL_ADD_NEW)){
+					new KozossegiProfileAttirbuteExtender(mainFrame, Labels.PROFIL_HOBBY);
+				}
+				
+			}
+		});
 		if(!match) 	hobby.setSelectedIndex(-1);
 		
+		
+		//WORKPLACE
 		i = 0;
 		match= false;
 		for(String s : mainFrame.getController().getWorkPlaces()){
@@ -278,6 +318,17 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 			}
 			i++;
 		}
+		workPlace.addItem(Labels.PROFIL_ADD_NEW);
+		workPlace.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getItem().equals(Labels.PROFIL_ADD_NEW)){
+					new KozossegiProfileAttirbuteExtender(mainFrame, Labels.PROFIL_WORK_PLACE);
+				}
+				
+			}
+		});
 		if(!match) 	workPlace.setSelectedIndex(-1);
 		
 	}
@@ -286,6 +337,7 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==profilePictureButton){
+			//EDIT PROFILE
 			KozossegiPictureSelector pictureSelector = new KozossegiPictureSelector();
 			if(pictureSelector.isValidImage().equals(fileScan.SUCCES)){
 				mainFrame.getController().updateProfilePicture(mainFrame.getProfile().getId(),mainFrame.getController().uploadPicture(pictureSelector.getSelectedFile(), "Profilképek", mainFrame.getProfile().getId()));
@@ -304,7 +356,9 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 			initEditPanelComponents();
 			repaint();
 			revalidate();
-		}
+		}		
+		
+		//FRIEND REQUEST
 		if(e.getSource()==friendRequestButton){
 			if(friendRequestButton.getText().equals(Labels.PROFILE_SEND_FRIEND_REQUEST)){
 				mainFrame.getController().markAsFriend(mainFrame.getProfile().getId(), profile.getId());

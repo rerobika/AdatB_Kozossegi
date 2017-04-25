@@ -1,11 +1,8 @@
 package kozossegi;
 
-import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import javax.swing.Icon;
 
 public class Labels {
 	// DATABASE_CONNENTION
@@ -156,18 +153,20 @@ public class Labels {
 	public static final String PROFIL_EDIT = "Profil szerkesztése";
 	public static final String PROFIL_CREATE_CLUB = "Klub létrehozás";
 	public static final String PROFIL_CLUB_TAGS = "Tagok";
-	public static final String PROFIL_DATE_OF_BIRTH = "Születési idő:";
-	public static final String PROFIL_GENDER = "Nem:";
-	public static final String PROFIL_RESIDENCE= "Lakhely:";
-	public static final String PROFIL_SCHOOL= "Iskola:";
-	public static final String PROFIL_HOBBY= "Hobbi:";
-	public static final String PROFIL_WORK_PLACE= "Munkahely:";
-	public static final String PROFIL_INVITER= "Meghívó:";
-	public static final String PROFIL_INVITE_CODE= "Meghívó kód:";	
+	public static final String PROFIL_DATE_OF_BIRTH = "Születési idő";
+	public static final String PROFIL_GENDER = "Nem";
+	public static final String PROFIL_RESIDENCE= "Lakhely";
+	public static final String PROFIL_SCHOOL= "Iskola";
+	public static final String PROFIL_HOBBY= "Hobbi";
+	public static final String PROFIL_WORK_PLACE= "Munkahely";
+	public static final String PROFIL_INVITER= "Meghívó";
+	public static final String PROFIL_INVITE_CODE= "Meghívó kód";	
 	public static final String PROFIL_MAN= "Férfi";
 	public static final String PROFIL_WOMAN= "Nő";
 	public static final String PROFIL_RESET_DEFAULT= "Visszaállítás";
 	public static final String PROFIL_SUBMIT_CHANGES= "Módosítások mentése";
+	public static final String PROFIL_ADD_NEW= "Új hozzáadása";		
+	public static final String PROFIL_ADD_ATTRIBUTE= "Hozzáadás";		
 	public static final String PROFIL_UPLOAD_PICTURE= "Kép feltöltés";
 	public static final String PROFIL_PICTURE= "Profilkép";
 	public static final String PROFIL_EDIT_WRONG_SIZE= "Maximum 2 megabájt lehet a kép méret!";
@@ -181,6 +180,9 @@ public class Labels {
 	public static final String PROFILE_SEND_FRIEND_REQUEST = "Barátnak jelölés";
 	public static final String PROFILE_PENDING_FRIEND_REQUEST = "Bejelölés visszavonása";
 	public static final String PROFILE_CONFIRM_FRIEND = "Visszaigazolás";
+	public static final String PROFILE_IS_ALREADY_AVALIABLE = "Ilyen bejegyzés már létezik, válaszd ki a listából!";
+	public static final String PROFILE_SUCCESSFUL_ADD = "Sikeres hozzáadás!";
+	public static final String PROFILE_EMPTY_ADD = "Üresen hagytad a szövegdobozt!";
 	
 	public enum KozossegiFriendState{
 		NON_FRIENDS, PENDING, FRIENDS
