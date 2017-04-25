@@ -10,6 +10,7 @@ import kozossegi.bean.KozossegiNotificationBean;
 import kozossegi.bean.KozossegiPostData;
 import kozossegi.bean.KozossegiProfileBean;
 import kozossegi.bean.KozossegiProfileMiniatureBean;
+import kozossegi.bean.KozossegiProfileNameBean;
 import kozossegi.bean.KozossegiRelation;
 
 public interface KozossegiDAO {
@@ -44,5 +45,7 @@ public interface KozossegiDAO {
 	public int uploadPicture(File filename, String albumName, int id);
 	public void updateProfilePicture(int id, int picId);
 	public KozossegiProfileMiniatureBean login(String email,String password);
+	public List<KozossegiProfileMiniatureBean> getPendingFriends(int id);
+	public KozossegiProfileNameBean getNameById(int id);
 	
 }

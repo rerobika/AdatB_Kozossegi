@@ -1,8 +1,11 @@
 package kozossegi;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.swing.Icon;
 
 public class Labels {
 	// DATABASE_CONNENTION
@@ -66,6 +69,10 @@ public class Labels {
 	public static final String LOGIN = "SELECT FELHASZNALO.ID,NEV FROM SZEMELY,FELHASZNALO WHERE JELSZO=? AND EMAIL=? AND FELHASZNALO.ID=SZEMELY.ID";
 	public static final String GET_FRIEND_STATE = "SELECT * FROM ISMER WHERE (KIID=? AND KIVELID=?) OR (KIVELID=? AND KIID=?)";
 	public static final String REMOVE_MARK = "DELETE FROM ISMER WHERE (KIID=? AND KIVELID=?) OR (KIVELID=? AND KIID=?)";
+	public static final String GET_PENDING = "SELECT DISTINCT FELHASZNALO.ID,FELHASZNALO.NEV,PROFIL.PROFILKEP FROM ISMER,FELHASZNALO,KEPEK,PROFIL "
+			+ "WHERE FELHASZNALO.ID IN (SELECT DISTINCT ISMER.KIVELID AS ISMID FROM ISMER WHERE KIID=? AND STATUSZ=0 "
+			+ "UNION SELECT DISTINCT ISMER.KIID AS ISMID FROM ISMER WHERE KIVELID=? AND STATUSZ=0) AND FELHASZNALO.ID=PROFIL.SZEMELYID";
+	public static final String GET_NAME_BY_ID="SELECT FELHASZNALO.NEV, FELHASZNALO.ID FROM FELHASZNALO WHERE FELHASZNALO.ID=?";
 	
 	
 	// MAIN_FRAME
@@ -178,5 +185,12 @@ public class Labels {
 	public enum KozossegiFriendState{
 		NON_FRIENDS, PENDING, FRIENDS
 	}
+	
+	public static final Dimension POST_PARENT_SIZE_MIN = new Dimension(400,100);
+	public static final Dimension POST_PARENT_SIZE_MAX = new Dimension(400,500);
+	public static final Dimension POST_CHILD_SIZE_MIN = new Dimension(350,100);
+	public static final Dimension POST_CHILD_SIZE_MAX = new Dimension(350,300);
+	public static final String COMMENT = "Komment írása";
+	
 	
 }

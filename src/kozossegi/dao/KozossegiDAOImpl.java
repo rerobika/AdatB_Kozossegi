@@ -23,6 +23,7 @@ import kozossegi.bean.KozossegiNotificationBean;
 import kozossegi.bean.KozossegiPostData;
 import kozossegi.bean.KozossegiProfileBean;
 import kozossegi.bean.KozossegiProfileMiniatureBean;
+import kozossegi.bean.KozossegiProfileNameBean;
 import kozossegi.bean.KozossegiRelation;
 
 public class KozossegiDAOImpl implements KozossegiDAO {
@@ -538,7 +539,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
 				PreparedStatement ps = conn.prepareStatement(Labels.UPLOAD_IMAGE);) {
-				ps.setString(1, KozossegiImageUploader.upload(filename, filename.getName()));	
+				ps.setString(1, KozossegiImageManager.upload(filename, filename.getName()));	
 				ps.setString(2, albumName);				
 				ps.setInt(3, id);
 				ResultSet rs = ps.executeQuery();
@@ -629,5 +630,44 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			System.out.println("Error while deleting friend state!");
 			e.printStackTrace();		
 		}		
+	}
+
+	@Override
+	public List<KozossegiProfileMiniatureBean> getPendingFriends(int id) {
+		List<KozossegiProfileMiniatureBean> friends = new ArrayList<KozossegiProfileMiniatureBean>();
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.GET_PENDING);) {
+			ps.setInt(1, id);
+			ps.setInt(2, id);
+			
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				friends.add(new KozossegiProfileMiniatureBean(rs.getInt("ID"), rs.getString("NEV"),
+						getImageByID(rs.getInt("PROFILKEP")).getScaledInstance(32, 32, Image.SCALE_FAST)));
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Error while listing user's friends!");
+			e.printStackTrace();
+		}
+		return friends;
+	}
+
+	@Override
+	public KozossegiProfileNameBean getNameById(int id) {
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.GET_NAME_BY_ID);) {
+			ps.setInt(1, id);	
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			return new KozossegiProfileNameBean(rs.getInt("ID"),rs.getString("NEV"));
+
+		} catch (SQLException e) {
+			System.out.println("Error while listing user's friends!");
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

@@ -1,17 +1,21 @@
 package kozossegi.dao;
 
+import java.awt.Image;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import javax.imageio.ImageIO;
+
 import kozossegi.Labels;
 
-public class KozossegiImageUploader 
+public class KozossegiImageManager 
 {
 	public static String upload(File file,String name)
 	{
@@ -25,7 +29,7 @@ public class KozossegiImageUploader
 	        conn.setDoInput(true);
 	        conn.setDoOutput(true);	
 	        OutputStream os = conn.getOutputStream();
-	        Thread.sleep(250);
+	        Thread.sleep(500);
 	        BufferedInputStream is = new BufferedInputStream(new FileInputStream(file));
 	        int totalByte=is.available();
 	        for (int i = 0; i < totalByte; i++) {
@@ -37,9 +41,6 @@ public class KozossegiImageUploader
 	                conn.getInputStream()));
 
 	        String s = in.readLine();
-	        /*while ((s = in.readLine()) != null) {	        	
-	            return s;
-	        } */
 	        in.close();
 	        is.close();
 	        return s;
@@ -49,7 +50,24 @@ public class KozossegiImageUploader
 		}
 		return null;
 	}
-	
-	
+	public static Image download(URL file)
+	{
+		try {
+			return ImageIO.read(file);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		return null;
+	}
+	public static Image download(String file)
+	{
+		try {
+			return ImageIO.read(new URL(file));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		return null;
+	}
+		
 
 }

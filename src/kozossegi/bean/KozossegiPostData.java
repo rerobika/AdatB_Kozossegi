@@ -1,17 +1,16 @@
 package kozossegi.bean;
 
-import java.awt.Image;
 import java.util.Date;
 
 public class KozossegiPostData {
-	public KozossegiPostData(int id, int sender, int receiver, Date time, String content, Image pic, int parent) {
+	public KozossegiPostData(int id, KozossegiProfileNameBean sender, KozossegiProfileNameBean receiver, Date time,
+			String content, int parent) {
 		super();
 		this.id = id;
 		this.sender = sender;
 		this.receiver = receiver;
 		this.time = time;
 		this.content = content;
-		this.pic = pic;
 		this.parent = parent;
 	}
 	public int getId() {
@@ -19,18 +18,6 @@ public class KozossegiPostData {
 	}
 	public void setId(int id) {
 		this.id = id;
-	}
-	public int getSender() {
-		return sender;
-	}
-	public void setSender(int sender) {
-		this.sender = sender;
-	}
-	public int getReceiver() {
-		return receiver;
-	}
-	public void setReceiver(int receiver) {
-		this.receiver = receiver;
 	}
 	public Date getTime() {
 		return time;
@@ -44,24 +31,30 @@ public class KozossegiPostData {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Image getPic() {
-		return pic;
-	}
-	public void setPic(Image pic) {
-		this.pic = pic;
-	}
 	public int getParent() {
 		return parent;
 	}
 	public void setParent(int parent) {
 		this.parent = parent;
 	}
+	public KozossegiProfileNameBean getSender() {
+		return sender;
+	}
+	public void setSender(KozossegiProfileNameBean sender) {
+		this.sender = sender;
+	}
+	public KozossegiProfileNameBean getReceiver() {
+		return receiver;
+	}
+	public void setReceiver(KozossegiProfileNameBean receiver) {
+		this.receiver = receiver;
+	}
 	int id;
-	int sender;
-	int receiver;
+	
+	KozossegiProfileNameBean sender;
+	KozossegiProfileNameBean receiver;
 	Date time;
 	String content;
-	Image pic;
 	int parent;
 	
 }

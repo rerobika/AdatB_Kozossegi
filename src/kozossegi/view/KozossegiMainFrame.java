@@ -15,11 +15,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import kozossegi.Labels;
 import kozossegi.bean.KozossegiProfileBean;
 import kozossegi.bean.KozossegiProfileMiniatureBean;
 import kozossegi.controller.KozossegiController;
+import kozossegi.dao.KozossegiImageManager;
 import kozossegi.view.elements.KozossegiBirthAndNamedayMenu;
 import kozossegi.view.elements.KozossegiClubMenu;
 import kozossegi.view.elements.KozossegiMenu;
@@ -68,7 +70,7 @@ public class KozossegiMainFrame extends JFrame{
 		topSideContentPanel = new JPanel(new FlowLayout());
 		rightSideContentPanel = new JPanel(new GridLayout(2,10,1,10));
 		cardLayout = (CardLayout) mainContentPanel.getLayout();
-		logoImage = getImageFromURL(Labels.LOGO_URL);
+		logoImage = KozossegiImageManager.download(Labels.LOGO_URL);
 		
 		//USERDATA
 		
@@ -122,14 +124,7 @@ public class KozossegiMainFrame extends JFrame{
 		suggestedFriendList = controller.getSuggestedFriends(profile.getId());
 }
 
-	public Image getImageFromURL(String url){
-		try {
-			return ImageIO.read(new URL(url));
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		return null;
-	}
+	
 	
 		
 	public KozossegiController getController(){

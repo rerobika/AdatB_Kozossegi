@@ -8,6 +8,7 @@ import kozossegi.bean.KozossegiNotificationBean;
 import kozossegi.bean.KozossegiPostData;
 import kozossegi.bean.KozossegiProfileBean;
 import kozossegi.bean.KozossegiProfileMiniatureBean;
+import kozossegi.bean.KozossegiProfileNameBean;
 import kozossegi.bean.KozossegiRelation;
 import kozossegi.dao.KozossegiDAO;
 import kozossegi.dao.KozossegiDAOImpl;
@@ -136,4 +137,12 @@ public class KozossegiController{
 	{
 		dao.removeMark(id1, id2);
 	}
+	public List<KozossegiProfileMiniatureBean> getPendingFriends(int id)
+	{
+		return dao.getPendingFriends(id);
+	}
+	public KozossegiProfileNameBean getNameById(int id) {
+		return dao.getNameById(id);
+	}
+	
 }

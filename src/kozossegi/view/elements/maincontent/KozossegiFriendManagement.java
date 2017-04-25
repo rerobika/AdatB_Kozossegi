@@ -30,7 +30,6 @@ public class KozossegiFriendManagement extends JPanel {
 		for(KozossegiProfileMiniatureBean p: mainFrame.getController().getFriends(profile.getId()))
 		{
 			KozossegiProfileMiniature  miniature = new KozossegiProfileMiniature(p); 
-			System.out.println(p.getName());
 			friends.add(miniature);
 			miniature.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
@@ -39,14 +38,13 @@ public class KozossegiFriendManagement extends JPanel {
 			});
 		}
 		
-		for(KozossegiProfileMiniatureBean p: mainFrame.getController().getFriends(profile.getId()))//TODO
+		for(KozossegiProfileMiniatureBean p: mainFrame.getController().getPendingFriends(profile.getId()))
 		{
 			KozossegiProfileMiniature  miniature = new KozossegiProfileMiniature(p); 
-			System.out.println(p.getName());
 			pendingRequest.add(miniature);
 			miniature.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
-					mainFrame.setMainContent(new KozossegiProfile(mainFrame.getController().getProfile(miniature.getData().getId())));
+					mainFrame.setMainContent(new KozossegiUserProfile(mainFrame,mainFrame.getController().getProfile(miniature.getData().getId())));
 				}
 			});
 		}
