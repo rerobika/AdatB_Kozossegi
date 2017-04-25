@@ -6,16 +6,12 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 import kozossegi.Labels;
 import kozossegi.bean.KozossegiProfileBean;
@@ -32,6 +28,8 @@ import kozossegi.view.elements.maincontent.KozossegiLogin;
 import kozossegi.view.elements.maincontent.KozossegiNewsFeed;
 
 public class KozossegiMainFrame extends JFrame{
+	
+	private static KozossegiMainFrame instance;
 	private static final long serialVersionUID = -3443677995502851727L;
 	private KozossegiController controller;
 	private JPanel mainContentPanel;
@@ -62,7 +60,7 @@ public class KozossegiMainFrame extends JFrame{
 	}
 
 
-	public KozossegiMainFrame(KozossegiController controller) {
+	private KozossegiMainFrame(KozossegiController controller) {
 		this.controller = controller;
 		mainContentPanel = new JPanel(new CardLayout());
 		logoPanel = new JPanel(new FlowLayout());
@@ -85,10 +83,18 @@ public class KozossegiMainFrame extends JFrame{
 		setMainContent(startScreen());
 		setVisible(true);	
 	}
+	public static KozossegiMainFrame getInstance()
+	{
+		return instance;
+	}
+	public static void setController(KozossegiController controller)
+	{
+		instance=new KozossegiMainFrame(controller);
+	}
 	
 	
 	public JPanel startScreen(){
-		 return new KozossegiLogin(this);
+		 return new KozossegiLogin();
 	}
 
 	public void setMainContent(JPanel panelToVisible) {
@@ -103,14 +109,14 @@ public class KozossegiMainFrame extends JFrame{
 		logoPanel.add(new JLabel(new ImageIcon(logoImage)));
 		
 		topSideContentPanel.add(logoPanel);	
-		topSideContentPanel.add(new KozossegiSearchBox(this));
-		topSideContentPanel.add(new KozossegiMenu(this));			
+		topSideContentPanel.add(new KozossegiSearchBox());
+		topSideContentPanel.add(new KozossegiMenu());			
 			
-		leftSideContentPanel.add(new KozossegiProfileInfo(this));
-		leftSideContentPanel.add(new KozossegiClubMenu(this));				
+		leftSideContentPanel.add(new KozossegiProfileInfo());
+		leftSideContentPanel.add(new KozossegiClubMenu());				
 		
-		rightSideContentPanel.add(new KozossegiBirthAndNamedayMenu(this));
-		rightSideContentPanel.add(new KozossegiSuggestBox(this));
+		rightSideContentPanel.add(new KozossegiBirthAndNamedayMenu());
+		rightSideContentPanel.add(new KozossegiSuggestBox());
 		
 	}
 	
@@ -160,6 +166,12 @@ public class KozossegiMainFrame extends JFrame{
 	}
 
 	public List<KozossegiProfileMiniatureBean> getFriendList() {
+		if(friendList==null)
+		{
+			friendList=controller.getFriends(profile.getId());
+			System.out.println("asda");
+		}
+			
 		return friendList;
 	}
 	public void login(int id)
@@ -167,7 +179,7 @@ public class KozossegiMainFrame extends JFrame{
 		profile = controller.getProfile(id);
 		initializeUserData();
 		initializeViewElements();
-		setMainContent(new KozossegiNewsFeed(this));
+		setMainContent(new KozossegiNewsFeed());
 	}
 
 	

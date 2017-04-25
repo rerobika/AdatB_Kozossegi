@@ -23,8 +23,8 @@ public class KozossegiBirthAndNamedayMenu extends JPanel {
 	private JScrollPane birthdayScroll;
 	private JScrollPane namedayScroll;
 	
-	public KozossegiBirthAndNamedayMenu(KozossegiMainFrame mainFrame) {
-		this.mainFrame = mainFrame;
+	public KozossegiBirthAndNamedayMenu() {
+		this.mainFrame = KozossegiMainFrame.getInstance();
 		birthdayPanel = new JPanel();
 		namedayPanel = new JPanel();
 		birthdayLabel = new JLabel(Labels.BIRTHDAY);

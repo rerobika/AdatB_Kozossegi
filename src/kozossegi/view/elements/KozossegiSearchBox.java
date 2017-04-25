@@ -21,8 +21,8 @@ public class KozossegiSearchBox extends JPanel implements ActionListener{
 	private JTextField searchField;
 	private JButton searchButton;
 	
-	public KozossegiSearchBox(KozossegiMainFrame mainFrame) {
-		this.mainFrame = mainFrame;
+	public KozossegiSearchBox() {
+		this.mainFrame = KozossegiMainFrame.getInstance();
 		searchField = new JTextField();
 		searchButton = new JButton(Labels.SEARCH_BUTON);
 		

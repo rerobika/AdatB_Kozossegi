@@ -105,9 +105,28 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		return null;
 	}
 
-	public List<KozossegiPostData> getPostData(int startinterval, int endinterval) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<KozossegiPostData> getPostData(int startinterval, int endinterval,int id) {
+		List<KozossegiPostData> post = new ArrayList<KozossegiPostData>();
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.GET_POSTS);) {
+			ps.setInt(1, id);
+			ps.setInt(2, id);
+			ps.setInt(3, id);
+			ps.setInt(4, startinterval);
+			ps.setInt(5, endinterval);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				
+				post.add(new KozossegiPostData(rs.getInt("ID"), getNameById(rs.getInt("FELADO")), 
+						getNameById(rs.getInt("CIMZETT")), rs.getDate("IDO"), rs.getString("TARTALOM"), getCommentData(rs.getInt("ID")), rs.getInt("SZULO")));
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Error while listing user's friends!");
+			e.printStackTrace();
+		}
+		return post;
 	}
 
 	public List<KozossegiNotificationBean> getNotifications(int startinterval, int endinterval) {
@@ -661,7 +680,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 				PreparedStatement ps = conn.prepareStatement(Labels.GET_NAME_BY_ID);) {
 			ps.setInt(1, id);	
 			ResultSet rs = ps.executeQuery();
-			rs.next();
+			if(rs.next())
 			return new KozossegiProfileNameBean(rs.getInt("ID"),rs.getString("NEV"));
 
 		} catch (SQLException e) {
@@ -669,5 +688,51 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	public List<KozossegiPostData> getCommentData(int id) {
+		List<KozossegiPostData> comment = new ArrayList<KozossegiPostData>();
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.GET_COMMENTS);) {
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				
+				comment.add(new KozossegiPostData(rs.getInt("ID"), getNameById(rs.getInt("FELADO")), getNameById(rs.getInt("CIMZETT")), rs.getDate("IDO"), rs.getString("TARTALOM"), null, rs.getInt("SZULO")));
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Error while listing user's friends!");
+			e.printStackTrace();
+		}
+		return comment;
+	}
+
+	@Override
+	public void sendPost(KozossegiPostData data) {
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.SEND_POST);) {
+			ps.setInt(1, data.getSender().getId());
+			if(data.getReceiver()==null)
+				ps.setNull(2, java.sql.Types.INTEGER);
+			else
+				ps.setInt(2, data.getReceiver().getId());
+			ps.setDate(3, new java.sql.Date(data.getTime().getTime()));
+			ps.setString(4, data.getContent());
+			if(data.getParent()==-1)
+				ps.setNull(5, java.sql.Types.INTEGER);
+			else
+				ps.setInt(5, data.getParent());
+			int success= ps.executeUpdate();
+			if(success==0)
+				System.out.println("Error while adding post!");
+
+		} catch (SQLException e) {
+			System.out.println("Error while listing user's friends!");
+			e.printStackTrace();
+		}
 	}
 }

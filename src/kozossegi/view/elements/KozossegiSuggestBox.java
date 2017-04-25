@@ -19,7 +19,7 @@ import kozossegi.view.elements.maincontent.KozossegiUserProfile;
 
 public class KozossegiSuggestBox extends JPanel {
 	private static final long serialVersionUID = -7611266213286581278L;
-	private KozossegiMainFrame mainFrame;
+	
 	private JPanel suggestClubPanel;
 	private JPanel suggestFriendPanel;
 	private JLabel suggestClubLabel;
@@ -27,8 +27,8 @@ public class KozossegiSuggestBox extends JPanel {
 	private JScrollPane suggestClubScroll;
 	private JScrollPane suggestFriendScroll;
 	
-	public KozossegiSuggestBox(KozossegiMainFrame mainFrame) {
-		this.mainFrame = mainFrame;
+	public KozossegiSuggestBox() {
+		KozossegiMainFrame mainFrame = KozossegiMainFrame.getInstance();
 		suggestClubPanel = new JPanel();
 		suggestFriendPanel = new JPanel();
 		suggestClubLabel = new JLabel(Labels.CLUB_SUGGESTION);
@@ -38,7 +38,7 @@ public class KozossegiSuggestBox extends JPanel {
 				
 		
 		suggestClubPanel.setLayout(new GridLayout(0, 1));
-		for(KozossegiProfileMiniatureBean c : this.mainFrame.getSuggestedClubList()){
+		for(KozossegiProfileMiniatureBean c : mainFrame.getSuggestedClubList()){
 			KozossegiProfileMiniature miniature =new KozossegiProfileMiniature(c);
 			miniature.addMouseListener(new MouseAdapter(){
 				public void mouseClicked(MouseEvent e) {
@@ -49,11 +49,11 @@ public class KozossegiSuggestBox extends JPanel {
 		}
 		
 		suggestFriendPanel.setLayout(new GridLayout(0, 1));
-		for(KozossegiProfileMiniatureBean c : this.mainFrame.getSuggestedFriendList()){
+		for(KozossegiProfileMiniatureBean c : mainFrame.getSuggestedFriendList()){
 			KozossegiProfileMiniature miniature =new KozossegiProfileMiniature(c);
 			miniature.addMouseListener(new MouseAdapter(){
 				public void mouseClicked(MouseEvent e) {
-					mainFrame.setMainContent(new KozossegiUserProfile(mainFrame, mainFrame.getController().getProfile(c.getId())));
+					mainFrame.setMainContent(new KozossegiUserProfile(mainFrame.getController().getProfile(c.getId())));
 				}
 			});	
 			suggestFriendPanel.add(miniature);

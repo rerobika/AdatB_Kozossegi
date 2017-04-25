@@ -28,8 +28,8 @@ public class KozossegiMenu extends JPanel implements ActionListener{
 	private JButton birtAndNameDayButton;
 	private JButton logOutButton;
 	
-	public KozossegiMenu(KozossegiMainFrame mainFrame) {
-		this.mainFrame = mainFrame;
+	public KozossegiMenu() {
+		this.mainFrame = KozossegiMainFrame.getInstance();
 		newFeedButton = new JButton(Labels.MENU_NEWS_FEED);
 		profilButton = new JButton(Labels.MENU_PROFIL);
 		messagesButton = new JButton(Labels.MENU_MESSAGES);
@@ -56,20 +56,21 @@ public class KozossegiMenu extends JPanel implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		mainFrame = KozossegiMainFrame.getInstance();
 		if(e.getSource()==newFeedButton){
-			mainFrame.setMainContent(new KozossegiNewsFeed(mainFrame));
+			mainFrame.setMainContent(new KozossegiNewsFeed());
 		}
 		if(e.getSource()==profilButton){
-			mainFrame.setMainContent(new KozossegiUserProfile(mainFrame, mainFrame.getProfile()));
+			mainFrame.setMainContent(new KozossegiUserProfile(mainFrame.getProfile()));
 		}
 		if(e.getSource()==messagesButton){
-			mainFrame.setMainContent(new KozossegiMessages(mainFrame));
+			mainFrame.setMainContent(new KozossegiMessages());
 		}
 		if(e.getSource()==friendsButton){
-			mainFrame.setMainContent(new KozossegiFriendManagement(mainFrame, mainFrame.getProfile()));
+			mainFrame.setMainContent(new KozossegiFriendManagement(mainFrame.getProfile()));
 		}
 		if(e.getSource()==birtAndNameDayButton){
-			mainFrame.setMainContent(new KozossegiBirthAndNameday(mainFrame));
+			mainFrame.setMainContent(new KozossegiBirthAndNameday());
 		}
 		if(e.getSource()==logOutButton){
 			System.exit(0);

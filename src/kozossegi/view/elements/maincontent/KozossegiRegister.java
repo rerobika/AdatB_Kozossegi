@@ -99,7 +99,7 @@ public class KozossegiRegister extends JPanel implements ActionListener {
 	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==backButton){
-			mainFrame.setMainContent(new KozossegiLogin(mainFrame));
+			mainFrame.setMainContent(new KozossegiLogin());
 		}
 		if(e.getSource()==registerButton){
 			if(!nameField.getText().isEmpty()){
@@ -117,7 +117,7 @@ public class KozossegiRegister extends JPanel implements ActionListener {
 															if(inviterField.getText().isEmpty() || mainFrame.getController().isValidInviterCode(Integer.parseInt(inviterField.getText()))){
 																mainFrame.getController().addProfile(new KozossegiProfileBean(nameField.getText(),0,birthPanel.getBirthDate(),genderPanel.getMaleButton().isSelected()?true:false,"","","","",emailField.getText(),new String(passwordField.getPassword()),inviterField.getText().isEmpty()?0:Integer.parseInt(inviterField.getText()),"kep2.jpg"));
 																JOptionPane.showMessageDialog(mainFrame, Labels.SUCCESSFUL_REGISTRATION, Labels.OPTION_PANE_SUCCESS, JOptionPane.INFORMATION_MESSAGE);
-																mainFrame.setMainContent(new KozossegiLogin(mainFrame));
+																mainFrame.setMainContent(new KozossegiLogin());
 															}
 															else{
 																JOptionPane.showMessageDialog(mainFrame, Labels.NOT_VALID_INVITER_CODE, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);

@@ -24,8 +24,8 @@ public class KozossegiClubMenu extends JPanel {
 	private JScrollPane ownClubScroll;
 	private JScrollPane tagClubScroll;
 	
-	public KozossegiClubMenu(KozossegiMainFrame mainFrame) {
-		this.mainFrame = mainFrame;
+	public KozossegiClubMenu() {
+		this.mainFrame = KozossegiMainFrame.getInstance();
 		ownClubPanel = new JPanel();
 		tagClubPanel = new JPanel();
 		ownClubLabel = new JLabel(Labels.CLUB_OWNER);

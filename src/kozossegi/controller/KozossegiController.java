@@ -20,7 +20,7 @@ public class KozossegiController{
 	
 	//GUI
 	public void startDesktop() {
-		new KozossegiMainFrame(this);		
+		KozossegiMainFrame.setController(this);
 	}
 
 	//DAO connect
@@ -36,8 +36,8 @@ public class KozossegiController{
 		return dao.getMiniature(id);
 	}
 
-	public List<KozossegiPostData> getPostData(int startinterval, int endinterval) {
-		return dao.getPostData(startinterval, endinterval);
+	public List<KozossegiPostData> getPostData(int startinterval, int endinterval, int id) {
+		return dao.getPostData(startinterval, endinterval,id);
 	}
 
 	public List<KozossegiNotificationBean> getNotifications(int startinterval, int endinterval) {
@@ -143,6 +143,10 @@ public class KozossegiController{
 	}
 	public KozossegiProfileNameBean getNameById(int id) {
 		return dao.getNameById(id);
+	}
+	public void sendPost(KozossegiPostData data)
+	{
+		dao.sendPost(data);
 	}
 	
 }

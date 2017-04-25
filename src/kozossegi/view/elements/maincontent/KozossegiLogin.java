@@ -30,8 +30,8 @@ public class KozossegiLogin extends JPanel implements ActionListener {
 	private JButton registerButton;
 
 	
-	public KozossegiLogin(KozossegiMainFrame mainFrame) {
-		this.mainFrame = mainFrame;
+	public KozossegiLogin() {
+		mainFrame = KozossegiMainFrame.getInstance();
 		userDataPanel = new JPanel();
 		buttonsPanel = new JPanel();
 		emailField = new JTextField("VinczeKrisztina@teleworm.us");
@@ -67,21 +67,23 @@ public class KozossegiLogin extends JPanel implements ActionListener {
 		if(e.getSource()==loginButton){
 			if(!emailField.getText().isEmpty()){
 				if(passwordField.getPassword().length!=0){	
-					KozossegiProfileMiniatureBean login=mainFrame.getController().login(emailField.getText(), new String(passwordField.getPassword()));
+					KozossegiProfileMiniatureBean login=KozossegiMainFrame.getInstance().getController().login(emailField.getText(), new String(passwordField.getPassword()));
 					if(login!=null)
 					{
-						mainFrame.login(login.getId());
+						KozossegiMainFrame.getInstance().login(login.getId());
 					}
 					else
 					{
 						JOptionPane.showMessageDialog(mainFrame, Labels.INVALID_LOGIN_INFORMATION, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);
 					}
 				}
-				else{
+				else
+				{
 					JOptionPane.showMessageDialog(mainFrame, Labels.EMPTY_PASSWORD, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);
 				}
 			}
-			else{
+			else
+			{
 				JOptionPane.showMessageDialog(mainFrame, Labels.EMPTY_EMAIL, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);
 			}
 		}

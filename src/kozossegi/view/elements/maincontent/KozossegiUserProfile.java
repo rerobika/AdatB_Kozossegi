@@ -51,9 +51,9 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 	private JButton clubCreateButton;
 	private JButton friendRequestButton;
 	
-	public KozossegiUserProfile(KozossegiMainFrame mainFrame,KozossegiProfileBean profile)  {
+	public KozossegiUserProfile(KozossegiProfileBean profile)  {
 		super(profile);
-		this.mainFrame = mainFrame;
+		this.mainFrame = KozossegiMainFrame.getInstance();
 		this.profile = profile;
 		friendsPanel = new JPanel();
 		createClubPanel = new JPanel();
@@ -87,7 +87,7 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						mainFrame.getController().markAsFriend(mainFrame.getProfile().getId(), profile.getId());
-						mainFrame.setMainContent(new KozossegiUserProfile(mainFrame, profile));
+						mainFrame.setMainContent(new KozossegiUserProfile(profile));
 					}
 				});
 			}
@@ -102,7 +102,7 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 						@Override
 						public void actionPerformed(ActionEvent e) {
 							mainFrame.getController().removeMark(mainFrame.getProfile().getId(), profile.getId());
-							mainFrame.setMainContent(new KozossegiUserProfile(mainFrame, profile));
+							mainFrame.setMainContent(new KozossegiUserProfile(profile));
 						}
 					});
 				}
@@ -115,7 +115,7 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 						@Override
 						public void actionPerformed(ActionEvent e) {
 							mainFrame.getController().confirmFriend(mainFrame.getProfile().getId(), profile.getId());
-							mainFrame.setMainContent(new KozossegiUserProfile(mainFrame, profile));
+							mainFrame.setMainContent(new KozossegiUserProfile(profile));
 						}
 					});
 				}

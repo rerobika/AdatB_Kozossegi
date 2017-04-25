@@ -1,10 +1,10 @@
 package kozossegi.view.elements;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
-import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
@@ -18,14 +18,23 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 import kozossegi.Labels;
 import kozossegi.bean.KozossegiPostData;
 import kozossegi.dao.KozossegiImageManager;
 
 public class KozossegiPost extends JPanel{
+	private static final long serialVersionUID = 7755087122308505879L;
 	KozossegiPostData data;
+	public KozossegiPostData getData() {
+		return data;
+	}
+	public void setData(KozossegiPostData data) {
+		this.data = data;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	public KozossegiPost(KozossegiPostData data) {
 		super();
 		this.data=data;
@@ -46,14 +55,16 @@ public class KozossegiPost extends JPanel{
 		String t[]=data.getContent().split("http://");
 		if(t.length>1)
 		{
-			System.out.println("asd");
 			String t2[] =t[1].split(" ");
 			
 					try 
 					{
-						add(new JLabel(new ImageIcon(KozossegiImageManager.download(new URL("http://"+t2[0]).toURI().toURL()).getScaledInstance(400, 200, Image.SCALE_FAST))));
-						
-					} catch (MalformedURLException | URISyntaxException  | NullPointerException e) {
+						JLabel img =new JLabel(new ImageIcon(KozossegiImageManager.download(new URL("http://"+t2[0]).toURI().toURL()).getScaledInstance(256, 256, Image.SCALE_FAST)));
+						img.setAlignmentX(Component.CENTER_ALIGNMENT);
+						add(img);
+					} 
+					catch (MalformedURLException | URISyntaxException  | NullPointerException e) 
+					{
 						
 					}
 		}	
@@ -61,9 +72,17 @@ public class KozossegiPost extends JPanel{
 		text.setLineWrap(true);
 		text.setEditable(false);
 		add(text);
+		if(data.getComment()!=null)
+		for(KozossegiPostData d : data.getComment())
+		{
+			KozossegiPost a = new KozossegiPost(d);
+			a.setMaximumSize(new Dimension(200, 100));
+			add(a);
+		}
 		if(data.getParent()==0)
 		{
 			JButton comment = new JButton(Labels.COMMENT);
+			comment.setAlignmentX(Component.CENTER_ALIGNMENT);
 			add(comment);
 			comment.addActionListener(new ActionListener() {
 				
@@ -76,12 +95,7 @@ public class KozossegiPost extends JPanel{
 				}
 			});
 		}
-		else
-		{
-
-		}
 		setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		
 	}
 	
 }

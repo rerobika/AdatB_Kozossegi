@@ -19,7 +19,8 @@ public class KozossegiProfileInfo extends JPanel {
 	private JLabel nameLabel;
 	private JLabel profilePictureLabel;
 	
-	public KozossegiProfileInfo(final KozossegiMainFrame mainFrame) {		
+	public KozossegiProfileInfo() {		
+		KozossegiMainFrame mainFrame = KozossegiMainFrame.getInstance();
 		setBorder(BorderFactory.createLineBorder(Color.black));
 		setLayout(new BorderLayout());
 		profilePictureLabel = new JLabel(new ImageIcon(mainFrame.getProfile().getProfilepic()));
@@ -29,7 +30,7 @@ public class KozossegiProfileInfo extends JPanel {
 		nameLabel.setHorizontalAlignment(SwingConstants.CENTER);				
 		addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				mainFrame.setMainContent(new KozossegiUserProfile(mainFrame, mainFrame.getProfile()));
+				mainFrame.setMainContent(new KozossegiUserProfile(mainFrame.getProfile()));
 			}
 		});
 		

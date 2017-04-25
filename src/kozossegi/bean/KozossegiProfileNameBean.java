@@ -8,6 +8,11 @@ public class KozossegiProfileNameBean {
 		this.id = id;
 		this.name = name;
 	}
+	public KozossegiProfileNameBean(KozossegiProfileMiniatureBean b){
+		super();
+		this.id=b.getId();
+		this.name=b.getName();
+	}
 	public int getId() {
 		return id;
 	}
@@ -19,6 +24,9 @@ public class KozossegiProfileNameBean {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}	
+	public String toString(){
+		return name;
+		
 	}
-	
 }

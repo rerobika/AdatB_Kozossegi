@@ -38,8 +38,8 @@ public class KozossegiMessages extends JPanel implements ActionListener {
 	private JButton messageSendButton;
 	private KozossegiProfileMiniatureBean conversationPartner;
 
-	public KozossegiMessages(final KozossegiMainFrame mainFrame) {
-		this.mainFrame = mainFrame;
+	public KozossegiMessages() {
+		this.mainFrame = KozossegiMainFrame.getInstance();
 		friendListPanel = new JPanel();
 		conversationPanel = new JPanel();
 		sendMessagePanel = new JPanel();

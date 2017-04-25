@@ -17,7 +17,8 @@ import kozossegi.view.elements.KozossegiProfileMiniature;
 public class KozossegiFriendManagement extends JPanel {
 	private static final long serialVersionUID = 376657845468532264L;
 
-	public KozossegiFriendManagement(KozossegiMainFrame mainFrame,KozossegiProfileBean profile) {
+	public KozossegiFriendManagement(KozossegiProfileBean profile) {
+		KozossegiMainFrame mainFrame = KozossegiMainFrame.getInstance();
 		JPanel pendingRequest = new JPanel();
 		JPanel friends = new JPanel();
 		JLabel reqLabel = new JLabel(Labels.PENDING_REQUEST);
@@ -44,7 +45,7 @@ public class KozossegiFriendManagement extends JPanel {
 			pendingRequest.add(miniature);
 			miniature.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
-					mainFrame.setMainContent(new KozossegiUserProfile(mainFrame,mainFrame.getController().getProfile(miniature.getData().getId())));
+					mainFrame.setMainContent(new KozossegiUserProfile(mainFrame.getController().getProfile(miniature.getData().getId())));
 				}
 			});
 		}
