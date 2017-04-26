@@ -44,7 +44,6 @@ public class KozossegiProfile extends JPanel{
 		postPanel.add(initPostPanel());
 		
 		contentTabbedPane.addTab(Labels.PROFIL_WALL, wallPanel);
-		contentTabbedPane.addTab(Labels.PROFIL_INFO, infoPanel);
 		contentTabbedPane.addTab(Labels.PROFIL_ALBUMS, albumsPanel);
 		
 				

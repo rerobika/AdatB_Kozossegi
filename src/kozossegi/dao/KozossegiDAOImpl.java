@@ -100,10 +100,6 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 
 	}
 
-	public KozossegiAlbumBean getAlbumByID(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	public List<KozossegiPostData> getPostData(int startinterval, int endinterval,int id) {
 		List<KozossegiPostData> post = new ArrayList<KozossegiPostData>();
@@ -734,5 +730,11 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			System.out.println("Error while listing user's friends!");
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public List<KozossegiAlbumBean> getAlbums(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

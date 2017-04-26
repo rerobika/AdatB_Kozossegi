@@ -19,7 +19,6 @@ public interface KozossegiDAO {
 	public List<KozossegiProfileMiniatureBean> getMembers(int id);
 	public KozossegiProfileMiniatureBean getMiniature(int id);
 	public Image getImageByID(int id);
-	public KozossegiAlbumBean getAlbumByID(int id);
 	public List<KozossegiPostData> getPostData(int startinterval,int endinterval,int id);
 	public List<KozossegiPostData> getCommentData(int id);
 	public void sendPost(KozossegiPostData data);
@@ -48,5 +47,6 @@ public interface KozossegiDAO {
 	public void updateProfilePicture(int id, int picId);
 	public KozossegiProfileMiniatureBean login(String email,String password);
 	public List<KozossegiProfileMiniatureBean> getPendingFriends(int id);
-	public KozossegiProfileNameBean getNameById(int id);	
+	public KozossegiProfileNameBean getNameById(int id);
+	public List<KozossegiAlbumBean> getAlbums(int id);
 }

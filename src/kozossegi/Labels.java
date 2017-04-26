@@ -87,6 +87,8 @@ public class Labels {
 	public static final String PROFILE_PICTURE_URL = "https://image.freepik.com/free-icon/profile-user_318-80283.jpg";
 	public static final String PROFILE_PICTURE_ICO_URL = "https://rog.asus.com/forum/images/site_icons/profile.png";
 	public static final String LOGO_URL = "http://www.utahvalleybraces.com/sesame_media/images/invisalign-pro-package/logo-twitter.png";
+	public static final String ADD_PICTURE_URL = "http://www.utahvalleybraces.com/sesame_media/images/invisalign-pro-package/logo-twitter.png";
+	
 
 	// LOGIN
 	public static final String LOGIN_BUTTON = "Bejelentkezés";

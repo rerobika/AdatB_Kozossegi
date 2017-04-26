@@ -1,15 +1,20 @@
 package kozossegi.view.elements.maincontent;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.Calendar;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -20,8 +25,10 @@ import javax.swing.JTextField;
 
 import kozossegi.Labels;
 import kozossegi.Labels.KozossegiFriendState;
+import kozossegi.bean.KozossegiAlbumBean;
 import kozossegi.bean.KozossegiProfileBean;
 import kozossegi.bean.KozossegiRelation;
+import kozossegi.dao.KozossegiImageManager;
 import kozossegi.view.KozossegiMainFrame;
 import kozossegi.view.elements.KozossegiBirthDayPicker;
 import kozossegi.view.elements.KozossegiGenderPicker;
@@ -55,20 +62,49 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 		super(profile);
 		this.mainFrame = KozossegiMainFrame.getInstance();
 		this.profile = profile;
-		friendsPanel = new JPanel();
+		friendsPanel = new KozossegiFriendManagement(profile);
 		createClubPanel = new JPanel();
 		contentTabbedPane.addTab(Labels.PROFIL_FRIENDS, friendsPanel);
 		if(profile.getId() == mainFrame.getProfileMiniature().getId()){
 			contentTabbedPane.addTab(Labels.PROFIL_EDIT, editPanel);
 			contentTabbedPane.addTab(Labels.PROFIL_CREATE_CLUB, createClubPanel);
 		}
-		
+		if(profile.getId() != mainFrame.getProfileMiniature().getId()){
+			contentTabbedPane.addTab(Labels.PROFIL_INFO, infoPanel);
+			
+		}
 		initTopPanel();
 		initInfoPanel();
 		initEditPanel();
 		initCreateClubPanel();
+		initAlbumPanel();
 	}
 	
+	private void initAlbumPanel() {
+		for(KozossegiAlbumBean b : mainFrame.getController().getAlbums(profile.getId())){
+			albumsPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+			JLabel albumName = new JLabel(b.getName());
+			albumName.setPreferredSize(new Dimension(750, 40));
+			add(albumName);
+			for(Image i : b.getImages()){
+				if(i!=null)
+				{
+					addPicture(i);
+					
+				}
+				Image add_picture = KozossegiImageManager.download(Labels.FILESERVER_PATH+"/add_picture.jpg");
+				addPicture(add_picture);
+			}
+		}
+		
+	}
+	private void addPicture(Image i){
+		JLabel image = new JLabel(new ImageIcon(i));
+		image.setPreferredSize(new Dimension(64, 64));
+		image.setBorder(BorderFactory.createLineBorder(Color.black));
+		add(image);
+	}
+
 	private void initTopPanel() {
 		friendRequestButton = new JButton(Labels.PROFILE_SEND_FRIEND_REQUEST);
 		topPanel.setLayout(new FlowLayout(FlowLayout.CENTER));

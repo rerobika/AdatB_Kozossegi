@@ -1,8 +1,10 @@
 	package kozossegi.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
+import kozossegi.bean.KozossegiAlbumBean;
 import kozossegi.bean.KozossegiMessageBean;
 import kozossegi.bean.KozossegiNotificationBean;
 import kozossegi.bean.KozossegiPostData;
@@ -149,4 +151,7 @@ public class KozossegiController{
 		dao.sendPost(data);
 	}
 	
+	public List<KozossegiAlbumBean> getAlbums(int id){
+		return new ArrayList<KozossegiAlbumBean>();
+	}
 }
