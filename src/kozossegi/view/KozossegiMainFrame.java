@@ -74,7 +74,7 @@ public class KozossegiMainFrame extends JFrame{
 		
 		getContentPane().setLayout(new BorderLayout(20,20));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setResizable(false);
+		//setResizable(false);
 		setTitle(Labels.MAIN_FRAME_TITLE);		
 		getContentPane().add(mainContentPanel, BorderLayout.CENTER);		
 		getContentPane().add(leftSideContentPanel, BorderLayout.WEST);		
@@ -182,5 +182,9 @@ public class KozossegiMainFrame extends JFrame{
 		setMainContent(new KozossegiNewsFeed());
 	}
 
+
+	public JPanel getMainContentPanel() {
+		return mainContentPanel;
+	}
 	
 }

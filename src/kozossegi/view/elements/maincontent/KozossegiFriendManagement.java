@@ -28,6 +28,22 @@ public class KozossegiFriendManagement extends JPanel {
 		friends.setLayout(new FlowLayout(FlowLayout.LEFT));
 		
 		
+		if(profile.getId() == mainFrame.getProfileMiniature().getId()){
+			for(KozossegiProfileMiniatureBean p: mainFrame.getController().getPendingFriends(profile.getId()))
+			{
+				KozossegiProfileMiniature  miniature = new KozossegiProfileMiniature(p); 
+				pendingRequest.add(miniature);
+				miniature.addMouseListener(new MouseAdapter() {
+					public void mouseClicked(MouseEvent e) {
+						mainFrame.setMainContent(new KozossegiUserProfile(mainFrame.getController().getProfile(miniature.getData().getId())));
+					}
+				});
+			}
+			reqLabel.setPreferredSize(new Dimension(mainFrame.getWidth(), 40));
+			add(reqLabel);
+			add(pendingRequest);	
+		}
+		
 		for(KozossegiProfileMiniatureBean p: mainFrame.getController().getFriends(profile.getId()))
 		{
 			KozossegiProfileMiniature  miniature = new KozossegiProfileMiniature(p); 
@@ -37,25 +53,10 @@ public class KozossegiFriendManagement extends JPanel {
 					mainFrame.setMainContent(new KozossegiProfile(mainFrame.getController().getProfile(miniature.getData().getId())));
 				}
 			});
+			
 		}
 		
-		for(KozossegiProfileMiniatureBean p: mainFrame.getController().getPendingFriends(profile.getId()))
-		{
-			KozossegiProfileMiniature  miniature = new KozossegiProfileMiniature(p); 
-			pendingRequest.add(miniature);
-			miniature.addMouseListener(new MouseAdapter() {
-				public void mouseClicked(MouseEvent e) {
-					mainFrame.setMainContent(new KozossegiUserProfile(mainFrame.getController().getProfile(miniature.getData().getId())));
-				}
-			});
-		}
-		
-		
-		
-		reqLabel.setPreferredSize(new Dimension(750, 40));
-		add(reqLabel);
-		add(pendingRequest);		
-		friendLabel.setPreferredSize(new Dimension(750, 40));
+		friendLabel.setPreferredSize(new Dimension(mainFrame.getWidth(), 40));
 		add(friendLabel);
 		add(friends);
 	}

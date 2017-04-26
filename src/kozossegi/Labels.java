@@ -188,7 +188,7 @@ public class Labels {
 	public static final String PROFILE_CONFIRM_FRIEND = "Visszaigazolás";
 	public static final String PROFILE_IS_ALREADY_AVALIABLE = "Ilyen bejegyzés már létezik, válaszd ki a listából!";
 	public static final String PROFILE_SUCCESSFUL_ADD = "Sikeres hozzáadás!";
-	public static final String PROFILE_EMPTY_ADD = "Üresen hagytad a szövegdobozt!";
+	public static final String PROFILE_EMPTY_ADD = "Üresen hagytad a szövegmezőt!";
 	
 	public enum KozossegiFriendState{
 		NON_FRIENDS, PENDING, FRIENDS

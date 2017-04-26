@@ -59,6 +59,7 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 	private JButton clubResetButton;
 	private JButton clubCreateButton;
 	private JButton friendRequestButton;
+	private JTextField albumNameField;
 	
 	public KozossegiUserProfile(KozossegiProfileBean profile)  {
 		super(profile);
@@ -66,13 +67,13 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 		this.profile = profile;
 		friendsPanel = new KozossegiFriendManagement(profile);
 		createClubPanel = new JPanel();
-		contentTabbedPane.addTab(Labels.PROFIL_FRIENDS, friendsPanel);
+		contentTabbedPane.addTab(Labels.PROFIL_INFO, infoPanel);
 		if(profile.getId() == mainFrame.getProfileMiniature().getId()){
 			contentTabbedPane.addTab(Labels.PROFIL_EDIT, editPanel);
 			contentTabbedPane.addTab(Labels.PROFIL_CREATE_CLUB, createClubPanel);
 		}
 		if(profile.getId() != mainFrame.getProfileMiniature().getId()){
-			contentTabbedPane.addTab(Labels.PROFIL_INFO, infoPanel);
+			contentTabbedPane.addTab(Labels.PROFIL_FRIENDS, friendsPanel);
 			
 		}
 		initTopPanel();
@@ -83,10 +84,27 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 	}
 	
 	private void initAlbumPanel() {
+		//CREATE ALBUM
+		albumsPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+		JPanel createAlbumPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		createAlbumPanel.setPreferredSize(new Dimension(mainFrame.getMainContentPanel().getWidth()-15, 40));
+		JLabel createAlbumName = new JLabel(Labels.PROFIL_ADD_NEW);
+		albumNameField = new JTextField();
+		albumNameField.setPreferredSize(new Dimension(150, 20));
+		createAlbumPanel.add(createAlbumName);
+		createAlbumPanel.add(albumNameField);
+		createAlbumPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+		albumsPanel.add(createAlbumPanel);
+		
+		if(mainFrame.getProfile().getId()==profile.getId()){
+			addNewAlbumWithImage();
+		}
+		
+		//LIST ALBUMS
 		for(KozossegiAlbumBean b : mainFrame.getController().getAlbums(profile.getId())){
 			albumsPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 			JLabel albumName = new JLabel(b.getName());
-			albumName.setPreferredSize(new Dimension(750, 40));
+			albumName.setPreferredSize(new Dimension(mainFrame.getWidth(), 40));
 			add(albumName);
 			for(Image i : b.getImages()){
 				if(i!=null)
@@ -94,7 +112,7 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 					JLabel image = new JLabel(new ImageIcon(i));
 					image.setPreferredSize(new Dimension(64, 64));
 					image.setBorder(BorderFactory.createLineBorder(Color.black));
-					add(image);
+					albumsPanel.add(image);
 				}				
 			}
 			if(mainFrame.getProfile().getId()==profile.getId()){
@@ -104,11 +122,11 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 		
 	}
 	private void addNewPicture(String albumName){
-		Image add_picture = KozossegiImageManager.download(Labels.FILESERVER_PATH+"/add_picture.jpg");
+		Image add_picture = KozossegiImageManager.download(Labels.FILESERVER_PATH+"add_picture.png");
 		JLabel image = new JLabel(new ImageIcon(add_picture));
 		image.setPreferredSize(new Dimension(64, 64));
 		image.setBorder(BorderFactory.createLineBorder(Color.black));
-		add(image);
+		albumsPanel.add(image);
 		image.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				KozossegiPictureSelector pictureSelector = new KozossegiPictureSelector();
@@ -117,6 +135,31 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 					mainFrame.initializeUserData();
 					mainFrame.revalidate();
 					mainFrame.repaint();
+				}
+			}
+		});
+	}
+	
+	private void addNewAlbumWithImage(){
+		Image add_picture = KozossegiImageManager.download(Labels.FILESERVER_PATH+"add_picture.png");
+		JLabel image = new JLabel(new ImageIcon(add_picture));
+		image.setPreferredSize(new Dimension(64, 64));
+		image.setBorder(BorderFactory.createLineBorder(Color.black));
+		albumsPanel.add(image);
+		image.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				KozossegiPictureSelector pictureSelector = new KozossegiPictureSelector();
+				if(pictureSelector.isValidImage().equals(fileScan.SUCCES)){
+					if(!albumNameField.getText().isEmpty()){
+						mainFrame.getController().uploadPicture(pictureSelector.getSelectedFile(), albumNameField.getText(), mainFrame.getProfile().getId());
+						JOptionPane.showMessageDialog(mainFrame, Labels.PROFILE_SUCCESSFUL_ADD, Labels.OPTION_PANE_SUCCESS, JOptionPane.INFORMATION_MESSAGE);
+						mainFrame.initializeUserData();
+						mainFrame.revalidate();
+						mainFrame.repaint();
+					}
+					else{
+						JOptionPane.showMessageDialog(mainFrame, Labels.PROFILE_EMPTY_ADD, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);
+					}
 				}
 			}
 		});
