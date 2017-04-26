@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Calendar;
 
 import javax.swing.BorderFactory;
@@ -89,20 +91,35 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 			for(Image i : b.getImages()){
 				if(i!=null)
 				{
-					addPicture(i);
-					
-				}
-				Image add_picture = KozossegiImageManager.download(Labels.FILESERVER_PATH+"/add_picture.jpg");
-				addPicture(add_picture);
+					JLabel image = new JLabel(new ImageIcon(i));
+					image.setPreferredSize(new Dimension(64, 64));
+					image.setBorder(BorderFactory.createLineBorder(Color.black));
+					add(image);
+				}				
+			}
+			if(mainFrame.getProfile().getId()==profile.getId()){
+				addNewPicture(b.getName());
 			}
 		}
 		
 	}
-	private void addPicture(Image i){
-		JLabel image = new JLabel(new ImageIcon(i));
+	private void addNewPicture(String albumName){
+		Image add_picture = KozossegiImageManager.download(Labels.FILESERVER_PATH+"/add_picture.jpg");
+		JLabel image = new JLabel(new ImageIcon(add_picture));
 		image.setPreferredSize(new Dimension(64, 64));
 		image.setBorder(BorderFactory.createLineBorder(Color.black));
 		add(image);
+		image.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				KozossegiPictureSelector pictureSelector = new KozossegiPictureSelector();
+				if(pictureSelector.isValidImage().equals(fileScan.SUCCES)){
+					mainFrame.getController().uploadPicture(pictureSelector.getSelectedFile(), albumName, mainFrame.getProfile().getId());
+					mainFrame.initializeUserData();
+					mainFrame.revalidate();
+					mainFrame.repaint();
+				}
+			}
+		});
 	}
 
 	private void initTopPanel() {
