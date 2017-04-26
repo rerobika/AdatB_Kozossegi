@@ -734,7 +734,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 
 	@Override
 	public List<KozossegiAlbumBean> getAlbums(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		//TODO
+		return new ArrayList<KozossegiAlbumBean>();
 	}
 }

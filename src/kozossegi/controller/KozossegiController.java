@@ -1,7 +1,6 @@
 	package kozossegi.controller;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import kozossegi.bean.KozossegiAlbumBean;
@@ -152,6 +151,6 @@ public class KozossegiController{
 	}
 	
 	public List<KozossegiAlbumBean> getAlbums(int id){
-		return new ArrayList<KozossegiAlbumBean>();
+		return dao.getAlbums(id);
 	}
 }
