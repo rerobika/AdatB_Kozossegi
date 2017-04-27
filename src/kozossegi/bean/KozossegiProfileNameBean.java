@@ -13,6 +13,10 @@ public class KozossegiProfileNameBean {
 		this.id=b.getId();
 		this.name=b.getName();
 	}
+	public KozossegiProfileNameBean(KozossegiProfileBean profile) {
+		this.id=profile.getId();
+		this.name=profile.getName();
+	}
 	public int getId() {
 		return id;
 	}

@@ -1,5 +1,6 @@
 	package kozossegi.controller;
 
+import java.awt.Image;
 import java.io.File;
 import java.util.List;
 
@@ -149,8 +150,11 @@ public class KozossegiController{
 	{
 		dao.sendPost(data);
 	}
-	
 	public List<KozossegiAlbumBean> getAlbums(int id){
 		return dao.getAlbums(id);
+	}
+	public Image getImageByID(int id)
+	{
+		return dao.getImageByID(id);
 	}
 }

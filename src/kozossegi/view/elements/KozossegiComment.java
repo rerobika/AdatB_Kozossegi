@@ -8,6 +8,8 @@ import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import kozossegi.Labels;
 import kozossegi.bean.KozossegiPostData;
@@ -25,6 +27,7 @@ public class KozossegiComment extends JPanel{
 		JTextArea text;
 		JButton send;
 		text= new JTextArea(10,20);
+		text.setLineWrap(true);
 		send = new JButton(Labels.MESSAGE_SEND);
 		send.addActionListener(new ActionListener() {
 			

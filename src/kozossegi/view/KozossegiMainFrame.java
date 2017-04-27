@@ -169,9 +169,7 @@ public class KozossegiMainFrame extends JFrame{
 		if(friendList==null)
 		{
 			friendList=controller.getFriends(profile.getId());
-			System.out.println("asda");
-		}
-			
+		}	
 		return friendList;
 	}
 	public void login(int id)
@@ -179,7 +177,7 @@ public class KozossegiMainFrame extends JFrame{
 		profile = controller.getProfile(id);
 		initializeUserData();
 		initializeViewElements();
-		setMainContent(new KozossegiNewsFeed());
+		setMainContent(new KozossegiNewsFeed(profile));
 	}
 
 

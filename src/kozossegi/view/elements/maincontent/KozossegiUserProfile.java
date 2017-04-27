@@ -1,7 +1,5 @@
 package kozossegi.view.elements.maincontent;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -10,13 +8,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
-import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -32,6 +29,7 @@ import kozossegi.bean.KozossegiProfileBean;
 import kozossegi.bean.KozossegiRelation;
 import kozossegi.dao.KozossegiImageManager;
 import kozossegi.view.KozossegiMainFrame;
+import kozossegi.view.elements.KozossegiAlbum;
 import kozossegi.view.elements.KozossegiBirthDayPicker;
 import kozossegi.view.elements.KozossegiGenderPicker;
 import kozossegi.view.elements.KozossegiPictureSelector;
@@ -58,8 +56,6 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 	private JTextArea clubDescriptionTextArea;
 	private JButton clubResetButton;
 	private JButton clubCreateButton;
-	private JButton friendRequestButton;
-	private JTextField albumNameField;
 	
 	public KozossegiUserProfile(KozossegiProfileBean profile)  {
 		super(profile);
@@ -80,93 +76,10 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 		initInfoPanel();
 		initEditPanel();
 		initCreateClubPanel();
-		initAlbumPanel();
 	}
 	
-	private void initAlbumPanel() {
-		//CREATE ALBUM
-		albumsPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-		JPanel createAlbumPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		createAlbumPanel.setPreferredSize(new Dimension(mainFrame.getMainContentPanel().getWidth()-15, 40));
-		JLabel createAlbumName = new JLabel(Labels.PROFIL_ADD_NEW);
-		albumNameField = new JTextField();
-		albumNameField.setPreferredSize(new Dimension(150, 20));
-		createAlbumPanel.add(createAlbumName);
-		createAlbumPanel.add(albumNameField);
-		createAlbumPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-		albumsPanel.add(createAlbumPanel);
-		
-		if(mainFrame.getProfile().getId()==profile.getId()){
-			addNewAlbumWithImage();
-		}
-		
-		//LIST ALBUMS
-		for(KozossegiAlbumBean b : mainFrame.getController().getAlbums(profile.getId())){
-			albumsPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-			JLabel albumName = new JLabel(b.getName());
-			albumName.setPreferredSize(new Dimension(mainFrame.getWidth(), 40));
-			add(albumName);
-			for(Image i : b.getImages()){
-				if(i!=null)
-				{
-					JLabel image = new JLabel(new ImageIcon(i));
-					image.setPreferredSize(new Dimension(64, 64));
-					image.setBorder(BorderFactory.createLineBorder(Color.black));
-					albumsPanel.add(image);
-				}				
-			}
-			if(mainFrame.getProfile().getId()==profile.getId()){
-				addNewPicture(b.getName());
-			}
-		}
-		
-	}
-	private void addNewPicture(String albumName){
-		Image add_picture = KozossegiImageManager.download(Labels.FILESERVER_PATH+"add_picture.png");
-		JLabel image = new JLabel(new ImageIcon(add_picture));
-		image.setPreferredSize(new Dimension(64, 64));
-		image.setBorder(BorderFactory.createLineBorder(Color.black));
-		albumsPanel.add(image);
-		image.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				KozossegiPictureSelector pictureSelector = new KozossegiPictureSelector();
-				if(pictureSelector.isValidImage().equals(fileScan.SUCCES)){
-					mainFrame.getController().uploadPicture(pictureSelector.getSelectedFile(), albumName, mainFrame.getProfile().getId());
-					mainFrame.initializeUserData();
-					mainFrame.revalidate();
-					mainFrame.repaint();
-				}
-			}
-		});
-	}
 	
-	private void addNewAlbumWithImage(){
-		Image add_picture = KozossegiImageManager.download(Labels.FILESERVER_PATH+"add_picture.png");
-		JLabel image = new JLabel(new ImageIcon(add_picture));
-		image.setPreferredSize(new Dimension(64, 64));
-		image.setBorder(BorderFactory.createLineBorder(Color.black));
-		albumsPanel.add(image);
-		image.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				KozossegiPictureSelector pictureSelector = new KozossegiPictureSelector();
-				if(pictureSelector.isValidImage().equals(fileScan.SUCCES)){
-					if(!albumNameField.getText().isEmpty()){
-						mainFrame.getController().uploadPicture(pictureSelector.getSelectedFile(), albumNameField.getText(), mainFrame.getProfile().getId());
-						JOptionPane.showMessageDialog(mainFrame, Labels.PROFILE_SUCCESSFUL_ADD, Labels.OPTION_PANE_SUCCESS, JOptionPane.INFORMATION_MESSAGE);
-						mainFrame.initializeUserData();
-						mainFrame.revalidate();
-						mainFrame.repaint();
-					}
-					else{
-						JOptionPane.showMessageDialog(mainFrame, Labels.PROFILE_EMPTY_ADD, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);
-					}
-				}
-			}
-		});
-	}
-
 	private void initTopPanel() {
-		friendRequestButton = new JButton(Labels.PROFILE_SEND_FRIEND_REQUEST);
 		topPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 		JLabel name = new JLabel(profile.getName());
 		name.setFont(new Font("Serif", Font.BOLD, 18));
@@ -179,8 +92,6 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 				friendButton=new JButton(Labels.PROFILE_SEND_FRIEND_REQUEST);
 				topPanel.add(friendButton);
 				friendButton.addActionListener(new ActionListener() {
-					
-					@Override
 					public void actionPerformed(ActionEvent e) {
 						mainFrame.getController().markAsFriend(mainFrame.getProfile().getId(), profile.getId());
 						mainFrame.setMainContent(new KozossegiUserProfile(profile));
@@ -194,8 +105,6 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 					friendButton=new JButton(Labels.PROFILE_PENDING_FRIEND_REQUEST);
 					topPanel.add(friendButton);
 					friendButton.addActionListener(new ActionListener() {
-						
-						@Override
 						public void actionPerformed(ActionEvent e) {
 							mainFrame.getController().removeMark(mainFrame.getProfile().getId(), profile.getId());
 							mainFrame.setMainContent(new KozossegiUserProfile(profile));
@@ -207,8 +116,6 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 					friendButton=new JButton(Labels.PROFILE_CONFIRM_FRIEND);
 					topPanel.add(friendButton);
 					friendButton.addActionListener(new ActionListener() {
-						
-						@Override
 						public void actionPerformed(ActionEvent e) {
 							mainFrame.getController().confirmFriend(mainFrame.getProfile().getId(), profile.getId());
 							mainFrame.setMainContent(new KozossegiUserProfile(profile));
@@ -454,22 +361,6 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 			revalidate();
 		}		
 		
-		//FRIEND REQUEST
-		if(e.getSource()==friendRequestButton){
-			if(friendRequestButton.getText().equals(Labels.PROFILE_SEND_FRIEND_REQUEST)){
-				mainFrame.getController().markAsFriend(mainFrame.getProfile().getId(), profile.getId());
-				friendRequestButton.setText(Labels.PROFILE_PENDING_FRIEND_REQUEST);				
-				System.out.println("friend request sent");
-				return;
-			}
-			if(friendRequestButton.getText().equals(Labels.PROFILE_PENDING_FRIEND_REQUEST)){
-				//mainFrame.getController().undoFriend(mainFrame.getProfile().getId(), profile.getId());
-				friendRequestButton.setText(Labels.PROFILE_SEND_FRIEND_REQUEST);
-				System.out.println("friend request undo");
-			}
-			topPanel.repaint();
-			topPanel.revalidate();
-		}
 	}
 	
 	

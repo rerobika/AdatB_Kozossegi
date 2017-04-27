@@ -36,7 +36,6 @@ public class KozossegiBirthAndNamedayMenu extends JPanel {
 		birthdayPanel.setLayout(new BoxLayout(birthdayPanel, BoxLayout.Y_AXIS));
 		for(KozossegiProfileMiniatureBean c : this.mainFrame.getBirthdayList()){
 			birthdayPanel.add(new KozossegiProfileMiniature(c));
-			System.out.println(c);
 		}
 		
 		namedayPanel.setLayout(new BoxLayout(namedayPanel, BoxLayout.Y_AXIS));

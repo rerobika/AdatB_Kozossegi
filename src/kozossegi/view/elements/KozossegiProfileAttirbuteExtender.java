@@ -28,7 +28,6 @@ public class KozossegiProfileAttirbuteExtender extends JDialog {
 		add(okButton);
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(attribute.getText());
 				if(!attribute.getText().isEmpty()){
 					if(true){ // TODO SELECT nev FROM tablename WHERE nev LIKE attribute.getText() ures-e?
 						//TODO INSERT INTO tablename attribute.getText();

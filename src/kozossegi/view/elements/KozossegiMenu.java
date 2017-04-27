@@ -58,7 +58,7 @@ public class KozossegiMenu extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		mainFrame = KozossegiMainFrame.getInstance();
 		if(e.getSource()==newFeedButton){
-			mainFrame.setMainContent(new KozossegiNewsFeed());
+			mainFrame.setMainContent(new KozossegiNewsFeed(mainFrame.getProfile()));
 		}
 		if(e.getSource()==profilButton){
 			mainFrame.setMainContent(new KozossegiUserProfile(mainFrame.getProfile()));

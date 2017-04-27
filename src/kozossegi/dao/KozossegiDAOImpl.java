@@ -734,7 +734,43 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 
 	@Override
 	public List<KozossegiAlbumBean> getAlbums(int id) {
-		//TODO
-		return new ArrayList<KozossegiAlbumBean>();
+		List<KozossegiAlbumBean> data = new ArrayList<KozossegiAlbumBean>();
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.GET_ALBUMS);) {
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next())
+			{
+				data.add(new KozossegiAlbumBean(rs.getInt("FELHASZNALOID"), rs.getString("NEV"), rs.getDate("IDO"), getAlbum(rs.getString("NEV"), rs.getDate("IDO"))));
+			}
+			return data;
+		} catch (SQLException e) {
+			System.out.println("Error while listing user's friends!");
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	public List<Image> getAlbum(String name,Date created){
+		List<Image> data = new ArrayList<Image>();
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.GET_ALBUM);) {
+			ps.setString(1, name);
+			ps.setDate(2, new java.sql.Date(created.getTime()));
+			ResultSet rs = ps.executeQuery();
+			while(rs.next())
+			{
+				data.add(KozossegiImageManager.download(Labels.FILESERVER_PATH+rs.getString("ELERESIUT")));
+			}
+			return data;
+		} catch (SQLException e) {
+			System.out.println("Error while listing user's friends!");
+			e.printStackTrace();
+		}
+		
+		return null;
+		
 	}
 }

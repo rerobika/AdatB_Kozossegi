@@ -10,6 +10,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
@@ -17,6 +19,7 @@ import kozossegi.Labels;
 
 public class KozossegiImageManager 
 {
+	static Map<String,Image> cache = new HashMap<String,Image>();
 	public static String upload(File file,String name)
 	{
 		try 
@@ -52,19 +55,40 @@ public class KozossegiImageManager
 	}
 	public static Image download(URL file)
 	{
-		try {
-			return ImageIO.read(file);
-		} catch (IOException e1) {
-			e1.printStackTrace();
+		Image img=cache.get(file.toString());
+		if(img!=null)
+		{
+			return img;
 		}
+		else
+		{
+			try {
+				img= ImageIO.read(file);
+				cache.put(file.toString(), img);
+				return img;
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
 		return null;
 	}
 	public static Image download(String file)
 	{
-		try {
-			return ImageIO.read(new URL(file));
-		} catch (IOException e1) {
-			e1.printStackTrace();
+		Image img=cache.get(file);
+		if(img!=null)
+		{
+			return img;
+		}
+		else
+		{
+			try {
+				img= ImageIO.read(new URL(file));
+				cache.put(file, img);
+				return img;
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		}
 		return null;
 	}
