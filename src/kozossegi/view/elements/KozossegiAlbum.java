@@ -34,10 +34,19 @@ public class KozossegiAlbum extends JPanel {
 		JPanel images = new JPanel();
 		head.setLayout(new FlowLayout(FlowLayout.LEFT));
 		head.add(new JLabel(data.getName()));
+<<<<<<< HEAD
 		head.setBorder(BorderFactory.createLineBorder(Color.black));
 		images.setLayout(new GridLayout(0, 5, 2, 2));
 		for (KozossegiImage i : data.getImages()) {
 			JLabel ilabel = new JLabel(new ImageIcon(i.getImage().getScaledInstance(64, 64, Image.SCALE_FAST)));
+=======
+		// head.setPreferredSize(new
+		// Dimension(mainFrame.getMainContentPanel().getWidth()-15, 40));
+		head.setBorder(BorderFactory.createLineBorder(Color.black));
+		images.setLayout(new GridLayout(0, 5, 2, 2));
+		for (Image i : data.getImages()) {
+			JLabel ilabel = new JLabel(new ImageIcon(i.getScaledInstance(64, 64, Image.SCALE_FAST)));
+>>>>>>> 9e7b43d238024832b6fc0325d2cca208337fa1eb
 			images.add(ilabel);
 			ilabel.setBorder(BorderFactory.createLineBorder(Color.black));
 		}
