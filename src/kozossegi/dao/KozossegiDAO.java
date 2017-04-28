@@ -1,6 +1,7 @@
 package kozossegi.dao;
 
 import java.io.File;
+import java.sql.Connection;
 import java.util.List;
 
 import kozossegi.bean.KozossegiAlbumBean;
@@ -20,7 +21,7 @@ public interface KozossegiDAO {
 	public KozossegiProfileMiniatureBean getMiniature(int id);
 	public KozossegiImage getImageByID(int id);
 	public List<KozossegiPostData> getPostData(int startinterval,int endinterval,int id);
-	public List<KozossegiPostData> getCommentData(int id);
+	public List<KozossegiPostData> getCommentData(int id,Connection conn);
 	public void sendPost(KozossegiPostData data);
 	public List<KozossegiNotificationBean> getNotifications(int startinterval,int endinterval);
 	public boolean isUniqueEmail(String email);

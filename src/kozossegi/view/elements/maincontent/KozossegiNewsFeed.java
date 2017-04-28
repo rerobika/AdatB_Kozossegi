@@ -37,7 +37,7 @@ public class KozossegiNewsFeed extends JPanel {
 	public void update() {
 		feed.removeAll();
 
-		for (KozossegiPostData d : KozossegiMainFrame.getInstance().getController().getPostData(0, 10,
+		for (KozossegiPostData d : KozossegiMainFrame.getInstance().getController().getPostData(0, 20,
 				profile.getId())) {
 			feed.add(new KozossegiPost(this, d));
 			feed.add(Box.createRigidArea(new Dimension(10, 10)));

@@ -113,8 +113,8 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				
-				post.add(new KozossegiPostData(rs.getInt("ID"), getNameById(rs.getInt("FELADO")), 
-						getNameById(rs.getInt("CIMZETT")), rs.getDate("IDO"), rs.getString("TARTALOM"), getCommentData(rs.getInt("ID")), rs.getInt("SZULO")));
+				post.add(new KozossegiPostData(rs.getInt("ID"), new KozossegiProfileNameBean(rs.getInt("FELADO"),rs.getString("FELADONEV")), 
+						new KozossegiProfileNameBean(rs.getInt("CIMZETT"),rs.getString("CIMZETTNEV")), rs.getDate("IDO"), rs.getString("TARTALOM"), getCommentData(rs.getInt("ID"),conn), rs.getInt("SZULO")));
 			}
 
 		} catch (SQLException e) {
@@ -686,11 +686,9 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 	}
 
 	@Override
-	public List<KozossegiPostData> getCommentData(int id) {
+	public List<KozossegiPostData> getCommentData(int id,Connection conn) {
 		List<KozossegiPostData> comment = new ArrayList<KozossegiPostData>();
-		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
-				Labels.DATABASE_USER, Labels.DATABASE_PASS);
-				PreparedStatement ps = conn.prepareStatement(Labels.GET_COMMENTS);) {
+		try (PreparedStatement ps = conn.prepareStatement(Labels.GET_COMMENTS);) {
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -741,7 +739,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
 			{
-				data.add(new KozossegiAlbumBean(rs.getInt("FELHASZNALOID"), rs.getString("NEV"), rs.getTimestamp("IDO"), getAlbum(rs.getString("NEV"), rs.getTimestamp("IDO"))));
+				data.add(new KozossegiAlbumBean(rs.getInt("FELHASZNALOID"), rs.getString("NEV"), rs.getTimestamp("IDO"), getAlbum(rs.getString("NEV"), rs.getTimestamp("IDO"),conn)));
 			}
 			return data;
 		} catch (SQLException e) {
@@ -751,11 +749,9 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		
 		return null;
 	}
-	public List<KozossegiImage> getAlbum(String name,Timestamp created){
+	public List<KozossegiImage> getAlbum(String name,Timestamp created,Connection conn){
 		List<KozossegiImage> data = new ArrayList<KozossegiImage>();
-		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
-				Labels.DATABASE_USER, Labels.DATABASE_PASS);
-				PreparedStatement ps = conn.prepareStatement(Labels.GET_ALBUM);) {
+		try (PreparedStatement ps = conn.prepareStatement(Labels.GET_ALBUM);) {
 			ps.setString(1, name);
 			ps.setTimestamp(2,created);
 			ResultSet rs = ps.executeQuery();

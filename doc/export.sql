@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  File created - szombat-április-22-2017   
+--  File created - péntek-április-28-2017   
 --------------------------------------------------------
 DROP TABLE "ALBUM" cascade constraints;
 DROP TABLE "ERTESITES" cascade constraints;
@@ -27,6 +27,7 @@ DROP SEQUENCE "MUNKAHELY_SEQ";
 DROP SEQUENCE "POSZT_SEQ";
 DROP PROCEDURE "REGISTER";
 DROP PROCEDURE "SZEMELYHOZZAAD";
+DROP FUNCTION "ADDIMAGE";
 --------------------------------------------------------
 --  DDL for Table ALBUM
 --------------------------------------------------------
@@ -111,7 +112,8 @@ DROP PROCEDURE "SZEMELYHOZZAAD";
    (	"ALBUMNEV" VARCHAR2(20 BYTE), 
 	"ALBUMIDO" TIMESTAMP (6), 
 	"ELERESIUT" VARCHAR2(255 BYTE), 
-	"ID" NUMBER
+	"ID" NUMBER, 
+	"POSZTID" NUMBER
    ) SEGMENT CREATION IMMEDIATE 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
@@ -251,7 +253,7 @@ DROP PROCEDURE "SZEMELYHOZZAAD";
 --  DDL for Sequence FELHASZNALO_SEQ
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "FELHASZNALO_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1023 CACHE 20 NOORDER  NOCYCLE ;
+   CREATE SEQUENCE  "FELHASZNALO_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1063 CACHE 20 NOORDER  NOCYCLE ;
 --------------------------------------------------------
 --  DDL for Sequence HOBBI_SEQ
 --------------------------------------------------------
@@ -266,7 +268,7 @@ DROP PROCEDURE "SZEMELYHOZZAAD";
 --  DDL for Sequence KEPEK_SEQ
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "KEPEK_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 41 CACHE 20 NOORDER  NOCYCLE ;
+   CREATE SEQUENCE  "KEPEK_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 161 CACHE 20 NOORDER  NOCYCLE ;
 --------------------------------------------------------
 --  DDL for Sequence LAKHELY_SEQ
 --------------------------------------------------------
@@ -281,13 +283,12 @@ DROP PROCEDURE "SZEMELYHOZZAAD";
 --  DDL for Sequence POSZT_SEQ
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "POSZT_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
+   CREATE SEQUENCE  "POSZT_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 124 CACHE 20 NOORDER  NOCYCLE ;
 REM INSERTING into ALBUM
 SET DEFINE OFF;
-Insert into ALBUM (FELHASZNALOID,NEV,IDO) values ('730','Az ablum',to_timestamp('17-MÁRC. -31 16.01.13,194000000','RR-MON-DD HH24.MI.SSXFF'));
-Insert into ALBUM (FELHASZNALOID,NEV,IDO) values ('729','Album2',to_timestamp('17-MÁRC. -31 16.01.33,370000000','RR-MON-DD HH24.MI.SSXFF'));
-Insert into ALBUM (FELHASZNALOID,NEV,IDO) values ('1010','Profilképek',to_timestamp('22-ÁPR.  -17 00.00.00,000000000','RR-MON-DD HH24.MI.SSXFF'));
-Insert into ALBUM (FELHASZNALOID,NEV,IDO) values ('1020','Profilképek',to_timestamp('17-ÁPR.  -22 01.15.41,808000000','RR-MON-DD HH24.MI.SSXFF'));
+Insert into ALBUM (FELHASZNALOID,NEV,IDO) values ('1044','Profilképek',to_timestamp('17-ÁPR.  -28 11.25.05,188000000','RR-MON-DD HH24.MI.SSXFF'));
+Insert into ALBUM (FELHASZNALOID,NEV,IDO) values ('670','neha',to_timestamp('17-ÁPR.  -28 11.30.06,479000000','RR-MON-DD HH24.MI.SSXFF'));
+Insert into ALBUM (FELHASZNALOID,NEV,IDO) values ('1045','Profilképek',to_timestamp('17-ÁPR.  -28 11.36.43,087000000','RR-MON-DD HH24.MI.SSXFF'));
 REM INSERTING into ERTESITES
 SET DEFINE OFF;
 Insert into ERTESITES (KINEK,IDO,SZOVEG) values ('725',to_timestamp('17-MÁRC. -31 16.01.58,826000000','RR-MON-DD HH24.MI.SSXFF'),'ASDFASDF');
@@ -741,7 +742,13 @@ Insert into FELHASZNALO (ID,NEV) values ('461','Kardos Tünde');
 Insert into FELHASZNALO (ID,NEV) values ('1','asdf asdf');
 Insert into FELHASZNALO (ID,NEV) values ('2','VALAKI');
 Insert into FELHASZNALO (ID,NEV) values ('1010','Kovacs Imre');
+Insert into FELHASZNALO (ID,NEV) values ('1026','jozsef ur');
+Insert into FELHASZNALO (ID,NEV) values ('1044','Valaki Valaki');
+Insert into FELHASZNALO (ID,NEV) values ('1023','asdfa');
+Insert into FELHASZNALO (ID,NEV) values ('1024','asdfasdf');
+Insert into FELHASZNALO (ID,NEV) values ('1025','asdqwe');
 Insert into FELHASZNALO (ID,NEV) values ('1020','Kovacs Jozsef');
+Insert into FELHASZNALO (ID,NEV) values ('1045','Valaki2');
 REM INSERTING into HOBBI
 SET DEFINE OFF;
 Insert into HOBBI (HOBBIID,NEV) values ('1','Agyagozás');
@@ -1071,15 +1078,16 @@ Insert into ISMER (KIID,KIVELID,STATUSZ,IDO) values ('730','714','1',to_timestam
 Insert into ISMER (KIID,KIVELID,STATUSZ,IDO) values ('650','740','1',to_timestamp('17-FEBR. -03 11.34.21,889000000','RR-MON-DD HH24.MI.SSXFF'));
 Insert into ISMER (KIID,KIVELID,STATUSZ,IDO) values ('674','675','1',to_timestamp('17-ÁPR.  -01 11.34.42,417000000','RR-MON-DD HH24.MI.SSXFF'));
 Insert into ISMER (KIID,KIVELID,STATUSZ,IDO) values ('670','675','1',to_timestamp('17-ÁPR.  -20 15.48.00,404000000','RR-MON-DD HH24.MI.SSXFF'));
+Insert into ISMER (KIID,KIVELID,STATUSZ,IDO) values ('1026','1020','1',to_timestamp('17-ÁPR.  -23 19.14.08,000000000','RR-MON-DD HH24.MI.SSXFF'));
 Insert into ISMER (KIID,KIVELID,STATUSZ,IDO) values ('678','670','1',to_timestamp('17-ÁPR.  -20 19.10.30,813000000','RR-MON-DD HH24.MI.SSXFF'));
 Insert into ISMER (KIID,KIVELID,STATUSZ,IDO) values ('670','679','1',to_timestamp('17-ÁPR.  -20 19.26.21,061000000','RR-MON-DD HH24.MI.SSXFF'));
 Insert into ISMER (KIID,KIVELID,STATUSZ,IDO) values ('675','679','1',to_timestamp('17-ÁPR.  -20 22.35.38,439000000','RR-MON-DD HH24.MI.SSXFF'));
 Insert into ISMER (KIID,KIVELID,STATUSZ,IDO) values ('675','740','1',to_timestamp('17-ÁPR.  -20 22.35.55,559000000','RR-MON-DD HH24.MI.SSXFF'));
+Insert into ISMER (KIID,KIVELID,STATUSZ,IDO) values ('1020','670','1',to_timestamp('17-ÁPR.  -24 23.32.01,000000000','RR-MON-DD HH24.MI.SSXFF'));
 REM INSERTING into KEPEK
 SET DEFINE OFF;
-Insert into KEPEK (ALBUMNEV,ALBUMIDO,ELERESIUT,ID) values ('Album2',to_timestamp('17-MÁRC. -31 16.01.33,370000000','RR-MON-DD HH24.MI.SSXFF'),'upload/kep1.jpg','1');
-Insert into KEPEK (ALBUMNEV,ALBUMIDO,ELERESIUT,ID) values ('Profilképek',to_timestamp('22-ÁPR.  -17 00.00.00,000000000','RR-MON-DD HH24.MI.SSXFF'),'kep2.jpg','22');
-Insert into KEPEK (ALBUMNEV,ALBUMIDO,ELERESIUT,ID) values ('Profilképek',to_timestamp('17-ÁPR.  -22 01.15.41,808000000','RR-MON-DD HH24.MI.SSXFF'),'upload/1492816541kep2.jpg','28');
+Insert into KEPEK (ALBUMNEV,ALBUMIDO,ELERESIUT,ID,POSZTID) values ('neha',to_timestamp('17-ÁPR.  -28 11.30.06,479000000','RR-MON-DD HH24.MI.SSXFF'),'http://localhost:80/Kozossegi/upload/149337180613453854_1368875973127497_1069609054_n.jpg','144','109');
+Insert into KEPEK (ALBUMNEV,ALBUMIDO,ELERESIUT,ID,POSZTID) values ('Profilképek',to_timestamp('17-ÁPR.  -28 11.36.43,087000000','RR-MON-DD HH24.MI.SSXFF'),'http://localhost:80/Kozossegi/kep2.jpg','145',null);
 REM INSERTING into KLUB
 SET DEFINE OFF;
 Insert into KLUB (ID,TULAJDONOS,KEZDET,LEIRAS) values ('897','752',to_date('17-MÁRC. -29','RR-MON-DD'),'Sportfogadással foglalkozó csoport. Ha hirdetni, reklámozni szeretnél írj egy Nyerõ Tippmix/Tippek adminnak');
@@ -2988,18 +2996,27 @@ Insert into NEVNAP (NEV,HONAP,NAP) values ('Hubert','3','20');
 Insert into NEVNAP (NEV,HONAP,NAP) values ('Huberta','3','20');
 REM INSERTING into POSZT
 SET DEFINE OFF;
-Insert into POSZT (FELADO,ID,CIMZETT,IDO,TARTALOM,SZULO) values ('670','1','671',to_timestamp('17-ÁPR.  -01 11.40.16,761000000','RR-MON-DD HH24.MI.SSXFF'),'Üdv.',null);
-Insert into POSZT (FELADO,ID,CIMZETT,IDO,TARTALOM,SZULO) values ('671','2','670',to_timestamp('17-ÁPR.  -01 11.40.40,848000000','RR-MON-DD HH24.MI.SSXFF'),'Szia.','2');
+Insert into POSZT (FELADO,ID,CIMZETT,IDO,TARTALOM,SZULO) values ('670','109',null,to_timestamp('17-ÁPR.  -28 11.30.06,481000000','RR-MON-DD HH24.MI.SSXFF'),'A felhasználó feltöltött egy képet a(z) neha albumba.http://localhost:80/Kozossegi/upload/149337180613453854_1368875973127497_1069609054_n.jpg',null);
+Insert into POSZT (FELADO,ID,CIMZETT,IDO,TARTALOM,SZULO) values ('670','106',null,to_timestamp('17-ÁPR.  -28 11.29.46,000000000','RR-MON-DD HH24.MI.SSXFF'),'asd',null);
+Insert into POSZT (FELADO,ID,CIMZETT,IDO,TARTALOM,SZULO) values ('670','107','675',to_timestamp('17-ÁPR.  -28 11.29.49,000000000','RR-MON-DD HH24.MI.SSXFF'),'asdasd',null);
+Insert into POSZT (FELADO,ID,CIMZETT,IDO,TARTALOM,SZULO) values ('670','108',null,to_timestamp('17-ÁPR.  -28 11.29.52,000000000','RR-MON-DD HH24.MI.SSXFF'),'asdfasd','107');
+Insert into POSZT (FELADO,ID,CIMZETT,IDO,TARTALOM,SZULO) values ('1044','110',null,to_timestamp('17-ÁPR.  -28 11.36.13,000000000','RR-MON-DD HH24.MI.SSXFF'),'asdf',null);
 REM INSERTING into PROFIL
 SET DEFINE OFF;
-Insert into PROFIL (SZEMELYID,SZUL_DATUM,NEM,LAKHELYID,ISKOLAID,HOBBIID,MUNKAHELYID,MEGHIVO,PROFILKEP) values ('670',to_date('97-ÁPR.  -11','RR-MON-DD'),'1','1','125','14','3',null,'1');
+Insert into PROFIL (SZEMELYID,SZUL_DATUM,NEM,LAKHELYID,ISKOLAID,HOBBIID,MUNKAHELYID,MEGHIVO,PROFILKEP) values ('670',to_date('97-ÁPR.  -11','RR-MON-DD'),'1','1','125','14','3',null,'141');
 Insert into PROFIL (SZEMELYID,SZUL_DATUM,NEM,LAKHELYID,ISKOLAID,HOBBIID,MUNKAHELYID,MEGHIVO,PROFILKEP) values ('671',to_date('18-ÁPR.  -14','RR-MON-DD'),'1','1','325','25','1',null,'1');
+Insert into PROFIL (SZEMELYID,SZUL_DATUM,NEM,LAKHELYID,ISKOLAID,HOBBIID,MUNKAHELYID,MEGHIVO,PROFILKEP) values ('1023',to_date('99-FEBR. -03','RR-MON-DD'),'1','21','325','61','21','670','85');
 Insert into PROFIL (SZEMELYID,SZUL_DATUM,NEM,LAKHELYID,ISKOLAID,HOBBIID,MUNKAHELYID,MEGHIVO,PROFILKEP) values ('675',to_date('17-ÁPR.  -20','RR-MON-DD'),'1','2','152','23','4',null,'2');
 Insert into PROFIL (SZEMELYID,SZUL_DATUM,NEM,LAKHELYID,ISKOLAID,HOBBIID,MUNKAHELYID,MEGHIVO,PROFILKEP) values ('678',to_date('17-ÁPR.  -26','RR-MON-DD'),'1','1','121','31','3',null,'3');
 Insert into PROFIL (SZEMELYID,SZUL_DATUM,NEM,LAKHELYID,ISKOLAID,HOBBIID,MUNKAHELYID,MEGHIVO,PROFILKEP) values ('679',to_date('17-ÁPR.  -20','RR-MON-DD'),'1','1','121','21','3',null,null);
 Insert into PROFIL (SZEMELYID,SZUL_DATUM,NEM,LAKHELYID,ISKOLAID,HOBBIID,MUNKAHELYID,MEGHIVO,PROFILKEP) values ('674',to_date('17-ÁPR.  -20','RR-MON-DD'),'1','1','125','25','2',null,'2');
+Insert into PROFIL (SZEMELYID,SZUL_DATUM,NEM,LAKHELYID,ISKOLAID,HOBBIID,MUNKAHELYID,MEGHIVO,PROFILKEP) values ('1044',to_date('99-FEBR. -01','RR-MON-DD'),'1','21','375','61','21','670','143');
 Insert into PROFIL (SZEMELYID,SZUL_DATUM,NEM,LAKHELYID,ISKOLAID,HOBBIID,MUNKAHELYID,MEGHIVO,PROFILKEP) values ('1010',to_date('11-DEC.  -21','RR-MON-DD'),'1','1','125','25','1','670','22');
+Insert into PROFIL (SZEMELYID,SZUL_DATUM,NEM,LAKHELYID,ISKOLAID,HOBBIID,MUNKAHELYID,MEGHIVO,PROFILKEP) values ('1024',to_date('99-FEBR. -01','RR-MON-DD'),'1','21','325','61','21','1023','86');
+Insert into PROFIL (SZEMELYID,SZUL_DATUM,NEM,LAKHELYID,ISKOLAID,HOBBIID,MUNKAHELYID,MEGHIVO,PROFILKEP) values ('1026',to_date('73-FEBR. -01','RR-MON-DD'),'1','21','375','61','21','0','89');
+Insert into PROFIL (SZEMELYID,SZUL_DATUM,NEM,LAKHELYID,ISKOLAID,HOBBIID,MUNKAHELYID,MEGHIVO,PROFILKEP) values ('1025',to_date('99-MÁRC. -13','RR-MON-DD'),'1','21','325','61','21','1010','87');
 Insert into PROFIL (SZEMELYID,SZUL_DATUM,NEM,LAKHELYID,ISKOLAID,HOBBIID,MUNKAHELYID,MEGHIVO,PROFILKEP) values ('1020',to_date('17-ÁPR.  -22','RR-MON-DD'),'1','1','371','43','1','670','28');
+Insert into PROFIL (SZEMELYID,SZUL_DATUM,NEM,LAKHELYID,ISKOLAID,HOBBIID,MUNKAHELYID,MEGHIVO,PROFILKEP) values ('1045',to_date('99-FEBR. -01','RR-MON-DD'),'1','21','375','61','21','0','145');
 REM INSERTING into SZEMELY
 SET DEFINE OFF;
 Insert into SZEMELY (ID,JELSZO,EMAIL) values ('623','Shah9IChoh','SimkoVince@armyspy.com');
@@ -3436,8 +3453,14 @@ Insert into SZEMELY (ID,JELSZO,EMAIL) values ('619','OeJohBie5ei','LovaszEmese@j
 Insert into SZEMELY (ID,JELSZO,EMAIL) values ('620','Ayahd1rooR6','SebeokFruzsina@rhyta.com');
 Insert into SZEMELY (ID,JELSZO,EMAIL) values ('621','euHiaxoh8oo','SzollosyAntal@armyspy.com');
 Insert into SZEMELY (ID,JELSZO,EMAIL) values ('622','ooJu1iegh6X','SzakatsBarbara@teleworm.us');
+Insert into SZEMELY (ID,JELSZO,EMAIL) values ('1025','asdqwe','asdqwe@asdqwe.hu');
+Insert into SZEMELY (ID,JELSZO,EMAIL) values ('1026','asdasd','jozsef@neha.hu');
 Insert into SZEMELY (ID,JELSZO,EMAIL) values ('1010','ASD','imre@asd.hu');
+Insert into SZEMELY (ID,JELSZO,EMAIL) values ('1023','[C@4a03e27a','asdfasd@asdf.ju');
+Insert into SZEMELY (ID,JELSZO,EMAIL) values ('1024','asdfasdf','asdfasdfasdf@asdf.ji');
+Insert into SZEMELY (ID,JELSZO,EMAIL) values ('1044','asdasd','valaki@valaki.hu');
 Insert into SZEMELY (ID,JELSZO,EMAIL) values ('1020','neha','jozsi@asd.hu');
+Insert into SZEMELY (ID,JELSZO,EMAIL) values ('1045','asdasd','valaki2@valaki.hu');
 REM INSERTING into TAGJA
 SET DEFINE OFF;
 Insert into TAGJA (SZEMELYID,KLUBID) values ('625','900');
@@ -3463,8 +3486,14 @@ Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('675','670',to_timestamp(
 Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('675','670',to_timestamp('17-ÁPR.  -21 00.09.49,000000000','RR-MON-DD HH24.MI.SSXFF'),'asdfasdfasdfasdfasdfasdsdfasdfasdfasdfasdsdfasdfasdfasdfasdsdfasdfasdfasdfasdsdfasdfasdfasdfasdsdfasdfasdfasdfasdsdfasdfasdfasdfasdsdfasdfasdfasdfasdsdfasdfasdfasdfasd');
 Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('675','670',to_timestamp('17-ÁPR.  -21 00.09.57,000000000','RR-MON-DD HH24.MI.SSXFF'),'asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd');
 Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('675','670',to_timestamp('17-ÁPR.  -21 00.11.25,000000000','RR-MON-DD HH24.MI.SSXFF'),'asdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdfasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdfasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdfasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdfasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdf');
+Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('670','675',to_timestamp('17-ÁPR.  -23 14.10.16,000000000','RR-MON-DD HH24.MI.SSXFF'),'asdf');
+Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('670','1020',to_timestamp('17-ÁPR.  -23 14.10.20,000000000','RR-MON-DD HH24.MI.SSXFF'),'asd');
 Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('675','670',to_timestamp('17-ÁPR.  -21 00.09.31,000000000','RR-MON-DD HH24.MI.SSXFF'),'asdfas');
 Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('675','670',to_timestamp('17-ÁPR.  -21 00.09.35,000000000','RR-MON-DD HH24.MI.SSXFF'),'asdfasdfasdfasdfasdf');
+Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('670','675',to_timestamp('17-ÁPR.  -23 14.10.33,000000000','RR-MON-DD HH24.MI.SSXFF'),'asdf');
+Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('670','675',to_timestamp('17-ÁPR.  -23 14.10.34,000000000','RR-MON-DD HH24.MI.SSXFF'),'asdf');
+Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('670','675',to_timestamp('17-ÁPR.  -23 14.10.30,000000000','RR-MON-DD HH24.MI.SSXFF'),'asdf');
+Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('670','675',to_timestamp('17-ÁPR.  -23 14.10.32,000000000','RR-MON-DD HH24.MI.SSXFF'),'asd');
 Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('675','674',to_timestamp('17-ÁPR.  -21 01.05.06,000000000','RR-MON-DD HH24.MI.SSXFF'),'asd');
 Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('670','675',to_timestamp('17-ÁPR.  -21 17.10.37,000000000','RR-MON-DD HH24.MI.SSXFF'),'asdfasd');
 Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('670','678',to_timestamp('17-ÁPR.  -21 17.10.41,000000000','RR-MON-DD HH24.MI.SSXFF'),'asdf');
@@ -3487,15 +3516,6 @@ Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('670','675',to_timestamp(
 --------------------------------------------------------
 
   CREATE UNIQUE INDEX "ALBUM_PK" ON "ALBUM" ("IDO", "NEV") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index ALBUM_UK1
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "ALBUM_UK1" ON "ALBUM" ("IDO") 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
@@ -3813,14 +3833,34 @@ call h668895.klubhozzaad('a klub2',30,'jo lesz');*/
 
 /
 --------------------------------------------------------
+--  DDL for Function ADDIMAGE
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "ADDIMAGE" (V_ELERESIUT IN STRING,V_ALBUMNEV IN STRING,V_ID IN INT) RETURN INT IS 
+ PRAGMA AUTONOMOUS_TRANSACTION;
+ V_IDO TIMESTAMP;
+ V_ALBUM ALBUM%ROWTYPE;
+BEGIN 
+  SELECT * INTO V_ALBUM FROM ALBUM  WHERE ALBUM.NEV=V_ALBUMNEV AND ALBUM.FELHASZNALOID=V_ID;
+  INSERT INTO POSZT(FELADO,IDO,TARTALOM) VALUES(V_ID,SYSTIMESTAMP,'A felhasználó feltöltött egy képet a(z) '||V_ALBUMNEV||' albumba.'||V_ELERESIUT);
+  INSERT INTO KEPEK(ALBUMNEV,ALBUMIDO,ELERESIUT,POSZTID) VALUES(V_ALBUM.NEV,V_ALBUM.IDO,V_ELERESIUT,POSZT_SEQ.CURRVAL);
+  COMMIT;
+  RETURN KEPEK_SEQ.CURRVAL;
+  EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+    V_IDO :=SYSTIMESTAMP;
+    INSERT INTO ALBUM(FELHASZNALOID,NEV,IDO) VALUES(V_ID,V_ALBUMNEV,V_IDO);
+    INSERT INTO POSZT(FELADO,IDO,TARTALOM) VALUES(V_ID,SYSTIMESTAMP,'A felhasználó feltöltött egy képet a(z) '||V_ALBUMNEV||' albumba.'||V_ELERESIUT);
+    INSERT INTO KEPEK(ALBUMNEV,ALBUMIDO,ELERESIUT,POSZTID) VALUES(V_ALBUMNEV,V_IDO,V_ELERESIUT,POSZT_SEQ.CURRVAL);  
+    COMMIT;
+    RETURN KEPEK_SEQ.CURRVAL;
+END;
+
+/
+--------------------------------------------------------
 --  Constraints for Table ALBUM
 --------------------------------------------------------
 
-  ALTER TABLE "ALBUM" ADD CONSTRAINT "ALBUM_UK1" UNIQUE ("IDO")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS"  ENABLE;
   ALTER TABLE "ALBUM" ADD CONSTRAINT "ALBUM_PK" PRIMARY KEY ("IDO", "NEV")
   USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
@@ -4014,6 +4054,8 @@ call h668895.klubhozzaad('a klub2',30,'jo lesz');*/
 
   ALTER TABLE "KEPEK" ADD CONSTRAINT "KEPEK_FK1" FOREIGN KEY ("ALBUMIDO", "ALBUMNEV")
 	  REFERENCES "ALBUM" ("IDO", "NEV") ON DELETE CASCADE ENABLE;
+  ALTER TABLE "KEPEK" ADD CONSTRAINT "KEPEK_FK2" FOREIGN KEY ("POSZTID")
+	  REFERENCES "POSZT" ("ID") ENABLE;
 --------------------------------------------------------
 --  Ref Constraints for Table KLUB
 --------------------------------------------------------
@@ -4030,8 +4072,8 @@ call h668895.klubhozzaad('a klub2',30,'jo lesz');*/
 	  REFERENCES "FELHASZNALO" ("ID") ON DELETE CASCADE ENABLE;
   ALTER TABLE "POSZT" ADD CONSTRAINT "POSZT_FK2" FOREIGN KEY ("CIMZETT")
 	  REFERENCES "FELHASZNALO" ("ID") ON DELETE CASCADE ENABLE;
-  ALTER TABLE "POSZT" ADD CONSTRAINT "POSZT_FK3" FOREIGN KEY ("SZULO")
-	  REFERENCES "FELHASZNALO" ("ID") ON DELETE CASCADE ENABLE;
+  ALTER TABLE "POSZT" ADD CONSTRAINT "POSZT_FK3" FOREIGN KEY ("ID")
+	  REFERENCES "POSZT" ("ID") ON DELETE CASCADE ENABLE;
 --------------------------------------------------------
 --  Ref Constraints for Table PROFIL
 --------------------------------------------------------

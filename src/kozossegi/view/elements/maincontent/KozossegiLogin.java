@@ -63,7 +63,7 @@ public class KozossegiLogin extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==registerButton){
-			mainFrame.setMainContent(new KozossegiRegister(mainFrame));
+			KozossegiMainFrame.getInstance().setMainContent(new KozossegiRegister(KozossegiMainFrame.getInstance()));
 		}
 		if(e.getSource()==loginButton){
 			if(!emailField.getText().isEmpty()){

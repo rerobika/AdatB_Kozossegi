@@ -11,7 +11,7 @@ public class KozossegiImage {
 	int postid;
 	public KozossegiImage(URL url, int postid) {
 		super();
-		this.image = KozossegiImageManager.download(url);
+		this.image = KozossegiImageManager.download(url).getScaledInstance(256, 256, Image.SCALE_FAST);
 		this.url = url;
 		this.postid = postid;
 	}
