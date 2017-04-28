@@ -24,78 +24,93 @@ import javax.swing.JTextArea;
 import kozossegi.Labels;
 import kozossegi.bean.KozossegiPostData;
 import kozossegi.dao.KozossegiImageManager;
+import kozossegi.view.elements.maincontent.KozossegiNewsFeed;
 
-public class KozossegiPost extends JPanel{
+public class KozossegiPost extends JPanel {
 	private static final long serialVersionUID = 7755087122308505879L;
-	KozossegiPostData data;
+	private KozossegiPostData data;
+	private KozossegiNewsFeed feed;
+
+	public KozossegiNewsFeed getFeed() {
+		return feed;
+	}
+
+	public void setFeed(KozossegiNewsFeed feed) {
+		this.feed = feed;
+	}
+
 	public KozossegiPostData getData() {
 		return data;
 	}
+
 	public void setData(KozossegiPostData data) {
 		this.data = data;
 	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	public KozossegiPost(KozossegiPostData data) {
+
+	public KozossegiPost(KozossegiNewsFeed feed, KozossegiPostData data) {
 		super();
-		this.data=data;
+		this.data = data;
+		this.feed = feed;
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		JPanel head = new JPanel();
 		head.setLayout(new FlowLayout(FlowLayout.LEFT));
 		head.add(new KozossegiProfileName(data.getSender()));
-		if(data.getReceiver()!=null)
-		{
+		if (data.getReceiver() != null) {
 			head.add(new JLabel("->"));
 			head.add(new KozossegiProfileName(data.getReceiver()));
 		}
 		head.add(new JLabel(data.getTime().toString()));
 		head.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		add(head);
-		
+
 		JTextArea text;
-		String t[]=data.getContent().split("http://");
-		if(t.length>1)
-		{
-			String t2[] =t[1].split(" ");	
-					try 
-					{
-						JLabel img =new JLabel(new ImageIcon(KozossegiImageManager.download(new URL("http://"+t2[0]).toURI().toURL()).getScaledInstance(256, 256, Image.SCALE_FAST)));
-						img.setAlignmentX(Component.CENTER_ALIGNMENT);
-						add(img);
-					} 
-					catch (MalformedURLException | URISyntaxException  | NullPointerException e) 
-					{
-						
-					}
-		}	
-		text = new JTextArea(data.getContent(),2,20);
+		String content = data.getContent();
+		String t[] = data.getContent().split("http://");
+
+		if (t.length > 1) {
+			String t2[] = t[1].split(" ");
+			try {
+				JLabel img = new JLabel(
+						new ImageIcon(KozossegiImageManager.download(new URL("http://" + t2[0]).toURI().toURL())
+								.getScaledInstance(256, 256, Image.SCALE_FAST)));
+				img.setAlignmentX(Component.CENTER_ALIGNMENT);
+				add(img);
+			} catch (MalformedURLException | URISyntaxException | NullPointerException e) {
+
+			}
+			content = t[0];
+			for (int i=1;i<t2.length;i++) {
+				content += t2[i];
+			}
+		}
+
+		text = new JTextArea(content, 5, 20);
 		text.setLineWrap(true);
 		text.setEditable(false);
 		add(text);
-		if(data.getComment()!=null)
-		{
+		if (data.getComment() != null) {
 			JPanel comments = new JPanel();
-			comments.setLayout(new GridLayout(0, 3,10,5));
-			for(KozossegiPostData d : data.getComment())
-			{
-				KozossegiPost a = new KozossegiPost(d);
+			comments.setLayout(new GridLayout(0, 3, 10, 5));
+			for (KozossegiPostData d : data.getComment()) {
+				KozossegiPost a = new KozossegiPost(feed, d);
 				comments.add(Box.createRigidArea(new Dimension(10, 10)));
 				comments.add(a);
 				comments.add(Box.createRigidArea(new Dimension(10, 10)));
 			}
 			add(comments);
 		}
-		if(data.getParent()==0)
-		{
-			
+		if (data.getParent() == 0) {
 			JButton comment = new JButton(Labels.COMMENT);
 			comment.setAlignmentX(Component.CENTER_ALIGNMENT);
 			add(Box.createRigidArea(new Dimension(10, 10)));
-			add(comment);		
+			add(comment);
 			comment.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					add(new KozossegiComment(KozossegiPost.this));		
+					add(new KozossegiComment(KozossegiPost.this));
 					KozossegiPost.this.remove(comment);
 					KozossegiPost.this.revalidate();
 					KozossegiPost.this.repaint();
@@ -104,7 +119,7 @@ public class KozossegiPost extends JPanel{
 			});
 		}
 		setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		
+
 		setMaximumSize(getPreferredSize());
 	}
 }

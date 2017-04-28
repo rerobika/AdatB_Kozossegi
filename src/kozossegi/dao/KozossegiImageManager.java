@@ -46,7 +46,7 @@ public class KozossegiImageManager
 	        String s = in.readLine();
 	        in.close();
 	        is.close();
-	        return s;
+	        return Labels.FILESERVER_PATH+s;
 		} 
 		catch (Exception e) {
 			e.printStackTrace();

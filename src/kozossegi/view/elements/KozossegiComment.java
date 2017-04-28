@@ -36,6 +36,7 @@ public class KozossegiComment extends JPanel{
 				mainFrame.getController().sendPost(new KozossegiPostData(new KozossegiProfileNameBean(mainFrame.getProfile().getId(),mainFrame.getProfile().getName()),
 						null, new Date(), text.getText(),post.getData().getId()));
 				text.setText("");
+				post.getFeed().update();
 			}
 		});
 		add(text);

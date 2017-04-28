@@ -23,7 +23,7 @@ public class KozossegiProfileInfo extends JPanel {
 		KozossegiMainFrame mainFrame = KozossegiMainFrame.getInstance();
 		setBorder(BorderFactory.createLineBorder(Color.black));
 		setLayout(new BorderLayout());
-		profilePictureLabel = new JLabel(new ImageIcon(mainFrame.getProfile().getProfilepic()));
+		profilePictureLabel = new JLabel(new ImageIcon(mainFrame.getProfile().getProfilepic().getImage()));
 		profilePictureLabel.setBorder(BorderFactory.createLineBorder(Color.black));		
 			
 		nameLabel= new JLabel(mainFrame.getProfile().getName());

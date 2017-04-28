@@ -1,23 +1,23 @@
 package kozossegi.dao;
 
-import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.imageio.ImageIO;
-
 import kozossegi.Labels;
 import kozossegi.Labels.KozossegiFriendState;
 import kozossegi.bean.KozossegiAlbumBean;
+import kozossegi.bean.KozossegiImage;
 import kozossegi.bean.KozossegiMessageBean;
 import kozossegi.bean.KozossegiNotificationBean;
 import kozossegi.bean.KozossegiPostData;
@@ -50,7 +50,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				friends.add(new KozossegiProfileMiniatureBean(rs.getInt("ID"), rs.getString("NEV"),
-						getImageByID(rs.getInt("PROFILKEP")).getScaledInstance(32, 32, Image.SCALE_FAST)));
+						getImageByID(rs.getInt("PROFILKEP"))));
 			}
 
 		} catch (SQLException e) {
@@ -70,7 +70,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		return null;
 	}
 
-	public Image getImageByID(int id) {
+	public KozossegiImage getImageByID(int id) {
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
 				PreparedStatement ps = conn.prepareStatement(Labels.GET_IMAGEBYID);) {
@@ -80,12 +80,11 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			try {
 				if (!rs.next())
 				{
-					return ImageIO.read(new URL(Labels.PROFILE_PICTURE_URL)).getScaledInstance(256, 256,
-							Image.SCALE_FAST);
+					return new KozossegiImage(new URL(Labels.PROFILE_PICTURE_URL),0);
 				}
 				else
 				{
-					return ImageIO.read(new URL(Labels.FILESERVER_PATH + rs.getString("ELERESIUT"))).getScaledInstance(256,	256, Image.SCALE_FAST);
+					return new KozossegiImage(new URL(rs.getString("ELERESIUT")),rs.getInt("POSZTID"));
 				}
 				
 			} catch (IOException e1) {
@@ -140,7 +139,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			
-			Image img = null;
+			KozossegiImage img = null;
 			
 			if(rs.next())
 			{	
@@ -216,7 +215,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				bday.add(new KozossegiProfileMiniatureBean(rs.getInt("ID"), rs.getString("NEV"),
-						getImageByID(rs.getInt("PROFILKEP")).getScaledInstance(32, 32, Image.SCALE_FAST)));
+						getImageByID(rs.getInt("PROFILKEP"))));
 			}
 
 		} catch (SQLException e) {
@@ -237,7 +236,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				nday.add(new KozossegiProfileMiniatureBean(rs.getInt("ID"), rs.getString("NEV"),
-						getImageByID(rs.getInt("PROFILKEP")).getScaledInstance(32, 32, Image.SCALE_FAST)));
+						getImageByID(rs.getInt("PROFILKEP"))));
 			}
 
 		} catch (SQLException e) {
@@ -258,7 +257,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ps.setInt(3, id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				sclub.add(new KozossegiProfileMiniatureBean(rs.getInt("id"),rs.getString("NEV"),null));
+				sclub.add(new KozossegiProfileMiniatureBean(rs.getInt("id"),rs.getString("NEV")));
 			}
 		} catch (SQLException e) {
 			System.out.println("Error while getting member clubs!");
@@ -281,7 +280,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				bday.add(new KozossegiProfileMiniatureBean(rs.getInt("ID"), rs.getString("NEV"),
-						getImageByID(rs.getInt("PROFILKEP")).getScaledInstance(32, 32, Image.SCALE_FAST)));
+						getImageByID(rs.getInt("PROFILKEP"))));
 			}
 
 		} catch (SQLException e) {
@@ -300,7 +299,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				mclub.add(new KozossegiProfileMiniatureBean(rs.getInt("id"),rs.getString("NEV"),null));
+				mclub.add(new KozossegiProfileMiniatureBean(rs.getInt("id"),rs.getString("NEV")));
 			}
 
 		} catch (SQLException e) {
@@ -319,7 +318,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				oclub.add(new KozossegiProfileMiniatureBean(rs.getInt("id"),rs.getString("NEV"),null));
+				oclub.add(new KozossegiProfileMiniatureBean(rs.getInt("id"),rs.getString("NEV")));
 			}
 
 		} catch (SQLException e) {
@@ -585,7 +584,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 	}
 
 	@Override
-	public KozossegiProfileMiniatureBean login(String email, String password) {
+	public KozossegiProfileNameBean login(String email, String password) {
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
 				PreparedStatement ps = conn.prepareStatement(Labels.LOGIN);) {
@@ -593,7 +592,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 				ps.setString(2, email);				
 				ResultSet rs = ps.executeQuery();
 				if(rs.next())
-					return new KozossegiProfileMiniatureBean(rs.getInt("ID"),rs.getString("NEV"),null);
+					return new KozossegiProfileNameBean(rs.getInt("ID"),rs.getString("NEV"));
 				else
 					System.out.println("Invalid login data!");
 					return null;		
@@ -659,7 +658,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				friends.add(new KozossegiProfileMiniatureBean(rs.getInt("ID"), rs.getString("NEV"),
-						getImageByID(rs.getInt("PROFILKEP")).getScaledInstance(32, 32, Image.SCALE_FAST)));
+						getImageByID(rs.getInt("PROFILKEP"))));
 			}
 
 		} catch (SQLException e) {
@@ -742,7 +741,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
 			{
-				data.add(new KozossegiAlbumBean(rs.getInt("FELHASZNALOID"), rs.getString("NEV"), rs.getDate("IDO"), getAlbum(rs.getString("NEV"), rs.getDate("IDO"))));
+				data.add(new KozossegiAlbumBean(rs.getInt("FELHASZNALOID"), rs.getString("NEV"), rs.getTimestamp("IDO"), getAlbum(rs.getString("NEV"), rs.getTimestamp("IDO"))));
 			}
 			return data;
 		} catch (SQLException e) {
@@ -752,20 +751,20 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		
 		return null;
 	}
-	public List<Image> getAlbum(String name,Date created){
-		List<Image> data = new ArrayList<Image>();
+	public List<KozossegiImage> getAlbum(String name,Timestamp created){
+		List<KozossegiImage> data = new ArrayList<KozossegiImage>();
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
 				PreparedStatement ps = conn.prepareStatement(Labels.GET_ALBUM);) {
 			ps.setString(1, name);
-			ps.setDate(2, new java.sql.Date(created.getTime()));
+			ps.setTimestamp(2,created);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
 			{
-				data.add(KozossegiImageManager.download(Labels.FILESERVER_PATH+rs.getString("ELERESIUT")));
+				data.add(new KozossegiImage(new URL(rs.getString("ELERESIUT")),rs.getInt("POSZTID")));
 			}
 			return data;
-		} catch (SQLException e) {
+		} catch (SQLException | MalformedURLException e) {
 			System.out.println("Error while listing user's friends!");
 			e.printStackTrace();
 		}

@@ -5,6 +5,7 @@ import java.io.File;
 import java.util.List;
 
 import kozossegi.bean.KozossegiAlbumBean;
+import kozossegi.bean.KozossegiImage;
 import kozossegi.bean.KozossegiMessageBean;
 import kozossegi.bean.KozossegiNotificationBean;
 import kozossegi.bean.KozossegiPostData;
@@ -127,7 +128,7 @@ public class KozossegiController{
 	public void updateProfilePicture(int id, int picId){	
 		dao.updateProfilePicture(id,picId);
 	}
-	public KozossegiProfileMiniatureBean login(String email,String password)
+	public KozossegiProfileNameBean login(String email,String password)
 	{
 		return dao.login(email, password);
 	}
@@ -153,7 +154,7 @@ public class KozossegiController{
 	public List<KozossegiAlbumBean> getAlbums(int id){
 		return dao.getAlbums(id);
 	}
-	public Image getImageByID(int id)
+	public KozossegiImage getImageByID(int id)
 	{
 		return dao.getImageByID(id);
 	}

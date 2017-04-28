@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 
 import kozossegi.Labels;
 import kozossegi.bean.KozossegiProfileMiniatureBean;
+import kozossegi.bean.KozossegiProfileNameBean;
 import kozossegi.view.KozossegiMainFrame;
 
 public class KozossegiLogin extends JPanel implements ActionListener {
@@ -67,7 +68,7 @@ public class KozossegiLogin extends JPanel implements ActionListener {
 		if(e.getSource()==loginButton){
 			if(!emailField.getText().isEmpty()){
 				if(passwordField.getPassword().length!=0){	
-					KozossegiProfileMiniatureBean login=KozossegiMainFrame.getInstance().getController().login(emailField.getText(), new String(passwordField.getPassword()));
+					KozossegiProfileNameBean login=KozossegiMainFrame.getInstance().getController().login(emailField.getText(), new String(passwordField.getPassword()));
 					if(login!=null)
 					{
 						KozossegiMainFrame.getInstance().login(login.getId());

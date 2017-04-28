@@ -1,10 +1,10 @@
 package kozossegi.dao;
 
-import java.awt.Image;
 import java.io.File;
 import java.util.List;
 
 import kozossegi.bean.KozossegiAlbumBean;
+import kozossegi.bean.KozossegiImage;
 import kozossegi.bean.KozossegiMessageBean;
 import kozossegi.bean.KozossegiNotificationBean;
 import kozossegi.bean.KozossegiPostData;
@@ -18,7 +18,7 @@ public interface KozossegiDAO {
 	public List<KozossegiProfileMiniatureBean> getFriends(int id);
 	public List<KozossegiProfileMiniatureBean> getMembers(int id);
 	public KozossegiProfileMiniatureBean getMiniature(int id);
-	public Image getImageByID(int id);
+	public KozossegiImage getImageByID(int id);
 	public List<KozossegiPostData> getPostData(int startinterval,int endinterval,int id);
 	public List<KozossegiPostData> getCommentData(int id);
 	public void sendPost(KozossegiPostData data);
@@ -45,7 +45,7 @@ public interface KozossegiDAO {
 	public boolean isValidInviterCode(int id);
 	public int uploadPicture(File filename, String albumName, int id);
 	public void updateProfilePicture(int id, int picId);
-	public KozossegiProfileMiniatureBean login(String email,String password);
+	public KozossegiProfileNameBean login(String email,String password);
 	public List<KozossegiProfileMiniatureBean> getPendingFriends(int id);
 	public KozossegiProfileNameBean getNameById(int id);
 	public List<KozossegiAlbumBean> getAlbums(int id);

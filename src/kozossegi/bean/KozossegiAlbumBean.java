@@ -1,12 +1,12 @@
 package kozossegi.bean;
 
-import java.awt.Image;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
 public class KozossegiAlbumBean {
 	int owner;
-	public KozossegiAlbumBean(int owner, String name, Date created, List<Image> images) {
+	public KozossegiAlbumBean(int owner, String name, Timestamp created, List<KozossegiImage> images) {
 		super();
 		this.owner = owner;
 		this.name = name;
@@ -28,16 +28,16 @@ public class KozossegiAlbumBean {
 	public Date getCreated() {
 		return created;
 	}
-	public void setCreated(Date created) {
+	public void setCreated(Timestamp created) {
 		this.created = created;
 	}
-	public List<Image> getImages() {
+	public List<KozossegiImage> getImages() {
 		return images;
 	}
-	public void setImages(List<Image> images) {
+	public void setImages(List<KozossegiImage> images) {
 		this.images = images;
 	}
 	String name;
-	Date created;
-	List<Image> images;
+	Timestamp created;
+	List<KozossegiImage> images;
 }

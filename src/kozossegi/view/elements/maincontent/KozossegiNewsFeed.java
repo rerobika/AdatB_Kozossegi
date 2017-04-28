@@ -2,11 +2,13 @@ package kozossegi.view.elements.maincontent;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Point;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JViewport;
 import javax.swing.ScrollPaneConstants;
 
 import kozossegi.bean.KozossegiPostData;
@@ -17,22 +19,30 @@ import kozossegi.view.elements.KozossegiWritePost;
 
 public class KozossegiNewsFeed extends JPanel {
 	private static final long serialVersionUID = 1789624631107783247L;
-	
+	private JPanel feed;
+	private KozossegiProfileBean profile;
+	private JScrollPane scroll;
 	public KozossegiNewsFeed(KozossegiProfileBean profile) {
-		KozossegiMainFrame mainFrame = KozossegiMainFrame.getInstance();
+		this.profile = profile;
 		setLayout(new BorderLayout());
-		if(profile==mainFrame.getProfile())
-			add(new KozossegiWritePost(),BorderLayout.NORTH);
-		else
-			add(new KozossegiWritePost(profile),BorderLayout.NORTH);
-		JPanel feed = new JPanel(); 
+		add(new KozossegiWritePost(this), BorderLayout.NORTH);
+		feed = new JPanel();
 		feed.setLayout(new BoxLayout(feed, BoxLayout.PAGE_AXIS));
-		add(new JScrollPane(feed, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER),BorderLayout.CENTER);
-		for(KozossegiPostData d : mainFrame.getController().getPostData(0, 10, profile.getId()))
-		{
-			feed.add(new KozossegiPost(d));
+		scroll = new JScrollPane(feed, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		add(scroll,BorderLayout.CENTER);
+		update();
+	}
+	public void update() {
+		feed.removeAll();
+		for (KozossegiPostData d : KozossegiMainFrame.getInstance().getController().getPostData(0, 10, profile.getId())) {
+			feed.add(new KozossegiPost(this,d));
 			feed.add(Box.createRigidArea(new Dimension(10, 10)));
 		}
+		repaint();
+		revalidate();
 	}
-
+	public KozossegiProfileBean getProfile() {
+		return profile;
+	}
 }

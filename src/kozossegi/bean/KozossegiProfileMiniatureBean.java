@@ -5,12 +5,18 @@ import java.awt.Image;
 public class KozossegiProfileMiniatureBean {
 	int id;
 	String name;
-	Image pic;
-	public KozossegiProfileMiniatureBean(int id, String name, Image pic) {
+	KozossegiImage pic;
+	public KozossegiProfileMiniatureBean(int id, String name, KozossegiImage pic) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.pic = pic;
+		this.pic = new KozossegiImage(pic.getUrl(), pic.postid,pic.getImage().getScaledInstance(32, 32, Image.SCALE_FAST));
+	}
+	public KozossegiProfileMiniatureBean(int id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.pic=null;
 	}
 	public KozossegiProfileMiniatureBean() {
 		this.id = 0;
@@ -29,10 +35,10 @@ public class KozossegiProfileMiniatureBean {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Image getPic() {
+	public KozossegiImage getPic() {
 		return pic;
 	}
-	public void setPic(Image pic) {
+	public void setPic(KozossegiImage pic) {
 		this.pic = pic;
 	}
 	
@@ -43,7 +49,7 @@ public class KozossegiProfileMiniatureBean {
 		super();
 		this.id = profile.getId();
 		this.name = profile.getName();
-		this.pic = (profile.getProfilepic().getScaledInstance(32, 32, Image.SCALE_FAST));
+		this.pic = new KozossegiImage(profile.getProfilepic().getUrl(), profile.getProfilepic().getPostid(),profile.getProfilepic().getImage().getScaledInstance(32, 32, Image.SCALE_FAST));
 	}	
 	public KozossegiProfileMiniatureBean(KozossegiClubBean club)
 	{

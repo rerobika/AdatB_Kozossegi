@@ -1,6 +1,5 @@
 package kozossegi.bean;
 
-import java.awt.Image;
 import java.util.Date;
 
 public class KozossegiProfileBean extends KozossegiUserBean{
@@ -12,7 +11,7 @@ public class KozossegiProfileBean extends KozossegiUserBean{
 				+ inviter + ", profilepic=" + profilepic + "]";
 	}
 	public KozossegiProfileBean(String name, int id, Date dob, boolean gender, String residence, String school,
-			String hobby, String workplace, String email, String pass, int inviter, Image profilepic) {
+			String hobby, String workplace, String email, String pass, int inviter, KozossegiImage profilepic) {
 		super(name, id);
 		this.dob = dob;
 		this.gender = gender;
@@ -93,10 +92,10 @@ public class KozossegiProfileBean extends KozossegiUserBean{
 	public void setInviter(int inviter) {
 		this.inviter = inviter;
 	}
-	public Image getProfilepic() {
+	public KozossegiImage getProfilepic() {
 		return profilepic;
 	}
-	public void setProfilepic(Image profilepic) {
+	public void setProfilepic(KozossegiImage profilepic) {
 		this.profilepic = profilepic;
 	}
 	public String getPicloc() {
@@ -114,7 +113,7 @@ public class KozossegiProfileBean extends KozossegiUserBean{
 	String email;
 	String pass;
 	int inviter;
-	Image profilepic;
+	KozossegiImage profilepic;
 	String picloc;
 	
 
