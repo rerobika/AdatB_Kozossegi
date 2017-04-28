@@ -41,7 +41,8 @@ public class KozossegiAlbum extends JPanel {
 			images.add(ilabel);
 			ilabel.setBorder(BorderFactory.createLineBorder(Color.black));
 		}
-		if (albumview.getProfile().getId()==mainFrame.getProfile().getId()) {
+		
+		if (albumview.getUser().getId()==mainFrame.getProfile().getId() || albumview.getUser().getId()==mainFrame.getClub().getId()) {
 			JLabel add = new JLabel(new ImageIcon(KozossegiImageManager
 					.download(Labels.FILESERVER_PATH + "add_picture.png").getScaledInstance(64, 64, Image.SCALE_FAST)));
 			add.addMouseListener(new MouseAdapter() {

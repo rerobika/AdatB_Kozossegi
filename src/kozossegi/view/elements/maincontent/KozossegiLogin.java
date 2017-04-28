@@ -15,7 +15,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import kozossegi.Labels;
-import kozossegi.bean.KozossegiProfileMiniatureBean;
 import kozossegi.bean.KozossegiProfileNameBean;
 import kozossegi.view.KozossegiMainFrame;
 

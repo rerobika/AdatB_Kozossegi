@@ -14,8 +14,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import kozossegi.Labels;
+import kozossegi.bean.KozossegiClubBean;
 import kozossegi.bean.KozossegiProfileBean;
 import kozossegi.bean.KozossegiProfileMiniatureBean;
+import kozossegi.bean.KozossegiUserBean;
 import kozossegi.controller.KozossegiController;
 import kozossegi.dao.KozossegiImageManager;
 import kozossegi.view.elements.KozossegiBirthAndNamedayMenu;
@@ -49,15 +51,7 @@ public class KozossegiMainFrame extends JFrame{
 	private List<KozossegiProfileMiniatureBean> namedayList;
 	private List<KozossegiProfileMiniatureBean> friendList;
 	private KozossegiProfileBean profile;
-	
-	public KozossegiProfileBean getProfile() {
-		return profile;
-	}
-
-
-	public void setProfile(KozossegiProfileBean profile) {
-		this.profile = profile;
-	}
+	private KozossegiClubBean club;
 
 
 	private KozossegiMainFrame(KozossegiController controller) {
@@ -184,5 +178,18 @@ public class KozossegiMainFrame extends JFrame{
 	public JPanel getMainContentPanel() {
 		return mainContentPanel;
 	}
+	
+	public KozossegiProfileBean getProfile() {
+		return profile;
+	}
+
+	public KozossegiClubBean getClub() {
+		return club;
+	}
+	
+	public void setClub(KozossegiClubBean club) {
+		this.club = club;
+	}
+	
 	
 }

@@ -10,7 +10,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 import kozossegi.bean.KozossegiPostData;
-import kozossegi.bean.KozossegiProfileBean;
+import kozossegi.bean.KozossegiUserBean;
 import kozossegi.view.KozossegiMainFrame;
 import kozossegi.view.elements.KozossegiPost;
 import kozossegi.view.elements.KozossegiWritePost;
@@ -18,11 +18,11 @@ import kozossegi.view.elements.KozossegiWritePost;
 public class KozossegiNewsFeed extends JPanel {
 	private static final long serialVersionUID = 1789624631107783247L;
 	private JPanel feed;
-	private KozossegiProfileBean profile;
+	private KozossegiUserBean user;
 	private JScrollPane scroll;
 
-	public KozossegiNewsFeed(KozossegiProfileBean profile) {
-		this.profile = profile;
+	public KozossegiNewsFeed(KozossegiUserBean user) {
+		this.user = user;
 		setLayout(new BorderLayout());
 		add(new KozossegiWritePost(this), BorderLayout.NORTH);
 		feed = new JPanel();
@@ -38,7 +38,7 @@ public class KozossegiNewsFeed extends JPanel {
 		feed.removeAll();
 
 		for (KozossegiPostData d : KozossegiMainFrame.getInstance().getController().getPostData(0, 20,
-				profile.getId())) {
+				user.getId())) {
 			feed.add(new KozossegiPost(this, d));
 			feed.add(Box.createRigidArea(new Dimension(10, 10)));
 		}
@@ -46,7 +46,7 @@ public class KozossegiNewsFeed extends JPanel {
 		revalidate();
 	}
 
-	public KozossegiProfileBean getProfile() {
-		return profile;
+	public KozossegiUserBean getUser() {
+		return user;
 	}
 }

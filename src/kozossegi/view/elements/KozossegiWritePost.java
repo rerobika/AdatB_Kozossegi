@@ -29,7 +29,7 @@ public class KozossegiWritePost extends JPanel {
 		JTextArea text = new JTextArea(2, 30);
 		text.setLineWrap(true);
 		JButton send = new JButton(Labels.MESSAGE_SEND);
-		if (feed.getProfile().getId() == mainFrame.getProfile().getId()) {
+		if (feed.getUser().getId() == mainFrame.getProfile().getId()) {
 			JComboBox<KozossegiProfileNameBean> friend = new JComboBox<KozossegiProfileNameBean>();
 			send.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -54,14 +54,41 @@ public class KozossegiWritePost extends JPanel {
 			}
 			friend.setSelectedIndex(-1);
 			add(friend);
-		} else {
+		} 
+		else if (mainFrame.getClub() != null && mainFrame.getClub().getOwnerId() == mainFrame.getProfile().getId()) {
+			JComboBox<KozossegiProfileNameBean> tags = new JComboBox<KozossegiProfileNameBean>();
+			send.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if (tags.getSelectedIndex() == -1) {
+						mainFrame.getController().sendPost(
+								new KozossegiPostData(new KozossegiProfileNameBean(mainFrame.getClub().getId(),
+										mainFrame.getClub().getName()), null, new Date(), text.getText()));
+
+					} else {
+						mainFrame.getController().sendPost(new KozossegiPostData(
+								new KozossegiProfileNameBean(mainFrame.getClub().getId(),
+										mainFrame.getClub().getName()),
+								(KozossegiProfileNameBean) tags.getSelectedItem(), new Date(), text.getText()));
+					}
+					text.setText("");
+					feed.update();
+				}
+			});
+			for (KozossegiProfileMiniatureBean b : mainFrame.getClub().getMembers()) {
+				tags.addItem(new KozossegiProfileNameBean(b));
+				tags.setSelectedItem(b);
+			}
+			tags.setSelectedIndex(-1);
+			add(tags);
+		}
+		else {
 			send.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					mainFrame.getController()
 							.sendPost(new KozossegiPostData(
 									new KozossegiProfileNameBean(mainFrame.getProfile().getId(),
 											mainFrame.getProfile().getName()),
-									new KozossegiProfileNameBean(feed.getProfile()), new Date(), text.getText()));
+									new KozossegiProfileNameBean(feed.getUser()), new Date(), text.getText()));
 					text.setText("");
 					feed.update();
 				}

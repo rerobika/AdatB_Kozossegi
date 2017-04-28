@@ -15,6 +15,7 @@ import javax.swing.ScrollPaneConstants;
 import kozossegi.Labels;
 import kozossegi.bean.KozossegiProfileMiniatureBean;
 import kozossegi.view.KozossegiMainFrame;
+import kozossegi.view.elements.maincontent.KozossegiClubProfile;
 import kozossegi.view.elements.maincontent.KozossegiUserProfile;
 
 public class KozossegiSuggestBox extends JPanel {
@@ -39,10 +40,11 @@ public class KozossegiSuggestBox extends JPanel {
 		
 		suggestClubPanel.setLayout(new GridLayout(0, 1));
 		for(KozossegiProfileMiniatureBean c : mainFrame.getSuggestedClubList()){
-			KozossegiProfileMiniature miniature =new KozossegiProfileMiniature(c);
+			KozossegiProfileMiniature miniature = new KozossegiProfileMiniature(c);
 			miniature.addMouseListener(new MouseAdapter(){
 				public void mouseClicked(MouseEvent e) {
-					//TODO: club profile
+					mainFrame.setClub(mainFrame.getController().getClub(c.getId()));
+					mainFrame.setMainContent(new KozossegiClubProfile(mainFrame.getClub()));
 				}
 			});
 			suggestClubPanel.add(miniature);

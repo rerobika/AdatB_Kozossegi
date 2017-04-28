@@ -8,8 +8,6 @@ import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 import kozossegi.Labels;
 import kozossegi.bean.KozossegiPostData;

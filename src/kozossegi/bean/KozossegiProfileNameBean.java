@@ -17,6 +17,11 @@ public class KozossegiProfileNameBean {
 		this.id=profile.getId();
 		this.name=profile.getName();
 	}
+	
+	public KozossegiProfileNameBean(KozossegiUserBean profile) {
+		this.id=profile.getId();
+		this.name=profile.getName();
+	}
 	public int getId() {
 		return id;
 	}

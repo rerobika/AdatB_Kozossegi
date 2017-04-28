@@ -3,15 +3,11 @@ package kozossegi.view.elements.maincontent;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -24,12 +20,9 @@ import javax.swing.JTextField;
 
 import kozossegi.Labels;
 import kozossegi.Labels.KozossegiFriendState;
-import kozossegi.bean.KozossegiAlbumBean;
 import kozossegi.bean.KozossegiProfileBean;
 import kozossegi.bean.KozossegiRelation;
-import kozossegi.dao.KozossegiImageManager;
 import kozossegi.view.KozossegiMainFrame;
-import kozossegi.view.elements.KozossegiAlbum;
 import kozossegi.view.elements.KozossegiBirthDayPicker;
 import kozossegi.view.elements.KozossegiGenderPicker;
 import kozossegi.view.elements.KozossegiPictureSelector;
@@ -60,15 +53,15 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 	public KozossegiUserProfile(KozossegiProfileBean profile)  {
 		super(profile);
 		this.mainFrame = KozossegiMainFrame.getInstance();
-		this.profile = profile;
+		this.profile = mainFrame.getController().getProfile(profile.getId());
 		friendsPanel = new KozossegiFriendManagement(profile);
 		createClubPanel = new JPanel();
 		contentTabbedPane.addTab(Labels.PROFIL_INFO, infoPanel);
-		if(profile.getId() == mainFrame.getProfileMiniature().getId()){
+		if(this.profile.getId() == mainFrame.getProfileMiniature().getId()){
 			contentTabbedPane.addTab(Labels.PROFIL_EDIT, editPanel);
 			contentTabbedPane.addTab(Labels.PROFIL_CREATE_CLUB, createClubPanel);
 		}
-		if(profile.getId() != mainFrame.getProfileMiniature().getId()){
+		if(this.profile.getId() != mainFrame.getProfileMiniature().getId()){
 			contentTabbedPane.addTab(Labels.PROFIL_FRIENDS, friendsPanel);
 			
 		}

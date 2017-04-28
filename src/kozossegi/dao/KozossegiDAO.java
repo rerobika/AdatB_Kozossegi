@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import kozossegi.bean.KozossegiAlbumBean;
+import kozossegi.bean.KozossegiClubBean;
 import kozossegi.bean.KozossegiImage;
 import kozossegi.bean.KozossegiMessageBean;
 import kozossegi.bean.KozossegiNotificationBean;
@@ -17,7 +18,6 @@ import kozossegi.bean.KozossegiRelation;
 public interface KozossegiDAO {
 
 	public List<KozossegiProfileMiniatureBean> getFriends(int id);
-	public List<KozossegiProfileMiniatureBean> getMembers(int id);
 	public KozossegiProfileMiniatureBean getMiniature(int id);
 	public KozossegiImage getImageByID(int id);
 	public List<KozossegiPostData> getPostData(int startinterval,int endinterval,int id);
@@ -50,4 +50,5 @@ public interface KozossegiDAO {
 	public List<KozossegiProfileMiniatureBean> getPendingFriends(int id);
 	public KozossegiProfileNameBean getNameById(int id);
 	public List<KozossegiAlbumBean> getAlbums(int id);
+	public KozossegiClubBean getClub(int id);
 }

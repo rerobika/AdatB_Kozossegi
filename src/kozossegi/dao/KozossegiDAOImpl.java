@@ -17,6 +17,7 @@ import java.util.List;
 import kozossegi.Labels;
 import kozossegi.Labels.KozossegiFriendState;
 import kozossegi.bean.KozossegiAlbumBean;
+import kozossegi.bean.KozossegiClubBean;
 import kozossegi.bean.KozossegiImage;
 import kozossegi.bean.KozossegiMessageBean;
 import kozossegi.bean.KozossegiNotificationBean;
@@ -60,13 +61,58 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		return friends;
 	}
 
-	public List<KozossegiProfileMiniatureBean> getMembers(int id) {
-		
+	
+	
+	public KozossegiProfileMiniatureBean getMiniature(int id, Connection conn) {
+		try (PreparedStatement ps = conn.prepareStatement(Labels.GET_USER_MINIATURE_BYID);) {
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			
+			KozossegiImage img = null;
+			
+			if(rs.next())
+			{	
+				img = getImageByID(rs.getInt("PROFILKEP"));
+				return new KozossegiProfileMiniatureBean( rs.getInt("ID"),rs.getString("NEV"), img);
+			}
+			else
+			{
+				img = getImageByID(0);
+				return new KozossegiProfileMiniatureBean( -1,"Ures", img);
+			}
+				
+		} catch (SQLException e) {
+			System.out.println("Error while listing user's friends!");
+			e.printStackTrace();
+		}
 		return null;
 	}
-
+	
+	
 	public KozossegiProfileMiniatureBean getMiniature(int id) {
-		
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.GET_USER_MINIATURE_BYID);) {
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			
+			KozossegiImage img = null;
+			
+			if(rs.next())
+			{	
+				img = getImageByID(rs.getInt("PROFILKEP"));
+				return new KozossegiProfileMiniatureBean( rs.getInt("ID"),rs.getString("NEV"), img);
+			}
+			else
+			{
+				img = getImageByID(0);
+				return new KozossegiProfileMiniatureBean( -1,"Ures", img);
+			}
+				
+		} catch (SQLException e) {
+			System.out.println("Error while listing user's friends!");
+			e.printStackTrace();
+		}
 		return null;
 	}
 
@@ -767,5 +813,45 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		
 		return null;
 		
+	}
+
+	public KozossegiClubBean getClub(int id) {
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.GET_CLUBBYID);) {
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();			
+			if(rs.next())
+			{	
+				return new KozossegiClubBean(rs.getString("NEV"), id, rs.getInt("TULAJDONOS"), rs.getDate("KEZDET"), rs.getString("LEIRAS"), getMembers(id, rs.getInt("TULAJDONOS"),conn));
+			}
+			else
+			{				
+				return new KozossegiClubBean("Ures",0 ,0, null, "", null);
+			}
+				
+		} catch (SQLException e) {
+			System.out.println("Error while get club!");
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public List<KozossegiProfileMiniatureBean> getMembers(int id, int ownerId, Connection conn) {
+		List<KozossegiProfileMiniatureBean> result = new ArrayList<KozossegiProfileMiniatureBean>(); 
+		try (PreparedStatement ps = conn.prepareStatement(Labels.GET_TAGS);) {
+			ps.setInt(1, id);
+			ps.setInt(2, ownerId);
+			ResultSet rs = ps.executeQuery();			
+			while(rs.next())
+			{	
+				result.add(getMiniature(rs.getInt("SZEMELYID"),conn));
+			}
+				
+		} catch (SQLException e) {
+			System.out.println("Error while list club members!");
+			e.printStackTrace();
+		}
+		return result;
 	}
 }

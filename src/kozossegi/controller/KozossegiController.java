@@ -1,10 +1,10 @@
 	package kozossegi.controller;
 
-import java.awt.Image;
 import java.io.File;
 import java.util.List;
 
 import kozossegi.bean.KozossegiAlbumBean;
+import kozossegi.bean.KozossegiClubBean;
 import kozossegi.bean.KozossegiImage;
 import kozossegi.bean.KozossegiMessageBean;
 import kozossegi.bean.KozossegiNotificationBean;
@@ -29,10 +29,6 @@ public class KozossegiController{
 	//DAO connect
 	public List<KozossegiProfileMiniatureBean> getFriends(int id) {
 		return dao.getFriends(id);
-	}
-
-	public List<KozossegiProfileMiniatureBean> getMembers(int id) {
-		return dao.getMembers(id);
 	}
 
 	public KozossegiProfileMiniatureBean getMiniature(int id) {
@@ -157,5 +153,9 @@ public class KozossegiController{
 	public KozossegiImage getImageByID(int id)
 	{
 		return dao.getImageByID(id);
+	}
+
+	public KozossegiClubBean getClub(int id) {
+		return dao.getClub(id);
 	}
 }
