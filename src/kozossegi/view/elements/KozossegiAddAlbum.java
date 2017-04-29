@@ -36,7 +36,7 @@ public class KozossegiAddAlbum extends JPanel {
 				{
 					KozossegiPictureSelector pictureSelector = new KozossegiPictureSelector();
 					if(pictureSelector.isValidImage().equals(fileScan.SUCCES)){
-						KozossegiMainFrame.getInstance().getController().uploadPicture(pictureSelector.getSelectedFile(), text.getText(), KozossegiMainFrame.getInstance().getProfile().getId());
+						KozossegiMainFrame.getInstance().getController().uploadPicture(pictureSelector.getSelectedFile(), text.getText(), albumview.getUser().getId());
 						albumview.update();
 					}
 				}

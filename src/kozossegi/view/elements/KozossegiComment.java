@@ -31,8 +31,15 @@ public class KozossegiComment extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				mainFrame.getController().sendPost(new KozossegiPostData(new KozossegiProfileNameBean(mainFrame.getProfile().getId(),mainFrame.getProfile().getName()),
+				if(mainFrame.getClub().getOwnerId() == mainFrame.getProfile().getId()){
+					mainFrame.getController().sendPost(new KozossegiPostData(new KozossegiProfileNameBean(mainFrame.getClub().getId(),mainFrame.getClub().getName()),
+							null, new Date(), text.getText(),post.getData().getId()));
+				}
+				else{
+					mainFrame.getController().sendPost(new KozossegiPostData(new KozossegiProfileNameBean(mainFrame.getProfile().getId(),mainFrame.getProfile().getName()),
 						null, new Date(), text.getText(),post.getData().getId()));
+				}
+				
 				text.setText("");
 				post.getFeed().update();
 			}

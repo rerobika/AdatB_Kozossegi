@@ -17,7 +17,6 @@ import kozossegi.Labels;
 import kozossegi.bean.KozossegiClubBean;
 import kozossegi.bean.KozossegiProfileBean;
 import kozossegi.bean.KozossegiProfileMiniatureBean;
-import kozossegi.bean.KozossegiUserBean;
 import kozossegi.controller.KozossegiController;
 import kozossegi.dao.KozossegiImageManager;
 import kozossegi.view.elements.KozossegiBirthAndNamedayMenu;
@@ -68,12 +67,12 @@ public class KozossegiMainFrame extends JFrame{
 		
 		getContentPane().setLayout(new BorderLayout(20,20));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//setResizable(false);
-		setTitle(Labels.MAIN_FRAME_TITLE);		
-		getContentPane().add(mainContentPanel, BorderLayout.CENTER);		
+		getContentPane().add(mainContentPanel, BorderLayout.CENTER);
 		getContentPane().add(leftSideContentPanel, BorderLayout.WEST);		
 		getContentPane().add(topSideContentPanel, BorderLayout.NORTH);		
-		getContentPane().add(rightSideContentPanel, BorderLayout.EAST);		
+		getContentPane().add(rightSideContentPanel, BorderLayout.EAST);	
+		//setResizable(false);
+		setTitle(Labels.MAIN_FRAME_TITLE);			
 		setMainContent(startScreen());
 		setVisible(true);	
 	}
@@ -101,7 +100,7 @@ public class KozossegiMainFrame extends JFrame{
 	public void initializeViewElements(){
 		mainContentPanel.setPreferredSize(new Dimension(800, 600));
 		logoPanel.add(new JLabel(new ImageIcon(logoImage)));
-		
+	
 		topSideContentPanel.add(logoPanel);	
 		topSideContentPanel.add(new KozossegiSearchBox());
 		topSideContentPanel.add(new KozossegiMenu());			
@@ -110,7 +109,7 @@ public class KozossegiMainFrame extends JFrame{
 		leftSideContentPanel.add(new KozossegiClubMenu());				
 		
 		rightSideContentPanel.add(new KozossegiBirthAndNamedayMenu());
-		rightSideContentPanel.add(new KozossegiSuggestBox());
+		rightSideContentPanel.add(new KozossegiSuggestBox());			
 		
 	}
 	

@@ -51,4 +51,6 @@ public interface KozossegiDAO {
 	public KozossegiProfileNameBean getNameById(int id);
 	public List<KozossegiAlbumBean> getAlbums(int id);
 	public KozossegiClubBean getClub(int id);
+	public void joinClub(int id, int id2);
+	public void updateClubDesc(String text, int id);
 }

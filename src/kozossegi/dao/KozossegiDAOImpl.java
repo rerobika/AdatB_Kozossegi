@@ -854,4 +854,37 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		}
 		return result;
 	}
+
+	@Override
+	public void joinClub(int id, int id2) {
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.JOIN_CLUB);) {
+				ps.setInt(1, id);
+				ps.setInt(2, id2);
+				int rn = ps.executeUpdate();
+				if(rn == 1)
+					System.out.println("Successful join!");
+		} catch (SQLException e) {
+			System.out.println("Error while marking friend!");
+			e.printStackTrace();		
+		}
+		
+	}
+
+	@Override
+	public void updateClubDesc(String text, int id) {
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.UPDATE_CLUB_DESC);) {
+				ps.setString(1, text);
+				ps.setInt(2, id);
+				int rn = ps.executeUpdate();
+				if(rn == 1)
+					System.out.println("Successful update!");
+		} catch (SQLException e) {
+			System.out.println("Error while marking friend!");
+			e.printStackTrace();		
+		}
+	}
 }

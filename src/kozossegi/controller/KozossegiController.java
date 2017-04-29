@@ -158,4 +158,12 @@ public class KozossegiController{
 	public KozossegiClubBean getClub(int id) {
 		return dao.getClub(id);
 	}
+
+	public void joinClub(int id, int id2) {
+		dao.joinClub(id, id2);		
+	}
+
+	public void updateClubDesc(String text, int id) {
+		dao.updateClubDesc(text, id);		
+	}
 }

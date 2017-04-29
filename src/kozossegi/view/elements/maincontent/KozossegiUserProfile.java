@@ -53,7 +53,7 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 	public KozossegiUserProfile(KozossegiProfileBean profile)  {
 		super(profile);
 		this.mainFrame = KozossegiMainFrame.getInstance();
-		this.profile = mainFrame.getController().getProfile(profile.getId());
+		this.profile = profile;
 		friendsPanel = new KozossegiFriendManagement(profile);
 		createClubPanel = new JPanel();
 		contentTabbedPane.addTab(Labels.PROFIL_INFO, infoPanel);
