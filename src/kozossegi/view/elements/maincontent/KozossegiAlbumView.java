@@ -30,7 +30,7 @@ public class KozossegiAlbumView extends JPanel {
 			add(new KozossegiAlbum(this,a));
 			add(Box.createRigidArea(new Dimension(10, 10)));
 		}
-		if(user.getId()==mainFrame.getProfile().getId() || mainFrame.getProfile().getId() == mainFrame.getClub().getOwnerId())
+		if(user.getId()==mainFrame.getProfile().getId() ||( mainFrame.getClub()!= null && mainFrame.getProfile().getId() == mainFrame.getClub().getOwnerId()))
 		add(new KozossegiAddAlbum(this));
 		repaint();
 		revalidate();
