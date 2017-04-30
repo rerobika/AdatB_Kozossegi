@@ -170,4 +170,8 @@ public class KozossegiController{
 	{
 		dao.addClub(club);
 	}
+	public void updateProfile(KozossegiProfileBean profile)
+	{
+		dao.updateProfile(profile);
+	}
 }

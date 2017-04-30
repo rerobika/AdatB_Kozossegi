@@ -92,6 +92,16 @@ public class KozossegiImageManager
 		}
 		return null;
 	}
+	public static int getSize(URL file)
+	{
+		
+		try {
+			return file.openConnection().getContentLength();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		return 0;
+		}
+	}
 		
 
 }

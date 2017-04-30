@@ -9,11 +9,13 @@ public class KozossegiImage {
 	Image image;	
 	URL url;
 	int postid;
+	int size;
 	public KozossegiImage(URL url, int postid) {
 		super();
 		this.image = KozossegiImageManager.download(url).getScaledInstance(256, 256, Image.SCALE_FAST);
 		this.url = url;
 		this.postid = postid;
+		this.size=KozossegiImageManager.getSize(url);
 	}
 	public KozossegiImage(URL url,int postid,Image img)
 	{
@@ -22,6 +24,14 @@ public class KozossegiImage {
 		this.url = url;
 		this.postid = postid;
 		this.image = img;
+		//		
+		this.size=KozossegiImageManager.getSize(url);
+	}
+	public int getSize() {
+		return size;
+	}
+	public void setSize(int size) {
+		this.size = size;
 	}
 	public Image getImage() {
 		return image;

@@ -75,10 +75,7 @@ public class KozossegiRegister extends JPanel implements ActionListener {
 		
 		registerButton.addActionListener(this);
 		backButton.addActionListener(this);
-		
-		genderPanel.getMaleButton().addActionListener(this);
-		genderPanel.getFemaleButton().addActionListener(this);
-		
+				
 		setName("registerPanel");
 		setBackground(Color.GRAY);
 		setLayout(new BorderLayout());
@@ -115,7 +112,7 @@ public class KozossegiRegister extends JPanel implements ActionListener {
 													if(genderPanel.getGenderGroup().getSelection()!=null){
 														try{
 															if(inviterField.getText().isEmpty() || mainFrame.getController().isValidInviterCode(Integer.parseInt(inviterField.getText()))){
-																mainFrame.getController().addProfile(new KozossegiProfileBean(nameField.getText(),0,birthPanel.getBirthDate(),genderPanel.getMaleButton().isSelected()?true:false,"","","","",emailField.getText(),new String(passwordField.getPassword()),inviterField.getText().isEmpty()?0:Integer.parseInt(inviterField.getText()),Labels.FILESERVER_PATH+"kep2.jpg"));
+																mainFrame.getController().addProfile(new KozossegiProfileBean(nameField.getText(),0,birthPanel.getBirthDate(),genderPanel.getGender(),"","","","",emailField.getText(),new String(passwordField.getPassword()),inviterField.getText().isEmpty()?0:Integer.parseInt(inviterField.getText()),Labels.FILESERVER_PATH+"kep2.jpg"));
 																JOptionPane.showMessageDialog(mainFrame, Labels.SUCCESSFUL_REGISTRATION, Labels.OPTION_PANE_SUCCESS, JOptionPane.INFORMATION_MESSAGE);
 																mainFrame.setMainContent(new KozossegiLogin());
 															}

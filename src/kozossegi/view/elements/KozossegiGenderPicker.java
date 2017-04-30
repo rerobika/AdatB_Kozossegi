@@ -32,28 +32,14 @@ public class KozossegiGenderPicker extends JPanel{
 		return genderGroup;
 	}
 
-	public void setGenderGroup(ButtonGroup genderGroup) {
-		this.genderGroup = genderGroup;
-	}
-
-	public JRadioButton getMaleButton() {
-		return maleButton;
-	}
-
-	public void setMaleButton(JRadioButton maleButton) {
-		this.maleButton = maleButton;
-	}
-
-	public JRadioButton getFemaleButton() {
-		return femaleButton;
-	}
-
-	public void setFemaleButton(JRadioButton femaleButton) {
-		this.femaleButton = femaleButton;
-	}
-
-	public boolean isMale(){
+	public boolean getGender(){
 		if(genderGroup.getSelection().getActionCommand().equals(maleButton.getActionCommand())) return true;
 		return false;
+	}
+	public void setGender(boolean gender){
+		if(gender)
+			maleButton.setSelected(true);
+		else
+			femaleButton.setSelected(true);
 	}
 }

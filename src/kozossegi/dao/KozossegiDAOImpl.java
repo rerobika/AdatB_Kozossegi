@@ -26,6 +26,7 @@ import kozossegi.bean.KozossegiProfileBean;
 import kozossegi.bean.KozossegiProfileMiniatureBean;
 import kozossegi.bean.KozossegiProfileNameBean;
 import kozossegi.bean.KozossegiRelation;
+import oracle.net.aso.p;
 
 public class KozossegiDAOImpl implements KozossegiDAO {
 
@@ -368,57 +369,6 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 
 	@Override
 	public void addProfile(KozossegiProfileBean profile) {
-		int residenceId = 21, schoolId = 375, workplaceId = 21, hobbyId = 61;
-
-		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
-				Labels.DATABASE_USER, Labels.DATABASE_PASS);
-				PreparedStatement ps = conn.prepareStatement(Labels.GET_HOBBYBYNAME);) {
-			ps.setString(1, profile.getHobby());
-			ResultSet rs = ps.executeQuery();
-			if (rs.next())
-				hobbyId = rs.getInt("ID");
-
-		} catch (SQLException e) {
-			System.out.println("Error while getting profile!");
-			e.printStackTrace();
-			return;
-		}
-		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
-				Labels.DATABASE_USER, Labels.DATABASE_PASS);
-				PreparedStatement ps = conn.prepareStatement(Labels.GET_RESIDENCEBYNAME);) {
-			ps.setString(1, profile.getResidence());
-			ResultSet rs = ps.executeQuery();
-			if (rs.next())
-				residenceId = rs.getInt("ID");
-		} catch (SQLException e) {
-			System.out.println("Error while getting profile!");
-			e.printStackTrace();
-			return;
-		}
-		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
-				Labels.DATABASE_USER, Labels.DATABASE_PASS);
-				PreparedStatement ps = conn.prepareStatement(Labels.GET_SCHOOLBYNAME);) {
-			ps.setString(1, profile.getSchool());
-			ResultSet rs = ps.executeQuery();
-			if (rs.next())
-				schoolId = rs.getInt("ID");
-		} catch (SQLException e) {
-			System.out.println("Error while getting profile!");
-			e.printStackTrace();
-			return;
-		}
-		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
-				Labels.DATABASE_USER, Labels.DATABASE_PASS);
-				PreparedStatement ps = conn.prepareStatement(Labels.GET_WORKPLACEBYNAME);) {
-			ps.setString(1, profile.getWorkplace());
-			ResultSet rs = ps.executeQuery();
-			if (rs.next())
-				workplaceId = rs.getInt("ID");
-		} catch (SQLException e) {
-			System.out.println("Error while getting profile!");
-			e.printStackTrace();
-			return;
-		}
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
 				PreparedStatement ps = conn.prepareStatement(Labels.CREATE_PROFILE);) {
@@ -427,12 +377,8 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ps.setString(3, profile.getEmail());
 			ps.setDate(4, new java.sql.Date(profile.getDob().getTime()));
 			ps.setInt(5, profile.isGender() ? 1 : 0);
-			ps.setInt(6, residenceId);
-			ps.setInt(7, schoolId);
-			ps.setInt(8, hobbyId);
-			ps.setInt(9, workplaceId);
-			ps.setInt(10, profile.getInviter());
-			ps.setString(11, profile.getPicloc());
+			ps.setInt(6, profile.getInviter());
+			ps.setString(7, profile.getPicloc());
 			ps.execute();
 		} catch (SQLException e) {
 			System.out.println("Error while creating profile!");
@@ -891,5 +837,22 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			e.printStackTrace();
 		}
 		
+	}
+	public void updateProfile(KozossegiProfileBean profile){
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.UPDATE_PROFILE);) {
+			ps.setInt(1, profile.getId());
+			ps.setDate(2, new java.sql.Date(profile.getDob().getTime()));
+			ps.setBoolean(3, profile.isGender());
+			ps.setString(4, profile.getSchool());
+			ps.setString(5, profile.getHobby());
+			ps.setString(6, profile.getWorkplace());
+			ps.setString(7, profile.getResidence());
+			ps.execute();
+		} catch (SQLException e) {
+			System.out.println("Error adding club!");
+			e.printStackTrace();
+		}
 	}
 }

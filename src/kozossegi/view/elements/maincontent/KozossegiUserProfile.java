@@ -190,111 +190,50 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 		birthdayPicker.getBirthDay().setSelectedIndex(cal.get(Calendar.DAY_OF_MONTH)-1);
 		
 		if(profile.isGender()){
-			genderPicker.getMaleButton().setSelected(true);
+			genderPicker.setGender(true);;
 		}
 		else{
-			genderPicker.getFemaleButton().setSelected(true);
+			genderPicker.setGender(false);
 		}
 		
 		
 		//RESIDENCE
-		
-		int i = 0;
-		boolean match= false;
+		residence.setEditable(true);
+		residence.setSelectedIndex(-1);
 		for(String s : mainFrame.getController().getResidences()){
 			residence.addItem(s);
-			if (!match && s.equals(profile.getResidence())){
-				residence.setSelectedIndex(i);
-				match=true;
+			if (profile.getResidence().equals(s)){
+				residence.setSelectedItem(s);;
 			}
-			i++;
 		}
-		residence.addItem(Labels.PROFIL_ADD_NEW);
-		residence.addItemListener(new ItemListener() {
-			
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				if(e.getItem().equals(Labels.PROFIL_ADD_NEW)){
-					new KozossegiProfileAttirbuteExtender(mainFrame, Labels.PROFIL_RESIDENCE);
-				}
-				
-			}
-		});
-		if(!match) 	residence.setSelectedIndex(-1);
-		
 		//SCHOOL
-		i = 0;
-		match= false;
+		school.setEditable(true);
+		school.setSelectedIndex(-1);
 		for(String s : mainFrame.getController().getSchools()){
 			school.addItem(s);
-			if (!match && s.equals(profile.getSchool())){
-				school.setSelectedIndex(i);
-				match=true;
+			if (profile.getSchool().equals(s)){
+				school.setSelectedItem(s);	
 			}
-			i++;
 		}
-		school.addItem(Labels.PROFIL_ADD_NEW);
-		school.addItemListener(new ItemListener() {
-			
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				if(e.getItem().equals(Labels.PROFIL_ADD_NEW)){
-					new KozossegiProfileAttirbuteExtender(mainFrame, Labels.PROFIL_SCHOOL);
-				}
-				
-			}
-		});
-		if(!match) 	school.setSelectedIndex(-1);
-		
 		//HOBBY
-		i = 0;
-		match= false;
+		hobby.setEditable(true);
+		hobby.setSelectedIndex(-1);
 		for(String s : mainFrame.getController().getHobbies()){
 			hobby.addItem(s);
-			if (!match && s.equals(profile.getHobby())){
-				hobby.setSelectedIndex(i);
-				match=true;
+			if (profile.getHobby().equals(s)){
+				hobby.setSelectedItem(s);
 			}
-			i++;
 		}
-		hobby.addItem(Labels.PROFIL_ADD_NEW);
-		hobby.addItemListener(new ItemListener() {
 			
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				if(e.getItem().equals(Labels.PROFIL_ADD_NEW)){
-					new KozossegiProfileAttirbuteExtender(mainFrame, Labels.PROFIL_HOBBY);
-				}
-				
-			}
-		});
-		if(!match) 	hobby.setSelectedIndex(-1);
-		
-		
 		//WORKPLACE
-		i = 0;
-		match= false;
+		workPlace.setEditable(true);
+		workPlace.setSelectedIndex(-1);
 		for(String s : mainFrame.getController().getWorkPlaces()){
 			workPlace.addItem(s);
-			if (!match && s.equals(profile.getWorkplace())){
-				workPlace.setSelectedIndex(i);
-				match=true;
+			if (profile.getWorkplace().equals(s)){
+				workPlace.setSelectedItem(s);
 			}
-			i++;
 		}
-		workPlace.addItem(Labels.PROFIL_ADD_NEW);
-		workPlace.addItemListener(new ItemListener() {
-			
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				if(e.getItem().equals(Labels.PROFIL_ADD_NEW)){
-					new KozossegiProfileAttirbuteExtender(mainFrame, Labels.PROFIL_WORK_PLACE);
-				}
-				
-			}
-		});
-		if(!match) 	workPlace.setSelectedIndex(-1);
-		
 	}
 
 
@@ -318,7 +257,18 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 			initEditPanelComponents();
 			repaint();
 			revalidate();
-		}		
+		}	
+		if(e.getSource()==submitChangesButton)
+		{
+			profile.setDob(birthdayPicker.getBirthDate());
+			profile.setGender(genderPicker.getGender());
+			profile.setHobby((String)hobby.getSelectedItem());
+			profile.setResidence((String)residence.getSelectedItem());
+			profile.setSchool((String)school.getSelectedItem());
+			profile.setWorkplace((String)workPlace.getSelectedItem());
+			mainFrame.getController().updateProfile(profile);		
+			mainFrame.setMainContent(new KozossegiUserProfile(profile));
+		}
 		
 	}
 	
