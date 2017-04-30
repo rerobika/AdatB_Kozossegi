@@ -5,8 +5,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.Calendar;
 
 import javax.swing.JButton;
@@ -24,8 +22,7 @@ import kozossegi.view.elements.KozossegiBirthDayPicker;
 import kozossegi.view.elements.KozossegiCreateClub;
 import kozossegi.view.elements.KozossegiGenderPicker;
 import kozossegi.view.elements.KozossegiPictureSelector;
-import kozossegi.view.elements.KozossegiPictureSelector.fileScan;
-import kozossegi.view.elements.KozossegiProfileAttirbuteExtender;;
+import kozossegi.view.elements.KozossegiPictureSelector.fileScan;;
 
 public class KozossegiUserProfile extends KozossegiProfile implements ActionListener {
 
@@ -50,13 +47,13 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 		this.profile = profile;
 		friendsPanel = new KozossegiFriendManagement(profile);
 		createClubPanel = new KozossegiCreateClub(profile);
-		contentTabbedPane.addTab(Labels.PROFIL_INFO, infoTab);
+		contentTabbedPane.addTab(Labels.PROFILE_INFO, infoTab);
 		if(profile.getId() == mainFrame.getProfile().getId()){
-			contentTabbedPane.addTab(Labels.PROFIL_EDIT, editTab);
-			contentTabbedPane.addTab(Labels.PROFIL_CREATE_CLUB, createClubPanel);
+			contentTabbedPane.addTab(Labels.PROFILE_EDIT, editTab);
+			contentTabbedPane.addTab(Labels.PROFILE_CREATE_CLUB, createClubPanel);
 		}
 		if(profile.getId() != mainFrame.getProfile().getId()){
-			contentTabbedPane.addTab(Labels.PROFIL_FRIENDS, friendsPanel);
+			contentTabbedPane.addTab(Labels.PROFILE_FRIENDS, friendsPanel);
 			
 		}
 		initTopPanel();
@@ -116,37 +113,39 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 	}
 	
 	private void initInfoPanel(){
-		infoTab.setLayout(new GridLayout(8, 5, 2, 5));
-		infoTab.add(new JLabel(Labels.PROFIL_DATE_OF_BIRTH));
+		infoTab.setLayout(new GridLayout(0, 2, 2, 5));
+		infoTab.add(new JLabel(Labels.PROFILE_DATE_OF_BIRTH));
 		infoTab.add(new JLabel(profile.getDob().toString()));
-		infoTab.add(new JLabel(Labels.PROFIL_GENDER));
+		infoTab.add(new JLabel(Labels.PROFILE_GENDER));
 		if(profile.isGender()){
-			infoTab.add(new JLabel(Labels.PROFIL_MAN));
+			infoTab.add(new JLabel(Labels.PROFILE_MAN));
 		}
 		else{
-			infoTab.add(new JLabel(Labels.PROFIL_WOMAN));
+			infoTab.add(new JLabel(Labels.PROFILE_WOMAN));
 		}
-		infoTab.add(new JLabel(Labels.PROFIL_RESIDENCE));
+		infoTab.add(new JLabel(Labels.PROFILE_RESIDENCE));
 		infoTab.add(new JLabel(profile.getResidence()));
-		infoTab.add(new JLabel(Labels.PROFIL_SCHOOL));
+		infoTab.add(new JLabel(Labels.PROFILE_SCHOOL));
 		JLabel school = new JLabel(profile.getSchool());
 		school.setToolTipText(profile.getSchool());
 		infoTab.add(school);
-		infoTab.add(new JLabel(Labels.PROFIL_HOBBY));
+		infoTab.add(new JLabel(Labels.PROFILE_HOBBY));
 		infoTab.add(new JLabel(profile.getHobby()));
-		infoTab.add(new JLabel(Labels.PROFIL_WORK_PLACE));
+		infoTab.add(new JLabel(Labels.PROFILE_WORK_PLACE));
 		infoTab.add(new JLabel(profile.getWorkplace()));
-		infoTab.add(new JLabel(Labels.PROFIL_INVITER));
+		infoTab.add(new JLabel(Labels.PROFILE_INVITER));
 		infoTab.add(new JLabel(mainFrame.getController().getProfile(profile.getInviter()).getName()));
-		infoTab.add(new JLabel(Labels.PROFIL_INVITE_CODE));
+		infoTab.add(new JLabel(Labels.PROFILE_INVITE_CODE));
 		infoTab.add(new JLabel(Integer.toString(profile.getId())));
+		infoTab.add(new JLabel(Labels.PROFILE_INVITED));
+		infoTab.add(new JLabel(Integer.toString(mainFrame.getController().getInvitedCount(profile.getId()))));
 		
 	}
 	
 	private void initEditPanel(){
-		resetDefaultButton = new JButton(Labels.PROFIL_RESET_DEFAULT);
-		submitChangesButton = new JButton(Labels.PROFIL_SUBMIT_CHANGES);
-		profilePictureButton = new JButton(Labels.PROFIL_UPLOAD_PICTURE);
+		resetDefaultButton = new JButton(Labels.PROFILE_RESET_DEFAULT);
+		submitChangesButton = new JButton(Labels.PROFILE_SUBMIT_CHANGES);
+		profilePictureButton = new JButton(Labels.PROFILE_UPLOAD_PICTURE);
 		resetDefaultButton.addActionListener(this);
 		submitChangesButton.addActionListener(this);
 		profilePictureButton.addActionListener(this);
@@ -161,19 +160,19 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 		initEditPanelComponents();
 		
 		editTab.setLayout(new GridLayout(8, 5, 2, 5));
-		editTab.add(new JLabel(Labels.PROFIL_PICTURE));
+		editTab.add(new JLabel(Labels.PROFILE_PICTURE));
 		editTab.add(profilePictureButton);
-		editTab.add(new JLabel(Labels.PROFIL_DATE_OF_BIRTH));
+		editTab.add(new JLabel(Labels.PROFILE_DATE_OF_BIRTH));
 		editTab.add(birthdayPicker);
-		editTab.add(new JLabel(Labels.PROFIL_GENDER));
+		editTab.add(new JLabel(Labels.PROFILE_GENDER));
 		editTab.add(genderPicker);
-		editTab.add(new JLabel(Labels.PROFIL_RESIDENCE));
+		editTab.add(new JLabel(Labels.PROFILE_RESIDENCE));
 		editTab.add(residence);
-		editTab.add(new JLabel(Labels.PROFIL_SCHOOL));
+		editTab.add(new JLabel(Labels.PROFILE_SCHOOL));
 		editTab.add(school);
-		editTab.add(new JLabel(Labels.PROFIL_HOBBY));
+		editTab.add(new JLabel(Labels.PROFILE_HOBBY));
 		editTab.add(hobby);
-		editTab.add(new JLabel(Labels.PROFIL_WORK_PLACE));
+		editTab.add(new JLabel(Labels.PROFILE_WORK_PLACE));
 		editTab.add(workPlace);
 		editTab.add(resetDefaultButton);
 		editTab.add(submitChangesButton);
@@ -247,10 +246,10 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 				mainFrame.update();
 			}
 			else if(pictureSelector.isValidImage().equals(fileScan.WRONG_FILE_SIZE)){
-				JOptionPane.showMessageDialog(mainFrame, Labels.PROFIL_EDIT_WRONG_SIZE, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(mainFrame, Labels.PROFILE_EDIT_WRONG_SIZE, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);
 			}
 			else{
-				JOptionPane.showMessageDialog(mainFrame, Labels.PROFIL_NOT_COMPATIBLE_EXTENSION, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(mainFrame, Labels.PROFILE_NOT_COMPATIBLE_EXTENSION, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		if(e.getSource()==resetDefaultButton){

@@ -26,10 +26,10 @@ public class KozossegiClubProfile extends KozossegiProfile {
 		super(club);
 		this.mainFrame = KozossegiMainFrame.getInstance();
 		this.club = club;
-		contentTabbedPane.addTab(Labels.PROFIL_INFO, infoTab);
-		contentTabbedPane.addTab(Labels.PROFIL_CLUB_TAGS, new KozossegiClubMemberManagement(club));
+		contentTabbedPane.addTab(Labels.PROFILE_INFO, infoTab);
+		contentTabbedPane.addTab(Labels.PROFILE_CLUB_TAGS, new KozossegiClubMemberManagement(club));
 		if(mainFrame.getProfile().getId() == club.getOwnerId()){
-			contentTabbedPane.addTab(Labels.PROFIL_EDIT, editTab);
+			contentTabbedPane.addTab(Labels.PROFILE_EDIT, editTab);
 		}
 		
 		initInfoPanel();
@@ -43,8 +43,8 @@ private void initEditPanel() {
 	JTextArea description = new JTextArea(club.getDesc(),3,20);
 	description.setLineWrap(true);
 	editPanel.add(description);
-	JButton reset = new JButton(Labels.PROFIL_RESET_DEFAULT);
-	JButton ok = new JButton(Labels.PROFIL_SUBMIT_CHANGES);
+	JButton reset = new JButton(Labels.PROFILE_RESET_DEFAULT);
+	JButton ok = new JButton(Labels.PROFILE_SUBMIT_CHANGES);
 	editPanel.add(reset);
 	editPanel.add(ok);
 	reset.addActionListener(new ActionListener() {

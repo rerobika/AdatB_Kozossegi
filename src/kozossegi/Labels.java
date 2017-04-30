@@ -31,6 +31,13 @@ public class Labels {
 			+ "FROM ISMER,FELHASZNALO,KEPEK,PROFIL,NEVNAP "
 			+ "WHERE FELHASZNALO.ID IN (SELECT DISTINCT ISMER.KIVELID AS ISMID FROM ISMER WHERE ISMER.KIID=? UNION SELECT DISTINCT ISMER.KIID AS ISMID FROM ISMER WHERE ISMER.KIVELID=?) "
 			+ "AND FELHASZNALO.ID=PROFIL.SZEMELYID AND REGEXP_SUBSTR(FELHASZNALO.NEV,'[^ ]+$')=NEVNAP.NEV AND TO_CHAR(NEVNAP.HONAP,'FM00')||'-'||TO_CHAR(NEVNAP.NAP,'FM00')=TO_CHAR(SYSDATE,'MM-DD')";
+	public static final String GET_NAMEDAY_MONTH = "SELECT DISTINCT FELHASZNALO.ID,FELHASZNALO.NEV,PROFIL.PROFILKEP "
+			+ "FROM ISMER,FELHASZNALO,KEPEK,PROFIL,NEVNAP "
+			+ "WHERE FELHASZNALO.ID IN (SELECT DISTINCT ISMER.KIVELID AS ISMID FROM ISMER WHERE ISMER.KIID=? UNION SELECT DISTINCT ISMER.KIID AS ISMID FROM ISMER WHERE ISMER.KIVELID=?) "
+			+ "AND FELHASZNALO.ID=PROFIL.SZEMELYID AND REGEXP_SUBSTR(FELHASZNALO.NEV,'[^ ]+$')=NEVNAP.NEV AND TO_CHAR(NEVNAP.HONAP,'FM00')=TO_CHAR(SYSDATE,'MM')";
+	public static final String GET_BIRTHDAY_MONTH = "SELECT DISTINCT FELHASZNALO.ID,FELHASZNALO.NEV,PROFIL.PROFILKEP "
+			+ "FROM ISMER,FELHASZNALO,KEPEK,PROFIL " + "WHERE FELHASZNALO.ID IN "
+			+ "(SELECT DISTINCT ISMER.KIVELID AS ISMID FROM ISMER WHERE ISMER.KIID=? UNION SELECT DISTINCT ISMER.KIID AS ISMID FROM ISMER WHERE ISMER.KIVELID=?) AND FELHASZNALO.ID=PROFIL.SZEMELYID AND TO_CHAR(PROFIL.SZUL_DATUM,'MM')=TO_CHAR(SYSDATE,'MM')";
 	public static final String GET_MEMBERCLUBS = "SELECT DISTINCT FELHASZNALO.ID,FELHASZNALO.NEV "
 			+ "FROM FELHASZNALO,KLUB,TAGJA "
 			+ "WHERE TAGJA.SZEMELYID=? AND TAGJA.KLUBID=KLUB.ID AND FELHASZNALO.ID=KLUB.ID";
@@ -43,10 +50,12 @@ public class Labels {
 			+ "AND TAGJA.KLUBID=KLUB.ID AND FELHASZNALO.ID=KLUB.ID "
 			+ "MINUS SELECT DISTINCT FELHASZNALO.ID,FELHASZNALO.NEV  "
 			+ "FROM FELHASZNALO,KLUB,TAGJA WHERE TAGJA.SZEMELYID=? AND TAGJA.KLUBID=KLUB.ID AND FELHASZNALO.ID=KLUB.ID";
-	public static final String GET_SUGGESTEDFRIENDS = "SELECT DISTINCT FELHASZNALO.ID,FELHASZNALO.NEV,PROFIL.PROFILKEP FROM FELHASZNALO,PROFIL,MUNKAHELY,LAKHELY "
-			+ "WHERE FELHASZNALO.ID IN (((SELECT FELHASZNALO.ID FROM FELHASZNALO,PROFIL WHERE PROFIL.LAKHELYID=(SELECT PROFIL.LAKHELYID FROM PROFIL WHERE PROFIL.SZEMELYID=?)AND PROFIL.SZEMELYID=FELHASZNALO.ID) "
-			+ "UNION (SELECT FELHASZNALO.ID FROM FELHASZNALO,PROFIL WHERE PROFIL.MUNKAHELYID=(SELECT PROFIL.MUNKAHELYID FROM PROFIL WHERE PROFIL.SZEMELYID=?)AND PROFIL.SZEMELYID=FELHASZNALO.ID)) "
-			+ "MINUS ((SELECT DISTINCT ISMER.KIVELID AS ISMID FROM ISMER WHERE ISMER.KIID=? UNION SELECT DISTINCT ISMER.KIID AS ISMID FROM ISMER WHERE ISMER.KIVELID=?))) AND FELHASZNALO.ID=PROFIL.SZEMELYID AND FELHASZNALO.ID!=?";
+	public static final String GET_SUGGESTEDFRIENDS = "SELECT DISTINCT FELHASZNALO.ID,FELHASZNALO.NEV,PROFIL.PROFILKEP FROM FELHASZNALO,PROFIL,MUNKAHELY,LAKHELY WHERE FELHASZNALO.ID IN "
+			+ "(((SELECT FELHASZNALO.ID FROM FELHASZNALO,PROFIL WHERE PROFIL.LAKHELYID=(SELECT PROFIL.LAKHELYID FROM PROFIL WHERE PROFIL.SZEMELYID=?)AND PROFIL.SZEMELYID=FELHASZNALO.ID) "
+			+ "UNION (SELECT FELHASZNALO.ID FROM FELHASZNALO,PROFIL WHERE PROFIL.MUNKAHELYID=(SELECT PROFIL.MUNKAHELYID FROM PROFIL WHERE PROFIL.SZEMELYID=?)AND PROFIL.SZEMELYID=FELHASZNALO.ID) "
+			+ "UNION (SELECT DISTINCT ISMER.KIID FROM ISMER WHERE KIID IN (SELECT DISTINCT ISMER.KIVELID AS ISMID FROM ISMER WHERE ISMER.KIID=? UNION SELECT DISTINCT ISMER.KIID AS ISMID FROM ISMER WHERE ISMER.KIVELID=?) "
+			+ "OR KIVELID IN (SELECT DISTINCT ISMER.KIVELID AS ISMID FROM ISMER WHERE ISMER.KIID=? UNION SELECT DISTINCT ISMER.KIID AS ISMID FROM ISMER WHERE ISMER.KIVELID=?))) MINUS ((SELECT DISTINCT ISMER.KIVELID AS ISMID FROM ISMER WHERE ISMER.KIID=? "
+			+ "UNION SELECT DISTINCT ISMER.KIID AS ISMID FROM ISMER WHERE ISMER.KIVELID=?))) AND FELHASZNALO.ID=PROFIL.SZEMELYID AND FELHASZNALO.ID!=?";
 	public static final String CREATE_PROFILE = "CALL REGISZTRAL(?,?,?,?,?,?,?)";
 	public static final String GET_SCHOOLBYNAME = "SELECT ISKOLA.ISKOLAID AS ID FROM ISKOLA WHERE ISKOLA.NEV=?";
 	public static final String GET_WORKPLACEBYNAME = "SELECT MUNKAHELY.MUNKAHELYID AS ID FROM MUNKAHELY WHERE MUNKAHELY.NEV=?";
@@ -82,6 +91,7 @@ public class Labels {
 	public static final String UPDATE_CLUB_DESC = "UPDATE KLUB SET LEIRAS=? WHERE ID=?";
 	public static final String ADD_CLUB = "CALL KLUBHOZZAAD(?,?,?,?)";
 	public static final String UPDATE_PROFILE = "CALL PROFILFRISSIT(?,?,?,?,?,?,?)";
+	public static final String GET_INVITED_COUNT = "SELECT COUNT(*) AS COUNT FROM PROFIL WHERE MEGHIVO=?";
 
 	// MAIN_FRAME
 	public static final String MAIN_FRAME_TITLE = "Közösségi oldal";
@@ -162,32 +172,32 @@ public class Labels {
 	public static final String ALREADY_FRIENDS = "Ismerősök";
 	public static final String CLUB_TAGS = "Tagok";
 	// PROFILE
-	public static final String PROFIL_WALL = "Idővonal";
-	public static final String PROFIL_INFO = "Információ";
-	public static final String PROFIL_ALBUMS = "Albumok";
-	public static final String PROFIL_FRIENDS = "Ismerősök";
-	public static final String PROFIL_EDIT = "Profil szerkesztése";
-	public static final String PROFIL_CREATE_CLUB = "Klub létrehozás";
-	public static final String PROFIL_CLUB_TAGS = "Tagok";
-	public static final String PROFIL_DATE_OF_BIRTH = "Születési idő";
-	public static final String PROFIL_GENDER = "Nem";
-	public static final String PROFIL_RESIDENCE = "Lakhely";
-	public static final String PROFIL_SCHOOL = "Iskola";
-	public static final String PROFIL_HOBBY = "Hobbi";
-	public static final String PROFIL_WORK_PLACE = "Munkahely";
-	public static final String PROFIL_INVITER = "Meghívó";
-	public static final String PROFIL_INVITE_CODE = "Meghívó kód";
-	public static final String PROFIL_MAN = "Férfi";
-	public static final String PROFIL_WOMAN = "Nő";
-	public static final String PROFIL_RESET_DEFAULT = "Visszaállítás";
-	public static final String PROFIL_SUBMIT_CHANGES = "Módosítások mentése";
-	public static final String PROFIL_ADD_NEW = "Új hozzáadása";
-	public static final String PROFIL_ADD_ATTRIBUTE = "Hozzáadás";
-	public static final String PROFIL_UPLOAD_PICTURE = "Kép feltöltés";
-	public static final String PROFIL_PICTURE = "Profilkép";
-	public static final String PROFIL_EDIT_WRONG_SIZE = "Maximum 2 megabájt lehet a kép méret!";
-	public static final String PROFIL_NOT_COMPATIBLE_EXTENSION = "Nem képet adtál meg!";
-	public static final String PROFIL_PICTURE_ALBUM = "Profilképek";
+	public static final String PROFILE_WALL = "Idővonal";
+	public static final String PROFILE_INFO = "Információ";
+	public static final String PROFILE_ALBUMS = "Albumok";
+	public static final String PROFILE_FRIENDS = "Ismerősök";
+	public static final String PROFILE_EDIT = "Profil szerkesztése";
+	public static final String PROFILE_CREATE_CLUB = "Klub létrehozás";
+	public static final String PROFILE_CLUB_TAGS = "Tagok";
+	public static final String PROFILE_DATE_OF_BIRTH = "Születési idő";
+	public static final String PROFILE_GENDER = "Nem";
+	public static final String PROFILE_RESIDENCE = "Lakhely";
+	public static final String PROFILE_SCHOOL = "Iskola";
+	public static final String PROFILE_HOBBY = "Hobbi";
+	public static final String PROFILE_WORK_PLACE = "Munkahely";
+	public static final String PROFILE_INVITER = "Meghívó";
+	public static final String PROFILE_INVITE_CODE = "Meghívó kód";
+	public static final String PROFILE_MAN = "Férfi";
+	public static final String PROFILE_WOMAN = "Nő";
+	public static final String PROFILE_RESET_DEFAULT = "Visszaállítás";
+	public static final String PROFILE_SUBMIT_CHANGES = "Módosítások mentése";
+	public static final String PROFILE_ADD_NEW = "Új hozzáadása";
+	public static final String PROFILE_ADD_ATTRIBUTE = "Hozzáadás";
+	public static final String PROFILE_UPLOAD_PICTURE = "Kép feltöltés";
+	public static final String PROFILE_PICTURE = "Profilkép";
+	public static final String PROFILE_EDIT_WRONG_SIZE = "Maximum 2 megabájt lehet a kép méret!";
+	public static final String PROFILE_NOT_COMPATIBLE_EXTENSION = "Nem képet adtál meg!";
+	public static final String PROFILE_PICTURE_ALBUM = "Profilképek";
 	public static final String SUCCESSFUL_PROFILE_PICTURE_UPDATE = "A profilképed sikeresen megváltozott!";
 	public static final String PROFILE_CREATE_CLUB_NAME = "Új klub neve:";
 	public static final String PROFILE_CREATE_CLUB_DESCRIPTION = "Leírás:";
@@ -199,6 +209,7 @@ public class Labels {
 	public static final String PROFILE_IS_ALREADY_AVALIABLE = "Ilyen bejegyzés már létezik, válaszd ki a listából!";
 	public static final String PROFILE_SUCCESSFUL_ADD = "Sikeres hozzáadás!";
 	public static final String PROFILE_EMPTY_ADD = "Üresen hagytad a szövegmezőt!";
+	public static final String PROFILE_INVITED = "Meghívott tagok száma: ";
 
 	public enum KozossegiFriendState {
 		NON_FRIENDS, PENDING, FRIENDS
@@ -210,5 +221,6 @@ public class Labels {
 	public static final String CLUB_OWNER_NAME = "Tulajdonos";
 	public static final String CLUB_DESCRIPTION = "Leírás";
 	public static final String CLUB_NUMBER_OF_TAGS = "Létszám";
+
 
 }

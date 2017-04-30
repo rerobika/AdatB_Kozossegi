@@ -55,4 +55,5 @@ public interface KozossegiDAO {
 	public void updateClubDesc(String text, int id);
 	public void addClub(KozossegiClubBean club);
 	public void updateProfile(KozossegiProfileBean profile);
+	public int getInvitedCount(int id);
 }

@@ -35,9 +35,9 @@ public class KozossegiProfile extends JPanel{
 		
 		
 		
-		contentTabbedPane.addTab(Labels.PROFIL_WALL, new JScrollPane(wallTab, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+		contentTabbedPane.addTab(Labels.PROFILE_WALL, new JScrollPane(wallTab, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER));
-		contentTabbedPane.addTab(Labels.PROFIL_ALBUMS, new JScrollPane(albumsTab, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+		contentTabbedPane.addTab(Labels.PROFILE_ALBUMS, new JScrollPane(albumsTab, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER));
 		contentTabbedPane.setSelectedIndex(0);
 		

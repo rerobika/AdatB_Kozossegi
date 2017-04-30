@@ -174,4 +174,8 @@ public class KozossegiController{
 	{
 		dao.updateProfile(profile);
 	}
+
+	public int getInvitedCount(int id) {
+		return dao.getInvitedCount(id);
+	}
 }

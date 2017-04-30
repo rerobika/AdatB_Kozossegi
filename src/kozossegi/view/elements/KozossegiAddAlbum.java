@@ -43,7 +43,7 @@ public class KozossegiAddAlbum extends JPanel {
 			}
 		});
 		head.setLayout(new FlowLayout(FlowLayout.LEFT));
-		head.add(new JLabel(Labels.PROFIL_ADD_NEW));
+		head.add(new JLabel(Labels.PROFILE_ADD_NEW));
 		head.add(text);
 		head.add(add);
 		head.setBorder(BorderFactory.createLineBorder(Color.black));

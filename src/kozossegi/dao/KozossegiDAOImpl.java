@@ -26,7 +26,6 @@ import kozossegi.bean.KozossegiProfileBean;
 import kozossegi.bean.KozossegiProfileMiniatureBean;
 import kozossegi.bean.KozossegiProfileNameBean;
 import kozossegi.bean.KozossegiRelation;
-import oracle.net.aso.p;
 
 public class KozossegiDAOImpl implements KozossegiDAO {
 
@@ -248,7 +247,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		List<KozossegiProfileMiniatureBean> bday = new ArrayList<KozossegiProfileMiniatureBean>();
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
-				PreparedStatement ps = conn.prepareStatement(Labels.GET_BIRTHDAY);) {
+				PreparedStatement ps = conn.prepareStatement(Labels.GET_BIRTHDAY_MONTH);) {
 			ps.setInt(1, id);
 			ps.setInt(2, id);
 			ResultSet rs = ps.executeQuery();
@@ -269,7 +268,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		List<KozossegiProfileMiniatureBean> nday = new ArrayList<KozossegiProfileMiniatureBean>();
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
-				PreparedStatement ps = conn.prepareStatement(Labels.GET_NAMEDAY);) {
+				PreparedStatement ps = conn.prepareStatement(Labels.GET_NAMEDAY_MONTH);) {
 			ps.setInt(1, id);
 			ps.setInt(2, id);
 			ResultSet rs = ps.executeQuery();
@@ -316,6 +315,10 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ps.setInt(3, id);
 			ps.setInt(4, id);
 			ps.setInt(5, id);
+			ps.setInt(6, id);
+			ps.setInt(7, id);
+			ps.setInt(8, id);
+			ps.setInt(9, id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				bday.add(new KozossegiProfileMiniatureBean(rs.getInt("ID"), rs.getString("NEV"),
@@ -854,5 +857,22 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			System.out.println("Error adding club!");
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public int getInvitedCount(int id) {
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.GET_INVITED_COUNT);) {
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next())
+				return rs.getInt("COUNT");
+			return 0;
+		} catch (SQLException e) {
+			System.out.println("Error adding club!");
+			e.printStackTrace();
+		}
+		return 0;
 	}
 }
