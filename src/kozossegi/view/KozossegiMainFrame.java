@@ -129,7 +129,7 @@ public class KozossegiMainFrame extends JFrame{
 	{
 		profile = new KozossegiProfileBean("Ures", id, new Date(), false, "-", "-", "-", "-", "-", "-", -1, "");
 		update();
-		mainContentPanel.setPreferredSize(new Dimension(800, 600));
+		setPreferredSize(new Dimension(1440, 900));
 		setMainContent(new KozossegiNewsFeed(profile));
 		
 	}

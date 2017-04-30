@@ -267,6 +267,7 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 			profile.setWorkplace((String)workPlace.getSelectedItem());
 			mainFrame.getController().updateProfile(profile);		
 			mainFrame.setMainContent(new KozossegiUserProfile(profile));
+			mainFrame.update();
 		}
 		
 	}

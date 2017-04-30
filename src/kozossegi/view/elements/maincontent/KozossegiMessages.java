@@ -88,11 +88,8 @@ public class KozossegiMessages extends JPanel implements ActionListener {
 			});
 			friendListPanel.add(miniature);
 		}
-
 		messageSendButton.addActionListener(this);
-		FlowLayout fl_sendMessagePanel = new FlowLayout();
-		fl_sendMessagePanel.setAlignment(FlowLayout.RIGHT);
-		sendMessagePanel.setLayout(fl_sendMessagePanel);
+		sendMessagePanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		sendMessagePanel.add(messageText);
 		sendMessagePanel.add(messageSendButton);
 
@@ -123,6 +120,7 @@ public class KozossegiMessages extends JPanel implements ActionListener {
 		}
 		conversationPanel.revalidate();
 		conversationPanel.repaint();
+		conversationPanel.setMaximumSize(conversationPanel.getPreferredSize());
 		messageText.setEditable(true);
 	}
 }
