@@ -851,8 +851,8 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ps.setInt(1, id);
 			ps.setInt(2, id2);
 			int rn = ps.executeUpdate();
-			if (rn == 1)
-				System.out.println("Successful join!");
+			if (rn != 1)
+				System.out.println("Error while join!");
 		} catch (SQLException e) {
 			System.out.println("Error while marking friend!");
 			e.printStackTrace();
@@ -868,11 +868,28 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ps.setString(1, text);
 			ps.setInt(2, id);
 			int rn = ps.executeUpdate();
-			if (rn == 1)
-				System.out.println("Successful update!");
+			if (rn != 1)
+				System.out.println("Error while update!");
 		} catch (SQLException e) {
-			System.out.println("Error while marking friend!");
+			System.out.println("Error while update!");
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void addClub(KozossegiClubBean club) {
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.ADD_CLUB);) {
+			ps.setString(1, club.getName());
+			ps.setInt(2, club.getOwnerId());
+			ps.setDate(3, new java.sql.Date(club.getStart().getTime()));
+			ps.setString(4, club.getDesc());
+			ps.execute();
+		} catch (SQLException e) {
+			System.out.println("Error adding club!");
+			e.printStackTrace();
+		}
+		
 	}
 }

@@ -72,7 +72,7 @@ public class KozossegiMainFrame extends JFrame{
 		//setResizable(false);
 		setTitle(Labels.MAIN_FRAME_TITLE);			
 		setMainContent(new KozossegiLogin());
-		pack();
+		//pack();
 		setVisible(true);	
 	}
 	public static KozossegiMainFrame getInstance()

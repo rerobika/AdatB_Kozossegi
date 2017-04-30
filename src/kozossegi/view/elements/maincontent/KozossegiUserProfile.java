@@ -9,16 +9,11 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.Calendar;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import kozossegi.Labels;
 import kozossegi.Labels.KozossegiFriendState;
@@ -26,6 +21,7 @@ import kozossegi.bean.KozossegiProfileBean;
 import kozossegi.bean.KozossegiRelation;
 import kozossegi.view.KozossegiMainFrame;
 import kozossegi.view.elements.KozossegiBirthDayPicker;
+import kozossegi.view.elements.KozossegiCreateClub;
 import kozossegi.view.elements.KozossegiGenderPicker;
 import kozossegi.view.elements.KozossegiPictureSelector;
 import kozossegi.view.elements.KozossegiPictureSelector.fileScan;
@@ -47,17 +43,13 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 	private JComboBox<String> school;
 	private JComboBox<String> hobby;
 	private JComboBox<String> workPlace;
-	private JTextField clubNameField;
-	private JTextArea clubDescriptionTextArea;
-	private JButton clubResetButton;
-	private JButton clubCreateButton;
 	
 	public KozossegiUserProfile(KozossegiProfileBean profile)  {
 		super(profile);
 		this.mainFrame = KozossegiMainFrame.getInstance();
 		this.profile = profile;
 		friendsPanel = new KozossegiFriendManagement(profile);
-		createClubPanel = new JPanel();
+		createClubPanel = new KozossegiCreateClub(profile);
 		contentTabbedPane.addTab(Labels.PROFIL_INFO, infoTab);
 		if(profile.getId() == mainFrame.getProfile().getId()){
 			contentTabbedPane.addTab(Labels.PROFIL_EDIT, editTab);
@@ -70,7 +62,6 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 		initTopPanel();
 		initInfoPanel();
 		initEditPanel();
-		initCreateClubPanel();
 }	
 	
 	private void initTopPanel() {
@@ -124,33 +115,6 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 		}
 	}
 	
-
-	private void initCreateClubPanel() {
-		clubNameField = new JTextField();
-		clubDescriptionTextArea = new JTextArea(2, 20);
-		clubResetButton = new JButton(Labels.PROFILE_CREATE_CLUB_RESET_BUTTON);
-		clubCreateButton = new JButton(Labels.PROFILE_CREATE_CLUB_BUTTON);
-		JPanel first = new JPanel();
-		first.setLayout(new BoxLayout(first, BoxLayout.Y_AXIS));
-		
-		JPanel second = new JPanel(new GridLayout(3, 2));
-		
-		second.setLayout(new GridLayout(3, 2));
-		second.add(new JLabel(Labels.PROFILE_CREATE_CLUB_NAME));
-		second.add(clubNameField);
-		second.add(new JLabel(Labels.PROFILE_CREATE_CLUB_DESCRIPTION));
-		second.add(clubDescriptionTextArea);
-		second.add(clubResetButton);
-		second.add(clubCreateButton);
-		
-		first.add(second);
-		createClubPanel.add(first);
-		
-		clubResetButton.addActionListener(this);
-		clubCreateButton.addActionListener(this);
-	}
-
-
 	private void initInfoPanel(){
 		infoTab.setLayout(new GridLayout(8, 5, 2, 5));
 		infoTab.add(new JLabel(Labels.PROFIL_DATE_OF_BIRTH));

@@ -166,4 +166,8 @@ public class KozossegiController{
 	public void updateClubDesc(String text, int id) {
 		dao.updateClubDesc(text, id);		
 	}
+	public void addClub(KozossegiClubBean club)
+	{
+		dao.addClub(club);
+	}
 }
