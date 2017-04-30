@@ -16,36 +16,33 @@ public class KozossegiProfile extends JPanel{
 
 	protected KozossegiUserBean profile;
 	protected KozossegiMainFrame mainFrame;
-	protected JPanel postPanel;
 	protected JPanel topPanel;
 	protected JTabbedPane contentTabbedPane;
-	protected JPanel infoPanel;
-	protected JPanel wallPanel;
-	protected JPanel albumsPanel;
-	protected JPanel editPanel;
+	protected JPanel infoTab;
+	protected JPanel wallTab;
+	protected JPanel albumsTab;
+	protected JPanel editTab;
 	
 	public KozossegiProfile(KozossegiUserBean user) {
 		this.mainFrame = KozossegiMainFrame.getInstance();
 		this.profile = user;
-		postPanel = new JPanel();
 		topPanel = new JPanel();
 		contentTabbedPane = new JTabbedPane();
-		infoPanel = new JPanel();
-		wallPanel = new KozossegiNewsFeed(user);
-		albumsPanel = new KozossegiAlbumView(user);
-		editPanel = new JPanel();
+		infoTab = new JPanel();
+		wallTab = new KozossegiNewsFeed(user);
+		albumsTab = new KozossegiAlbumView(user);
+		editTab = new JPanel();
 		
 		
 		
-		contentTabbedPane.addTab(Labels.PROFIL_WALL, new JScrollPane(wallPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+		contentTabbedPane.addTab(Labels.PROFIL_WALL, new JScrollPane(wallTab, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER));
-		contentTabbedPane.addTab(Labels.PROFIL_ALBUMS, new JScrollPane(albumsPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+		contentTabbedPane.addTab(Labels.PROFIL_ALBUMS, new JScrollPane(albumsTab, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER));
 		contentTabbedPane.setSelectedIndex(0);
 		
 		setLayout(new BorderLayout());
-		add(contentTabbedPane, BorderLayout.CENTER);
-		add(postPanel, BorderLayout.SOUTH);		
+		add(contentTabbedPane, BorderLayout.CENTER);	
 		add(topPanel, BorderLayout.NORTH);
 		
 		

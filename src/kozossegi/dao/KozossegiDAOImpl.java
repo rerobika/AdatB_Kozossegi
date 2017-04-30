@@ -47,7 +47,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 				PreparedStatement ps = conn.prepareStatement(Labels.GET_FRIENDS);) {
 			ps.setInt(1, id);
 			ps.setInt(2, id);
-			
+
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				friends.add(new KozossegiProfileMiniatureBean(rs.getInt("ID"), rs.getString("NEV"),
@@ -61,54 +61,45 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		return friends;
 	}
 
-	
-	
 	public KozossegiProfileMiniatureBean getMiniature(int id, Connection conn) {
 		try (PreparedStatement ps = conn.prepareStatement(Labels.GET_USER_MINIATURE_BYID);) {
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
-			
+
 			KozossegiImage img = null;
-			
-			if(rs.next())
-			{	
+
+			if (rs.next()) {
 				img = getImageByID(rs.getInt("PROFILKEP"));
-				return new KozossegiProfileMiniatureBean( rs.getInt("ID"),rs.getString("NEV"), img);
-			}
-			else
-			{
+				return new KozossegiProfileMiniatureBean(rs.getInt("ID"), rs.getString("NEV"), img);
+			} else {
 				img = getImageByID(0);
-				return new KozossegiProfileMiniatureBean( -1,"Ures", img);
+				return new KozossegiProfileMiniatureBean(-1, "Ures", img);
 			}
-				
+
 		} catch (SQLException e) {
 			System.out.println("Error while listing user's friends!");
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
-	
+
 	public KozossegiProfileMiniatureBean getMiniature(int id) {
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
 				PreparedStatement ps = conn.prepareStatement(Labels.GET_USER_MINIATURE_BYID);) {
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
-			
+
 			KozossegiImage img = null;
-			
-			if(rs.next())
-			{	
+
+			if (rs.next()) {
 				img = getImageByID(rs.getInt("PROFILKEP"));
-				return new KozossegiProfileMiniatureBean( rs.getInt("ID"),rs.getString("NEV"), img);
-			}
-			else
-			{
+				return new KozossegiProfileMiniatureBean(rs.getInt("ID"), rs.getString("NEV"), img);
+			} else {
 				img = getImageByID(0);
-				return new KozossegiProfileMiniatureBean( -1,"Ures", img);
+				return new KozossegiProfileMiniatureBean(-1, "Ures", img);
 			}
-				
+
 		} catch (SQLException e) {
 			System.out.println("Error while listing user's friends!");
 			e.printStackTrace();
@@ -124,15 +115,12 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ResultSet rs = ps.executeQuery();
 
 			try {
-				if (!rs.next())
-				{
-					return new KozossegiImage(new URL(Labels.PROFILE_PICTURE_URL),0);
+				if (!rs.next()) {
+					return new KozossegiImage(new URL(Labels.PROFILE_PICTURE_URL), 0);
+				} else {
+					return new KozossegiImage(new URL(rs.getString("ELERESIUT")), rs.getInt("POSZTID"));
 				}
-				else
-				{
-					return new KozossegiImage(new URL(rs.getString("ELERESIUT")),rs.getInt("POSZTID"));
-				}
-				
+
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
@@ -145,8 +133,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 
 	}
 
-
-	public List<KozossegiPostData> getPostData(int startinterval, int endinterval,int id) {
+	public List<KozossegiPostData> getPostData(int startinterval, int endinterval, int id) {
 		List<KozossegiPostData> post = new ArrayList<KozossegiPostData>();
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
@@ -158,9 +145,17 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ps.setInt(5, endinterval);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				
-				post.add(new KozossegiPostData(rs.getInt("ID"), new KozossegiProfileNameBean(rs.getInt("FELADO"),rs.getString("FELADONEV")), 
-						new KozossegiProfileNameBean(rs.getInt("CIMZETT"),rs.getString("CIMZETTNEV")), rs.getDate("IDO"), rs.getString("TARTALOM"), getCommentData(rs.getInt("ID"),conn), rs.getInt("SZULO")));
+				KozossegiProfileNameBean receiver;
+				rs.getInt("CIMZETT");
+				if (rs.wasNull()) {
+					receiver = null;
+				} else {
+					receiver = new KozossegiProfileNameBean(rs.getInt("CIMZETT"), rs.getString("CIMZETTNEV"));
+				}
+				post.add(new KozossegiPostData(rs.getInt("ID"),
+						new KozossegiProfileNameBean(rs.getInt("FELADO"), rs.getString("FELADONEV")), receiver,
+						rs.getDate("IDO"), rs.getString("TARTALOM"), getCommentData(rs.getInt("ID"), conn),
+						rs.getInt("SZULO")));
 			}
 
 		} catch (SQLException e) {
@@ -175,31 +170,28 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		return null;
 	}
 
-	
 	@Override
 	public KozossegiProfileBean getProfile(int id) {
-		
+
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
 				PreparedStatement ps = conn.prepareStatement(Labels.GET_USERBYID);) {
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
-			
+
 			KozossegiImage img = null;
-			
-			if(rs.next())
-			{	
+
+			if (rs.next()) {
 				img = getImageByID(rs.getInt("PROFILKEP"));
 				return new KozossegiProfileBean(rs.getString("NEV"), rs.getInt("ID"), rs.getDate("SZUL_DATUM"),
 						rs.getBoolean("NEM"), rs.getString("LAKHELY"), rs.getString("ISKOLA"), rs.getString("HOBBI"),
-						rs.getString("MUNKAHELY"), rs.getString("EMAIL"), rs.getString("JELSZO"), rs.getInt("MEGHIVO"), img);
-			}
-			else
-			{
+						rs.getString("MUNKAHELY"), rs.getString("EMAIL"), rs.getString("JELSZO"), rs.getInt("MEGHIVO"),
+						img);
+			} else {
 				img = getImageByID(0);
-				return new KozossegiProfileBean("Ures", -1, new Date(), false, "-", "-", "-", "-", "-", "-",-1, img);
+				return new KozossegiProfileBean("Ures", -1, new Date(), false, "-", "-", "-", "-", "-", "-", -1, img);
 			}
-				
+
 		} catch (SQLException e) {
 			System.out.println("Error while listing user's friends!");
 			e.printStackTrace();
@@ -245,7 +237,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			if (success != 1)
 				System.err.println("Error while inserting message!");
 		} catch (SQLException e) {
-			if(!(e.getErrorCode()==1))
+			if (!(e.getErrorCode() == 1))
 				e.printStackTrace();
 		}
 	}
@@ -303,7 +295,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ps.setInt(3, id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				sclub.add(new KozossegiProfileMiniatureBean(rs.getInt("id"),rs.getString("NEV")));
+				sclub.add(new KozossegiProfileMiniatureBean(rs.getInt("id"), rs.getString("NEV")));
 			}
 		} catch (SQLException e) {
 			System.out.println("Error while getting member clubs!");
@@ -345,7 +337,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				mclub.add(new KozossegiProfileMiniatureBean(rs.getInt("id"),rs.getString("NEV")));
+				mclub.add(new KozossegiProfileMiniatureBean(rs.getInt("id"), rs.getString("NEV")));
 			}
 
 		} catch (SQLException e) {
@@ -364,7 +356,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				oclub.add(new KozossegiProfileMiniatureBean(rs.getInt("id"),rs.getString("NEV")));
+				oclub.add(new KozossegiProfileMiniatureBean(rs.getInt("id"), rs.getString("NEV")));
 			}
 
 		} catch (SQLException e) {
@@ -376,16 +368,16 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 
 	@Override
 	public void addProfile(KozossegiProfileBean profile) {
-		int residenceId=21,schoolId=375,workplaceId=21,hobbyId=61;
-		
+		int residenceId = 21, schoolId = 375, workplaceId = 21, hobbyId = 61;
+
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
 				PreparedStatement ps = conn.prepareStatement(Labels.GET_HOBBYBYNAME);) {
-				ps.setString(1,profile.getHobby());
-				ResultSet rs = ps.executeQuery();
-				if(rs.next())
-					hobbyId=rs.getInt("ID");
-				
+			ps.setString(1, profile.getHobby());
+			ResultSet rs = ps.executeQuery();
+			if (rs.next())
+				hobbyId = rs.getInt("ID");
+
 		} catch (SQLException e) {
 			System.out.println("Error while getting profile!");
 			e.printStackTrace();
@@ -394,10 +386,10 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
 				PreparedStatement ps = conn.prepareStatement(Labels.GET_RESIDENCEBYNAME);) {
-				ps.setString(1,profile.getResidence());
-				ResultSet rs = ps.executeQuery();
-				if(rs.next())
-					residenceId=rs.getInt("ID");
+			ps.setString(1, profile.getResidence());
+			ResultSet rs = ps.executeQuery();
+			if (rs.next())
+				residenceId = rs.getInt("ID");
 		} catch (SQLException e) {
 			System.out.println("Error while getting profile!");
 			e.printStackTrace();
@@ -406,10 +398,10 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
 				PreparedStatement ps = conn.prepareStatement(Labels.GET_SCHOOLBYNAME);) {
-				ps.setString(1,profile.getSchool());
-				ResultSet rs = ps.executeQuery();
-				if(rs.next())
-					schoolId=rs.getInt("ID");
+			ps.setString(1, profile.getSchool());
+			ResultSet rs = ps.executeQuery();
+			if (rs.next())
+				schoolId = rs.getInt("ID");
 		} catch (SQLException e) {
 			System.out.println("Error while getting profile!");
 			e.printStackTrace();
@@ -418,10 +410,10 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
 				PreparedStatement ps = conn.prepareStatement(Labels.GET_WORKPLACEBYNAME);) {
-				ps.setString(1,profile.getWorkplace());
-				ResultSet rs = ps.executeQuery();
-				if(rs.next())
-					workplaceId=rs.getInt("ID");
+			ps.setString(1, profile.getWorkplace());
+			ResultSet rs = ps.executeQuery();
+			if (rs.next())
+				workplaceId = rs.getInt("ID");
 		} catch (SQLException e) {
 			System.out.println("Error while getting profile!");
 			e.printStackTrace();
@@ -429,24 +421,24 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		}
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
-				PreparedStatement ps = conn.prepareStatement(Labels.CREATE_PROFILE);) {		
+				PreparedStatement ps = conn.prepareStatement(Labels.CREATE_PROFILE);) {
 			ps.setString(1, profile.getName());
 			ps.setString(2, profile.getPass());
 			ps.setString(3, profile.getEmail());
 			ps.setDate(4, new java.sql.Date(profile.getDob().getTime()));
-			ps.setInt(5,profile.isGender()?1:0);
-			ps.setInt(6,residenceId);
-			ps.setInt(7,schoolId);
-			ps.setInt(8,hobbyId);
-			ps.setInt(9,workplaceId);
-			ps.setInt(10,profile.getInviter());
-			ps.setString(11,profile.getPicloc());
-			ps.execute();	
+			ps.setInt(5, profile.isGender() ? 1 : 0);
+			ps.setInt(6, residenceId);
+			ps.setInt(7, schoolId);
+			ps.setInt(8, hobbyId);
+			ps.setInt(9, workplaceId);
+			ps.setInt(10, profile.getInviter());
+			ps.setString(11, profile.getPicloc());
+			ps.execute();
 		} catch (SQLException e) {
 			System.out.println("Error while creating profile!");
 			e.printStackTrace();
 		}
-			
+
 	}
 
 	@Override
@@ -455,16 +447,15 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
 				PreparedStatement ps = conn.prepareStatement(Labels.GET_SCHOOLS);) {
-				ResultSet rs = ps.executeQuery();
-				while(rs.next())
-				{
-					list.add(rs.getString("NEV"));
-				}
-				return list;
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				list.add(rs.getString("NEV"));
+			}
+			return list;
 		} catch (SQLException e) {
 			System.out.println("Error while getting schools!");
 			e.printStackTrace();
-			
+
 		}
 		return null;
 	}
@@ -475,16 +466,15 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
 				PreparedStatement ps = conn.prepareStatement(Labels.GET_WORKPLACES);) {
-				ResultSet rs = ps.executeQuery();
-				while(rs.next())
-				{
-					list.add(rs.getString("NEV"));
-				}
-				return list;
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				list.add(rs.getString("NEV"));
+			}
+			return list;
 		} catch (SQLException e) {
 			System.out.println("Error while getting workplaces!");
 			e.printStackTrace();
-			
+
 		}
 		return null;
 	}
@@ -495,16 +485,15 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
 				PreparedStatement ps = conn.prepareStatement(Labels.GET_RESIDENCES);) {
-				ResultSet rs = ps.executeQuery();
-				while(rs.next())
-				{
-					list.add(rs.getString("NEV"));
-				}
-				return list;
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				list.add(rs.getString("NEV"));
+			}
+			return list;
 		} catch (SQLException e) {
 			System.out.println("Error while getting residences!");
 			e.printStackTrace();
-			
+
 		}
 		return null;
 	}
@@ -515,16 +504,15 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
 				PreparedStatement ps = conn.prepareStatement(Labels.GET_HOBBYS);) {
-				ResultSet rs = ps.executeQuery();
-				while(rs.next())
-				{
-					list.add(rs.getString("NEV"));
-				}
-				return list;
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				list.add(rs.getString("NEV"));
+			}
+			return list;
 		} catch (SQLException e) {
 			System.out.println("Error while getting hobbys!");
 			e.printStackTrace();
-			
+
 		}
 		return null;
 	}
@@ -534,17 +522,19 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
 				PreparedStatement ps = conn.prepareStatement(Labels.MARK_FRIEND);) {
-				ps.setInt(1, id1);
-				ps.setInt(2, id2);
-				ps.setDate(3, new java.sql.Date(new Date().getTime()));
-				boolean succes = ps.execute();
-				if(!succes)
-					System.out.println("Error while marking friend!");
+			ps.setInt(1, id1);
+			ps.setInt(2, id2);
+			ps.setDate(3, new java.sql.Date(new Date().getTime()));
+			ps.setInt(4, id1);
+			ps.setInt(5, id2);
+			boolean succes = ps.execute();
+			if (!succes)
+				System.out.println("Error while marking friend!");
 		} catch (SQLException e) {
 			System.out.println("Error while marking friend!");
-			e.printStackTrace();		
+			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
@@ -552,17 +542,17 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
 				PreparedStatement ps = conn.prepareStatement(Labels.CONFIRM_FRIEND);) {
-				ps.setDate(1, new java.sql.Date(new Date().getTime()));
-				ps.setInt(2, id2);
-				ps.setInt(3, id1);
-				boolean succes = ps.execute();
-				if(!succes)
-					System.out.println("Error while marking friend!");
+			ps.setDate(1, new java.sql.Date(new Date().getTime()));
+			ps.setInt(2, id2);
+			ps.setInt(3, id1);
+			boolean succes = ps.execute();
+			if (!succes)
+				System.out.println("Error while marking friend!");
 		} catch (SQLException e) {
 			System.out.println("Error while marking friend!");
-			e.printStackTrace();		
+			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
@@ -570,26 +560,26 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
 				PreparedStatement ps = conn.prepareStatement(Labels.IS_VALID_INVITER_CODE);) {
-				ps.setInt(1, id);
-				ResultSet rs = ps.executeQuery();
-				return rs.next();
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			return rs.next();
 		} catch (SQLException e) {
 			System.out.println("Error while executing invite code validator!");
-			e.printStackTrace();		
+			e.printStackTrace();
 		}
 		return false;
 	}
-	
+
 	public boolean isUniqueEmail(String email) {
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
 				PreparedStatement ps = conn.prepareStatement(Labels.IS_UNIQUE_EMAIL);) {
-				ps.setString(1, email);
-				ResultSet rs = ps.executeQuery();
-				return !rs.next();
+			ps.setString(1, email);
+			ResultSet rs = ps.executeQuery();
+			return !rs.next();
 		} catch (SQLException e) {
 			System.out.println("Error while executing email validator!");
-			e.printStackTrace();		
+			e.printStackTrace();
 		}
 		return false;
 	}
@@ -599,34 +589,34 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
 				PreparedStatement ps = conn.prepareStatement(Labels.UPLOAD_IMAGE);) {
-				ps.setString(1, KozossegiImageManager.upload(filename, filename.getName()));	
-				ps.setString(2, albumName);				
-				ps.setInt(3, id);
-				ResultSet rs = ps.executeQuery();
-				rs.next();
-				return rs.getInt("ID");
+			ps.setString(1, KozossegiImageManager.upload(filename, filename.getName()));
+			ps.setString(2, albumName);
+			ps.setInt(3, id);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			return rs.getInt("ID");
 		} catch (SQLException e) {
 			System.out.println("Error while uploadPicture!");
-			e.printStackTrace();		
-	}
+			e.printStackTrace();
+		}
 		return 1;
-}
+	}
 
 	@Override
 	public void updateProfilePicture(int id, int picId) {
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
 				PreparedStatement ps = conn.prepareStatement(Labels.UPDATE_PROFIL_PICTURE);) {
-				ps.setInt(1, picId);
-				ps.setInt(2, id);				
-				boolean succes = ps.execute();
-				if(!succes)
-					System.out.println("Error while updating profile picture!");
+			ps.setInt(1, picId);
+			ps.setInt(2, id);
+			boolean succes = ps.execute();
+			if (!succes)
+				System.out.println("Error while updating profile picture!");
 		} catch (SQLException e) {
 			System.out.println("Error while updateProfilePicture!");
-			e.printStackTrace();		
+			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
@@ -634,17 +624,17 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
 				PreparedStatement ps = conn.prepareStatement(Labels.LOGIN);) {
-				ps.setString(1, password);
-				ps.setString(2, email);				
-				ResultSet rs = ps.executeQuery();
-				if(rs.next())
-					return new KozossegiProfileNameBean(rs.getInt("ID"),rs.getString("NEV"));
-				else
-					System.out.println("Invalid login data!");
-					return null;		
+			ps.setString(1, password);
+			ps.setString(2, email);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next())
+				return new KozossegiProfileNameBean(rs.getInt("ID"), rs.getString("NEV"));
+			else
+				System.out.println("Invalid login data!");
+			return null;
 		} catch (SQLException e) {
 			System.out.println("Invalid login data!");
-			e.printStackTrace();		
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -654,21 +644,20 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
 				PreparedStatement ps = conn.prepareStatement(Labels.GET_FRIEND_STATE);) {
-				ps.setInt(1, id1);
-				ps.setInt(2, id2);
-				ps.setInt(3, id1);
-				ps.setInt(4, id2);
-						
-				ResultSet rs = ps.executeQuery();
-				if(rs.next())
-				{
-					return new KozossegiRelation(rs.getInt("KIID"),rs.getInt("KIVELID"),rs.getInt("STATUSZ")==0?KozossegiFriendState.PENDING:KozossegiFriendState.FRIENDS);
-				}	
-				else
-					return new KozossegiRelation(id1, id2, KozossegiFriendState.NON_FRIENDS);	
+			ps.setInt(1, id1);
+			ps.setInt(2, id2);
+			ps.setInt(3, id1);
+			ps.setInt(4, id2);
+
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				return new KozossegiRelation(rs.getInt("KIID"), rs.getInt("KIVELID"),
+						rs.getInt("STATUSZ") == 0 ? KozossegiFriendState.PENDING : KozossegiFriendState.FRIENDS);
+			} else
+				return new KozossegiRelation(id1, id2, KozossegiFriendState.NON_FRIENDS);
 		} catch (SQLException e) {
 			System.out.println("Error while getting friend state!");
-			e.printStackTrace();		
+			e.printStackTrace();
 		}
 		return new KozossegiRelation(id1, id2, KozossegiFriendState.NON_FRIENDS);
 	}
@@ -678,18 +667,18 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
 				PreparedStatement ps = conn.prepareStatement(Labels.REMOVE_MARK);) {
-				ps.setInt(1, id1);
-				ps.setInt(2, id2);
-				ps.setInt(3, id1);
-				ps.setInt(4, id2);
-						
-				boolean succes = ps.execute();
-				if(!succes)
-					System.out.println("Error while deleting friend state!");
+			ps.setInt(1, id1);
+			ps.setInt(2, id2);
+			ps.setInt(3, id1);
+			ps.setInt(4, id2);
+
+			boolean succes = ps.execute();
+			if (!succes)
+				System.out.println("Error while deleting friend state!");
 		} catch (SQLException e) {
 			System.out.println("Error while deleting friend state!");
-			e.printStackTrace();		
-		}		
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -700,7 +689,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 				PreparedStatement ps = conn.prepareStatement(Labels.GET_PENDING);) {
 			ps.setInt(1, id);
 			ps.setInt(2, id);
-			
+
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				friends.add(new KozossegiProfileMiniatureBean(rs.getInt("ID"), rs.getString("NEV"),
@@ -719,10 +708,10 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
 				PreparedStatement ps = conn.prepareStatement(Labels.GET_NAME_BY_ID);) {
-			ps.setInt(1, id);	
+			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
-			if(rs.next())
-			return new KozossegiProfileNameBean(rs.getInt("ID"),rs.getString("NEV"));
+			if (rs.next())
+				return new KozossegiProfileNameBean(rs.getInt("ID"), rs.getString("NEV"));
 
 		} catch (SQLException e) {
 			System.out.println("Error while listing user's friends!");
@@ -732,14 +721,16 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 	}
 
 	@Override
-	public List<KozossegiPostData> getCommentData(int id,Connection conn) {
+	public List<KozossegiPostData> getCommentData(int id, Connection conn) {
 		List<KozossegiPostData> comment = new ArrayList<KozossegiPostData>();
 		try (PreparedStatement ps = conn.prepareStatement(Labels.GET_COMMENTS);) {
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				
-				comment.add(new KozossegiPostData(rs.getInt("ID"), getNameById(rs.getInt("FELADO")), getNameById(rs.getInt("CIMZETT")), rs.getDate("IDO"), rs.getString("TARTALOM"), null, rs.getInt("SZULO")));
+
+				comment.add(new KozossegiPostData(rs.getInt("ID"), getNameById(rs.getInt("FELADO")),
+						getNameById(rs.getInt("CIMZETT")), rs.getDate("IDO"), rs.getString("TARTALOM"), null,
+						rs.getInt("SZULO")));
 			}
 
 		} catch (SQLException e) {
@@ -755,18 +746,18 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
 				PreparedStatement ps = conn.prepareStatement(Labels.SEND_POST);) {
 			ps.setInt(1, data.getSender().getId());
-			if(data.getReceiver()==null)
+			if (data.getReceiver() == null)
 				ps.setNull(2, java.sql.Types.INTEGER);
 			else
 				ps.setInt(2, data.getReceiver().getId());
 			ps.setDate(3, new java.sql.Date(data.getTime().getTime()));
 			ps.setString(4, data.getContent());
-			if(data.getParent()==-1)
+			if (data.getParent() == -1)
 				ps.setNull(5, java.sql.Types.INTEGER);
 			else
 				ps.setInt(5, data.getParent());
-			int success= ps.executeUpdate();
-			if(success==0)
+			int success = ps.executeUpdate();
+			if (success == 0)
 				System.out.println("Error while adding post!");
 
 		} catch (SQLException e) {
@@ -783,36 +774,36 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 				PreparedStatement ps = conn.prepareStatement(Labels.GET_ALBUMS);) {
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
-			while(rs.next())
-			{
-				data.add(new KozossegiAlbumBean(rs.getInt("FELHASZNALOID"), rs.getString("NEV"), rs.getTimestamp("IDO"), getAlbum(rs.getString("NEV"), rs.getTimestamp("IDO"),conn)));
+			while (rs.next()) {
+				data.add(new KozossegiAlbumBean(rs.getInt("FELHASZNALOID"), rs.getString("NEV"), rs.getTimestamp("IDO"),
+						getAlbum(rs.getString("NEV"), rs.getTimestamp("IDO"), conn)));
 			}
 			return data;
 		} catch (SQLException e) {
 			System.out.println("Error while listing user's friends!");
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
-	public List<KozossegiImage> getAlbum(String name,Timestamp created,Connection conn){
+
+	public List<KozossegiImage> getAlbum(String name, Timestamp created, Connection conn) {
 		List<KozossegiImage> data = new ArrayList<KozossegiImage>();
 		try (PreparedStatement ps = conn.prepareStatement(Labels.GET_ALBUM);) {
 			ps.setString(1, name);
-			ps.setTimestamp(2,created);
+			ps.setTimestamp(2, created);
 			ResultSet rs = ps.executeQuery();
-			while(rs.next())
-			{
-				data.add(new KozossegiImage(new URL(rs.getString("ELERESIUT")),rs.getInt("POSZTID")));
+			while (rs.next()) {
+				data.add(new KozossegiImage(new URL(rs.getString("ELERESIUT")), rs.getInt("POSZTID")));
 			}
 			return data;
 		} catch (SQLException | MalformedURLException e) {
 			System.out.println("Error while listing user's friends!");
 			e.printStackTrace();
 		}
-		
+
 		return null;
-		
+
 	}
 
 	public KozossegiClubBean getClub(int id) {
@@ -820,34 +811,31 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
 				PreparedStatement ps = conn.prepareStatement(Labels.GET_CLUBBYID);) {
 			ps.setInt(1, id);
-			ResultSet rs = ps.executeQuery();			
-			if(rs.next())
-			{	
-				return new KozossegiClubBean(rs.getString("NEV"), id, rs.getInt("TULAJDONOS"), rs.getDate("KEZDET"), rs.getString("LEIRAS"), getMembers(id, rs.getInt("TULAJDONOS"),conn));
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				return new KozossegiClubBean(rs.getString("NEV"), id, rs.getInt("TULAJDONOS"), rs.getDate("KEZDET"),
+						rs.getString("LEIRAS"), getMembers(id, rs.getInt("TULAJDONOS"), conn));
+			} else {
+				return new KozossegiClubBean("Ures", 0, 0, null, "", null);
 			}
-			else
-			{				
-				return new KozossegiClubBean("Ures",0 ,0, null, "", null);
-			}
-				
+
 		} catch (SQLException e) {
 			System.out.println("Error while get club!");
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
+
 	public List<KozossegiProfileMiniatureBean> getMembers(int id, int ownerId, Connection conn) {
-		List<KozossegiProfileMiniatureBean> result = new ArrayList<KozossegiProfileMiniatureBean>(); 
+		List<KozossegiProfileMiniatureBean> result = new ArrayList<KozossegiProfileMiniatureBean>();
 		try (PreparedStatement ps = conn.prepareStatement(Labels.GET_TAGS);) {
 			ps.setInt(1, id);
 			ps.setInt(2, ownerId);
-			ResultSet rs = ps.executeQuery();			
-			while(rs.next())
-			{	
-				result.add(getMiniature(rs.getInt("SZEMELYID"),conn));
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				result.add(getMiniature(rs.getInt("SZEMELYID"), conn));
 			}
-				
+
 		} catch (SQLException e) {
 			System.out.println("Error while list club members!");
 			e.printStackTrace();
@@ -860,16 +848,16 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
 				PreparedStatement ps = conn.prepareStatement(Labels.JOIN_CLUB);) {
-				ps.setInt(1, id);
-				ps.setInt(2, id2);
-				int rn = ps.executeUpdate();
-				if(rn == 1)
-					System.out.println("Successful join!");
+			ps.setInt(1, id);
+			ps.setInt(2, id2);
+			int rn = ps.executeUpdate();
+			if (rn == 1)
+				System.out.println("Successful join!");
 		} catch (SQLException e) {
 			System.out.println("Error while marking friend!");
-			e.printStackTrace();		
+			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
@@ -877,14 +865,14 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
 				PreparedStatement ps = conn.prepareStatement(Labels.UPDATE_CLUB_DESC);) {
-				ps.setString(1, text);
-				ps.setInt(2, id);
-				int rn = ps.executeUpdate();
-				if(rn == 1)
-					System.out.println("Successful update!");
+			ps.setString(1, text);
+			ps.setInt(2, id);
+			int rn = ps.executeUpdate();
+			if (rn == 1)
+				System.out.println("Successful update!");
 		} catch (SQLException e) {
 			System.out.println("Error while marking friend!");
-			e.printStackTrace();		
+			e.printStackTrace();
 		}
 	}
 }

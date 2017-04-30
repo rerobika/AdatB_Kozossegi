@@ -28,7 +28,7 @@ public class KozossegiFriendManagement extends JPanel {
 		friends.setLayout(new FlowLayout(FlowLayout.LEFT));
 		
 		
-		if(profile.getId() == mainFrame.getProfileMiniature().getId()){
+		if(profile.getId() == mainFrame.getProfile().getId()){
 			for(KozossegiProfileMiniatureBean p: mainFrame.getController().getPendingFriends(profile.getId()))
 			{
 				KozossegiProfileMiniature  miniature = new KozossegiProfileMiniature(p); 

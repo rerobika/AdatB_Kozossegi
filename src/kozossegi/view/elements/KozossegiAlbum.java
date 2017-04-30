@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 
 import kozossegi.Labels;
 import kozossegi.bean.KozossegiAlbumBean;
+import kozossegi.bean.KozossegiClubBean;
 import kozossegi.bean.KozossegiImage;
 import kozossegi.dao.KozossegiImageManager;
 import kozossegi.view.KozossegiMainFrame;
@@ -42,7 +43,7 @@ public class KozossegiAlbum extends JPanel {
 			ilabel.setBorder(BorderFactory.createLineBorder(Color.black));
 		}
 		
-		if (albumview.getUser().getId()==mainFrame.getProfile().getId() || albumview.getUser().getId()==mainFrame.getClub().getId()) {
+		if (albumview.getUser().getId()==mainFrame.getProfile().getId() || albumview.getUser() instanceof KozossegiClubBean && mainFrame.getProfile().getId() == ((KozossegiClubBean) albumview.getUser()).getOwnerId()) {
 			JLabel add = new JLabel(new ImageIcon(KozossegiImageManager
 					.download(Labels.FILESERVER_PATH + "add_picture.png").getScaledInstance(64, 64, Image.SCALE_FAST)));
 			add.addMouseListener(new MouseAdapter() {

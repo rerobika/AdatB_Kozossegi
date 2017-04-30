@@ -7,6 +7,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 import kozossegi.bean.KozossegiAlbumBean;
+import kozossegi.bean.KozossegiClubBean;
 import kozossegi.bean.KozossegiUserBean;
 import kozossegi.view.KozossegiMainFrame;
 import kozossegi.view.elements.KozossegiAddAlbum;
@@ -30,7 +31,7 @@ public class KozossegiAlbumView extends JPanel {
 			add(new KozossegiAlbum(this,a));
 			add(Box.createRigidArea(new Dimension(10, 10)));
 		}
-		if(user.getId()==mainFrame.getProfile().getId() ||( mainFrame.getClub()!= null && mainFrame.getProfile().getId() == mainFrame.getClub().getOwnerId()))
+		if(user.getId()==mainFrame.getProfile().getId() || user instanceof KozossegiClubBean && mainFrame.getProfile().getId() == ((KozossegiClubBean) user).getOwnerId())
 		add(new KozossegiAddAlbum(this));
 		repaint();
 		revalidate();

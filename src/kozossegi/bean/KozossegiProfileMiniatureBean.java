@@ -49,7 +49,6 @@ public class KozossegiProfileMiniatureBean {
 		super();
 		this.id = profile.getId();
 		this.name = profile.getName();
-		System.out.println(profile);
 		this.pic = new KozossegiImage(profile.getProfilepic().getUrl(), profile.getProfilepic().getPostid(),profile.getProfilepic().getImage().getScaledInstance(32, 32, Image.SCALE_FAST));
 	}	
 	public KozossegiProfileMiniatureBean(KozossegiClubBean club)

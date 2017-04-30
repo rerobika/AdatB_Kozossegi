@@ -21,7 +21,7 @@ public class KozossegiClubMenu extends JPanel {
 	private static final long serialVersionUID = 3769578717950897182L;
 	private KozossegiMainFrame mainFrame;
 	private JPanel ownClubPanel;
-	private JPanel tagClubPanel;
+	private JPanel memberClubPanel;
 	private JLabel ownClubLabel;
 	private JLabel tagClubLabel;
 	private JScrollPane ownClubScroll;
@@ -30,34 +30,32 @@ public class KozossegiClubMenu extends JPanel {
 	public KozossegiClubMenu() {
 		this.mainFrame = KozossegiMainFrame.getInstance();
 		ownClubPanel = new JPanel();
-		tagClubPanel = new JPanel();
+		memberClubPanel = new JPanel();
 		ownClubLabel = new JLabel(Labels.CLUB_OWNER);
 		tagClubLabel = new JLabel(Labels.CLUB_TAG);
 		ownClubScroll = new JScrollPane(ownClubPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		tagClubScroll = new JScrollPane(tagClubPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);		
+		tagClubScroll = new JScrollPane(memberClubPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);		
 		
 		ownClubPanel.setLayout(new GridLayout(this.mainFrame.getOwnClubList().size(), 1));
 		for(KozossegiProfileMiniatureBean c : this.mainFrame.getOwnClubList()){
 			KozossegiProfileMiniature miniature = new KozossegiProfileMiniature(c);
 			miniature.addMouseListener(new MouseAdapter(){
 				public void mouseClicked(MouseEvent e) {
-					mainFrame.setClub(mainFrame.getController().getClub(c.getId()));
-					mainFrame.setMainContent(new KozossegiClubProfile(mainFrame.getClub()));
+					mainFrame.setMainContent(new KozossegiClubProfile(mainFrame.getController().getClub(c.getId())));
 				}
 			});
 			ownClubPanel.add(miniature);
 		}
 		
-		tagClubPanel.setLayout(new GridLayout(this.mainFrame.getTagClubList().size(), 1));
+		memberClubPanel.setLayout(new GridLayout(this.mainFrame.getTagClubList().size(), 1));
 		for(KozossegiProfileMiniatureBean c : this.mainFrame.getTagClubList()){
 			KozossegiProfileMiniature miniature = new KozossegiProfileMiniature(c);
 			miniature.addMouseListener(new MouseAdapter(){
 				public void mouseClicked(MouseEvent e) {
-					mainFrame.setClub(mainFrame.getController().getClub(c.getId()));
-					mainFrame.setMainContent(new KozossegiClubProfile(mainFrame.getClub()));
+					mainFrame.setMainContent(new KozossegiClubProfile(mainFrame.getController().getClub(c.getId())));
 				}
 			});
-			tagClubPanel.add(miniature);
+			memberClubPanel.add(miniature);
 		}
 		
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

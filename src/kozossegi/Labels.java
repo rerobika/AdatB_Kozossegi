@@ -56,7 +56,7 @@ public class Labels {
 	public static final String GET_WORKPLACES = "SELECT NEV FROM MUNKAHELY";
 	public static final String GET_RESIDENCES = "SELECT NEV FROM LAKHELY";
 	public static final String GET_HOBBYS = "SELECT NEV FROM HOBBI";
-	public static final String MARK_FRIEND = "INSERT INTO ISMER(KIID,KIVELID,STATUSZ,IDO) VALUES(?,?,0,?)";
+	public static final String MARK_FRIEND = "INSERT INTO ISMER SELECT ?,?,0,? FROM DUAL WHERE NOT EXISTS (SELECT KIID FROM ISMER WHERE KIVELID=? AND KIID=?)";
 	public static final String CONFIRM_FRIEND = "UPDATE ISMER SET STATUSZ=1,IDO=? WHERE KIID=? AND KIVELID=?";
 	public static final String IS_VALID_INVITER_CODE = "SELECT * FROM SZEMELY WHERE ID=?";
 	public static final String IS_UNIQUE_EMAIL = "SELECT * FROM SZEMELY WHERE EMAIL LIKE ?";

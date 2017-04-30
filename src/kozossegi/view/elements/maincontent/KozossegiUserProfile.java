@@ -17,6 +17,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import kozossegi.Labels;
 import kozossegi.Labels.KozossegiFriendState;
@@ -56,12 +58,12 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 		this.profile = profile;
 		friendsPanel = new KozossegiFriendManagement(profile);
 		createClubPanel = new JPanel();
-		contentTabbedPane.addTab(Labels.PROFIL_INFO, infoPanel);
-		if(this.profile.getId() == mainFrame.getProfileMiniature().getId()){
-			contentTabbedPane.addTab(Labels.PROFIL_EDIT, editPanel);
+		contentTabbedPane.addTab(Labels.PROFIL_INFO, infoTab);
+		if(profile.getId() == mainFrame.getProfile().getId()){
+			contentTabbedPane.addTab(Labels.PROFIL_EDIT, editTab);
 			contentTabbedPane.addTab(Labels.PROFIL_CREATE_CLUB, createClubPanel);
 		}
-		if(this.profile.getId() != mainFrame.getProfileMiniature().getId()){
+		if(profile.getId() != mainFrame.getProfile().getId()){
 			contentTabbedPane.addTab(Labels.PROFIL_FRIENDS, friendsPanel);
 			
 		}
@@ -69,8 +71,7 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 		initInfoPanel();
 		initEditPanel();
 		initCreateClubPanel();
-	}
-	
+}	
 	
 	private void initTopPanel() {
 		topPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -88,6 +89,7 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 					public void actionPerformed(ActionEvent e) {
 						mainFrame.getController().markAsFriend(mainFrame.getProfile().getId(), profile.getId());
 						mainFrame.setMainContent(new KozossegiUserProfile(profile));
+						mainFrame.update();
 					}
 				});
 			}
@@ -101,6 +103,7 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 						public void actionPerformed(ActionEvent e) {
 							mainFrame.getController().removeMark(mainFrame.getProfile().getId(), profile.getId());
 							mainFrame.setMainContent(new KozossegiUserProfile(profile));
+							mainFrame.update();
 						}
 					});
 				}
@@ -112,6 +115,7 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 						public void actionPerformed(ActionEvent e) {
 							mainFrame.getController().confirmFriend(mainFrame.getProfile().getId(), profile.getId());
 							mainFrame.setMainContent(new KozossegiUserProfile(profile));
+							mainFrame.update();
 						}
 					});
 				}
@@ -148,30 +152,30 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 
 
 	private void initInfoPanel(){
-		infoPanel.setLayout(new GridLayout(8, 5, 2, 5));
-		infoPanel.add(new JLabel(Labels.PROFIL_DATE_OF_BIRTH));
-		infoPanel.add(new JLabel(profile.getDob().toString()));
-		infoPanel.add(new JLabel(Labels.PROFIL_GENDER));
+		infoTab.setLayout(new GridLayout(8, 5, 2, 5));
+		infoTab.add(new JLabel(Labels.PROFIL_DATE_OF_BIRTH));
+		infoTab.add(new JLabel(profile.getDob().toString()));
+		infoTab.add(new JLabel(Labels.PROFIL_GENDER));
 		if(profile.isGender()){
-			infoPanel.add(new JLabel(Labels.PROFIL_MAN));
+			infoTab.add(new JLabel(Labels.PROFIL_MAN));
 		}
 		else{
-			infoPanel.add(new JLabel(Labels.PROFIL_WOMAN));
+			infoTab.add(new JLabel(Labels.PROFIL_WOMAN));
 		}
-		infoPanel.add(new JLabel(Labels.PROFIL_RESIDENCE));
-		infoPanel.add(new JLabel(profile.getResidence()));
-		infoPanel.add(new JLabel(Labels.PROFIL_SCHOOL));
+		infoTab.add(new JLabel(Labels.PROFIL_RESIDENCE));
+		infoTab.add(new JLabel(profile.getResidence()));
+		infoTab.add(new JLabel(Labels.PROFIL_SCHOOL));
 		JLabel school = new JLabel(profile.getSchool());
 		school.setToolTipText(profile.getSchool());
-		infoPanel.add(school);
-		infoPanel.add(new JLabel(Labels.PROFIL_HOBBY));
-		infoPanel.add(new JLabel(profile.getHobby()));
-		infoPanel.add(new JLabel(Labels.PROFIL_WORK_PLACE));
-		infoPanel.add(new JLabel(profile.getWorkplace()));
-		infoPanel.add(new JLabel(Labels.PROFIL_INVITER));
-		infoPanel.add(new JLabel(mainFrame.getController().getProfile(profile.getInviter()).getName()));
-		infoPanel.add(new JLabel(Labels.PROFIL_INVITE_CODE));
-		infoPanel.add(new JLabel(Integer.toString(profile.getId())));
+		infoTab.add(school);
+		infoTab.add(new JLabel(Labels.PROFIL_HOBBY));
+		infoTab.add(new JLabel(profile.getHobby()));
+		infoTab.add(new JLabel(Labels.PROFIL_WORK_PLACE));
+		infoTab.add(new JLabel(profile.getWorkplace()));
+		infoTab.add(new JLabel(Labels.PROFIL_INVITER));
+		infoTab.add(new JLabel(mainFrame.getController().getProfile(profile.getInviter()).getName()));
+		infoTab.add(new JLabel(Labels.PROFIL_INVITE_CODE));
+		infoTab.add(new JLabel(Integer.toString(profile.getId())));
 		
 	}
 	
@@ -192,23 +196,23 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 			
 		initEditPanelComponents();
 		
-		editPanel.setLayout(new GridLayout(8, 5, 2, 5));
-		editPanel.add(new JLabel(Labels.PROFIL_PICTURE));
-		editPanel.add(profilePictureButton);
-		editPanel.add(new JLabel(Labels.PROFIL_DATE_OF_BIRTH));
-		editPanel.add(birthdayPicker);
-		editPanel.add(new JLabel(Labels.PROFIL_GENDER));
-		editPanel.add(genderPicker);
-		editPanel.add(new JLabel(Labels.PROFIL_RESIDENCE));
-		editPanel.add(residence);
-		editPanel.add(new JLabel(Labels.PROFIL_SCHOOL));
-		editPanel.add(school);
-		editPanel.add(new JLabel(Labels.PROFIL_HOBBY));
-		editPanel.add(hobby);
-		editPanel.add(new JLabel(Labels.PROFIL_WORK_PLACE));
-		editPanel.add(workPlace);
-		editPanel.add(resetDefaultButton);
-		editPanel.add(submitChangesButton);
+		editTab.setLayout(new GridLayout(8, 5, 2, 5));
+		editTab.add(new JLabel(Labels.PROFIL_PICTURE));
+		editTab.add(profilePictureButton);
+		editTab.add(new JLabel(Labels.PROFIL_DATE_OF_BIRTH));
+		editTab.add(birthdayPicker);
+		editTab.add(new JLabel(Labels.PROFIL_GENDER));
+		editTab.add(genderPicker);
+		editTab.add(new JLabel(Labels.PROFIL_RESIDENCE));
+		editTab.add(residence);
+		editTab.add(new JLabel(Labels.PROFIL_SCHOOL));
+		editTab.add(school);
+		editTab.add(new JLabel(Labels.PROFIL_HOBBY));
+		editTab.add(hobby);
+		editTab.add(new JLabel(Labels.PROFIL_WORK_PLACE));
+		editTab.add(workPlace);
+		editTab.add(resetDefaultButton);
+		editTab.add(submitChangesButton);
 		
 	}
 	
@@ -337,9 +341,7 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 			KozossegiPictureSelector pictureSelector = new KozossegiPictureSelector();
 			if(pictureSelector.isValidImage().equals(fileScan.SUCCES)){
 				mainFrame.getController().updateProfilePicture(mainFrame.getProfile().getId(),mainFrame.getController().uploadPicture(pictureSelector.getSelectedFile(), "Profilképek", mainFrame.getProfile().getId()));
-				mainFrame.initializeUserData();
-				mainFrame.revalidate();
-				mainFrame.repaint();
+				mainFrame.update();
 			}
 			else if(pictureSelector.isValidImage().equals(fileScan.WRONG_FILE_SIZE)){
 				JOptionPane.showMessageDialog(mainFrame, Labels.PROFIL_EDIT_WRONG_SIZE, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);

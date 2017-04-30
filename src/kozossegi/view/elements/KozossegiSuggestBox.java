@@ -43,8 +43,7 @@ public class KozossegiSuggestBox extends JPanel {
 			KozossegiProfileMiniature miniature = new KozossegiProfileMiniature(c);
 			miniature.addMouseListener(new MouseAdapter(){
 				public void mouseClicked(MouseEvent e) {
-					mainFrame.setClub(mainFrame.getController().getClub(c.getId()));
-					mainFrame.setMainContent(new KozossegiClubProfile(mainFrame.getClub()));
+					mainFrame.setMainContent(new KozossegiClubProfile(mainFrame.getController().getClub(c.getId())));
 				}
 			});
 			suggestClubPanel.add(miniature);

@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import kozossegi.Labels;
+import kozossegi.bean.KozossegiClubBean;
 import kozossegi.bean.KozossegiPostData;
 import kozossegi.bean.KozossegiProfileNameBean;
 import kozossegi.view.KozossegiMainFrame;
@@ -31,8 +32,9 @@ public class KozossegiComment extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(mainFrame.getClub().getOwnerId() == mainFrame.getProfile().getId()){
-					mainFrame.getController().sendPost(new KozossegiPostData(new KozossegiProfileNameBean(mainFrame.getClub().getId(),mainFrame.getClub().getName()),
+				if(post.getFeed().getUser() instanceof KozossegiClubBean && ((KozossegiClubBean)post.getFeed().getUser()).getOwnerId() == mainFrame.getProfile().getId() ){
+					
+					mainFrame.getController().sendPost(new KozossegiPostData(new KozossegiProfileNameBean(((KozossegiClubBean)post.getFeed().getUser()).getId(),((KozossegiClubBean)post.getFeed().getUser()).getName()),
 							null, new Date(), text.getText(),post.getData().getId()));
 				}
 				else{

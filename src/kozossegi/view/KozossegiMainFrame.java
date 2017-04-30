@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -14,7 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import kozossegi.Labels;
-import kozossegi.bean.KozossegiClubBean;
 import kozossegi.bean.KozossegiProfileBean;
 import kozossegi.bean.KozossegiProfileMiniatureBean;
 import kozossegi.controller.KozossegiController;
@@ -41,7 +41,6 @@ public class KozossegiMainFrame extends JFrame{
 	private Image logoImage;
 	private CardLayout cardLayout;
 	//USERDATA
-	private KozossegiProfileMiniatureBean profileMiniature;
 	private List<KozossegiProfileMiniatureBean> ownClubList;
 	private List<KozossegiProfileMiniatureBean> tagClubList;
 	private List<KozossegiProfileMiniatureBean> suggestedClubList;
@@ -50,7 +49,6 @@ public class KozossegiMainFrame extends JFrame{
 	private List<KozossegiProfileMiniatureBean> namedayList;
 	private List<KozossegiProfileMiniatureBean> friendList;
 	private KozossegiProfileBean profile;
-	private KozossegiClubBean club;
 
 
 	private KozossegiMainFrame(KozossegiController controller) {
@@ -62,7 +60,7 @@ public class KozossegiMainFrame extends JFrame{
 		rightSideContentPanel = new JPanel(new GridLayout(2,10,1,10));
 		cardLayout = (CardLayout) mainContentPanel.getLayout();
 		logoImage = KozossegiImageManager.download(Labels.LOGO_URL);
-		
+		logoPanel.add(new JLabel(new ImageIcon(logoImage)));
 		//USERDATA
 		
 		getContentPane().setLayout(new BorderLayout(20,20));
@@ -73,7 +71,8 @@ public class KozossegiMainFrame extends JFrame{
 		getContentPane().add(rightSideContentPanel, BorderLayout.EAST);	
 		//setResizable(false);
 		setTitle(Labels.MAIN_FRAME_TITLE);			
-		setMainContent(startScreen());
+		setMainContent(new KozossegiLogin());
+		pack();
 		setVisible(true);	
 	}
 	public static KozossegiMainFrame getInstance()
@@ -85,56 +84,17 @@ public class KozossegiMainFrame extends JFrame{
 		instance=new KozossegiMainFrame(controller);
 	}
 	
-	
-	public JPanel startScreen(){
-		 return new KozossegiLogin();
-	}
-
 	public void setMainContent(JPanel panelToVisible) {
 		mainContentPanel.removeAll();
 		mainContentPanel.add(panelToVisible,panelToVisible.getName());
 		cardLayout.show(mainContentPanel, panelToVisible.getName());
 		pack();
 	}
-	
-	public void initializeViewElements(){
-		mainContentPanel.setPreferredSize(new Dimension(800, 600));
-		logoPanel.add(new JLabel(new ImageIcon(logoImage)));
-	
-		topSideContentPanel.add(logoPanel);	
-		topSideContentPanel.add(new KozossegiSearchBox());
-		topSideContentPanel.add(new KozossegiMenu());			
-			
-		leftSideContentPanel.add(new KozossegiProfileInfo());
-		leftSideContentPanel.add(new KozossegiClubMenu());				
-		
-		rightSideContentPanel.add(new KozossegiBirthAndNamedayMenu());
-		rightSideContentPanel.add(new KozossegiSuggestBox());			
-		
-	}
-	
-	public void initializeUserData(){
-		profileMiniature = new KozossegiProfileMiniatureBean(profile);
-		ownClubList = controller.getOwnClubs(profile.getId());
-		tagClubList = controller.getMemberClubs(profile.getId());
-		birthdayList = controller.getBirthday(profile.getId());
-		namedayList=controller.getNameday(profile.getId());
-		suggestedClubList = controller.getSuggestedClubs(profile.getId());
-		suggestedFriendList = controller.getSuggestedFriends(profile.getId());
-}
-
-	
-	
 		
 	public KozossegiController getController(){
 		return controller;
 	}
 	
-	public KozossegiProfileMiniatureBean getProfileMiniature() {
-		return profileMiniature;
-	}
-
-
 	public List<KozossegiProfileMiniatureBean> getOwnClubList() {
 		return ownClubList;
 	}
@@ -167,13 +127,13 @@ public class KozossegiMainFrame extends JFrame{
 	}
 	public void login(int id)
 	{
-		profile = controller.getProfile(id);
-		initializeUserData();
-		initializeViewElements();
+		profile = new KozossegiProfileBean("Ures", id, new Date(), false, "-", "-", "-", "-", "-", "-", -1, "");
+		update();
+		mainContentPanel.setPreferredSize(new Dimension(800, 600));
 		setMainContent(new KozossegiNewsFeed(profile));
+		
 	}
-
-
+	
 	public JPanel getMainContentPanel() {
 		return mainContentPanel;
 	}
@@ -181,14 +141,27 @@ public class KozossegiMainFrame extends JFrame{
 	public KozossegiProfileBean getProfile() {
 		return profile;
 	}
-
-	public KozossegiClubBean getClub() {
-		return club;
+	public void update()
+	{
+		profile = controller.getProfile(profile.getId());
+		ownClubList = controller.getOwnClubs(profile.getId());
+		tagClubList = controller.getMemberClubs(profile.getId());
+		birthdayList = controller.getBirthday(profile.getId());
+		namedayList=controller.getNameday(profile.getId());
+		suggestedClubList = controller.getSuggestedClubs(profile.getId());
+		suggestedFriendList = controller.getSuggestedFriends(profile.getId());
+		topSideContentPanel.removeAll();
+		topSideContentPanel.add(logoPanel);	
+		topSideContentPanel.add(new KozossegiSearchBox());
+		topSideContentPanel.add(new KozossegiMenu());			
+		leftSideContentPanel.removeAll();	
+		leftSideContentPanel.add(new KozossegiProfileInfo());
+		leftSideContentPanel.add(new KozossegiClubMenu());				
+		rightSideContentPanel.removeAll();
+		rightSideContentPanel.add(new KozossegiBirthAndNamedayMenu());
+		rightSideContentPanel.add(new KozossegiSuggestBox());	
+		repaint();
+		revalidate();
 	}
-	
-	public void setClub(KozossegiClubBean club) {
-		this.club = club;
-	}
-	
 	
 }
