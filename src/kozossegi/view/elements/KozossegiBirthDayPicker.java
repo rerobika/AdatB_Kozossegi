@@ -51,7 +51,7 @@ public class KozossegiBirthDayPicker extends JPanel {
 	public Date getBirthDate(){
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.YEAR, (Integer)birthYear.getSelectedItem());
-		cal.set(Calendar.MONTH, birthMonth.getSelectedIndex()+1);
+		cal.set(Calendar.MONTH, birthMonth.getSelectedIndex());
 		cal.set(Calendar.DAY_OF_MONTH, birthDay.getSelectedIndex()+1);
 		return cal.getTime();
 	}

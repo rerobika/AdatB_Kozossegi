@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import javax.swing.JButton;
@@ -113,9 +114,10 @@ public class KozossegiUserProfile extends KozossegiProfile implements ActionList
 	}
 	
 	private void initInfoPanel(){
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 		infoTab.setLayout(new GridLayout(0, 2, 2, 5));
 		infoTab.add(new JLabel(Labels.PROFILE_DATE_OF_BIRTH));
-		infoTab.add(new JLabel(profile.getDob().toString()));
+		infoTab.add(new JLabel(format1.format(profile.getDob())));
 		infoTab.add(new JLabel(Labels.PROFILE_GENDER));
 		if(profile.isGender()){
 			infoTab.add(new JLabel(Labels.PROFILE_MAN));

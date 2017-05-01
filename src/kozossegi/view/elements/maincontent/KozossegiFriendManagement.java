@@ -50,7 +50,7 @@ public class KozossegiFriendManagement extends JPanel {
 			friends.add(miniature);
 			miniature.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
-					mainFrame.setMainContent(new KozossegiProfile(mainFrame.getController().getProfile(miniature.getData().getId())));
+					mainFrame.setMainContent(new KozossegiUserProfile(mainFrame.getController().getProfile(miniature.getData().getId())));
 				}
 			});
 			
