@@ -69,24 +69,48 @@ public class KozossegiPost extends JPanel {
 
 		JTextArea text;
 		String content = data.getContent();
-		String t[] = data.getContent().split("http://");
+		if(content.startsWith("http://")){
+			String t[] = data.getContent().split("http://");
 
-		if (t.length > 1) {
-			String t2[] = t[1].split(" ");
-			try {
-				JLabel img = new JLabel(
-						new ImageIcon(KozossegiImageManager.download(new URL("http://" + t2[0]).toURI().toURL())
-								.getScaledInstance(256, 256, Image.SCALE_FAST)));
-				img.setAlignmentX(Component.CENTER_ALIGNMENT);
-				add(img);
-			} catch (MalformedURLException | URISyntaxException | NullPointerException e) {
+			if (t.length > 1) {
+				String t2[] = t[1].split(" ");
+				try {
+					JLabel img = new JLabel(
+							new ImageIcon(KozossegiImageManager.download(new URL("http://" + t2[0]).toURI().toURL())
+									.getScaledInstance(256, 256, Image.SCALE_FAST)));
+					img.setAlignmentX(Component.CENTER_ALIGNMENT);
+					add(img);
+				} catch (MalformedURLException | URISyntaxException | NullPointerException e) {
 
-			}
-			content = t[0];
-			for (int i=1;i<t2.length;i++) {
-				content += t2[i];
+				}
+				content = t[0];
+				for (int i=1;i<t2.length;i++) {
+					content += t2[i];
+				}
 			}
 		}
+		else if(content.startsWith("https://")){
+			String t[] = data.getContent().split("https://");
+
+			if (t.length > 1) {
+				String t2[] = t[1].split(" ");
+				try {
+					JLabel img = new JLabel(
+							new ImageIcon(KozossegiImageManager.download(new URL("https://" + t2[0]).toURI().toURL())
+									.getScaledInstance(256, 256, Image.SCALE_FAST)));
+					img.setAlignmentX(Component.CENTER_ALIGNMENT);
+					add(img);
+				} catch (MalformedURLException | URISyntaxException | NullPointerException e) {
+
+				}
+				content = t[0];
+				for (int i=1;i<t2.length;i++) {
+					content += t2[i];
+				}
+			}
+		}
+		
+		
 
 		text = new JTextArea(content, 5, 20);
 		text.setLineWrap(true);
