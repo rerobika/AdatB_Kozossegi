@@ -56,4 +56,5 @@ public interface KozossegiDAO {
 	public void addClub(KozossegiClubBean club);
 	public void updateProfile(KozossegiProfileBean profile);
 	public int getInvitedCount(int id);
+	public List<KozossegiProfileMiniatureBean> getSearchResult(int id, String text);
 }

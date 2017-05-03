@@ -1,6 +1,8 @@
 package kozossegi.view.elements;
 
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -12,6 +14,7 @@ import javax.swing.ScrollPaneConstants;
 import kozossegi.Labels;
 import kozossegi.bean.KozossegiProfileMiniatureBean;
 import kozossegi.view.KozossegiMainFrame;
+import kozossegi.view.elements.maincontent.KozossegiUserProfile;
 
 public class KozossegiBirthAndNamedayMenu extends JPanel {
 	private static final long serialVersionUID = -7611266213286581278L;
@@ -35,12 +38,24 @@ public class KozossegiBirthAndNamedayMenu extends JPanel {
 		
 		birthdayPanel.setLayout(new BoxLayout(birthdayPanel, BoxLayout.Y_AXIS));
 		for(KozossegiProfileMiniatureBean c : this.mainFrame.getBirthdayList()){
-			birthdayPanel.add(new KozossegiProfileMiniature(c));
+			KozossegiProfileMiniature  miniature = new KozossegiProfileMiniature(c); 
+			birthdayPanel.add(miniature);
+			miniature.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					mainFrame.setMainContent(new KozossegiUserProfile(mainFrame.getController().getProfile(miniature.getData().getId())));
+				}
+			});
 		}
 		
 		namedayPanel.setLayout(new BoxLayout(namedayPanel, BoxLayout.Y_AXIS));
 		for(KozossegiProfileMiniatureBean c : this.mainFrame.getNamedayList()){
-			namedayPanel.add(new KozossegiProfileMiniature(c));
+			KozossegiProfileMiniature  miniature = new KozossegiProfileMiniature(c); 
+			namedayPanel.add(miniature);
+			miniature.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					mainFrame.setMainContent(new KozossegiUserProfile(mainFrame.getController().getProfile(miniature.getData().getId())));
+				}
+			});
 		}
 		
 		setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));

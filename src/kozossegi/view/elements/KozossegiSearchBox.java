@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 
 import kozossegi.Labels;
 import kozossegi.view.KozossegiMainFrame;
+import kozossegi.view.elements.maincontent.KozossegiSearchResult;
 
 public class KozossegiSearchBox extends JPanel implements ActionListener{
 	private static final long serialVersionUID = 6669063033260433386L;
@@ -23,7 +24,7 @@ public class KozossegiSearchBox extends JPanel implements ActionListener{
 	
 	public KozossegiSearchBox() {
 		this.mainFrame = KozossegiMainFrame.getInstance();
-		searchField = new JTextField();
+		searchField = new JTextField("révész");
 		searchButton = new JButton(Labels.SEARCH_BUTON);
 		
 		setBorder(BorderFactory.createLineBorder(Color.black));
@@ -39,7 +40,7 @@ public class KozossegiSearchBox extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==searchButton){
 			if(!searchField.getText().isEmpty()){
-			//TODO Search feature
+				mainFrame.setMainContent(new KozossegiSearchResult(searchField.getText()));
 			}
 			else{
 				JOptionPane.showMessageDialog(mainFrame, Labels.SEARCH_ERROR, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);

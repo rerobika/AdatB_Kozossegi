@@ -19,20 +19,16 @@ public class KozossegiFriendManagement extends JPanel {
 
 	public KozossegiFriendManagement(KozossegiProfileBean profile) {
 		KozossegiMainFrame mainFrame = KozossegiMainFrame.getInstance();
-		JPanel pendingRequest = new JPanel();
-		JPanel friends = new JPanel();
 		JLabel reqLabel = new JLabel(Labels.PENDING_REQUEST);
 		JLabel friendLabel = new JLabel(Labels.ALREADY_FRIENDS);
 		setLayout(new FlowLayout(FlowLayout.LEFT));
-		pendingRequest.setLayout(new FlowLayout(FlowLayout.LEFT));
-		friends.setLayout(new FlowLayout(FlowLayout.LEFT));
 		
-		
+		add(reqLabel);
 		if(profile.getId() == mainFrame.getProfile().getId()){
 			for(KozossegiProfileMiniatureBean p: mainFrame.getController().getPendingFriends(profile.getId()))
 			{
 				KozossegiProfileMiniature  miniature = new KozossegiProfileMiniature(p); 
-				pendingRequest.add(miniature);
+				add(miniature);
 				miniature.addMouseListener(new MouseAdapter() {
 					public void mouseClicked(MouseEvent e) {
 						mainFrame.setMainContent(new KozossegiUserProfile(mainFrame.getController().getProfile(miniature.getData().getId())));
@@ -40,14 +36,14 @@ public class KozossegiFriendManagement extends JPanel {
 				});
 			}
 			reqLabel.setPreferredSize(new Dimension(mainFrame.getWidth(), 40));
-			add(reqLabel);
-			add(pendingRequest);	
+
 		}
-		
+		add(friendLabel);
+		System.out.println(mainFrame.getController().getFriends(profile.getId()).size());
 		for(KozossegiProfileMiniatureBean p: mainFrame.getController().getFriends(profile.getId()))
 		{
 			KozossegiProfileMiniature  miniature = new KozossegiProfileMiniature(p); 
-			friends.add(miniature);
+			add(miniature);
 			miniature.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
 					mainFrame.setMainContent(new KozossegiUserProfile(mainFrame.getController().getProfile(miniature.getData().getId())));
@@ -57,8 +53,6 @@ public class KozossegiFriendManagement extends JPanel {
 		}
 		
 		friendLabel.setPreferredSize(new Dimension(mainFrame.getWidth(), 40));
-		add(friendLabel);
-		add(friends);
 	}
 
 }

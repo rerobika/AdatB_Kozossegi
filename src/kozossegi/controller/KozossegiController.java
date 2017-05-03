@@ -178,4 +178,8 @@ public class KozossegiController{
 	public int getInvitedCount(int id) {
 		return dao.getInvitedCount(id);
 	}
+
+	public List<KozossegiProfileMiniatureBean> getSearchResult(int id, String text) {
+		return dao.getSearchResult(id, text);
+	}
 }

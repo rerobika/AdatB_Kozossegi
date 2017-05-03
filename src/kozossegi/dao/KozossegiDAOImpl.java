@@ -875,4 +875,23 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		}
 		return 0;
 	}
+
+	@Override
+	public List<KozossegiProfileMiniatureBean> getSearchResult(int id, String text) {
+		List<KozossegiProfileMiniatureBean> result = new ArrayList<KozossegiProfileMiniatureBean>();
+		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
+				Labels.DATABASE_USER, Labels.DATABASE_PASS);
+				PreparedStatement ps = conn.prepareStatement(Labels.SEARCH);) {
+			ps.setInt(1, id);
+			ps.setString(2, text);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				result.add(getMiniature(rs.getInt("ID"),conn));
+			}
+		} catch (SQLException e) {
+			System.out.println("Error while listing results!");
+			e.printStackTrace();
+		}
+		return result;
+	}
 }
