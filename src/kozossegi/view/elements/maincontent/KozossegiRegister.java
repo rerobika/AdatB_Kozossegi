@@ -120,6 +120,7 @@ public class KozossegiRegister extends JPanel implements ActionListener {
 																JOptionPane.showMessageDialog(mainFrame, Labels.NOT_VALID_INVITER_CODE, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);
 															}
 														}catch (NumberFormatException nfe) {
+															JOptionPane.showMessageDialog(mainFrame, Labels.NOT_VALID_INVITER_CODE, Labels.OPTION_PANE_ERROR, JOptionPane.ERROR_MESSAGE);
 															nfe.printStackTrace();
 														}
 														

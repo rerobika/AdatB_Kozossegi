@@ -69,7 +69,7 @@ public class KozossegiPost extends JPanel {
 
 		JTextArea text;
 		String content = data.getContent();
-		if(content.startsWith("http://")){
+		if(content.contains("http://")){
 			String t[] = data.getContent().split("http://");
 
 			if (t.length > 1) {
@@ -89,7 +89,7 @@ public class KozossegiPost extends JPanel {
 				}
 			}
 		}
-		else if(content.startsWith("https://")){
+		else if(content.contains("https://")){
 			String t[] = data.getContent().split("https://");
 
 			if (t.length > 1) {
