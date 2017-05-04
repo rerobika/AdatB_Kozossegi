@@ -51,7 +51,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				friends.add(new KozossegiProfileMiniatureBean(rs.getInt("ID"), rs.getString("NEV"),
-						getImageByID(rs.getInt("PROFILKEP"))));
+						getImageByID(rs.getInt("PROFILKEP"),conn)));
 			}
 
 		} catch (SQLException e) {
@@ -69,10 +69,10 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			KozossegiImage img = null;
 
 			if (rs.next()) {
-				img = getImageByID(rs.getInt("PROFILKEP"));
+				img = getImageByID(rs.getInt("PROFILKEP"),conn);
 				return new KozossegiProfileMiniatureBean(rs.getInt("ID"), rs.getString("NEV"), img);
 			} else {
-				img = getImageByID(0);
+				img = getImageByID(0,conn);
 				return new KozossegiProfileMiniatureBean(-1, "Ures", img);
 			}
 
@@ -93,10 +93,10 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			KozossegiImage img = null;
 
 			if (rs.next()) {
-				img = getImageByID(rs.getInt("PROFILKEP"));
+				img = getImageByID(rs.getInt("PROFILKEP"),conn);
 				return new KozossegiProfileMiniatureBean(rs.getInt("ID"), rs.getString("NEV"), img);
 			} else {
-				img = getImageByID(0);
+				img = getImageByID(0,conn);
 				return new KozossegiProfileMiniatureBean(-1, "Ures", img);
 			}
 
@@ -111,6 +111,30 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + Labels.DATABASE_PATH,
 				Labels.DATABASE_USER, Labels.DATABASE_PASS);
 				PreparedStatement ps = conn.prepareStatement(Labels.GET_IMAGEBYID);) {
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+
+			try {
+				if (!rs.next()) {
+					return new KozossegiImage(new URL(Labels.PROFILE_PICTURE_URL), 0);
+				} else {
+					return new KozossegiImage(new URL(rs.getString("ELERESIUT")), rs.getInt("POSZTID"));
+				}
+
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Error while getting picture!");
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+	
+	public KozossegiImage getImageByID(int id, Connection conn) {
+		try (PreparedStatement ps = conn.prepareStatement(Labels.GET_IMAGEBYID);) {
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 
@@ -182,13 +206,13 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			KozossegiImage img = null;
 
 			if (rs.next()) {
-				img = getImageByID(rs.getInt("PROFILKEP"));
+				img = getImageByID(rs.getInt("PROFILKEP"), conn);
 				return new KozossegiProfileBean(rs.getString("NEV"), rs.getInt("ID"), rs.getDate("SZUL_DATUM"),
 						rs.getBoolean("NEM"), rs.getString("LAKHELY"), rs.getString("ISKOLA"), rs.getString("HOBBI"),
 						rs.getString("MUNKAHELY"), rs.getString("EMAIL"), rs.getString("JELSZO"), rs.getInt("MEGHIVO"),
 						img);
 			} else {
-				img = getImageByID(0);
+				img = getImageByID(0,conn);
 				return new KozossegiProfileBean("Ures", -1, new Date(), false, "-", "-", "-", "-", "-", "-", -1, img);
 			}
 
@@ -253,7 +277,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				bday.add(new KozossegiProfileMiniatureBean(rs.getInt("ID"), rs.getString("NEV"),
-						getImageByID(rs.getInt("PROFILKEP"))));
+						getImageByID(rs.getInt("PROFILKEP"),conn)));
 			}
 
 		} catch (SQLException e) {
@@ -274,7 +298,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				nday.add(new KozossegiProfileMiniatureBean(rs.getInt("ID"), rs.getString("NEV"),
-						getImageByID(rs.getInt("PROFILKEP"))));
+						getImageByID(rs.getInt("PROFILKEP"),conn)));
 			}
 
 		} catch (SQLException e) {
@@ -322,7 +346,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				bday.add(new KozossegiProfileMiniatureBean(rs.getInt("ID"), rs.getString("NEV"),
-						getImageByID(rs.getInt("PROFILKEP"))));
+						getImageByID(rs.getInt("PROFILKEP"),conn)));
 			}
 
 		} catch (SQLException e) {
@@ -642,7 +666,7 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				friends.add(new KozossegiProfileMiniatureBean(rs.getInt("ID"), rs.getString("NEV"),
-						getImageByID(rs.getInt("PROFILKEP"))));
+						getImageByID(rs.getInt("PROFILKEP"),conn)));
 			}
 
 		} catch (SQLException e) {
