@@ -2,7 +2,6 @@
 --  File created - péntek-április-28-2017   
 --------------------------------------------------------
 DROP TABLE "ALBUM" cascade constraints;
-DROP TABLE "ERTESITES" cascade constraints;
 DROP TABLE "FELHASZNALO" cascade constraints;
 DROP TABLE "HOBBI" cascade constraints;
 DROP TABLE "ISKOLA" cascade constraints;
@@ -43,19 +42,7 @@ DROP FUNCTION "ADDIMAGE";
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Table ERTESITES
---------------------------------------------------------
 
-  CREATE TABLE "ERTESITES" 
-   (	"KINEK" NUMBER, 
-	"IDO" TIMESTAMP (6), 
-	"SZOVEG" VARCHAR2(255 BYTE)
-   ) SEGMENT CREATION IMMEDIATE 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Table FELHASZNALO
 --------------------------------------------------------
@@ -291,14 +278,11 @@ SET DEFINE OFF;
 Insert into ALBUM (FELHASZNALOID,NEV,IDO) values ('1044','Profilképek',to_timestamp('17-ÁPR.  -28 11.25.05,188000000','RR-MON-DD HH24.MI.SSXFF'));
 Insert into ALBUM (FELHASZNALOID,NEV,IDO) values ('670','neha',to_timestamp('17-ÁPR.  -28 11.30.06,479000000','RR-MON-DD HH24.MI.SSXFF'));
 Insert into ALBUM (FELHASZNALOID,NEV,IDO) values ('1045','Profilképek',to_timestamp('17-ÁPR.  -28 11.36.43,087000000','RR-MON-DD HH24.MI.SSXFF'));
-REM INSERTING into ERTESITES
-SET DEFINE OFF;
-Insert into ERTESITES (KINEK,IDO,SZOVEG) values ('725',to_timestamp('17-MÁRC. -31 16.01.58,826000000','RR-MON-DD HH24.MI.SSXFF'),'ASDFASDF');
 REM INSERTING into FELHASZNALO
 SET DEFINE OFF;
 Insert into FELHASZNALO (ID,NEV) values ('768','Lantos Gisella');
 Insert into FELHASZNALO (ID,NEV) values ('769','Thury Nyék');
-Insert into FELHASZNALO (ID,NEV) values ('770','Révész L?rinc');
+Insert into FELHASZNALO (ID,NEV) values ('770','Révész Lõrinc');
 Insert into FELHASZNALO (ID,NEV) values ('771','Petheö Zoltán');
 Insert into FELHASZNALO (ID,NEV) values ('772','Magyar Sebo');
 Insert into FELHASZNALO (ID,NEV) values ('773','Lörinc Boldizsar');
@@ -539,7 +523,7 @@ Insert into FELHASZNALO (ID,NEV) values ('561','Bálint Juci');
 Insert into FELHASZNALO (ID,NEV) values ('562','Mezey Kemenes');
 Insert into FELHASZNALO (ID,NEV) values ('563','Farkas Ágnes');
 Insert into FELHASZNALO (ID,NEV) values ('564','Váradi Vanda');
-Insert into FELHASZNALO (ID,NEV) values ('565','Heged?s Marianna');
+Insert into FELHASZNALO (ID,NEV) values ('565','Hegedûs Marianna');
 Insert into FELHASZNALO (ID,NEV) values ('566','Torma Linka');
 Insert into FELHASZNALO (ID,NEV) values ('567','Szalai Kartal');
 Insert into FELHASZNALO (ID,NEV) values ('568','Mülner Lajos');
@@ -613,7 +597,7 @@ Insert into FELHASZNALO (ID,NEV) values ('635','Salay Klaudia');
 Insert into FELHASZNALO (ID,NEV) values ('636','Takách Milán');
 Insert into FELHASZNALO (ID,NEV) values ('637','Kovács Endre');
 Insert into FELHASZNALO (ID,NEV) values ('638','Máté György');
-Insert into FELHASZNALO (ID,NEV) values ('639','Polgár Reg?');
+Insert into FELHASZNALO (ID,NEV) values ('639','Polgár Regõ');
 Insert into FELHASZNALO (ID,NEV) values ('640','Fenyvessy Erzsi');
 Insert into FELHASZNALO (ID,NEV) values ('641','Csizmazia Brigitta');
 Insert into FELHASZNALO (ID,NEV) values ('642','Bogdán Angyalka');
@@ -2406,7 +2390,7 @@ Insert into KLUB (ID,TULAJDONOS,KEZDET,LEIRAS) values ('898','780',to_date('17-M
 Insert into KLUB (ID,TULAJDONOS,KEZDET,LEIRAS) values ('896','750',to_date('17-MÁRC. -29','RR-MON-DD'),'Akciós csirkemell? Olcsó marhahús? Fillérekért láttál rizst? Ha bármi kaja akciót látsz, ami megér egy megosztást, told be nyugodtan!');
 Insert into KLUB (ID,TULAJDONOS,KEZDET,LEIRAS) values ('899','749',to_date('17-MÁRC. -29','RR-MON-DD'),'Fitness! Egészség tudatosság! Sport! Táplálkozástudomány és Biogenikus életvitel. - közösség, ahol jó helyen vagy!');
 Insert into KLUB (ID,TULAJDONOS,KEZDET,LEIRAS) values ('900','782',to_date('17-MÁRC. -29','RR-MON-DD'),'Minden sporttal kapcsolatos eszköz, súlyzó, futófelszerelés,táplálék kiegésztõ, cipõ, ruházat, használt és új egyaránt, adás-vétel és csere lehetõségekkel');
-Insert into KLUB (ID,TULAJDONOS,KEZDET,LEIRAS) values ('901','745',to_date('17-MÁRC. -29','RR-MON-DD'),'Ez egy kereszt?ny csoport melyben Németh Sándor pásztor tanításai összegyûjtve találhatóak.A Csoportot nem Németh Sándor kezeli.');
+Insert into KLUB (ID,TULAJDONOS,KEZDET,LEIRAS) values ('901','745',to_date('17-MÁRC. -29','RR-MON-DD'),'Ez egy keresztény csoport melyben Németh Sándor pásztor tanításai összegyûjtve találhatóak.A Csoportot nem Németh Sándor kezeli.');
 Insert into KLUB (ID,TULAJDONOS,KEZDET,LEIRAS) values ('902','670',to_date('17-MÁRC. -29','RR-MON-DD'),'Beszélgethettek, elmondhatjátok a véleményeteket az alábbi témakörökben.');
 Insert into KLUB (ID,TULAJDONOS,KEZDET,LEIRAS) values ('903','790',to_date('17-MÁRC. -29','RR-MON-DD'),'Az oldalon tobb kulfoldi iras is elofordul az utobbi hetekben, ez annak is koszonheto, hogy vannak koztunk kulfoldi tagok is, masreszt sajnos ido hianyaban nem tudom oket magyarra leforditani. megerteseteket koszonom.');
 Insert into KLUB (ID,TULAJDONOS,KEZDET,LEIRAS) values ('904','787',to_date('17-MÁRC. -29','RR-MON-DD'),'Üdvözöllek a Szeméttelep csoportban, egy oldalon, mely TAGJAI szórakoztatásának céljából jött létre!');
@@ -7874,15 +7858,7 @@ Insert into UZENET (FELADO,CIMZETT,IDO,UZENET) values ('670','675',to_timestamp(
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index ERTESITES_PK
---------------------------------------------------------
 
-  CREATE UNIQUE INDEX "ERTESITES_PK" ON "ERTESITES" ("IDO", "KINEK") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Index HOBBI_PK
 --------------------------------------------------------
@@ -8259,17 +8235,7 @@ END;
   ALTER TABLE "ALBUM" MODIFY ("FELHASZNALOID" NOT NULL ENABLE);
   ALTER TABLE "ALBUM" MODIFY ("NEV" NOT NULL ENABLE);
   ALTER TABLE "ALBUM" MODIFY ("IDO" NOT NULL ENABLE);
---------------------------------------------------------
---  Constraints for Table ERTESITES
---------------------------------------------------------
 
-  ALTER TABLE "ERTESITES" ADD CONSTRAINT "ERTESITES_PK" PRIMARY KEY ("IDO", "KINEK")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "ERTESITES" MODIFY ("KINEK" NOT NULL ENABLE);
-  ALTER TABLE "ERTESITES" MODIFY ("IDO" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table FELHASZNALO
 --------------------------------------------------------
@@ -8424,12 +8390,7 @@ END;
 
   ALTER TABLE "ALBUM" ADD CONSTRAINT "ALBUM_FK1" FOREIGN KEY ("FELHASZNALOID")
 	  REFERENCES "FELHASZNALO" ("ID") ON DELETE CASCADE ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table ERTESITES
---------------------------------------------------------
 
-  ALTER TABLE "ERTESITES" ADD CONSTRAINT "ERTESITES_FK1" FOREIGN KEY ("KINEK")
-	  REFERENCES "FELHASZNALO" ("ID") ON DELETE CASCADE ENABLE;
 --------------------------------------------------------
 --  Ref Constraints for Table ISMER
 --------------------------------------------------------
