@@ -28,7 +28,6 @@ public class KozossegiClubMemberManagement extends JPanel{
 		
 		for(KozossegiProfileMiniatureBean p: club.getMembers())
 		{
-			System.out.println("asd");
 			KozossegiProfileMiniature  miniature = new KozossegiProfileMiniature(p); 
 			clubMemberPanel.add(miniature);
 			miniature.addMouseListener(new MouseAdapter() {

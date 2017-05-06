@@ -39,7 +39,6 @@ public class KozossegiFriendManagement extends JPanel {
 
 		}
 		add(friendLabel);
-		System.out.println(mainFrame.getController().getFriends(profile.getId()).size());
 		for(KozossegiProfileMiniatureBean p: mainFrame.getController().getFriends(profile.getId()))
 		{
 			KozossegiProfileMiniature  miniature = new KozossegiProfileMiniature(p); 

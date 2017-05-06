@@ -500,8 +500,8 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ps.setDate(3, new java.sql.Date(new Date().getTime()));
 			ps.setInt(4, id1);
 			ps.setInt(5, id2);
-			boolean succes = ps.execute();
-			if (!succes)
+			int succes = ps.executeUpdate();
+			if (succes!=1)
 				System.out.println("Error while marking friend!");
 		} catch (SQLException e) {
 			System.out.println("Error while marking friend!");
@@ -518,8 +518,8 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ps.setDate(1, new java.sql.Date(new Date().getTime()));
 			ps.setInt(2, id2);
 			ps.setInt(3, id1);
-			boolean succes = ps.execute();
-			if (!succes)
+			int succes = ps.executeUpdate();
+			if (succes!=1)
 				System.out.println("Error while marking friend!");
 		} catch (SQLException e) {
 			System.out.println("Error while marking friend!");
@@ -582,8 +582,8 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 				PreparedStatement ps = conn.prepareStatement(Labels.UPDATE_PROFIL_PICTURE);) {
 			ps.setInt(1, picId);
 			ps.setInt(2, id);
-			boolean succes = ps.execute();
-			if (!succes)
+			int succes = ps.executeUpdate();
+			if (succes!=1)
 				System.out.println("Error while updating profile picture!");
 		} catch (SQLException e) {
 			System.out.println("Error while updateProfilePicture!");
@@ -645,8 +645,8 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ps.setInt(3, id1);
 			ps.setInt(4, id2);
 
-			boolean succes = ps.execute();
-			if (!succes)
+			int succes = ps.executeUpdate();
+			if (succes!=1)
 				System.out.println("Error while deleting friend state!");
 		} catch (SQLException e) {
 			System.out.println("Error while deleting friend state!");
@@ -729,10 +729,10 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 				ps.setNull(5, java.sql.Types.INTEGER);
 			else
 				ps.setInt(5, data.getParent());
-			int success = ps.executeUpdate();
-			if (success == 0)
+			int succes = ps.executeUpdate();
+			if (succes!=1){
 				System.out.println("Error while adding post!");
-
+			}
 		} catch (SQLException e) {
 			System.out.println("Error while listing user's friends!");
 			e.printStackTrace();
@@ -823,9 +823,10 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 				PreparedStatement ps = conn.prepareStatement(Labels.JOIN_CLUB);) {
 			ps.setInt(1, id);
 			ps.setInt(2, id2);
-			int rn = ps.executeUpdate();
-			if (rn != 1)
+			int succes = ps.executeUpdate();
+			if (succes!=1){
 				System.out.println("Error while join!");
+			}
 		} catch (SQLException e) {
 			System.out.println("Error while marking friend!");
 			e.printStackTrace();
@@ -841,8 +842,9 @@ public class KozossegiDAOImpl implements KozossegiDAO {
 			ps.setString(1, text);
 			ps.setInt(2, id);
 			int rn = ps.executeUpdate();
-			if (rn != 1)
+			if (rn != 1){
 				System.out.println("Error while update!");
+			}
 		} catch (SQLException e) {
 			System.out.println("Error while update!");
 			e.printStackTrace();
